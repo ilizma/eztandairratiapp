@@ -14,7 +14,6 @@ import javax.inject.Inject
 private const val TIMEOUT = 30L
 
 class BaseHttpClient @Inject constructor(
-    tokenInterceptor: TokenInterceptor,
     chuckerCollector: ChuckerCollector,
     context: Context
 ) {
@@ -31,7 +30,6 @@ class BaseHttpClient @Inject constructor(
                 level = if (DEBUG) BODY else NONE
             }
         )
-        .addInterceptor(tokenInterceptor)
         .addInterceptor(chuckerInterceptor)
         .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
         .readTimeout(TIMEOUT, TimeUnit.SECONDS)

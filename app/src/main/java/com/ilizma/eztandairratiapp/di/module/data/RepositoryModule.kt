@@ -1,7 +1,7 @@
 package com.ilizma.eztandairratiapp.di.module.data
 
-import com.ilizma.data.repository.login.LoginRepositoryImpl
-import com.ilizma.domain.repository.LoginRepository
+import com.ilizma.data.repository.schedule.ScheduleRepositoryImpl
+import com.ilizma.domain.repository.ScheduleRepository
 import dagger.Binds
 import dagger.Module
 
@@ -9,6 +9,6 @@ import dagger.Module
 abstract class RepositoryModule {
 
     @Binds
-    abstract fun login(loginRepositoryImpl: LoginRepositoryImpl): LoginRepository
+    abstract fun schedule(scheduleRepositoryImpl: ScheduleRepositoryImpl): ScheduleRepository
 
 }

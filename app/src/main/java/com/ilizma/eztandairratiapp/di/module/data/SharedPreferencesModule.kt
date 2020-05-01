@@ -3,7 +3,7 @@ package com.ilizma.eztandairratiapp.di.module.data
 import android.content.Context
 import android.content.SharedPreferences
 import com.ilizma.data.datasources.local.SharedPreferencesAssistant
-import com.ilizma.data.datasources.local.SharedPreferencesKeys.LOGIN_PREF
+import com.ilizma.data.datasources.local.SharedPreferencesKeys.SCHEDULE_PREF
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
@@ -12,14 +12,14 @@ import javax.inject.Named
 class SharedPreferencesModule {
 
     @Provides
-    @Named(LOGIN_PREF)
-    fun login(context: Context): SharedPreferences =
-        context.getSharedPreferences(LOGIN_PREF, Context.MODE_PRIVATE)
+    @Named(SCHEDULE_PREF)
+    fun schedule(context: Context): SharedPreferences =
+        context.getSharedPreferences(SCHEDULE_PREF, Context.MODE_PRIVATE)
 
     @Provides
-    @Named(LOGIN_PREF)
-    fun loginAssistant(
-        @Named(LOGIN_PREF)
+    @Named(SCHEDULE_PREF)
+    fun scheduleAssistant(
+        @Named(SCHEDULE_PREF)
         sharedPreferences: SharedPreferences
     ): SharedPreferencesAssistant = SharedPreferencesAssistant(sharedPreferences)
 

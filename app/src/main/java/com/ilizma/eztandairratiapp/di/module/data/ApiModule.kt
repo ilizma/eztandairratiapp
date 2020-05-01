@@ -1,6 +1,6 @@
 package com.ilizma.eztandairratiapp.di.module.data
 
-import com.ilizma.data.repository.login.data.LoginApi
+import com.ilizma.data.repository.schedule.data.ScheduleApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 class ApiModule {
 
     @Provides
-    fun login(retrofit: Retrofit): LoginApi =
-        retrofit.create(LoginApi::class.java)
+    fun schedule(retrofit: Retrofit): ScheduleApi =
+        retrofit.create(ScheduleApi::class.java)
 
 }

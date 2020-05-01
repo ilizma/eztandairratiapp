@@ -2,9 +2,9 @@ package com.ilizma.domain.repository
 
 import io.reactivex.Completable
 
-interface LoginRepository {
+interface ScheduleRepository {
 
-    fun login(): Completable
+    fun getSchedule(): Completable
 
     fun nuke(): Completable
 

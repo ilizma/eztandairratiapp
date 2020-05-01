@@ -9,7 +9,7 @@ class EnvironmentItems {
 
 EnvironmentItems environments = new EnvironmentItems()
 
-environments.release.baseURL = "https://example.com/"
-environments.debug.baseURL = "https://example.com/"
+environments.release.baseURL = "https://eztanda.com/"
+environments.debug.baseURL = "https://eztanda.com/"
 
 ext.environments = environments

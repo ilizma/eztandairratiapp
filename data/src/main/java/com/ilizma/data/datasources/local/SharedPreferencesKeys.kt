@@ -2,9 +2,9 @@ package com.ilizma.data.datasources.local
 
 object SharedPreferencesKeys {
     //DB Names
-    const val LOGIN_PREF = "LOGIN_PREF"
+    const val SCHEDULE_PREF = "SCHEDULE_PREF"
 
     //Keys
-    const val TOKEN_KEY = "TOKEN_KEY"
+    const val SCHEDULE_KEY = "SCHEDULE_KEY"
 
 }
