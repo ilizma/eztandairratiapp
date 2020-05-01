@@ -1,5 +1,6 @@
 class Environments {
     String baseURL = ""
+    String audioURL = ""
 }
 
 class EnvironmentItems {
@@ -10,6 +11,9 @@ class EnvironmentItems {
 EnvironmentItems environments = new EnvironmentItems()
 
 environments.release.baseURL = "https://eztanda.com/"
+environments.release.audioURL = "http://51.68.46.71:9000/eztanda.mp3"
+
 environments.debug.baseURL = "https://eztanda.com/"
+environments.debug.audioURL = "http://51.68.46.71:9000/eztanda.mp3"
 
 ext.environments = environments

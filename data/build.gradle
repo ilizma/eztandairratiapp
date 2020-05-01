@@ -20,9 +20,11 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "BASE_URL", "\"" + environments.debug.baseURL + "\""
+            buildConfigField "String", "AUDIO_URL", "\"" + environments.debug.audioURL + "\""
         }
         release {
             buildConfigField "String", "BASE_URL", "\"" + environments.release.baseURL + "\""
+            buildConfigField "String", "AUDIO_URL", "\"" + environments.release.audioURL + "\""
         }
     }
 
