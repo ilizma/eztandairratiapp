@@ -6,7 +6,7 @@ import com.ilizma.eztandairratiapp.di.viewmodel.ViewModelKey
 import com.ilizma.presentation.ui.base.BaseViewModel
 import com.ilizma.presentation.ui.content.menu.MenuViewModel
 import com.ilizma.presentation.ui.content.radio.RadioViewModel
-import com.ilizma.presentation.ui.content.schedule.ScheduleViewModel
+import com.ilizma.presentation.ui.content.scheduledetail.ScheduleDetailViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -24,8 +24,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ScheduleViewModel::class)
-    abstract fun schedule(vm: ScheduleViewModel): BaseViewModel
+    @ViewModelKey(ScheduleDetailViewModel::class)
+    abstract fun scheduleDetail(vm: ScheduleDetailViewModel): BaseViewModel
 
     @Binds
     @IntoMap

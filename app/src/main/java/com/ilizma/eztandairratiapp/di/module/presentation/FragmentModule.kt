@@ -4,6 +4,7 @@ import com.ilizma.eztandairratiapp.di.scope.PerView
 import com.ilizma.presentation.ui.content.menu.MenuFragment
 import com.ilizma.presentation.ui.content.radio.RadioFragment
 import com.ilizma.presentation.ui.content.schedule.ScheduleFragment
+import com.ilizma.presentation.ui.content.scheduledetail.ScheduleDetailFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -17,6 +18,10 @@ abstract class FragmentModule {
     @PerView
     @ContributesAndroidInjector
     abstract fun schedule(): ScheduleFragment
+
+    @PerView
+    @ContributesAndroidInjector
+    abstract fun scheduleDetail(): ScheduleDetailFragment
 
     @PerView
     @ContributesAndroidInjector

@@ -1,4 +1,4 @@
-package com.ilizma.presentation.ui.content.schedule
+package com.ilizma.presentation.ui.content.scheduledetail
 
 import android.content.res.Resources
 import androidx.lifecycle.LiveData
@@ -8,7 +8,7 @@ import com.ilizma.presentation.ui.base.BaseViewModel
 import dagger.Lazy
 import javax.inject.Inject
 
-class ScheduleViewModel @Inject constructor() : BaseViewModel() {
+class ScheduleDetailViewModel @Inject constructor() : BaseViewModel() {
 
     @Inject
     override lateinit var resources: Lazy<Resources>

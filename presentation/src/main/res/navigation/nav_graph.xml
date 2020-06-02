@@ -12,7 +12,22 @@
     <fragment
         android:id="@+id/navigationSchedule"
         android:name="com.ilizma.presentation.ui.content.schedule.ScheduleFragment"
-        tools:layout="@layout/fragment_schedule" />
+        tools:layout="@layout/fragment_schedule" >
+
+        <action
+            android:id="@+id/action_ScheduleFragment_to_ScheduleDetailFragment"
+            app:destination="@id/navigationScheduleDetail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigationScheduleDetail"
+        android:name="com.ilizma.presentation.ui.content.scheduledetail.ScheduleDetailFragment"
+        tools:layout="@layout/fragment_schedule_detail" >
+
+        <argument
+            android:name="day"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigationMenu"
