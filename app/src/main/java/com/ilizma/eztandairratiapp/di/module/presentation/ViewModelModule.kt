@@ -1,12 +1,12 @@
 package com.ilizma.eztandairratiapp.di.module.presentation
 
 import androidx.lifecycle.ViewModelProvider
-import com.ilizma.presentation.ui.base.BaseViewModel
-import com.ilizma.presentation.ui.content.gallery.GalleryViewModel
-import com.ilizma.presentation.ui.content.home.HomeViewModel
-import com.ilizma.presentation.ui.content.slideshow.SlideshowViewModel
 import com.ilizma.eztandairratiapp.di.viewmodel.ViewModelFactory
 import com.ilizma.eztandairratiapp.di.viewmodel.ViewModelKey
+import com.ilizma.presentation.ui.base.BaseViewModel
+import com.ilizma.presentation.ui.content.menu.MenuViewModel
+import com.ilizma.presentation.ui.content.radio.RadioViewModel
+import com.ilizma.presentation.ui.content.schedule.ScheduleViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -19,17 +19,17 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(HomeViewModel::class)
-    abstract fun home(vm: HomeViewModel): BaseViewModel
+    @ViewModelKey(RadioViewModel::class)
+    abstract fun radio(vm: RadioViewModel): BaseViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(GalleryViewModel::class)
-    abstract fun gallery(vm: GalleryViewModel): BaseViewModel
+    @ViewModelKey(ScheduleViewModel::class)
+    abstract fun schedule(vm: ScheduleViewModel): BaseViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(SlideshowViewModel::class)
-    abstract fun slideshow(vm: SlideshowViewModel): BaseViewModel
+    @ViewModelKey(MenuViewModel::class)
+    abstract fun menu(vm: MenuViewModel): BaseViewModel
 
 }

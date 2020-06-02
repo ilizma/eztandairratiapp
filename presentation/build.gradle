@@ -40,8 +40,6 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$supportVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "androidx.core:core-ktx:$coreKtxVersion"
-    implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
-    implementation "androidx.activity:activity-ktx:$activityKtxVersion"
     implementation "androidx.legacy:legacy-support-v4:$legacyVersion"
     //navigation
     implementation "androidx.navigation:navigation-fragment:$navigationVersion"

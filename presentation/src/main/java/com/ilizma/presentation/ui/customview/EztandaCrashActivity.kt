@@ -11,28 +11,23 @@ import com.ilizma.presentation.R
 import com.ilizma.presentation.extensions.setOnReactiveClickListener
 import com.ilizma.presentation.extensions.visible
 import com.ilizma.presentation.ui.base.BaseActivity
-import com.ilizma.presentation.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.activity_crash.*
 import java.util.concurrent.atomic.AtomicReference
-
-private const val KEYWORD_TO_MATCH_IN_LOG = "at com.ilizma."
 
 class EztandaCrashActivity : BaseActivity() {
 
     private val clipboardLabel = "EztandaCrashActivity log"
 
     override var activityLayout: Int = R.layout.activity_crash
-    override var childFragment: BaseFragment? = null
 
     private val stackTrace = AtomicReference<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        @Suppress("ConstantConditionIf")
-        if (BuildConfig.DEBUG) {
-            logcatBtn.visible()
-        }
+        setSupportActionBar(toolbar)
+
+        if (BuildConfig.DEBUG) logcatBtn.visible()
 
         stackTrace.set(CustomActivityOnCrash.getAllErrorDetailsFromIntent(this, intent))
 
@@ -63,22 +58,6 @@ class EztandaCrashActivity : BaseActivity() {
                 Snackbar.LENGTH_LONG
             )
         }
-    }
-
-    private fun extractClassNameFromException(log: String): String =
-        extractFullPackageFromException(log)
-            .substringAfterLast(".")
-
-    private fun extractFullPackageFromException(log: String): String {
-        val fullPackage = log
-            .substringAfter(KEYWORD_TO_MATCH_IN_LOG)
-            .substringBefore("$")
-
-        return extractPackageCompanyName() + fullPackage
-    }
-
-    private fun extractPackageCompanyName(): String {
-        return BuildConfig.LIBRARY_PACKAGE_NAME.substringBefore(".") + "."
     }
 
 }

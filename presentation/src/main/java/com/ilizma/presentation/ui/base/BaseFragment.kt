@@ -10,16 +10,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.ilizma.presentation.R
 import com.ilizma.presentation.extensions.hideKeyboard
+import com.ilizma.presentation.extensions.inflate
 import com.ilizma.presentation.extensions.snackbar
 import dagger.Lazy
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
 abstract class BaseFragment : DaggerFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: Lazy<ViewModelProvider.Factory>
+    abstract var viewModelFactory: Lazy<ViewModelProvider.Factory>
 
     @setparam:LayoutRes
     abstract var fragmentLayout: Int
@@ -30,8 +29,11 @@ abstract class BaseFragment : DaggerFragment() {
         CompositeDisposable()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(fragmentLayout, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = container?.inflate(fragmentLayout)
 
     override fun onPause() {
         dismissSnackbar()
@@ -42,10 +44,6 @@ abstract class BaseFragment : DaggerFragment() {
         hideKeyboard()
         dispose()
         super.onDestroy()
-    }
-
-    fun onBackPressed() {
-        activity?.onBackPressed()
     }
 
     protected fun dismissSnackbar() {

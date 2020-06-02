@@ -11,20 +11,18 @@ import com.ilizma.presentation.R
 import com.ilizma.presentation.extensions.getFailureMessage
 import dagger.Lazy
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
 abstract class BaseViewModel : ViewModel() {
 
-    @Inject
-    lateinit var resources: Lazy<Resources>
+    abstract var resources: Lazy<Resources>
 
-    @Inject
-    lateinit var chuckerCollector: Lazy<ChuckerCollector>
+    abstract var chuckerCollector: Lazy<ChuckerCollector>
+
+    private var _ldLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val ldLoading: LiveData<Boolean> = _ldLoading
 
     private var _ldFailure: MutableLiveData<Failure> = MutableLiveData()
     val ldFailure: LiveData<Failure> = _ldFailure
-    private var _ldLoading: MutableLiveData<Boolean> = MutableLiveData()
-    val ldLoading: LiveData<Boolean> = _ldLoading
 
     protected val compositeDisposable = CompositeDisposable()
 
