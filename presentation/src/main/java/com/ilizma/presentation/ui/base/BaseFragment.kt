@@ -18,8 +18,6 @@ import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseFragment : DaggerFragment() {
 
-    abstract var viewModelFactory: Lazy<ViewModelProvider.Factory>
-
     @setparam:LayoutRes
     abstract var fragmentLayout: Int
 

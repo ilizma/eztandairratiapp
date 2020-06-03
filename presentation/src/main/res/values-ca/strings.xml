@@ -9,6 +9,7 @@
     <string name="title_schedule">Horari</string>
     <string name="title_menu">Menú</string>
 
+    <string name="no_internet">No hi ha connexió a Internet</string>
     <string name="unknown_error">Error desconegut</string>
     <string name="retry">Reintentar</string>
     <string name="empty_list">Llista buida</string>

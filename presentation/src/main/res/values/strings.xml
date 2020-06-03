@@ -12,9 +12,12 @@
     <string name="title_schedule">Schedule</string>
     <string name="title_menu">Menu</string>
 
+    <string name="no_internet">No Internet connection</string>
     <string name="unknown_error">Unknown error</string>
     <string name="retry">Retry</string>
     <string name="empty_list">Empty list</string>
+
+    <string name="hour" translatable="false">%s:00</string>
 
     <string-array name="days_array">
         <item>Monday</item>

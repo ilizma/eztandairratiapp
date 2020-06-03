@@ -9,7 +9,7 @@ import javax.inject.Inject
 class RadioFragment : BaseFragment() {
 
     @Inject
-    override lateinit var viewModelFactory: Lazy<ViewModelProvider.Factory>
+    lateinit var viewModelFactory: Lazy<ViewModelProvider.Factory>
 
     private lateinit var radioViewModel: RadioViewModel
 

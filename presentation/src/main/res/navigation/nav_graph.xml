@@ -25,6 +25,10 @@
         tools:layout="@layout/fragment_schedule_detail" >
 
         <argument
+            android:name="dayInt"
+            app:argType="integer" />
+
+        <argument
             android:name="day"
             app:argType="string" />
     </fragment>

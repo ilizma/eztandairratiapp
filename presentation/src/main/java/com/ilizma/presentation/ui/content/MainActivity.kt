@@ -20,6 +20,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
 
         val navController = findNavController(R.id.navHostFragment)
         val appBarConfiguration = AppBarConfiguration(

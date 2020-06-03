@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/horizontal_margin"
+    android:paddingTop="@dimen/vertical_margin"
+    android:paddingEnd="@dimen/horizontal_margin"
+    android:paddingBottom="@dimen/vertical_margin"
+    tools:text="Monday">
+
+    <TextView
+        android:id="@+id/programmeHourTxv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="10:00" />
+
+    <TextView
+        android:id="@+id/programmeNameTxv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textStyle="bold"
+        tools:text="Suelta la olla" />
+
+    <ImageView
+        android:id="@+id/programmeRepeatedImv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_repeated"
+        tools:ignore="ContentDescription"
+        tools:visibility="visible" />
+
+</LinearLayout>

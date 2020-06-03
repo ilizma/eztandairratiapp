@@ -8,9 +8,6 @@ import javax.inject.Inject
 
 class MenuFragment : BaseFragment() {
 
-    @Inject
-    override lateinit var viewModelFactory: Lazy<ViewModelProvider.Factory>
-
     private lateinit var menuViewModel: MenuViewModel
 
     override var fragmentLayout = R.layout.fragment_menu

@@ -6,6 +6,7 @@ import com.ilizma.eztandairratiapp.di.viewmodel.ViewModelKey
 import com.ilizma.presentation.ui.base.BaseViewModel
 import com.ilizma.presentation.ui.content.menu.MenuViewModel
 import com.ilizma.presentation.ui.content.radio.RadioViewModel
+import com.ilizma.presentation.ui.content.schedule.ScheduleViewModel
 import com.ilizma.presentation.ui.content.scheduledetail.ScheduleDetailViewModel
 import dagger.Binds
 import dagger.Module
@@ -21,6 +22,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RadioViewModel::class)
     abstract fun radio(vm: RadioViewModel): BaseViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ScheduleViewModel::class)
+    abstract fun schedule(vm: ScheduleViewModel): BaseViewModel
 
     @Binds
     @IntoMap
