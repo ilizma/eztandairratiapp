@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_internet">Interneteko konexiorik ez dago</string>
+    <string name="timeout_message">Ai ene! Konexio motela</string>
+    <string name="unknown_error">Errore zezaguna</string>
+    <string name="unknown_reason">Arrazoi ezezaguna</string>
+</resources>

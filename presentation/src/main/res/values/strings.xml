@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Eztanda Irratiapp</string>
+    <string name="app_name" translatable="false">Eztanda Irratiapp</string>
 
     <string name="crash_activity_message">An unexpected error has occurred. Sorry for the inconvenience.</string>
     <string name="crash_activity_restart_button">RESTART APP</string>
-    <string name="crash_activity_logcat_button">LOGCAT</string>
+    <string name="crash_activity_logcat_button" translatable="false">LOGCAT</string>
     <string name="crash_activity_clipboard_button">COPY TO CLIPBOARD</string>
     <string name="crash_activity_snackbar_successful_title">Copied</string>
     <string name="crash_activity_snackbar_successful_action">OKAY</string>

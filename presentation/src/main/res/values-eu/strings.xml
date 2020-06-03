@@ -1,0 +1,25 @@
+<resources>
+    <string name="crash_activity_message">Ustekabeko errore bat gertatu da. Sortutako eragozpenak sentitzen ditugu.</string>
+    <string name="crash_activity_restart_button">APP-A BERRABIARAZI</string>
+    <string name="crash_activity_clipboard_button">ARBELEAN KOPIATU</string>
+    <string name="crash_activity_snackbar_successful_title">Kopiatuta</string>
+    <string name="crash_activity_snackbar_successful_action">ONDO</string>
+
+    <string name="title_radio">Irrati</string>
+    <string name="title_schedule">Ordutegia</string>
+    <string name="title_menu">Menua</string>
+
+    <string name="unknown_error">Errore zezaguna</string>
+    <string name="retry">Berriro</string>
+    <string name="empty_list">Zerrenda hutsik</string>
+
+    <string-array name="days_array">
+        <item>Astelehena</item>
+        <item>Asteartea</item>
+        <item>Asteazkena</item>
+        <item>Osteguna</item>
+        <item>Ostirala</item>
+        <item>Larunbata</item>
+        <item>Igandea</item>
+    </string-array>
+</resources>

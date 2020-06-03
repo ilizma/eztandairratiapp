@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_internet">No hi ha connexió a Internet</string>
+    <string name="timeout_message">Vaja! Connexió lenta</string>
+    <string name="unknown_error">Error desconegut</string>
+    <string name="unknown_reason">Motiu desconegut</string>
+</resources>

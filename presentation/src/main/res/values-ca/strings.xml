@@ -1,0 +1,25 @@
+<resources>
+    <string name="crash_activity_message">Hi ha hagut un error inesperat. Sentim els inconvenients ocasionats.</string>
+    <string name="crash_activity_restart_button">REINICIAR APP</string>
+    <string name="crash_activity_clipboard_button">COPIAR AL PORTA-RETALLS</string>
+    <string name="crash_activity_snackbar_successful_title">Copiat</string>
+    <string name="crash_activity_snackbar_successful_action">BÉ</string>
+
+    <string name="title_radio">Ràdio</string>
+    <string name="title_schedule">Horari</string>
+    <string name="title_menu">Menú</string>
+
+    <string name="unknown_error">Error desconegut</string>
+    <string name="retry">Reintentar</string>
+    <string name="empty_list">Llista buida</string>
+
+    <string-array name="days_array">
+        <item>Dilluns</item>
+        <item>Dimarts</item>
+        <item>Dimecres</item>
+        <item>Dijous</item>
+        <item>Divendres</item>
+        <item>Dissabte</item>
+        <item>Diumenge</item>
+    </string-array>
+</resources>
