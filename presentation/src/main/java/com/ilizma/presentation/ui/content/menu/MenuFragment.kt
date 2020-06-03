@@ -1,10 +1,10 @@
 package com.ilizma.presentation.ui.content.menu
 
-import androidx.lifecycle.ViewModelProvider
+import android.os.Bundle
+import android.view.View
 import com.ilizma.presentation.R
 import com.ilizma.presentation.ui.base.BaseFragment
-import dagger.Lazy
-import javax.inject.Inject
+import com.ilizma.presentation.ui.content.MainActivity
 
 class MenuFragment : BaseFragment() {
 
@@ -12,5 +12,13 @@ class MenuFragment : BaseFragment() {
 
     override var fragmentLayout = R.layout.fragment_menu
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpToolBar()
+    }
+
+    private fun setUpToolBar() {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.title_menu)
+    }
 
 }
