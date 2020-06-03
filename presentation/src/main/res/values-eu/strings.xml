@@ -14,6 +14,8 @@
     <string name="retry">Berriro</string>
     <string name="empty_list">Zerrenda hutsik</string>
 
+    <string name="phone">Telefonoa</string>
+
     <string-array name="days_array">
         <item>Astelehena</item>
         <item>Asteartea</item>

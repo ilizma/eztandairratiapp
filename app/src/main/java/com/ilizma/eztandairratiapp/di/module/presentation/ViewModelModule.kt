@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.ilizma.eztandairratiapp.di.viewmodel.ViewModelFactory
 import com.ilizma.eztandairratiapp.di.viewmodel.ViewModelKey
 import com.ilizma.presentation.ui.base.BaseViewModel
-import com.ilizma.presentation.ui.content.menu.MenuViewModel
 import com.ilizma.presentation.ui.content.radio.RadioViewModel
 import com.ilizma.presentation.ui.content.schedule.ScheduleViewModel
 import com.ilizma.presentation.ui.content.scheduledetail.ScheduleDetailViewModel
@@ -32,10 +31,5 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ScheduleDetailViewModel::class)
     abstract fun scheduleDetail(vm: ScheduleDetailViewModel): BaseViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(MenuViewModel::class)
-    abstract fun menu(vm: MenuViewModel): BaseViewModel
 
 }

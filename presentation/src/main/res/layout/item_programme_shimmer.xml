@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:paddingStart="@dimen/horizontal_margin"
     android:paddingTop="@dimen/vertical_margin"
     android:paddingEnd="@dimen/horizontal_margin"
-    android:paddingBottom="@dimen/vertical_margin"
-    tools:text="Monday">
+    android:paddingBottom="@dimen/vertical_margin">
 
     <TextView
         android:layout_width="40dp"

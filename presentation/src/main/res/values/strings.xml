@@ -19,6 +19,12 @@
 
     <string name="hour" translatable="false">%s:00</string>
 
+    <string name="twitter" translatable="false">Twitter</string>
+    <string name="facebook" translatable="false">Facebook</string>
+    <string name="whatsapp" translatable="false">Whatsapp</string>
+    <string name="phone">Phone</string>
+    <string name="web" translatable="false">Web</string>
+
     <string-array name="days_array">
         <item>Monday</item>
         <item>Tuesday</item>

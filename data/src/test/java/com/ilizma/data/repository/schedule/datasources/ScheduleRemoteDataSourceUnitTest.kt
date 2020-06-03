@@ -23,7 +23,7 @@ class ScheduleRemoteDataSourceUnitTest {
     private lateinit var scheduleApi: ScheduleApi
 
     @Before
-    fun setup() {
+    fun setUp() {
         scheduleRemoteDataSource = ScheduleRemoteDataSource(scheduleApi)
     }
 

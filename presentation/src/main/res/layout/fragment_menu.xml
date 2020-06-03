@@ -1,10 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scheduleRv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:context=".ui.content.menu.MenuFragment"
-    tools:listitem="@layout/item_movie" />
+    android:orientation="vertical"
+    tools:context=".ui.content.menu.MenuFragment">
+
+    <TextView
+        android:id="@+id/twitterTxv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/horizontal_margin"
+        android:paddingTop="@dimen/vertical_margin"
+        android:paddingEnd="@dimen/horizontal_margin"
+        android:paddingBottom="@dimen/vertical_margin"
+        android:text="@string/twitter" />
+
+    <TextView
+        android:id="@+id/facebookTxv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/horizontal_margin"
+        android:paddingTop="@dimen/vertical_margin"
+        android:paddingEnd="@dimen/horizontal_margin"
+        android:paddingBottom="@dimen/vertical_margin"
+        android:text="@string/facebook" />
+
+    <TextView
+        android:id="@+id/whatsappTxv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/horizontal_margin"
+        android:paddingTop="@dimen/vertical_margin"
+        android:paddingEnd="@dimen/horizontal_margin"
+        android:paddingBottom="@dimen/vertical_margin"
+        android:text="@string/whatsapp" />
+
+    <TextView
+        android:id="@+id/phoneTxv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/horizontal_margin"
+        android:paddingTop="@dimen/vertical_margin"
+        android:paddingEnd="@dimen/horizontal_margin"
+        android:paddingBottom="@dimen/vertical_margin"
+        android:text="@string/phone" />
+
+    <TextView
+        android:id="@+id/webTxv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/horizontal_margin"
+        android:paddingTop="@dimen/vertical_margin"
+        android:paddingEnd="@dimen/horizontal_margin"
+        android:paddingBottom="@dimen/vertical_margin"
+        android:text="@string/web" />
+
+</LinearLayout>
