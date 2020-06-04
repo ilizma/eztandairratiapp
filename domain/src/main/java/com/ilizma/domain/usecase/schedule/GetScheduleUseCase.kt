@@ -1,4 +1,5 @@
 package com.ilizma.domain.usecase.schedule
+
 import com.ilizma.domain.repository.ScheduleRepository
 import com.ilizma.domain.usecase.base.CompletableUseCase
 import io.reactivex.Completable

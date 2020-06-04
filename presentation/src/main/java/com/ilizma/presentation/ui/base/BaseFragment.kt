@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.ilizma.presentation.R
 import com.ilizma.presentation.extensions.hideKeyboard
 import com.ilizma.presentation.extensions.inflate
 import com.ilizma.presentation.extensions.snackbar
-import dagger.Lazy
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 

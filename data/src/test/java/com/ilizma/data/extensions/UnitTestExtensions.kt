@@ -7,7 +7,6 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import io.reactivex.subscribers.TestSubscriber
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -113,4 +112,5 @@ fun <T> getObservableError(): Observable<T> = Observable.error(getFailureError()
 
 fun getCompletableComplete(): Completable = Completable.complete()
 
-fun getCompletableError(value: Throwable = getFailureError()): Completable = Completable.error(value)
+fun getCompletableError(value: Throwable = getFailureError()): Completable =
+    Completable.error(value)

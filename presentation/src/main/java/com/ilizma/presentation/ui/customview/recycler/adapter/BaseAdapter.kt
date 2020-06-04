@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.ilizma.presentation.R
@@ -16,9 +17,9 @@ import com.ilizma.presentation.ui.customview.recycler.recyclerobjects.RetryObjec
 import com.ilizma.presentation.ui.customview.recycler.viewholder.ErrorViewHolder
 import com.ilizma.presentation.ui.customview.recycler.viewholder.ItemViewHolder
 import com.ilizma.presentation.ui.customview.recycler.viewholder.NoActionViewHolder
-import com.ilizma.presentation.ui.customview.recycler.viewholder.RakutenViewHolder
+import com.ilizma.presentation.ui.customview.recycler.viewholder.EztandaViewHolder
 
-abstract class BaseAdapter<T : RecyclerViewObject> : RecyclerView.Adapter<RakutenViewHolder<T>>() {
+abstract class BaseAdapter<T : RecyclerViewObject> : RecyclerView.Adapter<EztandaViewHolder<T>>() {
 
     protected abstract var onBindItem: (View, T) -> Unit
     protected abstract var itemLayout: Int
@@ -123,7 +124,7 @@ abstract class BaseAdapter<T : RecyclerViewObject> : RecyclerView.Adapter<Rakute
 
     protected fun getItemsList(): List<RecyclerViewObject> = list.filter { it.itemViewType == ITEM }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RakutenViewHolder<T> =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EztandaViewHolder<T> =
         when (viewType) {
             ERROR.ordinal -> ErrorViewHolder(parent.inflate(itemFullErrorLayout))
             ITEM.ordinal -> ItemViewHolder(parent.inflate(itemLayout), onBindItem)
@@ -137,11 +138,19 @@ abstract class BaseAdapter<T : RecyclerViewObject> : RecyclerView.Adapter<Rakute
     private fun wrapWithShimmer(itemView: View): View {
         // Wrap the view to inflate in a ShimmerFrameLayout for been able to show Shimmer effect
         val shimmerFrameLayout = ShimmerFrameLayout(itemView.context).apply {
+            val layoutManager = recyclerView?.layoutManager
+            val width = if (layoutManager is LinearLayoutManager) {
+                if (layoutManager.orientation == LinearLayoutManager.HORIZONTAL) {
+                    FrameLayout.LayoutParams.WRAP_CONTENT
+                } else {
+                    FrameLayout.LayoutParams.MATCH_PARENT
+                }
+            } else {
+                FrameLayout.LayoutParams.MATCH_PARENT
+            }
+
             id = R.id.parentContainer
-            layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT
-            )
+            layoutParams = FrameLayout.LayoutParams(width, FrameLayout.LayoutParams.WRAP_CONTENT)
             addView(itemView)
         }
 
@@ -151,7 +160,7 @@ abstract class BaseAdapter<T : RecyclerViewObject> : RecyclerView.Adapter<Rakute
 
     override fun getItemCount() = list.size
 
-    override fun onBindViewHolder(holder: RakutenViewHolder<T>, position: Int) {
+    override fun onBindViewHolder(holder: EztandaViewHolder<T>, position: Int) {
         holder.bind(list[position])
     }
 

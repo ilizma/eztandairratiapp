@@ -12,7 +12,7 @@ class ScheduleResponseFactory {
             schedule = schedule
         )
 
-        fun providesScheduleResponse(
+        private fun providesScheduleResponse(
             hour: String = "10",
             day: String = "1",
             name: String = "Suelta la olla",

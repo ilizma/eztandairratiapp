@@ -1,6 +1,6 @@
 package com.ilizma.domain.usecase.schedule
 
-import com.ilizma.domain.entity.schedule.Data
+import com.ilizma.domain.entity.schedule.Schedule
 import com.ilizma.domain.repository.ScheduleRepository
 import com.ilizma.domain.usecase.base.SingleUseCase
 import io.reactivex.Single
@@ -8,9 +8,9 @@ import javax.inject.Inject
 
 class GetScheduleFromLocalUseCase @Inject constructor(
     private val scheduleRepository: ScheduleRepository
-) : SingleUseCase<List<Data.Schedule>, GetScheduleFromLocalParams> {
+) : SingleUseCase<List<Schedule>, GetScheduleFromLocalParams> {
 
-    override fun invoke(params: GetScheduleFromLocalParams): Single<List<Data.Schedule>> =
+    override fun invoke(params: GetScheduleFromLocalParams): Single<List<Schedule>> =
         with(params) {
             scheduleRepository.getScheduleFromLocal(day)
         }

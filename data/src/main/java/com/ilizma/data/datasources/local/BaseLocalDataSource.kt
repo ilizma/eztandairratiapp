@@ -8,13 +8,11 @@ import dagger.Lazy
 import io.reactivex.Single
 import java.io.EOFException
 import java.io.IOException
-import javax.inject.Inject
 
 abstract class BaseLocalDataSource {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
-    @Inject
-    lateinit var moshi: Lazy<Moshi>
+    abstract var moshi: Lazy<Moshi>
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
     inline fun <reified T : Any> T.toJson(): String {

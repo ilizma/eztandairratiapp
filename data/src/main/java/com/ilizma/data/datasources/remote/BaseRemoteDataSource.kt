@@ -14,210 +14,59 @@ import com.squareup.moshi.Types
 import dagger.Lazy
 import io.reactivex.Single
 import okhttp3.ResponseBody
+import retrofit2.adapter.rxjava2.Result
 import timber.log.Timber
 import java.lang.reflect.ParameterizedType
 import java.net.UnknownHostException
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
-open class BaseRemoteDataSource {
+private const val TIMEOUT_TIME = 30L
+private const val RETRY_TIMES = 1
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
-    @Inject
-    lateinit var resources: Lazy<Resources>
+abstract class BaseRemoteDataSource {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
-    @Inject
-    lateinit var moshi: Lazy<Moshi>
-
-    private val timeout = 30L
-    private val retry = 1
+    abstract var resources: Lazy<Resources>
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
-    fun modifySingleSuccess(
-        single: Single<retrofit2.adapter.rxjava2.Result<ResponseBody>>,
-        timeoutTime: Long = timeout,
-        retryTimes: Int = retry,
-        codeErrorHandler: ((Int) -> Failure)? = null,
-        reasonErrorHandler: ((Failure) -> Failure)? = null
-    ): Single<Success> =
+    abstract var moshi: Lazy<Moshi>
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    fun <RO : ResponseObject<DO>, DO : Any> modifySingle(single: Single<Result<RO>>): Single<DO> =
         single
-            .onErrorResumeNext {
-                Single.error(getFailureUnknownError())
-            }
-            .flatMap { data ->
-                Single.create<Success> { emitter ->
-
-                    val checkCodeError = codeErrorHandler != null
-                    val checkReasonError = reasonErrorHandler != null
-
-                    if (data.response() == null) Timber.e(
-                        "BaseRemoteDataSource: modifySingleSuccess ${data.error().toString()}"
-                    )
-
-                    data.response()?.let { response ->
-                        val code = response.code()
-                        val errorBody = response.errorBody()
-
-                        if (emitter.isDisposed.not()) {
-                            when {
-                                response.isSuccessful -> emitter.onSuccess(
-                                    getDomainObjectNoResponse(
-                                        code
-                                    )
-                                )
-                                checkCodeError -> emitter.tryOnError(codeErrorHandler!!.invoke(code))
-                                response.isSuccessful.not() -> {
-                                    val failure = getFailureErrorWithErrorResponse(code, errorBody)
-                                    if (checkReasonError) {
-                                        emitter.tryOnError(reasonErrorHandler!!.invoke(failure))
-                                    } else {
-                                        emitter.tryOnError(failure)
-                                    }
-                                }
-                                else -> emitter.tryOnError(getFailureUnknownError())
-                            }
-                        }
-
-                    } ?: run {
-                        if (emitter.isDisposed.not()) {
-                            emitter.tryOnError(getFailureError(data.error()))
-                        }
-                    }
-
-                }
-            }.timeout(timeoutTime, TimeUnit.SECONDS, Single.create<Success> { emitter ->
-                if (emitter.isDisposed.not()) {
-                    emitter.tryOnError(getFailureTimeout())
-                }
-            }).retry { count, throwable ->
-                count <= retryTimes && (throwable is Failure.Timeout || throwable is Failure.NoInternet)
-            }
-
-    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
-    fun <RO : ResponseObject<DO>, DO : Any> modifySingle(
-        single: Single<retrofit2.adapter.rxjava2.Result<RO>>,
-        timeoutTime: Long = timeout,
-        retryTimes: Int = retry,
-        codeErrorHandler: ((Int) -> Failure)? = null,
-        reasonErrorHandler: ((Failure) -> Failure)? = null
-    ): Single<DO> =
-        single
-            .onErrorResumeNext {
-                Single.error(getFailureUnknownError())
-            }
             .flatMap { data ->
                 Single.create<DO> { emitter ->
-
-                    val checkCodeError = codeErrorHandler != null
-                    val checkReasonError = reasonErrorHandler != null
-
-                    if (data.response() == null) Timber.e(
-                        "BaseRemoteDataSource: modifySingle ${data.error().toString()}"
-                    )
-
                     data.response()?.let { response ->
                         val body: RO? = response.body()
-                        val code = response.code()
                         val errorBody = response.errorBody()
 
                         if (emitter.isDisposed.not()) {
                             when {
-                                response.isSuccessful && body != null -> emitter.onSuccess(
-                                    getDomainObject(body)
-                                )
-                                response.isSuccessful && body == null -> emitter.onSuccess(
-                                    getDomainObjectNoResponse(code)
-                                )
-                                checkCodeError -> emitter.tryOnError(codeErrorHandler!!.invoke(code))
-                                response.isSuccessful.not() -> {
-                                    val failure = getFailureErrorWithErrorResponse(code, errorBody)
-                                    if (checkReasonError) {
-                                        emitter.tryOnError(reasonErrorHandler!!.invoke(failure))
-                                    } else {
-                                        emitter.tryOnError(failure)
-                                    }
-                                }
+                                response.isSuccessful && body != null ->
+                                    emitter.onSuccess(getDomainObject(body))
+                                response.isSuccessful && body == null ->
+                                    emitter.onSuccess(getDomainObjectNoResponse())
+                                response.isSuccessful.not() ->
+                                    emitter.tryOnError(getFailureErrorWithErrorResponse(errorBody))
                                 else -> emitter.tryOnError(getFailureUnknownError())
                             }
                         }
 
                     } ?: run {
-                        if (emitter.isDisposed.not()) {
-                            emitter.tryOnError(getFailureError(data.error()))
-                        }
+                        Timber.e("BaseRemoteDataSource: modifySingle ${data.error().toString()}")
+                        if (emitter.isDisposed.not()) emitter.tryOnError(getFailureError(data.error()))
                     }
 
                 }
-            }.timeout(timeoutTime, TimeUnit.SECONDS, Single.create<DO> { emitter ->
-                if (emitter.isDisposed.not()) {
-                    emitter.tryOnError(getFailureTimeout())
-                }
-            }).retry { count, throwable ->
-                count <= retryTimes && (throwable is Failure.Timeout || throwable is Failure.NoInternet)
             }
-
-    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
-    fun <RO : ResponseObject<DO>, DO : Any?> modifySingleList(
-        single: Single<retrofit2.adapter.rxjava2.Result<List<RO>>>,
-        timeoutTime: Long = timeout,
-        retryTimes: Int = retry,
-        codeErrorHandler: ((Int) -> Failure)? = null,
-        reasonErrorHandler: ((Failure) -> Failure)? = null
-    ): Single<List<DO>> =
-        single
             .onErrorResumeNext {
                 Single.error(getFailureUnknownError())
             }
-            .flatMap { data ->
-                Single.create<List<DO>> { emitter ->
-
-                    val checkCodeError = codeErrorHandler != null
-                    val checkReasonError = reasonErrorHandler != null
-
-                    if (data.response() == null) Timber.e(
-                        "BaseRemoteDataSource: modifySingleList ${data.error().toString()}"
-                    )
-
-                    data.response()?.let { response ->
-                        val body: List<RO>? = response.body()
-                        val code = response.code()
-                        val errorBody = response.errorBody()
-
-                        if (emitter.isDisposed.not()) {
-                            when {
-                                response.isSuccessful && body != null -> emitter.onSuccess(
-                                    getDomainObjectList(body)
-                                )
-                                response.isSuccessful && body == null -> emitter.onSuccess(
-                                    getDomainObjectNoResponse(code)
-                                )
-                                checkCodeError -> emitter.tryOnError(codeErrorHandler!!.invoke(code))
-                                response.isSuccessful.not() -> {
-                                    val failure = getFailureErrorWithErrorResponse(code, errorBody)
-                                    if (checkReasonError) {
-                                        emitter.tryOnError(reasonErrorHandler!!.invoke(failure))
-                                    } else {
-                                        emitter.tryOnError(failure)
-                                    }
-                                }
-                                else -> emitter.tryOnError(getFailureUnknownError())
-                            }
-                        }
-
-                    } ?: run {
-                        if (emitter.isDisposed.not()) {
-                            emitter.tryOnError(getFailureError(data.error()))
-                        }
-                    }
-
-                }
-            }.timeout(timeoutTime, TimeUnit.SECONDS, Single.create<List<DO>> { emitter ->
-                if (emitter.isDisposed.not()) {
-                    emitter.tryOnError(getFailureTimeout())
-                }
-            }).retry { count, throwable ->
-                count <= retryTimes && (throwable is Failure.Timeout || throwable is Failure.NoInternet)
+            .timeout(TIMEOUT_TIME, TimeUnit.SECONDS, Single.create { emitter ->
+                if (emitter.isDisposed.not()) emitter.tryOnError(getFailureTimeout())
+            })
+            .retry { count, throwable ->
+                count <= RETRY_TIMES && (throwable is Failure.Timeout || throwable is Failure.NoInternet)
             }
 
     @Suppress("UNCHECKED_CAST")
@@ -225,72 +74,53 @@ open class BaseRemoteDataSource {
         (body as ResponseObject<Any>).toDomain() as DO
 
     @Suppress("UNCHECKED_CAST")
-    private fun <RO : ResponseObject<DO>, DO : Any?> getDomainObjectList(body: List<RO>): List<DO> =
-        (body as List<ResponseObject<Any>>).map { it.toDomain() } as List<DO>
+    private fun <DO : Any> getDomainObjectNoResponse(): DO =
+        Success() as DO
 
-    @Suppress("UNCHECKED_CAST")
-    private fun <DO : Any> getDomainObjectNoResponse(code: Int): DO =
-        Success(code) as DO
-
-    private fun getFailureErrorWithErrorResponse(
-        code: Int,
-        errorBody: ResponseBody?
-    ): Failure.FailureWithMessage {
-        val errorResponse = parseErrorResponse(code, errorBody)
-        val message =
-            if (errorResponse.message.isNotEmpty()) errorResponse.message else resources.get()
-                .getString(R.string.unknown_error)
-        val reason =
-            if (errorResponse.reason?.isNotEmpty() == true) errorResponse.reason else resources.get()
-                .getString(R.string.unknown_reason)
-        errorResponse.errors?.let { errorMap ->
-            return Failure.MultipleError(code, message, errorMap, reason)
+    private fun getFailureErrorWithErrorResponse(errorBody: ResponseBody?): Failure.FailureWithMessage {
+        val errorResponse = parseErrorResponse(errorBody)
+        val message = if (errorResponse.message.isNotEmpty()) {
+            errorResponse.message
+        } else {
+            resources.get().getString(R.string.unknown_error)
         }
-        return Failure.Error(code, message, reason)
+        return Failure.Error(message)
     }
 
     private fun getFailureError(throwable: Throwable?): Failure {
         Timber.e("getFailureError ${throwable?.message}")
 
         return when (throwable) {
-            is UnknownHostException -> Failure.NoInternet(
-                resources.get().getString(R.string.no_internet)
+            is UnknownHostException ->
+                Failure.NoInternet(resources.get().getString(R.string.no_internet))
+            else -> Failure.Error(
+                if (BuildConfig.DEBUG) {
+                    throwable?.message ?: resources.get().getString(R.string.unknown_error)
+                } else {
+                    resources.get().getString(R.string.unknown_error)
+                }
             )
-            else -> {
-                Failure.Error(
-                    @Suppress("ConstantConditionIf")
-                    if (BuildConfig.BUILD_TYPE == "release") {
-                        resources.get().getString(R.string.unknown_error)
-                    } else {
-                        throwable?.message ?: resources.get().getString(R.string.unknown_error)
-                    }
-                )
-            }
         }
     }
 
-    protected fun getFailureUnknownError(): Failure.Error =
+    private fun getFailureUnknownError(): Failure.Error =
         Failure.Error(resources.get().getString(R.string.unknown_error))
 
     private fun getFailureTimeout(): Failure.Timeout =
         Failure.Timeout(resources.get().getString(R.string.timeout_message))
 
-    private fun parseErrorResponse(code: Int, responseBody: ResponseBody?): ErrorResponse {
+    private fun parseErrorResponse(responseBody: ResponseBody?): ErrorResponse {
         val type: ParameterizedType = Types.newParameterizedType(ErrorResponse::class.java)
         val adapter: JsonAdapter<ErrorResponse> = moshi.get().adapter(type)
         return try {
-            responseBody?.let { adapter.fromJson(it.string()) } ?: getDefaultErrorResponse(code)
+            responseBody?.let { adapter.fromJson(it.string()) } ?: getUnknownErrorResponse()
         } catch (exception: Exception) {
             Timber.e("parseErrorResponse ${exception.message}")
-            getDefaultErrorResponse(code)
+            getUnknownErrorResponse()
         }
     }
 
-    private fun getDefaultErrorResponse(code: Int) = ErrorResponse(
-        code = code,
-        message = resources.get().getString(R.string.unknown_error),
-        errors = null,
-        reason = resources.get().getString(R.string.unknown_reason)
-    )
+    private fun getUnknownErrorResponse() =
+        ErrorResponse(resources.get().getString(R.string.unknown_error))
 
 }

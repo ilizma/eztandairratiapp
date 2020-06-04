@@ -1,20 +1,13 @@
 package com.ilizma.presentation.ui.base
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.ilizma.presentation.R
 import com.ilizma.presentation.extensions.snackbar
-import dagger.Lazy
-import dagger.android.DaggerActivity
 import dagger.android.support.DaggerAppCompatActivity
-import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
 abstract class BaseActivity : DaggerAppCompatActivity() {
 

@@ -1,6 +1,6 @@
 package com.ilizma.data.repository.schedule
 
-import com.ilizma.data.entity.schedule.ScheduleFactory.Companion.providesData
+import com.ilizma.data.entity.schedule.ScheduleFactory.Companion.providesSchedule
 import com.ilizma.data.extensions.*
 import com.ilizma.data.repository.schedule.datasources.ScheduleLocalDataSource
 import com.ilizma.data.repository.schedule.datasources.ScheduleRemoteDataSource
@@ -13,6 +13,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+
+private const val DAY = 1
 
 @RunWith(MockitoJUnitRunner::class)
 class ScheduleRepositoryImplUnitTest {
@@ -33,15 +35,40 @@ class ScheduleRepositoryImplUnitTest {
 
     // region Success cases
     @Test
-    fun `getSchedule should return data single save it`() {
-        val data = providesData()
+    fun `getSchedule should return complete save scheduleList`() {
+        val scheduleList = listOf(providesSchedule(), providesSchedule())
         whenever(scheduleRemoteDataSource.getSchedule())
-            .doReturn(getSingleSuccess(data))
+            .doReturn(getSingleSuccess(scheduleList))
 
         val testObserver = scheduleRepositoryImpl.getSchedule().test()
 
         testObserver.assertGeneralsCompletableSuccess()
-        verify(scheduleLocalDataSource).saveSchedule(data.schedule)
+        verify(scheduleLocalDataSource).saveSchedule(scheduleList)
+    }
+
+    @Test
+    fun `getScheduleFromLocal should return scheduleList single`() {
+        val scheduleList = listOf(providesSchedule(day = "1"), providesSchedule(day = "2"))
+        whenever(scheduleLocalDataSource.getSchedule())
+            .doReturn(getSingleSuccess(scheduleList))
+
+        val testObserver = scheduleRepositoryImpl.getScheduleFromLocal(DAY).test()
+
+        testObserver.assertGeneralsSuccess {
+            val filteredScheduleList = scheduleList.filter { it.day == DAY.toString() }
+            it.isNotEmpty() && it.size == filteredScheduleList.size && it[0].day == filteredScheduleList[0].day
+        }
+    }
+
+    @Test
+    fun `isScheduleFromLocal should return complete`() {
+        val scheduleList = listOf(providesSchedule(), providesSchedule())
+        whenever(scheduleLocalDataSource.getSchedule())
+            .doReturn(getSingleSuccess(scheduleList))
+
+        val testObserver = scheduleRepositoryImpl.isScheduleFromLocal().test()
+
+        testObserver.assertGeneralsCompletableSuccess()
     }
 
     @Test
@@ -65,6 +92,26 @@ class ScheduleRepositoryImplUnitTest {
 
         testObserver.assertGeneralsError()
         verifyZeroInteractions(scheduleLocalDataSource)
+    }
+
+    @Test
+    fun `getScheduleFromLocal should return Failure`() {
+        whenever(scheduleLocalDataSource.getSchedule())
+            .doReturn(getSingleError())
+
+        val testObserver = scheduleRepositoryImpl.getScheduleFromLocal(DAY).test()
+
+        testObserver.assertGeneralsError()
+    }
+
+    @Test
+    fun `isScheduleFromLocal should return Failure`() {
+        whenever(scheduleLocalDataSource.getSchedule())
+            .doReturn(getSingleError())
+
+        val testObserver = scheduleRepositoryImpl.isScheduleFromLocal().test()
+
+        testObserver.assertGeneralsError()
     }
 
     @Test

@@ -2,7 +2,7 @@ package com.ilizma.data.repository.schedule.datasources
 
 import com.ilizma.data.datasources.local.SharedPreferencesAssistant
 import com.ilizma.data.datasources.local.SharedPreferencesKeys.SCHEDULE_KEY
-import com.ilizma.data.entity.schedule.ScheduleFactory.Companion.providesData
+import com.ilizma.data.entity.schedule.ScheduleFactory.Companion.providesSchedule
 import com.ilizma.data.extensions.assertGeneralsSuccess
 import com.ilizma.data.extensions.getSingleSuccess
 import com.nhaarman.mockitokotlin2.doReturn
@@ -45,20 +45,20 @@ class ScheduleLocalDataSourceUnitTest {
 
     @Test
     fun `saveSchedule should call assistant saveString`() {
-        val data = providesData()
+        val scheduleList = listOf(providesSchedule(), providesSchedule())
 
-        scheduleLocalDataSource.saveSchedule(data.schedule)
+        scheduleLocalDataSource.saveSchedule(scheduleList)
 
         scheduleLocalDataSource.run {
-            verify(assistant).saveString(SCHEDULE_KEY, data.schedule.toJson())
+            verify(assistant).saveString(SCHEDULE_KEY, scheduleList.toJson())
         }
     }
 
     @Test
     fun `getSchedule should return schedule single`() {
-        val data = providesData()
+        val scheduleList = listOf(providesSchedule(), providesSchedule())
         scheduleLocalDataSource.run {
-            val json = data.schedule.toJson()
+            val json = scheduleList.toJson()
             whenever(assistant.getString(SCHEDULE_KEY))
                 .doReturn(getSingleSuccess(json))
         }

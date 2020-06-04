@@ -1,9 +1,8 @@
-package com.ilizma.domain.usecase
+package com.ilizma.domain.usecase.schedule
 
 import com.ilizma.domain.entity.base.Failure
 import com.ilizma.domain.extensions.*
 import com.ilizma.domain.repository.ScheduleRepository
-import com.ilizma.domain.usecase.schedule.GetScheduleUseCase
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Before
@@ -37,7 +36,7 @@ class GetGetScheduleUseCaseUnitTest {
 
     @Test
     fun `invoke should emit a timeout`() {
-        val timeout = Failure.Timeout("Buy Airtime timeout")
+        val timeout = Failure.Timeout("timeout")
         whenever(scheduleRepository.getSchedule())
             .doReturn(getCompletableError(timeout))
 
@@ -50,7 +49,7 @@ class GetGetScheduleUseCaseUnitTest {
 
     @Test
     fun `invoke should emit an error`() {
-        val error = Failure.Error("Buy Airtime error")
+        val error = Failure.Error("error")
         whenever(scheduleRepository.getSchedule())
             .doReturn(getCompletableError(error))
 

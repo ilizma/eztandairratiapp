@@ -8,19 +8,19 @@ import com.ilizma.presentation.extensions.setOnReactiveClickListener
 import com.ilizma.presentation.ui.customview.recycler.recyclerobjects.RecyclerViewObject
 import com.ilizma.presentation.ui.customview.recycler.recyclerobjects.RetryObject
 
-abstract class RakutenViewHolder<in T>(view: View) : RecyclerView.ViewHolder(view) {
+abstract class EztandaViewHolder<in T>(view: View) : RecyclerView.ViewHolder(view) {
 
     abstract fun bind(item: RecyclerViewObject)
 
 }
 
-class NoActionViewHolder<in T>(val view: View) : RakutenViewHolder<T>(view) {
+class NoActionViewHolder<in T>(val view: View) : EztandaViewHolder<T>(view) {
 
     override fun bind(item: RecyclerViewObject) {}
 
 }
 
-class ErrorViewHolder<in T>(val view: View) : RakutenViewHolder<T>(view) {
+class ErrorViewHolder<in T>(val view: View) : EztandaViewHolder<T>(view) {
 
     override fun bind(item: RecyclerViewObject) {
         val retryButton = view.findViewById<View?>(R.id.retryBtn)
@@ -33,7 +33,7 @@ class ErrorViewHolder<in T>(val view: View) : RakutenViewHolder<T>(view) {
 }
 
 class ItemViewHolder<T : RecyclerViewObject>(itemView: View, val onBindItem: (View, T) -> Unit) :
-    RakutenViewHolder<T>(itemView) {
+    EztandaViewHolder<T>(itemView) {
 
     @Suppress("UNCHECKED_CAST")
     override fun bind(item: RecyclerViewObject) {

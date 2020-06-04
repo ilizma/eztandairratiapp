@@ -2,7 +2,7 @@ package com.ilizma.data.repository.schedule
 
 import com.ilizma.data.repository.schedule.datasources.ScheduleLocalDataSource
 import com.ilizma.data.repository.schedule.datasources.ScheduleRemoteDataSource
-import com.ilizma.domain.entity.schedule.Data
+import com.ilizma.domain.entity.schedule.Schedule
 import com.ilizma.domain.repository.ScheduleRepository
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -15,12 +15,12 @@ class ScheduleRepositoryImpl @Inject constructor(
 
     override fun getSchedule(): Completable =
         scheduleRemoteDataSource.getSchedule()
-            .doOnSuccess { data ->
-                scheduleLocalDataSource.saveSchedule(data.schedule)
+            .doOnSuccess { scheduleList ->
+                scheduleLocalDataSource.saveSchedule(scheduleList)
             }
             .ignoreElement()
 
-    override fun getScheduleFromLocal(day: Int): Single<List<Data.Schedule>> =
+    override fun getScheduleFromLocal(day: Int): Single<List<Schedule>> =
         scheduleLocalDataSource.getSchedule().map { allScheduleList ->
             allScheduleList.filter { it.day == day.toString() }
         }

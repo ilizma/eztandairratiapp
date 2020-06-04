@@ -29,7 +29,8 @@ fun Activity.hideKeyboard() {
 
 fun Context.hideKeyboard(view: View?) {
     view?.let {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
     }
 }

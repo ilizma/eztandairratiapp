@@ -12,23 +12,14 @@ import javax.inject.Singleton
 
 @Singleton
 class BaseRetrofit @Inject constructor(
-    private val okHttpClient: OkHttpClient,
-    private val moshi: Moshi
+    okHttpClient: OkHttpClient,
+    moshi: Moshi
 ) {
 
-    lateinit var retrofit: Retrofit
-
-    init {
-        setBaseUrl(BuildConfig.BASE_URL)
-    }
-
-    fun setBaseUrl(baseUrl: String) {
-        retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-            .client(okHttpClient)
-            .build()
-    }
-
+    val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(BuildConfig.BASE_URL)
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+        .client(okHttpClient)
+        .build()
 }
