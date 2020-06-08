@@ -15,9 +15,8 @@ class MusicServiceConnection(context: Context, serviceComponent: ComponentName) 
         .apply { postValue(false) }
     val ldIsConnected: LiveData<Boolean> = _ldIsConnected
 
-    private val _ldNetworkFailure = MutableLiveData<Boolean>()
+    val ldNetworkFailure = MutableLiveData<Boolean>()
         .apply { postValue(false) }
-    val ldNetworkFailure: LiveData<Boolean> = _ldNetworkFailure
 
     val ldIsPlaying = MutableLiveData<Boolean>()
         .apply { postValue(false) }
@@ -64,7 +63,8 @@ class MusicServiceConnection(context: Context, serviceComponent: ComponentName) 
             when (state.state) {
                 PlaybackStateCompat.ACTION_STOP.toInt() -> ldIsPlaying.postValue(false)
                 PlaybackStateCompat.ACTION_PLAY.toInt(),
-                PlaybackStateCompat.STATE_PLAYING -> ldLoading.postValue(true)
+                PlaybackStateCompat.STATE_PLAYING -> if (ldIsPlaying.value!!.not())
+                    ldLoading.postValue(true)
             }
         }
 
@@ -72,7 +72,7 @@ class MusicServiceConnection(context: Context, serviceComponent: ComponentName) 
             super.onSessionEvent(event, extras)
             when (event) {
                 PLAYER_START -> ldIsPlaying.postValue(true)
-                NETWORK_FAILURE -> _ldNetworkFailure.postValue(true)
+                NETWORK_FAILURE -> ldNetworkFailure.postValue(true)
             }
         }
 

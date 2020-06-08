@@ -2,8 +2,6 @@ package com.ilizma.presentation.ui.content.radio
 
 import android.content.res.Resources
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.ilizma.presentation.media.MusicServiceConnection
 import com.ilizma.presentation.ui.base.BaseViewModel
@@ -23,14 +21,11 @@ class RadioViewModel @Inject constructor(
     @Inject
     override lateinit var chuckerCollector: Lazy<ChuckerCollector>
 
-    private val _ldLoading: MutableLiveData<Boolean> = musicServiceConnection.ldLoading
-    val ldRadioLoading: LiveData<Boolean> = _ldLoading
+    val ldRadioLoading: LiveData<Boolean> = musicServiceConnection.ldLoading
 
-    val ldNetworkError: LiveData<Boolean> =
-        Transformations.map(musicServiceConnection.ldNetworkFailure) { it } as MutableLiveData<Boolean>
+    val ldNetworkError: LiveData<Boolean> = musicServiceConnection.ldNetworkFailure
 
-    private val _ldIsPlaying: MutableLiveData<Boolean> = musicServiceConnection.ldIsPlaying
-    val ldIsPlaying: LiveData<Boolean> = _ldIsPlaying
+    val ldIsPlaying: LiveData<Boolean> = musicServiceConnection.ldIsPlaying
 
     fun start() {
         if (musicServiceConnection.ldIsConnected.value == true) {
@@ -65,7 +60,7 @@ class RadioViewModel @Inject constructor(
                 .doOnSubscribe { radioLoading(true) }
                 .doAfterTerminate { radioLoading(false) }
                 .subscribe({
-                    _ldIsPlaying.postValue(false)
+                    musicServiceConnection.ldIsPlaying.postValue(false)
                 }, { throwable ->
                     handleFailure(throwable) { stop() }
                 })
@@ -73,8 +68,12 @@ class RadioViewModel @Inject constructor(
         }
     }
 
-    private fun radioLoading(visible: Boolean) {
-        _ldLoading.postValue(visible)
+    fun radioLoading(loading: Boolean) {
+        musicServiceConnection.ldLoading.postValue(loading)
+    }
+
+    fun resetFailure() {
+        musicServiceConnection.ldNetworkFailure.postValue(false)
     }
 
 }

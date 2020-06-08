@@ -148,17 +148,17 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             showPlayingNotification()
             mediaSession.sendSessionEvent(PLAYER_START, null)
         }
-        mediaPlayer.setOnErrorListener { mp, what, _ ->
+        mediaPlayer.setOnErrorListener { _, what, _ ->
             when (what) {
                 MediaPlayer.MEDIA_ERROR_SERVER_DIED,
                 MediaPlayer.MEDIA_ERROR_UNKNOWN -> {
                     mediaSession.sendSessionEvent(NETWORK_FAILURE, null)
-                    mp.reset()
+                    mediaSessionCallback.onStop()
                 }
             }
             true
         }
-        mediaPlayer.isLooping = true
+        mediaPlayer.isLooping = false
         mediaPlayer.setVolume(1.0f, 1.0f)
         mediaPlayer.prepareAsync()
     }

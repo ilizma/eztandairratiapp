@@ -46,7 +46,7 @@ class RadioFragment : BaseFragment() {
 
             observe(ldIsPlaying) {
                 manageButtonIcon(it)
-                if (it) showLoading(false)
+                if (it) radioLoading(false)
             }
 
             observe(ldRadioLoading, ::showLoading)
@@ -78,7 +78,9 @@ class RadioFragment : BaseFragment() {
 
     private fun showNetworkError(show: Boolean) {
         if (show) {
-            showSnackbarWithRes(R.string.unknown_error, R.string.retry) { radioViewModel.start() }
+            showSnackbarWithRes(R.string.no_internet, R.string.retry) { radioViewModel.start() }
+            radioViewModel.radioLoading(false)
+            radioViewModel.resetFailure()
         }
     }
 
