@@ -13,7 +13,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 
-
 class RadioViewModel @Inject constructor(
     private val musicServiceConnection: MusicServiceConnection
 ) : BaseViewModel() {

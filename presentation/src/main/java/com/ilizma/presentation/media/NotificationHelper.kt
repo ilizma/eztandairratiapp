@@ -22,7 +22,8 @@ object NotificationHelper {
         val mediaMetadata = controller.metadata
         val description = mediaMetadata.description
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(CHANNEL_ID , CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW)
+            val channel =
+                NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW)
             NotificationManagerCompat.from(context).createNotificationChannel(channel)
         }
         return NotificationCompat.Builder(context, CHANNEL_ID)

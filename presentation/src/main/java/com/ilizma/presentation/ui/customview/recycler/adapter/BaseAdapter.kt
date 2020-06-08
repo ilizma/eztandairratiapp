@@ -15,9 +15,9 @@ import com.ilizma.presentation.ui.customview.recycler.recyclerobjects.RecyclerVi
 import com.ilizma.presentation.ui.customview.recycler.recyclerobjects.RecyclerViewObject.ItemViewType.*
 import com.ilizma.presentation.ui.customview.recycler.recyclerobjects.RetryObject
 import com.ilizma.presentation.ui.customview.recycler.viewholder.ErrorViewHolder
+import com.ilizma.presentation.ui.customview.recycler.viewholder.EztandaViewHolder
 import com.ilizma.presentation.ui.customview.recycler.viewholder.ItemViewHolder
 import com.ilizma.presentation.ui.customview.recycler.viewholder.NoActionViewHolder
-import com.ilizma.presentation.ui.customview.recycler.viewholder.EztandaViewHolder
 
 abstract class BaseAdapter<T : RecyclerViewObject> : RecyclerView.Adapter<EztandaViewHolder<T>>() {
 

@@ -14,10 +14,6 @@ fun Throwable.getFailureMessage(): String = if (this is Failure.FailureWithMessa
     UNKNOWN
 }
 
-fun BaseActivity.handleNormalFailure(failure: Failure) {
-    handleNormalLengthFailure(failure)
-}
-
 fun BaseFragment.handleNormalFailure(failure: Failure) {
     handleNormalLengthFailure(failure)
 }

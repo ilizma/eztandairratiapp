@@ -5,9 +5,7 @@ import com.ilizma.presentation.ui.customview.recycler.recyclerobjects.RecyclerVi
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class DaysUI(
-    val indexedDayPair: Pair<Int, String>
-) : RecyclerViewObject, Parcelable {
+class DaysUI(val indexedDayPair: Pair<Int, String>) : RecyclerViewObject, Parcelable {
 
     override var itemViewType = RecyclerViewObject.ItemViewType.ITEM
 

@@ -2,8 +2,6 @@ package com.ilizma.data.extensions
 
 import com.ilizma.domain.entity.base.Failure
 import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import io.reactivex.subscribers.TestSubscriber
@@ -55,7 +53,6 @@ fun <T : Any> TestObserver<T>.assertGeneralsError(asserts: (Throwable) -> Boolea
 }
 
 const val DEFAULT_CODE_ERROR = 400
-const val DEFAULT_CODE_SUCCESS = 200
 
 private fun getFailureError() = Failure.Error("Error")
 
@@ -98,17 +95,9 @@ fun <T : List<Any>> getSingleListResultError(
     return Single.just(Result.response(Response.error(errorCode, responseBody)))
 }
 
-fun <T> getFlowableSuccess(value: T): Flowable<T> = Flowable.just(value)
-
-fun <T> getFlowableError(value: Throwable = getFailureError()): Flowable<T> = Flowable.error(value)
-
 fun <T> getSingleSuccess(value: T): Single<T> = Single.just(value)
 
 fun <T> getSingleError(value: Throwable = getFailureError()): Single<T> = Single.error(value)
-
-fun <T> getObservableSuccess(value: T): Observable<T> = Observable.just(value)
-
-fun <T> getObservableError(): Observable<T> = Observable.error(getFailureError())
 
 fun getCompletableComplete(): Completable = Completable.complete()
 

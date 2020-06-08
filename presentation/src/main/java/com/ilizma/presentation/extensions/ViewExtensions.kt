@@ -26,14 +26,6 @@ fun View.invisible() {
     visibility = View.INVISIBLE
 }
 
-fun View.disable() {
-    isEnabled = false
-}
-
-fun View.enable() {
-    isEnabled = true
-}
-
 fun View.setOnReactiveClickListener(
     throttleInMillis: Long = 500,
     action: (() -> Unit)?

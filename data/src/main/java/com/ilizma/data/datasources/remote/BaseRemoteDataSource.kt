@@ -120,7 +120,6 @@ abstract class BaseRemoteDataSource {
         }
     }
 
-    private fun getUnknownErrorResponse() =
-        ErrorResponse(resources.get().getString(R.string.unknown_error))
+    private fun getUnknownErrorResponse() = ErrorResponse(resources.get().getString(R.string.unknown_error))
 
 }

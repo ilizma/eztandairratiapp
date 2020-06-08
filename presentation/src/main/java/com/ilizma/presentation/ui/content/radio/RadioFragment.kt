@@ -11,7 +11,6 @@ import dagger.Lazy
 import kotlinx.android.synthetic.main.fragment_radio.*
 import javax.inject.Inject
 
-
 class RadioFragment : BaseFragment() {
 
     @Inject
