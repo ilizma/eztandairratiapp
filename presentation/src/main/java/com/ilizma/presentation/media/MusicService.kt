@@ -54,8 +54,10 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
         override fun onStop() {
             super.onStop()
-            mediaPlayer.stop()
-            mediaPlayer.release()
+            mediaPlayer.run {
+                stop()
+                release()
+            }
             setMediaPlaybackState(PlaybackStateCompat.STATE_STOPPED)
             showStopNotification()
         }
@@ -281,8 +283,20 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
         }
     }
 
+    // swiping the activity away from recents
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        super.onTaskRemoved(rootIntent)
+        destroy()
+    }
+
     @Suppress("DEPRECATION")
     override fun onDestroy() {
+        destroy()
+        super.onDestroy()
+    }
+
+    private fun destroy() {
+        NotificationManagerCompat.from(this).apply { cancel(NOTIFICATION_ID) }
         mediaSession.run {
             isActive = false
             release()
@@ -295,8 +309,6 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             audioManager.abandonAudioFocusRequest(audioFocusRequest)
         }
         unregisterReceiver(mNoisyReceiver)
-        NotificationManagerCompat.from(this).apply { cancel(NOTIFICATION_ID) }
-        super.onDestroy()
     }
 
 }
