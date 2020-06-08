@@ -7,7 +7,8 @@ import dagger.Module
         ActivityModule::class,
         AppModule::class,
         FragmentModule::class,
-        ViewModelModule::class
+        ViewModelModule::class,
+        MediaModule::class
     ]
 )
 class PresentationModule

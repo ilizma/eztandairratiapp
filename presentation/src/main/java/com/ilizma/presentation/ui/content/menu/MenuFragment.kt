@@ -47,7 +47,7 @@ class MenuFragment : BaseFragment() {
             )
         }
         whatsappTxv.setOnReactiveClickListener {
-            context?.callNumber("668826536")
+            context?.callNumber("633489072")
         }
         phoneTxv.setOnReactiveClickListener {
             context?.callNumber("948563766")

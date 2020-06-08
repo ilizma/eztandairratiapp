@@ -36,7 +36,7 @@ class ScheduleDetailViewModel @Inject constructor(
             .doOnSubscribe { loading(true) }
             .doAfterTerminate { loading(false) }
             .subscribe({ scheduleUIList ->
-                _ldScheduleUIList.value = scheduleUIList
+                _ldScheduleUIList.postValue(scheduleUIList)
             }, { throwable ->
                 handleFailure(throwable) { getSchedule(day) }
             })

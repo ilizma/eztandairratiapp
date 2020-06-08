@@ -18,10 +18,10 @@ abstract class BaseViewModel : ViewModel() {
 
     abstract var chuckerCollector: Lazy<ChuckerCollector>
 
-    private var _ldLoading: MutableLiveData<Boolean> = MutableLiveData()
+    private val _ldLoading: MutableLiveData<Boolean> = MutableLiveData()
     val ldLoading: LiveData<Boolean> = _ldLoading
 
-    private var _ldFailure: MutableLiveData<Failure> = MutableLiveData()
+    private val _ldFailure: MutableLiveData<Failure> = MutableLiveData()
     val ldFailure: LiveData<Failure> = _ldFailure
 
     protected val compositeDisposable = CompositeDisposable()
@@ -32,13 +32,13 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     protected fun loading(visible: Boolean) {
-        _ldLoading.value = visible
+        _ldLoading.postValue(visible)
     }
 
     protected fun handleFailure(throwable: Throwable, retryAction: () -> Unit) {
         val failure = getFailure(throwable, retryAction)
         chuckerCollector.get().onError(failure.getFailureMessage(), failure)
-        _ldFailure.value = failure
+        _ldFailure.postValue(failure)
     }
 
     protected fun getFailure(throwable: Throwable, retryAction: () -> Unit): Failure {

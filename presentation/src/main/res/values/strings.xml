@@ -24,6 +24,13 @@
     <string name="whatsapp" translatable="false">Whatsapp</string>
     <string name="phone">Phone</string>
     <string name="web" translatable="false">Web</string>
+    
+    <string name="radio_name">Eztanda radio</string>
+    <string name="free_radio">The free radio of Sakana</string>
+    <string name="listening">listening</string>
+
+    <string name="play" translatable="false">Play</string>
+    <string name="stop" translatable="false">Stop</string>
 
     <string-array name="days_array">
         <item>Monday</item>

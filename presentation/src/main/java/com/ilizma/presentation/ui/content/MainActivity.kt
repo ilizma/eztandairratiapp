@@ -1,5 +1,6 @@
 package com.ilizma.presentation.ui.content
 
+import android.media.AudioManager
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,6 +17,9 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //if (BuildConfig.DEBUG) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
+
+        // As a music player, the volume controls should adjust the music volume while in the app.
+        volumeControlStream = AudioManager.STREAM_MUSIC
 
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { onBackPressed() }

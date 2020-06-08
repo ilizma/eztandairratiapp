@@ -16,6 +16,10 @@
 
     <string name="phone">Telefonoa</string>
 
+    <string name="radio_name">Eztanda irratia</string>
+    <string name="free_radio">Sakanako irrati librea</string>
+    <string name="listening">entzuten</string>
+
     <string-array name="days_array">
         <item>Astelehena</item>
         <item>Asteartea</item>

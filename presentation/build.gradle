@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+apply from: '../environments.gradle'
 apply from: '../baseAppDataPresentation.gradle'
 
 android {
@@ -18,8 +19,12 @@ android {
     }
 
     buildTypes {
-        debug
-        release
+        debug {
+            buildConfigField "String", "AUDIO_URL", "\"" + environments.debug.audioURL + "\""
+        }
+        release {
+            buildConfigField "String", "AUDIO_URL", "\"" + environments.release.audioURL + "\""
+        }
     }
 
     compileOptions {

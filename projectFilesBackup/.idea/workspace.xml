@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="93427ccb-0f7e-4134-aec2-9dfd08fda683" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/data/src/main/java/com/ilizma/data/service/PlayerService.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/src/main/res/xml/automotive_app_desc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/presentation/src/main/res/drawable/ic_play.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/presentation/src/main/res/drawable/ic_stop.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/presentation/src/main/res/drawable/img_eztanda.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/data/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/data.iml" beforeDir="false" afterPath="$PROJECT_DIR$/data/data.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependencies.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/dependencies.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/presentation/src/main/java/com/ilizma/presentation/ui/content/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/src/main/java/com/ilizma/presentation/ui/content/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/presentation/src/main/java/com/ilizma/presentation/ui/content/menu/MenuFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/src/main/java/com/ilizma/presentation/ui/content/menu/MenuFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/presentation/src/main/java/com/ilizma/presentation/ui/content/radio/RadioFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/src/main/java/com/ilizma/presentation/ui/content/radio/RadioFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/presentation/src/main/java/com/ilizma/presentation/ui/content/radio/RadioViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/src/main/java/com/ilizma/presentation/ui/content/radio/RadioViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/presentation/src/main/res/layout/fragment_radio.xml" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/src/main/res/layout/fragment_radio.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/presentation/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/src/main/res/values/colors.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3_API_29" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="valueResourceFile" />
+        <option value="layoutResourceFile" />
+        <option value="JUnit4 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1bJA6r1Svss24rH6J63kqHQpeB9" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_3_API_29" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-06-02T12:31:11.019Z" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/data/src/main/res/xml" />
+    <property name="project.structure.last.edited" value="Variables" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.ilizma.domain.usecase.schedule" />
+      <recent name="com.ilizma.presentation.ui.content.scheduledetail" />
+      <recent name="com.ilizma.presentation.ui.content.schedule" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.ilizma.domain.usecase.schedule" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.ilizma.presentation.ui.content.schedule" />
+      <recent name="com.ilizma.presentation.entity.mapper.schedule" />
+      <recent name="com.ilizma.presentation.ui.content.scheduledetail.adapter" />
+      <recent name="com.ilizma.presentation.ui.content.scheduledetail" />
+      <recent name="com.ilizma.presentation.entity.mapper.day" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/presentation/src/main/res/color" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data/src/main/res/xml" />
+      <recent name="$PROJECT_DIR$/domain/src/main/java/com/ilizma/domain/usecase/schedule" />
+      <recent name="$PROJECT_DIR$/presentation/src/main/res/layout" />
+      <recent name="$PROJECT_DIR$/data/src/main/res/values-eu" />
+      <recent name="$PROJECT_DIR$/data/src/main/res/values-es" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Android App.app">
+    <configuration name="GetScheduleFromLocalUseCaseparamsTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="domain" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ilizma.domain.usecase.schedule.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ilizma.domain.usecase.schedule" />
+      <option name="MAIN_CLASS_NAME" value="com.ilizma.domain.usecase.schedule.GetScheduleFromLocalUseCaseparamsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IsScheduleFromLocalUseCaseUnitTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="domain" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ilizma.domain.usecase.schedule.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ilizma.domain.usecase.schedule" />
+      <option name="MAIN_CLASS_NAME" value="com.ilizma.domain.usecase.schedule.IsScheduleFromLocalUseCaseUnitTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.ilizma.domain in domain" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="domain" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ilizma.domain.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ilizma.domain" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="data in data" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="data" />
+      <option name="TEST_OBJECT" value="directory" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <dir value="$PROJECT_DIR$/data/src/test/java/com/ilizma/data" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ScheduleRepositoryImplUnitTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="data" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ilizma.data.repository.schedule.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ilizma.data.repository.schedule" />
+      <option name="MAIN_CLASS_NAME" value="com.ilizma.data.repository.schedule.ScheduleRepositoryImplUnitTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Android JUnit.com.ilizma.domain in domain" />
+        <item itemvalue="Android JUnit.data in data" />
+        <item itemvalue="JUnit.ScheduleRepositoryImplUnitTest" />
+        <item itemvalue="Android JUnit.IsScheduleFromLocalUseCaseUnitTest" />
+        <item itemvalue="Android JUnit.GetScheduleFromLocalUseCaseparamsTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="93427ccb-0f7e-4134-aec2-9dfd08fda683" name="Default Changelist" comment="" />
+      <created>1588339650543</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1588339650543</updated>
+    </task>
+    <task id="LOCAL-00001" summary="[WIP] baseproject">
+      <created>1588339803022</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1588339803022</updated>
+    </task>
+    <task id="LOCAL-00002" summary="[WIP] baseproject">
+      <created>1588339925002</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1588339925002</updated>
+    </task>
+    <task id="LOCAL-00003" summary="[WIP] change BaseUrl and change flow example to the real one">
+      <created>1588347450395</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1588347450395</updated>
+    </task>
+    <task id="LOCAL-00004" summary="[WIP] add AUDIO_URL">
+      <created>1588347923264</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1588347923264</updated>
+    </task>
+    <task id="LOCAL-00005" summary="[WIP] change to Material style">
+      <created>1589033846671</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1589033846673</updated>
+    </task>
+    <task id="LOCAL-00006" summary="[WIP] add EztandaCrashActivity">
+      <created>1589034933527</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1589034933527</updated>
+    </task>
+    <task id="LOCAL-00007" summary="[WIP] update BaseApplication">
+      <created>1589881295892</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1589881295892</updated>
+    </task>
+    <task id="LOCAL-00008" summary="[WIP] add EztandaCrashActivity to manifest">
+      <created>1590417716922</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1590417716922</updated>
+    </task>
+    <task id="LOCAL-00009" summary="[WIP] add a lot of UI changes">
+      <created>1591112357217</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1591112357217</updated>
+    </task>
+    <task id="LOCAL-00010" summary="[WIP] fill ScheduleFragment and add empty ScheduleDetail">
+      <created>1591118111052</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1591118111052</updated>
+    </task>
+    <task id="LOCAL-00011" summary="[WIP] add languages">
+      <created>1591175105694</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1591175105694</updated>
+    </task>
+    <task id="LOCAL-00012" summary="[WIP] add languages">
+      <created>1591175485123</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1591175485123</updated>
+    </task>
+    <task id="LOCAL-00013" summary="[WIP] fill ScheduleDetailFragment and fix other things">
+      <created>1591197337666</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1591197337666</updated>
+    </task>
+    <task id="LOCAL-00014" summary="[WIP] add title to Menu and radio fragments">
+      <created>1591197495806</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1591197495806</updated>
+    </task>
+    <task id="LOCAL-00015" summary="[WIP] add MenuFragment">
+      <created>1591203933532</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1591203933532</updated>
+    </task>
+    <task id="LOCAL-00016" summary="[WIP] add tests, inject fixes, some fixes, a lot of code refactor">
+      <created>1591290491161</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1591290491161</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="[WIP] baseproject" />
+    <MESSAGE value="[WIP] change BaseUrl and change flow example to the real one" />
+    <MESSAGE value="[WIP] add AUDIO_URL" />
+    <MESSAGE value="[WIP] change to Material style" />
+    <MESSAGE value="[WIP] add EztandaCrashActivity" />
+    <MESSAGE value="[WIP] update BaseApplication" />
+    <MESSAGE value="[WIP] add EztandaCrashActivity to manifest" />
+    <MESSAGE value="[WIP] add a lot of UI changes" />
+    <MESSAGE value="[WIP] fill ScheduleFragment and add empty ScheduleDetail" />
+    <MESSAGE value="[WIP] add languages" />
+    <MESSAGE value="[WIP] fill ScheduleDetailFragment and fix other things" />
+    <MESSAGE value="[WIP] add title to Menu and radio fragments" />
+    <MESSAGE value="[WIP] add MenuFragment" />
+    <MESSAGE value="[WIP] add tests, inject fixes, some fixes, a lot of code refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="[WIP] add tests, inject fixes, some fixes, a lot of code refactor" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2104" y="340" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1591175190172">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2104" y="340" key="#com.intellij.fileTypes.FileTypeChooser/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591175190172" />
+    <state x="2169" y="263" key="#com.intellij.ide.util.MemberChooser" timestamp="1591357978561">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2169" y="263" key="#com.intellij.ide.util.MemberChooser/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591357978561" />
+    <state x="2071" y="24" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1591178680657">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2071" y="24" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591178680657" />
+    <state x="2138" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1591353118830">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2138" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591353118830" />
+    <state x="2130" y="58" width="581" height="964" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1591287226381">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2130" y="58" width="581" height="964" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591287226381" />
+    <state x="1988" y="302" key="AndroidCreateResourceFileDialog" timestamp="1591113283029">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1988" y="302" key="AndroidCreateResourceFileDialog/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591113283029" />
+    <state x="2255" y="356" key="AndroidCreateXmlResourceDialog" timestamp="1591200818717">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2255" y="356" key="AndroidCreateXmlResourceDialog/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591200818717" />
+    <state x="1983" y="56" key="CommitChangelistDialog2" timestamp="1591290490707">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1983" y="56" key="CommitChangelistDialog2/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591290490707" />
+    <state width="1878" height="221" key="GridCell.Tab.0.bottom" timestamp="1591290422881">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="221" key="GridCell.Tab.0.bottom/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591290422881" />
+    <state width="1878" height="221" key="GridCell.Tab.0.center" timestamp="1591290422874">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="221" key="GridCell.Tab.0.center/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591290422874" />
+    <state width="1878" height="221" key="GridCell.Tab.0.left" timestamp="1591290422873">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="221" key="GridCell.Tab.0.left/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591290422873" />
+    <state width="1878" height="221" key="GridCell.Tab.0.right" timestamp="1591290422876">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="221" key="GridCell.Tab.0.right/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591290422876" />
+    <state x="2000" y="276" key="Vcs.Push.Dialog.v2" timestamp="1591290497839">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2000" y="276" key="Vcs.Push.Dialog.v2/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591290497839" />
+    <state x="2000" y="276" key="Vcs.Push.Dialog.v2/1440.0.1920.1080/0.23.1440.877@1440.0.1920.1080" timestamp="1591197648797" />
+    <state x="2178" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591175478742">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2178" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591175478742" />
+    <state x="2044" y="281" width="870" height="582" key="find.popup" timestamp="1591363731977">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2044" y="281" width="870" height="582" key="find.popup/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591363731977" />
+    <state width="435" height="102" key="javadoc.popup.new" timestamp="1591362436854">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="435" height="102" key="javadoc.popup.new/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591362436854" />
+    <state x="2125" y="247" key="org.jetbrains.kotlin.idea.testIntegration.KotlinCreateTestDialog" timestamp="1591287729901">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2125" y="247" key="org.jetbrains.kotlin.idea.testIntegration.KotlinCreateTestDialog/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591287729901" />
+    <state x="2065" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1591365994839">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2065" y="241" width="670" height="676" key="search.everywhere.popup/1440.0.1920.1080/0.0.1440.900@1440.0.1920.1080" timestamp="1591365994839" />
+  </component>
+</project>
