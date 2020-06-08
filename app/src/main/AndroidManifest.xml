@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name="com.ilizma.eztandairratiapp.application.BaseApplication"
+        android:name="com.ilizma.eztandairratiapp.application.EztandaApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -32,11 +32,8 @@
             android:name="com.ilizma.presentation.ui.customview.EztandaCrashActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <!-- MediaBrowserService for use in the mobile app, including with the Android Auto app. -->
         <service
             android:name="com.ilizma.presentation.media.MusicService"
-            android:enabled="true"
-            android:exported="true"
             android:launchMode="singleTask"
             tools:ignore="ExportedService">
 

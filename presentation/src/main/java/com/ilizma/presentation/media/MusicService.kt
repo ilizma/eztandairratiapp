@@ -272,6 +272,8 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
     @Suppress("DEPRECATION")
     override fun onDestroy() {
+        mediaSession.isActive = false
+        mediaSession.release()
         mediaSessionCallback.onStop()
         val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {

@@ -3,7 +3,7 @@ package com.ilizma.eztandairratiapp.di.module.presentation
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
-import com.ilizma.eztandairratiapp.application.BaseApplication
+import com.ilizma.eztandairratiapp.application.EztandaApplication
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,7 +13,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideApplication(application: BaseApplication): Application = application
+    fun provideApplication(application: EztandaApplication): Application = application
 
     @Provides
     @Singleton

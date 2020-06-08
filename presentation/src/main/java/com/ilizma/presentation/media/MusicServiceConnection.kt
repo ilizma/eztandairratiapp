@@ -78,6 +78,7 @@ class MusicServiceConnection(context: Context, serviceComponent: ComponentName) 
 
         override fun onSessionDestroyed() {
             mediaBrowserConnectionCallback.onConnectionSuspended()
+            mediaBrowser.disconnect()
         }
     }
 

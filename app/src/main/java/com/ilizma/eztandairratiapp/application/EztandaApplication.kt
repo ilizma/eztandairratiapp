@@ -9,7 +9,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber
 
-class BaseApplication : DaggerApplication(), LifecycleObserver {
+class EztandaApplication : DaggerApplication(), LifecycleObserver {
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
         DaggerAppComponent.builder().application(this).build()
