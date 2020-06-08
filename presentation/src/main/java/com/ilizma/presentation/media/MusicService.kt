@@ -37,7 +37,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
     private val mNoisyReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent?) {
-            if (mediaPlayer.isPlaying) mediaSessionCallback.onStop()
+            mediaSessionCallback.onStop()
         }
     }
 
@@ -45,14 +45,11 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
         override fun onPlay() {
             super.onPlay()
-            if (!successfullyRetrievedAudioFocus()) {
-                return
-            }
+            if (!successfullyRetrievedAudioFocus()) return
 
             mediaSession.isActive = true
             setMediaPlaybackState(PlaybackStateCompat.STATE_PLAYING)
             showLoadingNotification()
-            initMediaPlayer()
         }
 
         override fun onStop() {
@@ -64,21 +61,23 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
         }
 
         private fun setMediaPlaybackState(state: Int) {
-            val playbackStateBuilder = PlaybackStateCompat.Builder()
-            if (state == PlaybackStateCompat.STATE_PLAYING) {
-                playbackStateBuilder.setActions(PlaybackStateCompat.ACTION_STOP)
-            } else {
-                playbackStateBuilder.setActions(PlaybackStateCompat.ACTION_PLAY)
+            val playbackStateBuilder = PlaybackStateCompat.Builder().apply {
+                if (state == PlaybackStateCompat.STATE_PLAYING) {
+                    setActions(PlaybackStateCompat.ACTION_STOP)
+                } else {
+                    setActions(PlaybackStateCompat.ACTION_PLAY)
+                }
+                setState(state, PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN, 0f)
             }
-            playbackStateBuilder.setState(state, PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN, 0f)
             mediaSession.setPlaybackState(playbackStateBuilder.build())
         }
 
         private fun showLoadingNotification() {
             val builder = from(this@MusicService, mediaSession) ?: return
             builder.setStyle(
-                androidx.media.app.NotificationCompat.MediaStyle()
-                    .setMediaSession(mediaSession.sessionToken)
+                androidx.media.app.NotificationCompat.MediaStyle().run {
+                    setMediaSession(mediaSession.sessionToken)
+                }
             )
             NotificationManagerCompat.from(this@MusicService).apply {
                 notify(NOTIFICATION_ID, builder.build().apply {
@@ -101,9 +100,10 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
                 )
             )
             builder.setStyle(
-                androidx.media.app.NotificationCompat.MediaStyle()
-                    .setShowActionsInCompactView(0)
-                    .setMediaSession(mediaSession.sessionToken)
+                androidx.media.app.NotificationCompat.MediaStyle().run {
+                    setShowActionsInCompactView(0)
+                    setMediaSession(mediaSession.sessionToken)
+                }
             )
             NotificationManagerCompat.from(this@MusicService).apply {
                 notify(NOTIFICATION_ID, builder.build())
@@ -136,31 +136,34 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
     private fun initMediaPlayer() {
         mediaPlayer = MediaPlayer()
-        mediaPlayer.setDataSource(BuildConfig.AUDIO_URL)
-        mediaPlayer.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK)
-        mediaPlayer.setAudioAttributes(
-            AudioAttributes.Builder()
-                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                .build()
-        )
-        mediaPlayer.setOnPreparedListener {
-            it.start()
-            showPlayingNotification()
-            mediaSession.sendSessionEvent(PLAYER_START, null)
-        }
-        mediaPlayer.setOnErrorListener { _, what, _ ->
-            when (what) {
-                MediaPlayer.MEDIA_ERROR_SERVER_DIED,
-                MediaPlayer.MEDIA_ERROR_UNKNOWN -> {
-                    mediaSession.sendSessionEvent(NETWORK_FAILURE, null)
-                    mediaSessionCallback.onStop()
+        with(mediaPlayer) {
+            setDataSource(BuildConfig.AUDIO_URL)
+            setWakeMode(this@MusicService, PowerManager.PARTIAL_WAKE_LOCK)
+            setAudioAttributes(
+                AudioAttributes.Builder().run {
+                    setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    build()
                 }
+            )
+            setOnPreparedListener {
+                it.start()
+                showPlayingNotification()
+                mediaSession.sendSessionEvent(PLAYER_START, null)
             }
-            true
+            setOnErrorListener { _, what, _ ->
+                when (what) {
+                    MediaPlayer.MEDIA_ERROR_SERVER_DIED,
+                    MediaPlayer.MEDIA_ERROR_UNKNOWN -> {
+                        mediaSession.sendSessionEvent(NETWORK_FAILURE, null)
+                        mediaSessionCallback.onStop()
+                    }
+                }
+                true
+            }
+            isLooping = false
+            setVolume(1.0f, 1.0f)
+            prepareAsync()
         }
-        mediaPlayer.isLooping = false
-        mediaPlayer.setVolume(1.0f, 1.0f)
-        mediaPlayer.prepareAsync()
     }
 
     private fun showPlayingNotification() {
@@ -176,9 +179,10 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             )
         )
         builder.setStyle(
-            androidx.media.app.NotificationCompat.MediaStyle()
-                .setShowActionsInCompactView(0)
-                .setMediaSession(mediaSession.sessionToken)
+            androidx.media.app.NotificationCompat.MediaStyle().run {
+                setShowActionsInCompactView(0)
+                setMediaSession(mediaSession.sessionToken)
+            }
         )
         NotificationManagerCompat.from(this@MusicService).apply {
             notify(NOTIFICATION_ID, builder.build().apply {
@@ -190,44 +194,47 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
     private fun initMediaSession() {
         val mediaButtonReceiver = ComponentName(this, MediaButtonReceiver::class.java)
-        mediaSession =
-            MediaSessionCompat(this, TAG, mediaButtonReceiver, null)
-        mediaSession.setCallback(mediaSessionCallback)
-        mediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS or MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS)
-        val mediaButtonIntent = Intent(Intent.ACTION_MEDIA_BUTTON)
-        mediaButtonIntent.setClass(this, MediaButtonReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, 0, mediaButtonIntent, 0)
-        mediaSession.setMediaButtonReceiver(pendingIntent)
-        val resultIntent = Intent(this, MainActivity::class.java)
-        val pIntent = PendingIntent.getActivity(this, 0, resultIntent, 0)
-        mediaSession.setSessionActivity(pIntent)
-        mediaSession.setMetadata(
-            MediaMetadataCompat.Builder()
-                .putString(
-                    MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE,
-                    getString(R.string.radio_name)
-                )
-                .putString(
-                    MediaMetadataCompat.METADATA_KEY_DISPLAY_SUBTITLE,
-                    getString(R.string.free_radio)
-                )
-                .putString(
-                    MediaMetadataCompat.METADATA_KEY_DISPLAY_DESCRIPTION,
-                    getString(R.string.listening)
-                )
-                .putBitmap(
-                    MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON,
-                    getDrawable(R.drawable.img_eztanda)?.toBitmap()
-                )
-                .build()
-        )
-        sessionToken = mediaSession.sessionToken
+        val mediaButtonIntent = Intent(Intent.ACTION_MEDIA_BUTTON).apply {
+            setClass(this@MusicService, MediaButtonReceiver::class.java)
+        }
+        val pendingIntent = PendingIntent.getBroadcast(this@MusicService, 0, mediaButtonIntent, 0)
+        val resultIntent = Intent(this@MusicService, MainActivity::class.java)
+        val pIntent = PendingIntent.getActivity(this@MusicService, 0, resultIntent, 0)
+
+        mediaSession = MediaSessionCompat(this, TAG, mediaButtonReceiver, null)
+        with(mediaSession) {
+            setCallback(mediaSessionCallback)
+            setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS or MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS)
+            setMediaButtonReceiver(pendingIntent)
+            setSessionActivity(pIntent)
+            setMetadata(
+                MediaMetadataCompat.Builder().run {
+                    putString(
+                        MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE,
+                        getString(R.string.radio_name)
+                    )
+                    putString(
+                        MediaMetadataCompat.METADATA_KEY_DISPLAY_SUBTITLE,
+                        getString(R.string.free_radio)
+                    )
+                    putString(
+                        MediaMetadataCompat.METADATA_KEY_DISPLAY_DESCRIPTION,
+                        getString(R.string.listening)
+                    )
+                    putBitmap(
+                        MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON,
+                        getDrawable(R.drawable.img_eztanda)?.toBitmap()
+                    )
+                    build()
+                }
+            )
+            this@MusicService.sessionToken = sessionToken
+        }
     }
 
     private fun initNoisyReceiver() {
         //Handles headphones coming unplugged. cannot be done through a manifest receiver
-        val filter = IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY)
-        registerReceiver(mNoisyReceiver, filter)
+        registerReceiver(mNoisyReceiver, IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY))
     }
 
     @Suppress("DEPRECATION")
@@ -236,27 +243,31 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
         val result = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             audioManager.requestAudioFocus(
                 this,
-                AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN
             )
         } else {
-            audioFocusRequest = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
-                .setAudioAttributes(
-                    AudioAttributes.Builder()
-                        .setUsage(AudioAttributes.USAGE_MEDIA)
-                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                        .build()
-                )
-                .setAcceptsDelayedFocusGain(true)
-                .setOnAudioFocusChangeListener(this)
-                .build()
+            audioFocusRequest = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN).run {
+                setAudioAttributes(AudioAttributes.Builder().run {
+                    setUsage(AudioAttributes.USAGE_MEDIA)
+                    setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    build()
+                })
+                setAcceptsDelayedFocusGain(true)
+                setOnAudioFocusChangeListener(this@MusicService)
+                build()
+            }
+
             audioManager.requestAudioFocus(audioFocusRequest)
         }
-        return result == AudioManager.AUDIOFOCUS_GAIN
+        return (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED).apply {
+            initMediaPlayer()
+        }
     }
 
     override fun onAudioFocusChange(focusChange: Int) {
         when (focusChange) {
-            AudioManager.AUDIOFOCUS_LOSS -> if (mediaPlayer.isPlaying) mediaSessionCallback.onStop()
+            AudioManager.AUDIOFOCUS_LOSS,
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> mediaSessionCallback.onStop()
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ->
                 mediaPlayer.setVolume(0.3f, 0.3f)
@@ -272,8 +283,10 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
     @Suppress("DEPRECATION")
     override fun onDestroy() {
-        mediaSession.isActive = false
-        mediaSession.release()
+        mediaSession.run {
+            isActive = false
+            release()
+        }
         mediaSessionCallback.onStop()
         val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {

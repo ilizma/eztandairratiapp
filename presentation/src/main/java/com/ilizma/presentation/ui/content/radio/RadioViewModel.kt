@@ -9,6 +9,7 @@ import dagger.Lazy
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class RadioViewModel @Inject constructor(
@@ -37,6 +38,7 @@ class RadioViewModel @Inject constructor(
                     emitter.tryOnError(e)
                 }
             }
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { radioLoading(true) }
                 .subscribe({}, { throwable ->
@@ -56,6 +58,7 @@ class RadioViewModel @Inject constructor(
                     emitter.tryOnError(e)
                 }
             }
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { radioLoading(true) }
                 .doAfterTerminate { radioLoading(false) }
