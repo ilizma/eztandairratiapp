@@ -54,7 +54,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
         override fun onStop() {
             super.onStop()
-            mediaPlayer.run {
+            if (this@MusicService::mediaPlayer.isInitialized) mediaPlayer.run {
                 stop()
                 release()
             }
@@ -81,12 +81,10 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
                     setMediaSession(mediaSession.sessionToken)
                 }
             )
-            NotificationManagerCompat.from(this@MusicService).apply {
-                notify(NOTIFICATION_ID, builder.build().apply {
-                    // don't hide the notification
-                    flags = Notification.FLAG_ONGOING_EVENT
-                })
-            }
+            startForeground(NOTIFICATION_ID, builder.build().apply {
+                // don't hide the notification
+                flags = Notification.FLAG_ONGOING_EVENT
+            })
         }
 
         private fun showStopNotification() {
@@ -110,6 +108,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             NotificationManagerCompat.from(this@MusicService).apply {
                 notify(NOTIFICATION_ID, builder.build())
             }
+            stopForeground(false)
         }
     }
 
@@ -186,12 +185,10 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
                 setMediaSession(mediaSession.sessionToken)
             }
         )
-        NotificationManagerCompat.from(this@MusicService).apply {
-            notify(NOTIFICATION_ID, builder.build().apply {
-                // don't hide the notification
-                flags = Notification.FLAG_ONGOING_EVENT
-            })
-        }
+        startForeground(NOTIFICATION_ID, builder.build().apply {
+            // don't hide the notification
+            flags = Notification.FLAG_ONGOING_EVENT
+        })
     }
 
     private fun initMediaSession() {
@@ -209,6 +206,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS or MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS)
             setMediaButtonReceiver(pendingIntent)
             setSessionActivity(pIntent)
+            val bitmap = getDrawable(R.drawable.img_eztanda)?.toBitmap()
             setMetadata(
                 MediaMetadataCompat.Builder().run {
                     putString(
@@ -223,13 +221,11 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
                         MediaMetadataCompat.METADATA_KEY_DISPLAY_DESCRIPTION,
                         getString(R.string.listening)
                     )
-                    putBitmap(
-                        MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON,
-                        getDrawable(R.drawable.img_eztanda)?.toBitmap()
-                    )
+                    putBitmap(MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON, bitmap)
                     build()
                 }
             )
+            bitmap?.recycle()
             this@MusicService.sessionToken = sessionToken
         }
     }
@@ -296,12 +292,13 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     }
 
     private fun destroy() {
+        mediaSessionCallback.onStop()
         NotificationManagerCompat.from(this).apply { cancel(NOTIFICATION_ID) }
+        stopForeground(true)
         mediaSession.run {
             isActive = false
             release()
         }
-        mediaSessionCallback.onStop()
         val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             audioManager.abandonAudioFocus(this)

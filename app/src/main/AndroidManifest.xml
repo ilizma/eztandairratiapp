@@ -35,8 +35,7 @@
 
         <service
             android:name="com.ilizma.presentation.media.MusicService"
-            android:exported="true"
-            tools:ignore="ExportedService">
+            android:exported="false">
 
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
