@@ -105,7 +105,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
                     setMediaSession(mediaSession.sessionToken)
                 }
             )
-            NotificationManagerCompat.from(this@MusicService).apply {
+            NotificationManagerCompat.from(this@MusicService).run {
                 notify(NOTIFICATION_ID, builder.build())
             }
             stopForeground(false)
@@ -200,8 +200,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
         val resultIntent = Intent(this@MusicService, MainActivity::class.java)
         val pIntent = PendingIntent.getActivity(this@MusicService, 0, resultIntent, 0)
 
-        mediaSession = MediaSessionCompat(this, TAG, mediaButtonReceiver, null)
-        with(mediaSession) {
+        mediaSession = MediaSessionCompat(this, TAG, mediaButtonReceiver, null).apply {
             setCallback(mediaSessionCallback)
             setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS or MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS)
             setMediaButtonReceiver(pendingIntent)
@@ -259,7 +258,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             audioManager.requestAudioFocus(audioFocusRequest)
         }
         return (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED).apply {
-            initMediaPlayer()
+            if (this) initMediaPlayer()
         }
     }
 
@@ -269,12 +268,10 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> mediaSessionCallback.onStop()
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ->
                 mediaPlayer.setVolume(0.3f, 0.3f)
-            AudioManager.AUDIOFOCUS_GAIN -> {
-                if (mediaPlayer.isPlaying.not()) {
-                    initMediaPlayer()
-                } else {
-                    mediaPlayer.setVolume(1.0f, 1.0f)
-                }
+            AudioManager.AUDIOFOCUS_GAIN -> if (mediaPlayer.isPlaying.not()) {
+                initMediaPlayer()
+            } else {
+                mediaPlayer.setVolume(1.0f, 1.0f)
             }
         }
     }
@@ -293,7 +290,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
     private fun destroy() {
         mediaSessionCallback.onStop()
-        NotificationManagerCompat.from(this).apply { cancel(NOTIFICATION_ID) }
+        NotificationManagerCompat.from(this).run { cancel(NOTIFICATION_ID) }
         stopForeground(true)
         mediaSession.run {
             isActive = false
