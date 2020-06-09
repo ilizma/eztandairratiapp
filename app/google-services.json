@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "580637361963",
+    "firebase_url": "https://eztanda-irratiapp.firebaseio.com",
+    "project_id": "eztanda-irratiapp",
+    "storage_bucket": "eztanda-irratiapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580637361963:android:5ae3e1994b6220ccba276e",
+        "android_client_info": {
+          "package_name": "com.ilizma.eztandairratiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580637361963-d62u0i6auh2i8r4tbpi88kk684hip5c3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ilizma.eztandairratiapp",
+            "certificate_hash": "2f1cfaa7b2683bb3975b1a441ec718fc46496bb0"
+          }
+        },
+        {
+          "client_id": "580637361963-fgum10o4d0ja9vv530n4rovgstrhrvk3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC36fGaaqQQ_yNYRrTbY5rym_smVA_DNKE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580637361963-fgum10o4d0ja9vv530n4rovgstrhrvk3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

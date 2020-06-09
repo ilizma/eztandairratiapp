@@ -41,6 +41,9 @@ ext {
     annotationVersion = '1.1.0'
     //timber
     timberVersion = '4.7.1'
+    //firebase
+    firebaseAnalyticsVersion = '17.4.3'
+    firebaseMessagingVersion = '20.2.0'
     //test
     mockitoKotlinVersion = '2.2.0'
     mockitoCoreVersion = '3.3.3'

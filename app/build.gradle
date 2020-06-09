@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 apply from: '../baseAppDataPresentation.gradle'
 
@@ -40,6 +41,9 @@ dependencies {
     //dependency injection
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    //firebase
+    implementation "com.google.firebase:firebase-analytics:$firebaseAnalyticsVersion"
+    implementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
 
     implementation project(':presentation')
     implementation project(':domain')
