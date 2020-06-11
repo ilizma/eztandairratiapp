@@ -297,9 +297,11 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> mediaSessionCallback.onStop()
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ->
                 mediaPlayer.setVolume(0.3f, 0.3f)
-            AudioManager.AUDIOFOCUS_GAIN -> if (mediaPlayer.isPlaying.not()) {
+            AudioManager.AUDIOFOCUS_GAIN -> if (
+                this::mediaPlayer.isInitialized && mediaPlayer.isPlaying.not()
+            ) {
                 initMediaPlayer()
-            } else {
+            } else if (this::mediaPlayer.isInitialized) {
                 mediaPlayer.setVolume(1.0f, 1.0f)
             }
         }
