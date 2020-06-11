@@ -22,6 +22,7 @@ ext {
     recyclerviewVersion = '1.1.0'
     materialVersion = '1.1.0'
     shimmerVersion = '0.5.0'
+    lottieVersion = '3.4.1'
     //android architecture component
     navigationVersion = '2.2.2'
     lifecycleVersion = '2.2.0'

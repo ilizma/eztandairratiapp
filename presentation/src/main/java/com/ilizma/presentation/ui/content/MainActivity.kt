@@ -2,10 +2,12 @@ package com.ilizma.presentation.ui.content
 
 import android.media.AudioManager
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.ilizma.presentation.BuildConfig
 import com.ilizma.presentation.R
 import com.ilizma.presentation.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
