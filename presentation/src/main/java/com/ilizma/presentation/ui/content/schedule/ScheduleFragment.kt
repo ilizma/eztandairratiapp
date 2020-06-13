@@ -75,7 +75,10 @@ class ScheduleFragment : BaseFragment() {
 
     private fun showFailure(failure: Failure) {
         handleNormalFailure(failure)
-        (scheduleRv.adapter as ScheduleAdapter).addError { failure.retryAction() }
+        (scheduleRv.adapter as ScheduleAdapter).addError {
+            dismissSnackbar()
+            failure.retryAction()
+        }
     }
 
     private fun navigateToScheduleDetailFragment(indexedDayPair: Pair<Int, String>) {

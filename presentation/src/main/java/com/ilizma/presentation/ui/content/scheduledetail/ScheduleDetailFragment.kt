@@ -80,7 +80,10 @@ class ScheduleDetailFragment : BaseFragment() {
 
     private fun showFailure(failure: Failure) {
         handleNormalFailure(failure)
-        (scheduleDetailRv.adapter as ScheduleDetailAdapter).addError { failure.retryAction() }
+        (scheduleDetailRv.adapter as ScheduleDetailAdapter).addError {
+            dismissSnackbar()
+            failure.retryAction()
+        }
     }
 
 }
