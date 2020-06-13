@@ -36,14 +36,14 @@ configurations {
 
 dependencies {
     //rxJava
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava3:rxjava:$rxJavaVersion"
     //dependency injection
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     // region implementations in all gradles
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-    api "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
+    api "io.reactivex.rxjava3:rxkotlin:$rxKotlinVersion"
     //dependency injection
     api "com.google.dagger:dagger:$daggerVersion"
     //annotation
