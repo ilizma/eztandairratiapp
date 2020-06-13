@@ -307,18 +307,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
         }
     }
 
-    // swiping the activity away from recents
-    override fun onTaskRemoved(rootIntent: Intent?) {
-        super.onTaskRemoved(rootIntent)
-        destroy()
-    }
-
     override fun onDestroy() {
-        destroy()
-        super.onDestroy()
-    }
-
-    private fun destroy() {
         mediaSessionCallback.onStop()
         NotificationManagerCompat.from(this).run { cancel(NOTIFICATION_ID) }
         stopForeground(true)
@@ -334,6 +323,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             audioManager.abandonAudioFocusRequest(audioFocusRequest)
         }
         unregisterReceiver(mNoisyReceiver)
+        super.onDestroy()
     }
 
 }
