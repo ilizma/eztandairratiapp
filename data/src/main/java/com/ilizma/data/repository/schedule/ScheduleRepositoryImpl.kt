@@ -4,8 +4,8 @@ import com.ilizma.data.repository.schedule.datasources.ScheduleLocalDataSource
 import com.ilizma.data.repository.schedule.datasources.ScheduleRemoteDataSource
 import com.ilizma.domain.entity.schedule.Schedule
 import com.ilizma.domain.repository.ScheduleRepository
-import io.reactivex.Completable
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class ScheduleRepositoryImpl @Inject constructor(

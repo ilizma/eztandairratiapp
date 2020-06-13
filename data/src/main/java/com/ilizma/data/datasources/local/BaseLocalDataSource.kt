@@ -5,7 +5,7 @@ import com.ilizma.domain.entity.base.Failure
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import dagger.Lazy
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import java.io.EOFException
 import java.io.IOException
 

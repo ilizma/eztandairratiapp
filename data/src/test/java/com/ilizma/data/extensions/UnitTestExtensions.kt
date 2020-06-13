@@ -1,15 +1,15 @@
 package com.ilizma.data.extensions
 
 import com.ilizma.domain.entity.base.Failure
-import io.reactivex.Completable
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.observers.TestObserver
 import io.reactivex.subscribers.TestSubscriber
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
-import retrofit2.adapter.rxjava2.Result
+import retrofit2.adapter.rxjava3.Result
 
 fun <T : Any> TestSubscriber<T>.assertGeneralsSuccess(asserts: (T) -> Boolean = { true }) {
     assertComplete()

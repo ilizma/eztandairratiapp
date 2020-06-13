@@ -12,9 +12,9 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import dagger.Lazy
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import okhttp3.ResponseBody
-import retrofit2.adapter.rxjava2.Result
+import retrofit2.adapter.rxjava3.Result
 import timber.log.Timber
 import java.lang.reflect.ParameterizedType
 import java.net.UnknownHostException
@@ -120,6 +120,7 @@ abstract class BaseRemoteDataSource {
         }
     }
 
-    private fun getUnknownErrorResponse() = ErrorResponse(resources.get().getString(R.string.unknown_error))
+    private fun getUnknownErrorResponse() =
+        ErrorResponse(resources.get().getString(R.string.unknown_error))
 
 }

@@ -3,7 +3,7 @@ package com.ilizma.domain.usecase.schedule
 import com.ilizma.domain.entity.schedule.Schedule
 import com.ilizma.domain.repository.ScheduleRepository
 import com.ilizma.domain.usecase.base.SingleUseCase
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class GetScheduleFromLocalUseCase @Inject constructor(

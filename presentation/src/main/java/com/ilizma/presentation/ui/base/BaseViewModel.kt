@@ -10,7 +10,7 @@ import com.ilizma.presentation.BuildConfig
 import com.ilizma.presentation.R
 import com.ilizma.presentation.extensions.getFailureMessage
 import dagger.Lazy
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 abstract class BaseViewModel : ViewModel() {
 

@@ -12,7 +12,7 @@ import com.ilizma.presentation.extensions.hideKeyboard
 import com.ilizma.presentation.extensions.inflate
 import com.ilizma.presentation.extensions.snackbar
 import dagger.android.support.DaggerFragment
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 abstract class BaseFragment : DaggerFragment() {
 

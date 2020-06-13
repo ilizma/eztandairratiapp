@@ -2,8 +2,8 @@ package com.ilizma.data.datasources.local
 
 import android.content.SharedPreferences
 import com.ilizma.domain.entity.base.Failure
-import io.reactivex.Completable
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 
 const val INT_DEFAULT_VALUE = -1
 const val STRING_DEFAULT_VALUE = "NO_VALUE"

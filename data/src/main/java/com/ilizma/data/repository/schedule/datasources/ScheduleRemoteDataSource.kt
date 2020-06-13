@@ -6,7 +6,7 @@ import com.ilizma.data.repository.schedule.data.ScheduleApi
 import com.ilizma.domain.entity.schedule.Schedule
 import com.squareup.moshi.Moshi
 import dagger.Lazy
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class ScheduleRemoteDataSource @Inject constructor(

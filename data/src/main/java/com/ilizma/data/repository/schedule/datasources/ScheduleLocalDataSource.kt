@@ -7,8 +7,8 @@ import com.ilizma.data.datasources.local.SharedPreferencesKeys.SCHEDULE_PREF
 import com.ilizma.domain.entity.schedule.Schedule
 import com.squareup.moshi.Moshi
 import dagger.Lazy
-import io.reactivex.Completable
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 import javax.inject.Named
 

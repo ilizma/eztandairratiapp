@@ -10,8 +10,8 @@ import com.ilizma.presentation.entity.mapper.schedule.ScheduleMapperUI
 import com.ilizma.presentation.entity.mapper.schedule.ScheduleUI
 import com.ilizma.presentation.ui.base.BaseViewModel
 import dagger.Lazy
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.kotlin.addTo
 import javax.inject.Inject
 
 class ScheduleDetailViewModel @Inject constructor(

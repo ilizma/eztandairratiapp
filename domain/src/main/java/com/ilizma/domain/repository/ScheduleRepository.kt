@@ -1,8 +1,8 @@
 package com.ilizma.domain.repository
 
 import com.ilizma.domain.entity.schedule.Schedule
-import io.reactivex.Completable
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 
 interface ScheduleRepository {
 

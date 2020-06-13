@@ -6,10 +6,10 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.ilizma.presentation.media.MusicServiceConnection
 import com.ilizma.presentation.ui.base.BaseViewModel
 import dagger.Lazy
-import io.reactivex.Completable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class RadioViewModel @Inject constructor(
