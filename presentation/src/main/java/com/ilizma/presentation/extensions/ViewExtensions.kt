@@ -42,7 +42,7 @@ fun View.snackbar(
     title: String = "",
     action: String = "",
     length: Int = Snackbar.LENGTH_LONG,
-    @ColorRes actionColor: Int = R.color.colorPrimary,
+    @ColorRes actionColor: Int = R.color.colorAccent,
     actionResult: () -> Unit = {}
 ): Snackbar {
 
@@ -61,7 +61,7 @@ fun View.snackbar(
     @StringRes titleRes: Int = 0,
     @StringRes actionRes: Int = 0,
     length: Int = Snackbar.LENGTH_LONG,
-    @ColorRes actionColor: Int = R.color.colorPrimary,
+    @ColorRes actionColor: Int = R.color.colorAccent,
     actionResult: () -> Unit = {}
 ): Snackbar = snackbar(
     context.getString(titleRes),
