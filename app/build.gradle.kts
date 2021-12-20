@@ -44,6 +44,21 @@ dependencies {
     debugImplementation(Network.chucker)
     releaseImplementation(Network.chuckerNoOp)
 
+    // region Player
+    implementation(project(":player-flow"))
+    implementation(project(":player-flow-imp"))
+    implementation(project(":player-view"))
+    implementation(project(":player-view-imp"))
+    implementation(project(":player-presentation"))
+    implementation(project(":player-presentation-imp"))
+    implementation(project(":player-domain"))
+    implementation(project(":player-domain-imp"))
+    implementation(project(":player-data"))
+    implementation(project(":player-data-imp"))
+    implementation(project(":player-framework"))
+    implementation(project(":player-framework-imp"))
+    // endregion
+
     implementation(project(":presentation"))
     implementation(project(":domain"))
     implementation(project(":data"))
