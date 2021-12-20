@@ -10,7 +10,7 @@ import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class ScheduleRemoteDataSource @Inject constructor(
-    private val scheduleApi: ScheduleApi
+    private val scheduleApi: ScheduleApi,
 ) : BaseRemoteDataSource() {
 
     @Inject
@@ -19,8 +19,7 @@ class ScheduleRemoteDataSource @Inject constructor(
     @Inject
     override lateinit var moshi: Lazy<Moshi>
 
-    fun getSchedule(): Single<List<Schedule>> {
-        return modifySingle(scheduleApi.getSchedule())
-    }
+    fun getSchedule(
+    ): Single<List<Schedule>> = modifySingle(scheduleApi.getSchedule())
 
 }

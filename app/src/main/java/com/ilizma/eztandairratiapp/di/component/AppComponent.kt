@@ -14,7 +14,7 @@ import javax.inject.Singleton
     modules = [
         AndroidInjectionModule::class,
         DataModule::class,
-        PresentationModule::class
+        PresentationModule::class,
     ]
 )
 interface AppComponent : AndroidInjector<EztandaApplication> {
@@ -23,7 +23,9 @@ interface AppComponent : AndroidInjector<EztandaApplication> {
     interface Builder {
 
         @BindsInstance
-        fun application(app: EztandaApplication): Builder
+        fun application(
+            app: EztandaApplication,
+        ): Builder
 
         fun build(): AppComponent
     }

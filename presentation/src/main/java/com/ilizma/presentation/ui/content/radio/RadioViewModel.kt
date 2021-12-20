@@ -71,7 +71,9 @@ class RadioViewModel @Inject constructor(
         }
     }
 
-    fun radioLoading(loading: Boolean) {
+    fun radioLoading(
+        loading: Boolean
+    ) {
         musicServiceConnection.ldLoading.postValue(loading)
     }
 

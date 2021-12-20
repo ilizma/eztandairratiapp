@@ -1,7 +1,6 @@
 package com.ilizma.eztandairratiapp.application
 
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.ProcessLifecycleOwner
 import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.ilizma.eztandairratiapp.di.component.DaggerAppComponent
 import com.ilizma.presentation.ui.customview.EztandaCrashActivity
@@ -11,13 +10,15 @@ import timber.log.Timber
 
 class EztandaApplication : DaggerApplication(), LifecycleObserver {
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
-        DaggerAppComponent.builder().application(this).build()
+    override fun applicationInjector(
+    ): AndroidInjector<out DaggerApplication> = DaggerAppComponent.builder()
+        .application(this)
+        .build()
 
     override fun onCreate() {
         super.onCreate()
-        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
-        Timber.plant(Timber.DebugTree())
+        Timber.DebugTree()
+            .let { Timber.plant(it) }
         CaocConfig.Builder.create()
             .errorActivity(EztandaCrashActivity::class.java)
             .apply()

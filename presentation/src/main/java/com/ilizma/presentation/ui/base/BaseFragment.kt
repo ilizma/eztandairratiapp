@@ -21,14 +21,14 @@ abstract class BaseFragment : DaggerFragment() {
 
     private var snackbar: Snackbar? = null
 
-    protected val compositeDisposable: CompositeDisposable by lazy {
+    private val compositeDisposable: CompositeDisposable by lazy {
         CompositeDisposable()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? = container?.inflate(fragmentLayout)
 
     override fun onPause() {
@@ -50,7 +50,7 @@ abstract class BaseFragment : DaggerFragment() {
         @StringRes title: Int,
         @StringRes action: Int,
         length: Int = Snackbar.LENGTH_LONG,
-        actionResult: () -> Unit = {}
+        actionResult: () -> Unit = {},
     ) {
         var container = parentFragment?.view?.findViewById<View?>(R.id.parentContainer)
         container ?: run {
@@ -63,7 +63,7 @@ abstract class BaseFragment : DaggerFragment() {
         title: String,
         action: String,
         length: Int = Snackbar.LENGTH_LONG,
-        actionResult: () -> Unit = {}
+        actionResult: () -> Unit = {},
     ) {
         var container = parentFragment?.view?.findViewById<View?>(R.id.parentContainer)
         container ?: run {

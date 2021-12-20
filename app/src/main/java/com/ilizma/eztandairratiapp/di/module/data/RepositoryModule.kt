@@ -9,6 +9,8 @@ import dagger.Module
 abstract class RepositoryModule {
 
     @Binds
-    abstract fun schedule(scheduleRepositoryImpl: ScheduleRepositoryImpl): ScheduleRepository
+    abstract fun schedule(
+        scheduleRepositoryImpl: ScheduleRepositoryImpl,
+    ): ScheduleRepository
 
 }

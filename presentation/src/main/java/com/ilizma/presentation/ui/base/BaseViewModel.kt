@@ -31,17 +31,25 @@ abstract class BaseViewModel : ViewModel() {
         super.onCleared()
     }
 
-    protected fun loading(visible: Boolean) {
+    protected fun loading(
+        visible: Boolean,
+    ) {
         _ldLoading.postValue(visible)
     }
 
-    protected fun handleFailure(throwable: Throwable, retryAction: () -> Unit) {
+    protected fun handleFailure(
+        throwable: Throwable,
+        retryAction: () -> Unit,
+    ) {
         val failure = getFailure(throwable, retryAction)
         chuckerCollector.get().onError(failure.getFailureMessage(), failure)
         _ldFailure.postValue(failure)
     }
 
-    protected fun getFailure(throwable: Throwable, retryAction: () -> Unit): Failure {
+    private fun getFailure(
+        throwable: Throwable,
+        retryAction: () -> Unit,
+    ): Failure {
         val failure = throwable as? Failure ?: Failure.Error(
             if (throwable.message?.isNotEmpty() == true) {
                 @Suppress("ConstantConditionIf")

@@ -58,7 +58,9 @@ class RadioFragment : BaseFragment() {
         }
     }
 
-    private fun manageButtonIcon(isPlaying: Boolean) {
+    private fun manageButtonIcon(
+        isPlaying: Boolean
+    ) {
         if (isPlaying) {
             playStopBtn.setImageResource(R.drawable.ic_stop)
         } else {

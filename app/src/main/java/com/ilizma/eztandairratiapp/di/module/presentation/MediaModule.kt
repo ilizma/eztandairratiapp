@@ -13,7 +13,16 @@ class MediaModule {
 
     @Provides
     @Singleton
-    fun provideMusicServiceConnection(context: Context): MusicServiceConnection =
-        MusicServiceConnection(context, ComponentName(context, MusicService::class.java))
+    fun provideMusicServiceConnection(
+        context: Context,
+    ): MusicServiceConnection = ComponentName(
+        context,
+        MusicService::class.java,
+    ).let {
+        MusicServiceConnection(
+            context = context,
+            serviceComponent = it,
+        )
+    }
 
 }

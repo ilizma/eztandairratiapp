@@ -15,21 +15,29 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule {
 
     @Binds
-    abstract fun factory(factory: ViewModelFactory): ViewModelProvider.Factory
+    abstract fun factory(
+        factory: ViewModelFactory,
+    ): ViewModelProvider.Factory
 
     @Binds
     @IntoMap
     @ViewModelKey(RadioViewModel::class)
-    abstract fun radio(vm: RadioViewModel): BaseViewModel
+    abstract fun radio(
+        vm: RadioViewModel,
+    ): BaseViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(ScheduleViewModel::class)
-    abstract fun schedule(vm: ScheduleViewModel): BaseViewModel
+    abstract fun schedule(
+        vm: ScheduleViewModel,
+    ): BaseViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(ScheduleDetailViewModel::class)
-    abstract fun scheduleDetail(vm: ScheduleDetailViewModel): BaseViewModel
+    abstract fun scheduleDetail(
+        vm: ScheduleDetailViewModel,
+    ): BaseViewModel
 
 }

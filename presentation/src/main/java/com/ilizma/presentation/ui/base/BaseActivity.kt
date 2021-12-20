@@ -16,7 +16,9 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
     private var snackbar: Snackbar? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?
+    ) {
         super.onCreate(savedInstanceState)
         setContentView(activityLayout)
     }
@@ -34,7 +36,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         @StringRes title: Int,
         @StringRes action: Int,
         length: Int = Snackbar.LENGTH_INDEFINITE,
-        actionResult: () -> Unit = {}
+        actionResult: () -> Unit = {},
     ) {
         val container = findViewById<View?>(R.id.parentContainer)
         snackbar = container?.snackbar(title, action, length, actionResult = actionResult)
@@ -44,7 +46,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         title: String,
         action: String,
         length: Int = Snackbar.LENGTH_INDEFINITE,
-        actionResult: () -> Unit = {}
+        actionResult: () -> Unit = {},
     ) {
         val container = findViewById<View?>(R.id.parentContainer)
         snackbar = container?.snackbar(title, action, length, actionResult = actionResult)

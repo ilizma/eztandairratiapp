@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class BaseRetrofit @Inject constructor(
     okHttpClient: OkHttpClient,
-    moshi: Moshi
+    moshi: Moshi,
 ) {
 
     val retrofit: Retrofit = Retrofit.Builder()

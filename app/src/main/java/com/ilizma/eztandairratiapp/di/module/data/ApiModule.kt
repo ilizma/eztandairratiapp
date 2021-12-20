@@ -9,7 +9,8 @@ import retrofit2.Retrofit
 class ApiModule {
 
     @Provides
-    fun schedule(retrofit: Retrofit): ScheduleApi =
-        retrofit.create(ScheduleApi::class.java)
+    fun schedule(
+        retrofit: Retrofit,
+    ): ScheduleApi = retrofit.create(ScheduleApi::class.java)
 
 }

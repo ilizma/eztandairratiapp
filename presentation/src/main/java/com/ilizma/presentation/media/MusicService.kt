@@ -16,6 +16,7 @@ import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -104,7 +105,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
             MediaButtonReceiver.buildMediaButtonPendingIntent(
                 this@MusicService,
-                PlaybackStateCompat.ACTION_PLAY
+                PlaybackStateCompat.ACTION_PLAY,
             )
                 .let { NotificationCompat.Action(R.drawable.ic_play, getString(R.string.play), it) }
                 .let { builder.addAction(it) }
@@ -120,7 +121,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
                         NotificationChannel(
                             CHANNEL_ID,
                             CHANNEL_NAME,
-                            NotificationManager.IMPORTANCE_LOW
+                            NotificationManager.IMPORTANCE_LOW,
                         )
                     )
                     notify(NOTIFICATION_ID, builder.build())
@@ -135,7 +136,11 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
         initNoisyReceiver()
     }
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+    override fun onStartCommand(
+        intent: Intent,
+        flags: Int,
+        startId: Int,
+    ): Int {
         MediaButtonReceiver.handleIntent(mediaSession, intent)
         return super.onStartCommand(intent, flags, startId)
     }
@@ -144,13 +149,12 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
         clientPackageName: String,
         clientUid: Int,
         rootHints: Bundle?
-    ): BrowserRoot? = BrowserRoot(getString(R.string.app_name), null)
+    ): BrowserRoot = BrowserRoot(getString(R.string.app_name), null)
 
     override fun onLoadChildren(
         parentId: String,
-        result: Result<MutableList<MediaBrowserCompat.MediaItem>>
-    ) {
-    }
+        result: Result<MutableList<MediaBrowserCompat.MediaItem>>,
+    ) {}
 
     private fun initMediaPlayer() {
         mediaPlayer = MediaPlayer()
@@ -226,7 +230,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             this@MusicService,
             0,
             resultIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT,
         )
 
         mediaSession = MediaSessionCompat(this, TAG, mediaButtonReceiver, null).apply {
@@ -234,7 +238,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS or MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS)
             setMediaButtonReceiver(pendingIntent)
             setSessionActivity(pIntent)
-            val bitmap = getDrawable(R.drawable.img_eztanda)?.toBitmap()
+            val bitmap = AppCompatResources.getDrawable(this@MusicService, R.drawable.img_eztanda)?.toBitmap()
             MediaMetadataCompat.Builder().run {
                 putString(
                     MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE,
@@ -270,7 +274,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             audioManager.requestAudioFocus(
                 this,
                 AudioManager.STREAM_MUSIC,
-                AudioManager.AUDIOFOCUS_GAIN
+                AudioManager.AUDIOFOCUS_GAIN,
             )
         } else {
             audioFocusRequest = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN).run {
@@ -291,7 +295,9 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
         }
     }
 
-    override fun onAudioFocusChange(focusChange: Int) {
+    override fun onAudioFocusChange(
+        focusChange: Int,
+    ) {
         when (focusChange) {
             AudioManager.AUDIOFOCUS_LOSS,
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> mediaSessionCallback.onStop()

@@ -7,7 +7,7 @@ import dagger.Module
         NetModule::class,
         RepositoryModule::class,
         ApiModule::class,
-        SharedPreferencesModule::class
+        SharedPreferencesModule::class,
     ]
 )
 class DataModule

@@ -7,14 +7,16 @@ import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class GetScheduleFromLocalUseCase @Inject constructor(
-    private val scheduleRepository: ScheduleRepository
+    private val scheduleRepository: ScheduleRepository,
 ) : SingleUseCase<List<Schedule>, GetScheduleFromLocalParams> {
 
-    override fun invoke(params: GetScheduleFromLocalParams): Single<List<Schedule>> =
-        with(params) {
-            scheduleRepository.getScheduleFromLocal(day)
-        }
+    override fun invoke(
+        params: GetScheduleFromLocalParams
+    ): Single<List<Schedule>> = with(params) {
+        scheduleRepository.getScheduleFromLocal(day)
+    }
 
 }
 
-inline class GetScheduleFromLocalParams(val day: Int)
+@JvmInline
+value class GetScheduleFromLocalParams(val day: Int)

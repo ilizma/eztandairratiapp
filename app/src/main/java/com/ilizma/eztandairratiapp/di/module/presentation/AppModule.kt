@@ -13,14 +13,20 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideApplication(application: EztandaApplication): Application = application
+    fun provideApplication(
+        application: EztandaApplication,
+    ): Application = application
 
     @Provides
     @Singleton
-    fun provideContext(application: Application): Context = application
+    fun provideContext(
+        application: Application,
+    ): Context = application
 
     @Provides
     @Singleton
-    fun resources(application: Application): Resources = application.resources
+    fun resources(
+        application: Application,
+    ): Resources = application.resources
 
 }

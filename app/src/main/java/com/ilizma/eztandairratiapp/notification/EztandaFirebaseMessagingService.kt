@@ -14,16 +14,20 @@ import kotlin.random.Random
 
 class EztandaFirebaseMessagingService : FirebaseMessagingService() {
 
-    override fun onNewToken(token: String) {
+    override fun onNewToken(
+        token: String
+    ) {
         Timber.i("Firebase new token generated = $token")
         super.onNewToken(token)
     }
 
-    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+    override fun onMessageReceived(
+        remoteMessage: RemoteMessage
+    ) {
         super.onMessageReceived(remoteMessage)
         val (title, body) =
             (remoteMessage.notification?.title ?: "") to (remoteMessage.notification?.body ?: "")
-        Timber.i("Firebase new remote message = $title $body")
+        Timber.i("Firebase new remote message = Title: $title, Body: $body")
 
         val builder = NotificationHelper.from(this, title, body) ?: return
 

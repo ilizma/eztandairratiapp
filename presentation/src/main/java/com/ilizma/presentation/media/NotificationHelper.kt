@@ -20,7 +20,10 @@ const val CHANNEL_NAME = "com.ilizma.eztanda_channel_name"
 
 object NotificationHelper {
 
-    fun from(context: Context, mediaSession: MediaSessionCompat): NotificationCompat.Builder? {
+    fun from(
+        context: Context,
+        mediaSession: MediaSessionCompat,
+    ): NotificationCompat.Builder {
         val controller = mediaSession.controller
         val mediaMetadata = controller.metadata
         val description = mediaMetadata.description
@@ -41,7 +44,11 @@ object NotificationHelper {
         }
     }
 
-    fun from(context: Context, title: String, body: String): NotificationCompat.Builder? {
+    fun from(
+        context: Context,
+        title: String,
+        body: String,
+    ): NotificationCompat.Builder {
         val priority = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             NotificationManager.IMPORTANCE_HIGH
         } else {
@@ -51,7 +58,7 @@ object NotificationHelper {
             context,
             0,
             Intent(context, MainActivity::class.java),
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT,
         )
         val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID).apply {
             setVisibility(NotificationCompat.VISIBILITY_PUBLIC)

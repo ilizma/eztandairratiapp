@@ -19,21 +19,30 @@ class NetModule {
 
     @Provides
     @Singleton
-    fun moshi(): Moshi = Moshi.Builder()
+    fun moshi(
+    ): Moshi = Moshi.Builder()
         .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())
         .add(KotlinJsonAdapterFactory())
         .build()
 
     @Provides
     @Singleton
-    fun okHttpClient(baseHttpClient: BaseHttpClient): OkHttpClient = baseHttpClient.okHttpClient
+    fun okHttpClient(
+        baseHttpClient: BaseHttpClient
+    ): OkHttpClient = baseHttpClient.okHttpClient
 
     @Provides
     @Singleton
-    fun retrofit(baseRetrofit: BaseRetrofit): Retrofit = baseRetrofit.retrofit
+    fun retrofit(
+        baseRetrofit: BaseRetrofit,
+    ): Retrofit = baseRetrofit.retrofit
 
     @Provides
     @Singleton
-    fun chuckerCollector(context: Context): ChuckerCollector = ChuckerCollector(context = context)
+    fun chuckerCollector(
+        context: Context,
+    ): ChuckerCollector = ChuckerCollector(
+        context = context
+    )
 
 }

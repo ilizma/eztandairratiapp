@@ -47,7 +47,7 @@ class MenuFragment : BaseFragment() {
             )
         }
         whatsappTxv.setOnReactiveClickListener {
-            context?.callNumber("633489072")
+            context?.callNumber("633489072")// TODO: 8/12/21 unify whatsapp and phone 
         }
         phoneTxv.setOnReactiveClickListener {
             context?.callNumber("948563766")

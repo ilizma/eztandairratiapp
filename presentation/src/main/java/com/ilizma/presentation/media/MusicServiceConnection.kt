@@ -9,7 +9,10 @@ import android.support.v4.media.session.PlaybackStateCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-class MusicServiceConnection(context: Context, serviceComponent: ComponentName) {
+class MusicServiceConnection(
+    context: Context,
+    serviceComponent: ComponentName,
+) {
 
     private val _ldIsConnected = MutableLiveData<Boolean>()
         .apply { postValue(false) }
@@ -31,7 +34,7 @@ class MusicServiceConnection(context: Context, serviceComponent: ComponentName) 
         context,
         serviceComponent,
         mediaBrowserConnectionCallback,
-        null
+        null,
     ).apply { connect() }
 
     val transportControls: MediaControllerCompat.TransportControls
@@ -58,7 +61,9 @@ class MusicServiceConnection(context: Context, serviceComponent: ComponentName) 
 
     private inner class MediaControllerCallback : MediaControllerCompat.Callback() {
 
-        override fun onPlaybackStateChanged(state: PlaybackStateCompat) {
+        override fun onPlaybackStateChanged(
+            state: PlaybackStateCompat
+        ) {
             super.onPlaybackStateChanged(state)
             when (state.state) {
                 PlaybackStateCompat.ACTION_STOP.toInt() -> ldIsPlaying.postValue(false)
@@ -68,7 +73,10 @@ class MusicServiceConnection(context: Context, serviceComponent: ComponentName) 
             }
         }
 
-        override fun onSessionEvent(event: String?, extras: Bundle?) {
+        override fun onSessionEvent(
+            event: String?,
+            extras: Bundle?
+        ) {
             super.onSessionEvent(event, extras)
             when (event) {
                 PLAYER_START -> ldIsPlaying.postValue(true)

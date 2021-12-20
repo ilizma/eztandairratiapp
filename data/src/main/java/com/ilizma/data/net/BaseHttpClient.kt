@@ -15,13 +15,12 @@ private const val TIMEOUT = 30L
 
 class BaseHttpClient @Inject constructor(
     chuckerCollector: ChuckerCollector,
-    context: Context
+    context: Context,
 ) {
 
-    private val chuckerInterceptor = ChuckerInterceptor(
-        context = context,
-        collector = chuckerCollector
-    )
+    private val chuckerInterceptor = ChuckerInterceptor.Builder(context)
+        .collector(chuckerCollector)
+        .build()
 
     val okHttpClient: OkHttpClient = OkHttpClient()
         .newBuilder()

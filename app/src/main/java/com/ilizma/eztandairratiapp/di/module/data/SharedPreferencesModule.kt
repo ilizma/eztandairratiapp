@@ -13,14 +13,15 @@ class SharedPreferencesModule {
 
     @Provides
     @Named(SCHEDULE_PREF)
-    fun schedule(context: Context): SharedPreferences =
-        context.getSharedPreferences(SCHEDULE_PREF, Context.MODE_PRIVATE)
+    fun schedule(
+        context: Context,
+    ): SharedPreferences = context.getSharedPreferences(SCHEDULE_PREF, Context.MODE_PRIVATE)
 
     @Provides
     @Named(SCHEDULE_PREF)
     fun scheduleAssistant(
         @Named(SCHEDULE_PREF)
-        sharedPreferences: SharedPreferences
+        sharedPreferences: SharedPreferences,
     ): SharedPreferencesAssistant = SharedPreferencesAssistant(sharedPreferences)
 
 }

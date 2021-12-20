@@ -14,19 +14,22 @@ import javax.inject.Named
 
 class ScheduleLocalDataSource @Inject constructor(
     @Named(SCHEDULE_PREF)
-    private val assistant: SharedPreferencesAssistant
+    private val assistant: SharedPreferencesAssistant,
 ) : BaseLocalDataSource() {
 
     @Inject
     override lateinit var moshi: Lazy<Moshi>
 
-    fun saveSchedule(scheduleList: List<Schedule>) =
+    fun saveSchedule(
+        scheduleList: List<Schedule>,
+    ) {
         assistant.saveString(SCHEDULE_KEY, scheduleList.toJson())
+    }
 
-    fun getSchedule(): Single<List<Schedule>> =
-        assistant.getString(SCHEDULE_KEY).fromJsonList()
+    fun getSchedule(
+    ): Single<List<Schedule>> = assistant.getString(SCHEDULE_KEY).fromJsonList()
 
-    fun nuke(): Completable =
-        assistant.nuke()
+    fun nuke(
+    ): Completable = assistant.nuke()
 
 }

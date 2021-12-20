@@ -29,21 +29,24 @@ fun View.invisible() {
 fun View.setOnReactiveClickListener(
     throttleInMillis: Long = 500,
     action: (() -> Unit)?
-): Disposable =
-    this.clicks()
-        .throttleFirst(throttleInMillis, TimeUnit.MILLISECONDS)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe { action?.invoke() }
+): Disposable = clicks()
+    .throttleFirst(throttleInMillis, TimeUnit.MILLISECONDS)
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe { action?.invoke() }
 
-fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View =
-    LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
+fun ViewGroup.inflate(
+    @LayoutRes layoutRes: Int,
+    attachToRoot:
+    Boolean = false
+): View = LayoutInflater.from(context)
+    .inflate(layoutRes, this, attachToRoot)
 
 fun View.snackbar(
     title: String = "",
     action: String = "",
     length: Int = Snackbar.LENGTH_LONG,
     @ColorRes actionColor: Int = R.color.colorAccent,
-    actionResult: () -> Unit = {}
+    actionResult: () -> Unit = {},
 ): Snackbar {
 
     val snackbar = Snackbar.make(this, title, length)
