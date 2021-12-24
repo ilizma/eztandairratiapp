@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.content.menu.MenuFragment">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/twitterTxv"
+        android:id="@+id/menu_fragment_tv_twitter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -18,7 +16,7 @@
         android:text="@string/twitter" />
 
     <TextView
-        android:id="@+id/facebookTxv"
+        android:id="@+id/menu_fragment_tv_facebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -29,7 +27,7 @@
         android:text="@string/facebook" />
 
     <TextView
-        android:id="@+id/whatsappTxv"
+        android:id="@+id/menu_fragment_tv_whatsapp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -40,7 +38,7 @@
         android:text="@string/whatsapp" />
 
     <TextView
-        android:id="@+id/phoneTxv"
+        android:id="@+id/menu_fragment_tv_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -51,7 +49,7 @@
         android:text="@string/phone" />
 
     <TextView
-        android:id="@+id/webTxv"
+        android:id="@+id/menu_fragment_tv_web"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
