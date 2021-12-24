@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name" translatable="false">Eztanda Irratiapp</string>
+
+    <string name="crash_activity_message">An unexpected error has occurred. Sorry for the inconvenience.</string>
+    <string name="crash_activity_restart_button">RESTART APP</string>
+    <string name="crash_activity_logcat_button" translatable="false">LOGCAT</string>
+    <string name="crash_activity_clipboard_button">COPY TO CLIPBOARD</string>
+    <string name="crash_activity_snackbar_successful_title">Copied</string>
+    <string name="crash_activity_snackbar_successful_action">OKAY</string>
+
+    <string name="title_radio">Radio</string>
+    <string name="title_schedule">Schedule</string>
+    <string name="title_menu">Menu</string>
+
+    <string name="no_internet">No Internet connection</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="retry">Retry</string>
+    <string name="empty_list">Empty list</string>
+
+    <string name="hour" translatable="false">%s:00</string>
+
+    <string name="twitter" translatable="false">Twitter</string>
+    <string name="facebook" translatable="false">Facebook</string>
+    <string name="whatsapp" translatable="false">Whatsapp</string>
+    <string name="phone">Phone</string>
+    <string name="web" translatable="false">Web</string>
+
+    <string name="radio_name">Eztanda radio</string>
+    <string name="free_radio">The free radio of Sakana</string>
+    <string name="listening">listening</string>
+
+    <string name="play" translatable="false">Play</string>
+    <string name="stop" translatable="false">Stop</string>
+
+    <string-array name="days_array">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+</resources>

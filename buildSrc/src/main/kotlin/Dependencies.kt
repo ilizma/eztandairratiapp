@@ -2,8 +2,9 @@ object Project {
     val buildGradle by lazy { "com.android.tools.build:gradle:${Versions.buildGradleVersion}" }
     val kotlinGradle by lazy { "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}" }
     val navigation by lazy { "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigationVersion}" }
-    val googleServices by lazy { "com.google.gms:google-services:${Versions.gooleServicesVersion}" }
+    val googleServices by lazy { "com.google.gms:google-services:${Versions.googleServicesVersion}" }
     val kotlin by lazy { "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlinVersion}" }
+    val hilt by lazy { "com.google.dagger:hilt-android-gradle-plugin:${Versions.hiltVersion}" }
 }
 
 object Rx {
@@ -14,7 +15,7 @@ object Rx {
 
 object Android {
     val appcompat by lazy { "androidx.appcompat:appcompat:${Versions.supportVersion}" }
-    val legacy by lazy { "androidx.legacy:legacy-support-v4:${Versions.legacyVersion}" }
+    val v4 by lazy { "androidx.legacy:legacy-support-v4:${Versions.legacyVersion}" }
 }
 
 object AndroidKtx {
@@ -28,10 +29,17 @@ object AndroidUI {
     val lottie by lazy { "com.airbnb.android:lottie:${Versions.lottieVersion}" }
 }
 
+object Fragment {
+    val ktx by lazy { "androidx.fragment:fragment-ktx::${Versions.fragmentKtxVersion}" }
+}
+
 object Architecture {
     val navigationFragment by lazy { "androidx.navigation:navigation-fragment-ktx:${Versions.navigationVersion}" }
     val navigationUi by lazy { "androidx.navigation:navigation-ui-ktx:${Versions.navigationVersion}" }
+    val lifecycleRuntime by lazy { "androidx.lifecycle:lifecycle-runtime:${Versions.lifecycleVersion}" }
     val lifecycleCommon by lazy { "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycleVersion}" }
+    val lifecycleViewModel by lazy { "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}" }
+    val lifecycleLivedata by lazy { "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleVersion}" }
     val lifecycleReactivestreams by lazy { "androidx.lifecycle:lifecycle-reactivestreams-ktx:${Versions.lifecycleVersion}" }
 }
 
@@ -49,6 +57,11 @@ object Network {
     val okhttpLogging by lazy { "com.squareup.okhttp3:logging-interceptor:${Versions.okhttpLoggingVersion}" }
     val chucker by lazy { "com.github.chuckerteam.chucker:library:${Versions.chuckerVersion}" }
     val chuckerNoOp by lazy { "com.github.chuckerteam.chucker:library-no-op:${Versions.chuckerVersion}" }
+}
+
+object Hilt {
+    val hilt by lazy { "com.google.dagger:hilt-android:${Versions.hiltVersion}" }
+    val compiler by lazy { "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}" }
 }
 
 object Dagger {

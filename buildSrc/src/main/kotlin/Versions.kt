@@ -1,13 +1,17 @@
 object Versions {
     //project
     const val buildGradleVersion = "7.0.4"
-    const val kotlinVersion = "1.6.0"
-    const val gooleServicesVersion = "4.3.10"
+    const val kotlinVersion = "1.6.10"
+    const val googleServicesVersion = "4.3.10"
+    const val hiltVersion = "2.40.5"
 
     //rx
     const val rxKotlinVersion = "3.0.1"
     const val rxJavaVersion = "3.0.10"
     const val rxBindingVersion = "4.0.0"
+
+    //Fragment
+    const val fragmentKtxVersion = "1.4.0"
 
     //android
     const val supportVersion = "1.4.0"
