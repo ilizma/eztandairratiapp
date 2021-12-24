@@ -2,7 +2,6 @@ package com.ilizma.eztandairratiapp.di.module.presentation
 
 import com.ilizma.eztandairratiapp.di.scope.PerView
 import com.ilizma.presentation.ui.content.menu.MenuFragment
-import com.ilizma.presentation.ui.content.radio.RadioFragment
 import com.ilizma.presentation.ui.content.schedule.ScheduleFragment
 import com.ilizma.presentation.ui.content.scheduledetail.ScheduleDetailFragment
 import dagger.Module

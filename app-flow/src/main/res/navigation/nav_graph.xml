@@ -6,8 +6,8 @@
 
     <fragment
         android:id="@+id/navigationRadio"
-        android:name="com.ilizma.presentation.ui.content.radio.RadioFragment"
-        tools:layout="@layout/fragment_radio" />
+        android:name="com.ilizma.player.view.fragment.RadioScreenFragment"
+        tools:layout="@layout/radio_screen_fragment" />
 
     <fragment
         android:id="@+id/navigationSchedule"
@@ -35,6 +35,6 @@
 
     <fragment
         android:id="@+id/navigationMenu"
-        android:name="com.ilizma.presentation.ui.content.menu.MenuFragment"
-        tools:layout="@layout/fragment_menu" />
+        android:name="com.ilizma.menu.view.fragment.MenuScreenFragment"
+        tools:layout="@layout/menu_screen_fragment" />
 </navigation>

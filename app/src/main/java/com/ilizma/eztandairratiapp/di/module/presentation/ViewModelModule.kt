@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.ilizma.eztandairratiapp.di.viewmodel.ViewModelFactory
 import com.ilizma.eztandairratiapp.di.viewmodel.ViewModelKey
 import com.ilizma.presentation.ui.base.BaseViewModel
-import com.ilizma.presentation.ui.content.radio.RadioViewModel
 import com.ilizma.presentation.ui.content.schedule.ScheduleViewModel
 import com.ilizma.presentation.ui.content.scheduledetail.ScheduleDetailViewModel
 import dagger.Binds

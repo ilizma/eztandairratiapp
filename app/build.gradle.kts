@@ -1,9 +1,9 @@
 plugins {
     id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-android-extensions")
+    id("kotlin-android")//kotlin-parcelize
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -34,9 +34,9 @@ android {
 }
 
 dependencies {
-    //dependency injection
-    kapt(Dagger.processor)
-    kapt(Dagger.compiler)
+    // di
+    implementation(Hilt.hilt)
+    kapt(Hilt.compiler)
     //firebase
     implementation(Firebase.analytics)
     implementation(Firebase.messaging)
@@ -44,7 +44,34 @@ dependencies {
     debugImplementation(Network.chucker)
     releaseImplementation(Network.chuckerNoOp)
 
+    // di
+    implementation(project(":di-base"))
+
+    // View
+    implementation(project(":view-base"))
+
+    // Presentation
+    implementation(project(":presentation-base"))
+
+    // Resources
+    implementation(project(":resources"))
+
+    // region App
+    implementation(project(":app-di"))
+    implementation(project(":app-flow"))
+    implementation(project(":app-flow-imp"))
+    implementation(project(":app-view"))
+    implementation(project(":app-view-imp"))
+    // endregion
+
+    // region Error Management
+    implementation(project(":error-management-di"))
+    implementation(project(":error-management-view"))
+    implementation(project(":error-management-view-imp"))
+    // endregion
+
     // region Player
+    implementation(project(":player-di"))
     implementation(project(":player-flow"))
     implementation(project(":player-flow-imp"))
     implementation(project(":player-view"))
@@ -57,6 +84,16 @@ dependencies {
     implementation(project(":player-data-imp"))
     implementation(project(":player-framework"))
     implementation(project(":player-framework-imp"))
+    // endregion
+
+    // region Menu
+    implementation(project(":menu-di"))
+    implementation(project(":menu-flow"))
+    implementation(project(":menu-flow-imp"))
+    implementation(project(":menu-view"))
+    implementation(project(":menu-view-imp"))
+    implementation(project(":menu-presentation"))
+    implementation(project(":menu-presentation-imp"))
     // endregion
 
     implementation(project(":presentation"))
