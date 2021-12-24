@@ -13,6 +13,8 @@ import com.ilizma.player.framework.service.PLAYER_START
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
+// TODO: 24/12/21 Manage errors differentiating them
+
 class PlayerFrameworkImp(
     context: Context,
     serviceComponent: ComponentName,
@@ -26,12 +28,14 @@ class PlayerFrameworkImp(
     override fun play() {
         when (playerConnectionState.value) {
             PlayerConnectionState.Connected -> mediaController.transportControls.play()
+            PlayerConnectionState.Disconnected -> playerState.onNext(PlayerState.Error)
         }
     }
 
     override fun stop() {
         when (playerConnectionState.value) {
             PlayerConnectionState.Connected -> mediaController.transportControls.stop()
+            PlayerConnectionState.Disconnected -> playerState.onNext(PlayerState.Error)
         }
     }
 
