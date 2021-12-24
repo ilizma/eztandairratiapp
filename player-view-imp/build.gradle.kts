@@ -1,8 +1,6 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
-    id("kotlin-android-extensions")
-    id("kotlin-kapt")
 }
 
 android {
@@ -14,11 +12,6 @@ android {
         testInstrumentationRunner = ConfigData.testInstrumentationRunner
     }
 
-    buildTypes {
-        getByName("debug")
-        getByName("release")
-    }
-
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
         getByName("test").java.srcDirs("src/test/kotlin")
@@ -27,14 +20,12 @@ android {
 }
 
 dependencies {
-    //reactive
-    implementation(Rx.binding)
-    //ui
-    //dependency injection
-    implementation(Dagger.android)
-    implementation(Dagger.support)
-    kapt(Dagger.processor)
-    kapt(Dagger.compiler)
-
-    implementation(project(":presentation"))
+    implementation(Hilt.hilt)
+    implementation(AndroidKtx.core)
+    implementation(Architecture.lifecycleCommon)
+    implementation(Architecture.lifecycleViewModel)
+    implementation(project(":view-base"))
+    implementation(project(":player-view"))
+    implementation(project(":player-presentation"))
+    implementation(project(":resources"))
 }

@@ -1,5 +1,6 @@
 plugins {
     id("java-library")
+    id("kotlin")
 }
 
 java {
@@ -8,9 +9,8 @@ java {
 }
 
 dependencies {
-    //dependency injection
-    implementation(Dagger.android)
-    implementation(Dagger.support)
-
+    implementation(Rx.java)
+    implementation(project(":player-domain"))
     implementation(project(":player-data"))
+    implementation(project(":player-framework"))
 }

@@ -11,11 +11,6 @@ android {
         targetSdk = ConfigData.targetSdk
     }
 
-    buildTypes {
-        getByName("debug")
-        getByName("release")
-    }
-
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }
@@ -23,5 +18,6 @@ android {
 }
 
 dependencies {
-
+    implementation(Architecture.lifecycleViewModel)
+    implementation(Architecture.lifecycleLivedata)
 }

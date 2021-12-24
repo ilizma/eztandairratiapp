@@ -1,27 +1,13 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
+    id("java-library")
+    id("kotlin")
 }
 
-android {
-    compileSdk = ConfigData.compileSdkVersion
-
-    defaultConfig {
-        minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
-    }
-
-    buildTypes {
-        getByName("debug")
-        getByName("release")
-    }
-
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-    }
-
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 dependencies {
-
+    implementation(Rx.java)
 }

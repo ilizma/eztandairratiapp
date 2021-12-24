@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -11,9 +12,8 @@ android {
         targetSdk = ConfigData.targetSdk
     }
 
-    buildTypes {
-        getByName("debug")
-        getByName("release")
+    viewBinding {
+        isEnabled = true
     }
 
     sourceSets {
@@ -23,10 +23,14 @@ android {
 }
 
 dependencies {
-    //android support libs
+    implementation(Hilt.hilt)
     implementation(Android.appcompat)
     implementation(AndroidUI.constraintLayout)
-    //ui
     implementation(AndroidUI.material)
-    implementation(AndroidUI.shimmer)
+
+    // Resources
+    implementation(project("::resources"))
+
+    // View
+    implementation(project(":view-base"))
 }

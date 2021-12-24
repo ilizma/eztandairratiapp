@@ -11,11 +11,6 @@ android {
         targetSdk = ConfigData.targetSdk
     }
 
-    buildTypes {
-        getByName("debug")
-        getByName("release")
-    }
-
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
         getByName("test").java.srcDirs("src/test/kotlin")
@@ -24,5 +19,9 @@ android {
 }
 
 dependencies {
+    implementation(Rx.java)
+    implementation(Android.appcompat)
+    implementation(Android.v4)
+    implementation(AndroidKtx.core)
     implementation(project(":player-framework"))
 }
