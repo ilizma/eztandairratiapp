@@ -11,26 +11,22 @@
 
     <fragment
         android:id="@+id/navigationSchedule"
-        android:name="com.ilizma.presentation.ui.content.schedule.ScheduleFragment"
-        tools:layout="@layout/fragment_schedule">
+        android:name="com.ilizma.schedule.view.fragment.ScheduleScreenFragment"
+        tools:layout="@layout/schedule_screen_fragment">
 
         <action
-            android:id="@+id/action_ScheduleFragment_to_ScheduleDetailFragment"
+            android:id="@+id/to_ScheduleDetailFragment"
             app:destination="@id/navigationScheduleDetail" />
     </fragment>
 
     <fragment
         android:id="@+id/navigationScheduleDetail"
-        android:name="com.ilizma.presentation.ui.content.scheduledetail.ScheduleDetailFragment"
-        tools:layout="@layout/fragment_schedule_detail">
-
-        <argument
-            android:name="dayInt"
-            app:argType="integer" />
+        android:name="com.ilizma.schedule.view.fragment.ScheduleDetailFragment"
+        tools:layout="@layout/schedule_detail_fragment">
 
         <argument
             android:name="day"
-            app:argType="string" />
+            app:argType="com.ilizma.schedule.flow.model.Day" />
     </fragment>
 
     <fragment

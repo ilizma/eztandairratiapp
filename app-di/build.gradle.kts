@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -12,10 +13,6 @@ android {
         targetSdk = ConfigData.targetSdk
     }
 
-    viewBinding {
-        isEnabled = true
-    }
-
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }
@@ -24,14 +21,13 @@ android {
 
 dependencies {
     implementation(Hilt.hilt)
-    implementation(Android.appcompat)
-    implementation(AndroidUI.constraintLayout)
-    implementation(AndroidUI.material)
-    implementation(Architecture.navigationFragment)
+    kapt(Hilt.compiler)
+    implementation(project(":di-base"))
 
-    // Resources
-    implementation(project("::resources"))
-
-    // View
-    implementation(project(":view-base"))
+    // region App
+    implementation(project(":app-flow"))
+    implementation(project(":app-flow-imp"))
+    implementation(project(":app-view"))
+    implementation(project(":app-view-imp"))
+    // endregion
 }
