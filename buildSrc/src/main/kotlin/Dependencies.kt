@@ -24,6 +24,7 @@ object AndroidKtx {
 
 object AndroidUI {
     val constraintLayout by lazy { "androidx.constraintlayout:constraintlayout:${Versions.constraintLayoutVersion}" }
+    val recyclerview by lazy { "androidx.recyclerview:recyclerview:${Versions.recyclerviewVersion}" }
     val material by lazy { "com.google.android.material:material:${Versions.materialVersion}" }
     val shimmer by lazy { "com.facebook.shimmer:shimmer:${Versions.shimmerVersion}" }
     val lottie by lazy { "com.airbnb.android:lottie:${Versions.lottieVersion}" }

@@ -22,6 +22,7 @@ object Versions {
 
     //android UI libs
     const val constraintLayoutVersion = "2.1.2"
+    const val recyclerviewVersion = "1.2.1"
     const val materialVersion = "1.6.0-alpha01"
     const val shimmerVersion = "0.5.0"
     const val lottieVersion = "3.4.1"

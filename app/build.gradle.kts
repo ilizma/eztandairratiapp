@@ -44,6 +44,13 @@ dependencies {
     debugImplementation(Network.chucker)
     releaseImplementation(Network.chuckerNoOp)
 
+    // api
+    implementation(project(":api"))
+
+    // net
+    implementation(project(":net-di"))
+    implementation(project(":net"))
+
     // di
     implementation(project(":di-base"))
 
@@ -86,6 +93,20 @@ dependencies {
     implementation(project(":player-framework-imp"))
     // endregion
 
+    // region Player
+    implementation(project(":schedule-di"))
+    implementation(project(":schedule-flow"))
+    implementation(project(":schedule-flow-imp"))
+    implementation(project(":schedule-view"))
+    implementation(project(":schedule-view-imp"))
+    implementation(project(":schedule-presentation"))
+    implementation(project(":schedule-presentation-imp"))
+    implementation(project(":schedule-domain"))
+    implementation(project(":schedule-domain-imp"))
+    implementation(project(":schedule-data"))
+    implementation(project(":schedule-data-imp"))
+    // endregion
+
     // region Menu
     implementation(project(":menu-di"))
     implementation(project(":menu-flow"))
@@ -97,8 +118,5 @@ dependencies {
     // endregion
 
     implementation(project(":presentation"))
-    implementation(project(":domain"))
-    implementation(project(":data"))
-    testImplementation(project(path = ":domain", configuration = "unitTestImplementation"))
     testImplementation(project(path = ":presentation", configuration = "instrumentationTestImplementation"))
 }

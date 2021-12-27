@@ -3,7 +3,6 @@ package com.ilizma.eztandairratiapp.di.module.data
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.ilizma.data.net.BaseHttpClient
-import com.ilizma.data.net.BaseRetrofit
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

@@ -1,8 +1,13 @@
 include(
     ":app",
-    ":data",
-    ":domain",
     ":presentation",
+
+    // net
+    ":net-di",
+    ":net",
+
+    // api
+    ":api",
 
     // di
     ":di-base",
@@ -44,6 +49,20 @@ include(
     ":player-data-imp",
     ":player-framework",
     ":player-framework-imp",
+    // endregion
+
+    // region Schedule
+    ":schedule-di",
+    ":schedule-flow",
+    ":schedule-flow-imp",
+    ":schedule-view",
+    ":schedule-view-imp",
+    ":schedule-presentation",
+    ":schedule-presentation-imp",
+    ":schedule-domain",
+    ":schedule-domain-imp",
+    ":schedule-data",
+    ":schedule-data-imp",
     // endregion
 
     // region Menu
