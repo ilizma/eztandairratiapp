@@ -10,7 +10,9 @@
     <string name="title_menu">Menú</string>
 
     <string name="no_internet">No hay conexión de Internet</string>
+    <string name="timeout_message">Vaya! Connexión lenta</string>
     <string name="unknown_error">Error desconocido</string>
+    <string name="unknown_reason">Motivo desconocido</string>
     <string name="retry">Reintentar</string>
     <string name="empty_list">Lista vacía</string>
 

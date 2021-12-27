@@ -13,7 +13,9 @@
     <string name="title_menu">Menu</string>
 
     <string name="no_internet">No Internet connection</string>
+    <string name="timeout_message">Oops! Slow connection</string>
     <string name="unknown_error">Unknown error</string>
+    <string name="unknown_reason">Unknown reason</string>
     <string name="retry">Retry</string>
     <string name="empty_list">Empty list</string>
 

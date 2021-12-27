@@ -10,7 +10,9 @@
     <string name="title_menu">Menua</string>
 
     <string name="no_internet">Interneteko konexiorik ez dago</string>
+    <string name="timeout_message">Ai ene! Konexio motela</string>
     <string name="unknown_error">Errore zezaguna</string>
+    <string name="unknown_reason">Arrazoi ezezaguna</string>
     <string name="retry">Berriro</string>
     <string name="empty_list">Zerrenda hutsik</string>
 
