@@ -75,11 +75,7 @@ object Dagger {
 
 object Annotation {
     val annotation by lazy { "androidx.annotation:annotation:${Versions.annotationVersion}" }
-}
 
-object Timber {
-    val timber by lazy { "com.jakewharton.timber:timber:${Versions.timberVersion}" }
-}
 
 object Firebase {
     val analytics by lazy { "com.google.firebase:firebase-analytics:${Versions.firebaseAnalyticsVersion}" }
