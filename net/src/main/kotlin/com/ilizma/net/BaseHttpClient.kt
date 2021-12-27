@@ -1,19 +1,18 @@
-package com.ilizma.data.net
+package com.ilizma.net
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.ilizma.data.BuildConfig.DEBUG
+import com.ilizma.net.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 private const val TIMEOUT = 30L
 
-class BaseHttpClient @Inject constructor(
+class BaseHttpClient(
     chuckerCollector: ChuckerCollector,
     context: Context,
 ) {
@@ -26,7 +25,7 @@ class BaseHttpClient @Inject constructor(
         .newBuilder()
         .addInterceptor(
             HttpLoggingInterceptor().apply {
-                level = if (DEBUG) BODY else NONE
+                level = if (BuildConfig.DEBUG) BODY else NONE
             }
         )
         .addInterceptor(chuckerInterceptor)
