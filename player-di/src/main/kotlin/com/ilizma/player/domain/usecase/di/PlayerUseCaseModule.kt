@@ -1,8 +1,8 @@
 package com.ilizma.player.domain.usecase.di
 
 import com.ilizma.player.domain.repository.PlayerRepository
-import com.ilizma.player.domain.usecase.PlayerUseCase
-import com.ilizma.player.domain.usecase.PlayerUseCaseImp
+import com.ilizma.player.domain.usecase.PlayerStateUseCase
+import com.ilizma.player.domain.usecase.PlayerStateUseCaseImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +15,7 @@ object PlayerUseCaseModule {
     @Provides
     fun providePlayerUseCase(
         repository: PlayerRepository,
-    ): PlayerUseCase = PlayerUseCaseImp(
+    ): PlayerStateUseCase = PlayerStateUseCaseImp(
         repository = repository,
     )
 }

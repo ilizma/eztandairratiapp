@@ -2,19 +2,23 @@ package com.ilizma.player.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ilizma.player.domain.usecase.PlayerUseCase
-import com.ilizma.player.presentation.mapper.PlayerStateMapper
 import com.ilizma.player.domain.model.PlayerState
-import com.ilizma.player.presentation.model.PlayerState as PresentationPlayerState
+import com.ilizma.player.domain.usecase.PlayerPlayUseCase
+import com.ilizma.player.domain.usecase.PlayerStateUseCase
+import com.ilizma.player.domain.usecase.PlayerStopUseCase
+import com.ilizma.player.presentation.mapper.PlayerStateMapper
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.Back
 import com.ilizma.presentation.SingleLiveEvent
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
+import com.ilizma.player.presentation.model.PlayerState as PresentationPlayerState
 
 class RadioScreenViewModelImp(
-    private val useCase: PlayerUseCase,
+    stateUseCase: PlayerStateUseCase,
+    private val playUseCase: PlayerPlayUseCase,
+    private val stopUseCase: PlayerStopUseCase,
     private val mapper: PlayerStateMapper,
     backgroundScheduler: Scheduler,
     compositeDisposable: CompositeDisposable,
@@ -26,7 +30,7 @@ class RadioScreenViewModelImp(
     override val navigationAction: LiveData<RadioScreenNavigationAction> = _navigationAction
 
     init {
-        useCase.getState()
+        stateUseCase()
             .subscribeOn(backgroundScheduler)
             .observeOn(backgroundScheduler)
             .subscribe(::onPlayerState)
@@ -34,11 +38,11 @@ class RadioScreenViewModelImp(
     }
 
     override fun onPlay() {
-        useCase.play()
+        playUseCase()
     }
 
     override fun onStop() {
-        useCase.stop()
+        stopUseCase()
     }
 
     override fun onBack() {

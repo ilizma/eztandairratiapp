@@ -45,7 +45,7 @@ dependencies {
     implementation(project(":presentation-base"))
 
     // Resources
-    implementation(project("::resources"))
+    implementation(project(":resources"))
 
     // region Player
     implementation(project(":player-flow"))

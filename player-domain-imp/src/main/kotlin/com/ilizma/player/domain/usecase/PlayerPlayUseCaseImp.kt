@@ -4,19 +4,12 @@ import com.ilizma.player.domain.model.PlayerState
 import com.ilizma.player.domain.repository.PlayerRepository
 import io.reactivex.rxjava3.core.Observable
 
-class PlayerUseCaseImp(
+class PlayerPlayUseCaseImp(
     private val repository: PlayerRepository,
-) : PlayerUseCase {
+) : PlayerPlayUseCase {
 
-    override fun getState(
-    ): Observable<PlayerState> = repository.getState()
-
-    override fun play() {
+    override fun invoke() {
         repository.play()
-    }
-
-    override fun stop() {
-        repository.stop()
     }
 
 }
