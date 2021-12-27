@@ -26,5 +26,5 @@ dependencies {
     implementation(Architecture.lifecycleCommon)
 
     // Resources
-    implementation(project("::resources"))
+    implementation(project(":resources"))
 }
