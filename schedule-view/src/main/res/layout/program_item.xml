@@ -12,24 +12,24 @@
     android:paddingBottom="@dimen/vertical_margin">
 
     <TextView
-        android:id="@+id/programmeHourTxv"
+        android:id="@+id/program_item_tv_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="10:00" />
 
     <TextView
-        android:id="@+id/programmeNameTxv"
+        android:id="@+id/program_item_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="@dimen/program_margin"
         android:textStyle="bold"
         tools:text="Suelta la olla" />
 
     <ImageView
-        android:id="@+id/programmeRepeatedImv"
+        android:id="@+id/program_item_iv_repeated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="@dimen/program_margin"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_repeated"
         tools:ignore="ContentDescription"
