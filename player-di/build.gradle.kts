@@ -34,9 +34,11 @@ dependencies {
     implementation(Rx.java)
     implementation(Android.appcompat)
     implementation(Android.v4)
+    implementation(Android.activity)
     implementation(AndroidKtx.core)
+    implementation(AndroidKtx.fragment)
     implementation(Architecture.lifecycleCommon)
-    implementation(Fragment.ktx)
+    implementation(Annotation.annotation)
 
     // di
     implementation(project(":di-base"))

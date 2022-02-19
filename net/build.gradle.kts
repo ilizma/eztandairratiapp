@@ -13,15 +13,6 @@ android {
         targetSdk = ConfigData.targetSdk
     }
 
-    buildTypes {
-        getByName("debug") {
-            buildConfigField("String", "BASE_URL", "\"" + Environments.debug.baseURL + "\"")
-        }
-        getByName("release") {
-            buildConfigField("String", "BASE_URL", "\"" + Environments.release.baseURL + "\"")
-        }
-    }
-
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }

@@ -8,10 +8,10 @@ import androidx.annotation.RequiresApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ServiceComponent
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ServiceComponent::class)
 object AudioFocusRequestBuilderModule {
 
     @Provides

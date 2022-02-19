@@ -9,9 +9,7 @@ import com.ilizma.player.view.R
 import com.ilizma.player.view.databinding.RadioScreenFragmentBinding
 import com.ilizma.view.extensions.setOnReactiveClickListener
 import com.ilizma.view.extensions.snackbar
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class RadioScreenBinderImp(
     viewModelLazy: Lazy<RadioScreenViewModel>,
     private val lifecycleOwner: () -> LifecycleOwner,
@@ -22,12 +20,7 @@ class RadioScreenBinderImp(
 
     override fun bind(binding: RadioScreenFragmentBinding) {
         this.binding = binding
-        setUpToolBar()
         setupObservers()
-    }
-
-    private fun setUpToolBar() {
-        (binding.root.context as MainActivity).supportActionBar?.title = getString(R.string.title_radio)
     }
 
     private fun setupObservers() {
@@ -72,7 +65,10 @@ class RadioScreenBinderImp(
         state: PlayerState,
     ) {
         when (state) {
-            PlayerState.Error -> binding.root.snackbar(R.string.no_internet, R.string.retry) { viewModel.onPlay() }
+            PlayerState.Error -> binding.root.snackbar(
+                R.string.no_internet,
+                R.string.retry
+            ) { viewModel.onPlay() }
         }
     }
 

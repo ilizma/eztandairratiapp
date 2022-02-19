@@ -4,7 +4,7 @@ import com.ilizma.api.model.ProgramDTO
 import com.ilizma.schedule.data.model.Program
 
 class ProgramDTOMapper(
-    private val hourString: String,//R.string.hour
+    private val hourString: String,
 ) {
 
     fun toData(

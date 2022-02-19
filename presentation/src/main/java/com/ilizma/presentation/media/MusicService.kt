@@ -25,7 +25,6 @@ import androidx.media.session.MediaButtonReceiver
 import com.ilizma.presentation.BuildConfig
 import com.ilizma.presentation.R
 import com.ilizma.presentation.media.NotificationHelper.from
-import com.ilizma.presentation.ui.content.MainActivity
 import androidx.media.app.NotificationCompat as MediaNotificationCompat
 
 const val NETWORK_FAILURE = "com.ilizma.presentation.media.NETWORK_FAILURE"

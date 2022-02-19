@@ -4,25 +4,25 @@ import android.app.PendingIntent
 import android.content.Context
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.media.session.MediaButtonReceiver
+import com.ilizma.player.framework.service.STOP_PENDING_INTENT_NAMED
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ServiceComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Named
 
-const val STOP_PENDING_INTENT_NAMED = "STOP_PENDING_INTENT_NAMED"
-
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ServiceComponent::class)
 object StopPendingIntentModule {
 
     @Provides
     @Named(STOP_PENDING_INTENT_NAMED)
     fun provideStopPendingIntent(
-        context: Context,
+        @ApplicationContext context: Context,
     ): PendingIntent = MediaButtonReceiver.buildMediaButtonPendingIntent(
         context,
-        PlaybackStateCompat.ACTION_STOP
+        PlaybackStateCompat.ACTION_STOP,
     )
 
 }

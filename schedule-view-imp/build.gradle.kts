@@ -24,7 +24,9 @@ android {
 dependencies {
     implementation(Hilt.hilt)
     kapt(Hilt.compiler)
+    implementation(Android.appcompat)
     implementation(AndroidKtx.core)
+    implementation(AndroidUI.material)
     implementation(AndroidUI.recyclerview)
     implementation(Architecture.lifecycleCommon)
     implementation(Architecture.lifecycleViewModel)

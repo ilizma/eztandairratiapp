@@ -10,20 +10,22 @@ import com.ilizma.player.presentation.mapper.PlayerStateMapper
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.Back
 import com.ilizma.presentation.SingleLiveEvent
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import com.ilizma.player.presentation.model.PlayerState as PresentationPlayerState
 
-class RadioScreenViewModelImp(
+class RadioScreenViewModelImp @AssistedInject constructor(
     stateUseCase: PlayerStateUseCase,
     private val playUseCase: PlayerPlayUseCase,
     private val stopUseCase: PlayerStopUseCase,
-    private val mapper: PlayerStateMapper,
-    backgroundScheduler: Scheduler,
-    compositeDisposable: CompositeDisposable,
-    private val _playerState: MutableLiveData<PresentationPlayerState>,
-    private val _navigationAction: SingleLiveEvent<RadioScreenNavigationAction>,
+    @Assisted private val mapper: PlayerStateMapper,
+    @Assisted backgroundScheduler: Scheduler,
+    @Assisted compositeDisposable: CompositeDisposable,
+    @Assisted private val _playerState: MutableLiveData<PresentationPlayerState>,
+    @Assisted private val _navigationAction: SingleLiveEvent<RadioScreenNavigationAction>,
 ) : RadioScreenViewModel() {
 
     override val playerState: LiveData<PresentationPlayerState> = _playerState

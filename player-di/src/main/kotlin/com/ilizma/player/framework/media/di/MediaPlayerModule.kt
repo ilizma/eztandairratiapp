@@ -8,15 +8,16 @@ import com.ilizma.player.di.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ServiceComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ServiceComponent::class)
 object MediaPlayerModule {
 
     @Provides
     fun provideMediaPlayer(
-        context: Context,
+        @ApplicationContext context: Context,
     ): MediaPlayer = MediaPlayer()
         .apply {
             setDataSource(BuildConfig.AUDIO_URL)

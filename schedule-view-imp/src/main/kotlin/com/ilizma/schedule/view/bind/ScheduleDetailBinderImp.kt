@@ -9,9 +9,7 @@ import com.ilizma.schedule.view.adapter.factory.ProgramsAdapterFactory
 import com.ilizma.schedule.view.databinding.ScheduleDetailFragmentBinding
 import com.ilizma.schedule.view.imp.R
 import com.ilizma.view.extensions.snackbar
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class ScheduleDetailBinderImp(
     viewModelLazy: Lazy<ScheduleDetailViewModel>,
     private val lifecycleOwner: () -> LifecycleOwner,
@@ -49,7 +47,7 @@ class ScheduleDetailBinderImp(
     private fun onDayName(
         dayName: String,
     ) {
-        (binding.root.context as MainActivity).supportActionBar?.title = dayName
+        binding.menuScreenT.title = dayName
     }
 
     private fun onSchedule(

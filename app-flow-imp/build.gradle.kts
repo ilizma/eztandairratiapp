@@ -24,6 +24,8 @@ dependencies {
     implementation(Hilt.hilt)
     kapt(Hilt.compiler)
     implementation(Android.appcompat)
+    implementation(Architecture.navigationFragment)
+    implementation(Architecture.navigationUi)
     implementation(project(":app-flow"))
     implementation(project(":app-view"))
 }

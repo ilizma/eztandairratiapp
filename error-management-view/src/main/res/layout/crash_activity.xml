@@ -123,9 +123,11 @@ Caused by: java.io.IOException: placeId or LatLng must not be null
     at android.os.Looper.loop(Looper.java:164)
     at android.app.ActivityThread.main(ActivityThread.java:6798)
     ... 3 more"
-                tools:visibility="gone" />
+                tools:visibility="visible" />
         </LinearLayout>
+
     </ScrollView>
+
 </LinearLayout>
 
 

@@ -12,7 +12,6 @@ import android.support.v4.media.session.PlaybackStateCompat
 import androidx.core.app.NotificationCompat
 import androidx.media.session.MediaButtonReceiver
 import com.ilizma.presentation.R
-import com.ilizma.presentation.ui.content.MainActivity
 
 
 const val CHANNEL_ID = "com.ilizma.eztanda_channel_id"

@@ -20,4 +20,5 @@ object PlayerRepositoryModule {
         dataSource = dataSource,
         mapper = PlayerStateMapper(),
     )
+
 }

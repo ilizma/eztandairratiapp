@@ -19,27 +19,59 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.media.MediaBrowserServiceCompat
 import androidx.media.session.MediaButtonReceiver
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+import javax.inject.Named
 import androidx.media.app.NotificationCompat as MediaNotificationCompat
 
+const val STOP_PENDING_INTENT_NAMED = "STOP_PENDING_INTENT_NAMED"
+const val NOTIFICATION_COMPAT_PLAY_ACTION_NAMED = "NOTIFICATION_COMPAT_PLAY_ACTION_NAMED"
+const val NOTIFICATION_COMPAT_STOP_ACTION_NAMED = "NOTIFICATION_COMPAT_STOP_ACTION_NAMED"
 const val NETWORK_FAILURE = "com.ilizma.player.framework.service.NETWORK_FAILURE"
 const val PLAYER_START = "com.ilizma.player.framework.service.PLAYER_START"
 private const val NOTIFICATION_ID = 1076
 
-class MusicService(
-    private val mediaPlayer: MediaPlayer,
-    private val mediaSession: MediaSessionCompat,
-    private val audioFocusRequestBuilder: AudioFocusRequest.Builder,
-    private val playbackStateBuilder: PlaybackStateCompat.Builder,
-    private val mediaStyle: MediaNotificationCompat.MediaStyle,
-    private val notificationBuilder: NotificationCompat.Builder,
-    private val stopPendingIntent: PendingIntent,
-    private val notificationManagerCompat: NotificationManagerCompat,
-    private val notificationChannelLow: NotificationChannel,
-    private val playAction: NotificationCompat.Action,
-    private val stopAction: NotificationCompat.Action,
-    private val browseRoot: BrowserRoot,
-    private val noisyAudioIntentFilter: IntentFilter,
-) : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChangeListener {
+@AndroidEntryPoint
+class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChangeListener {
+
+    @Inject
+    lateinit var mediaPlayer: MediaPlayer
+
+    @Inject
+    lateinit var mediaSession: MediaSessionCompat
+
+    @Inject
+    lateinit var audioFocusRequestBuilder: AudioFocusRequest.Builder
+
+    @Inject
+    lateinit var playbackStateBuilder: PlaybackStateCompat.Builder
+
+    @Inject
+    lateinit var mediaStyle: MediaNotificationCompat.MediaStyle
+
+    @Inject
+    lateinit var notificationBuilder: NotificationCompat.Builder
+
+    @Inject
+    @Named(STOP_PENDING_INTENT_NAMED) lateinit var stopPendingIntent: PendingIntent
+
+    @Inject
+    lateinit var notificationManagerCompat: NotificationManagerCompat
+
+    @Inject
+    lateinit var notificationChannelLow: NotificationChannel
+
+    @Inject
+    @Named(NOTIFICATION_COMPAT_PLAY_ACTION_NAMED) lateinit var playAction: NotificationCompat.Action
+
+    @Inject
+    @Named(NOTIFICATION_COMPAT_STOP_ACTION_NAMED) lateinit var stopAction: NotificationCompat.Action
+
+    @Inject
+    lateinit var browseRoot: BrowserRoot
+
+    @Inject
+    lateinit var noisyAudioIntentFilter: IntentFilter
 
     private lateinit var audioFocusRequest: AudioFocusRequest
 
@@ -146,7 +178,8 @@ class MusicService(
     override fun onLoadChildren(
         parentId: String,
         result: Result<MutableList<MediaBrowserCompat.MediaItem>>,
-    ) { /* no-op */ }
+    ) { /* no-op */
+    }
 
     private fun initMediaPlayer() {
         with(mediaPlayer) {

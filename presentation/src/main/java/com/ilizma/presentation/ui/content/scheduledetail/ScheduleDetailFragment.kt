@@ -4,15 +4,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import com.ilizma.domain.entity.base.Failure
 import com.ilizma.presentation.R
 import com.ilizma.presentation.entity.mapper.schedule.ScheduleUI
 import com.ilizma.presentation.extensions.handleNormalFailure
-import com.ilizma.presentation.extensions.observe
 import com.ilizma.presentation.extensions.viewModel
-import com.ilizma.presentation.ui.base.BaseFragment
-import com.ilizma.presentation.ui.content.MainActivity
 import dagger.Lazy
 import kotlinx.android.synthetic.main.fragment_schedule_detail.*
 import javax.inject.Inject

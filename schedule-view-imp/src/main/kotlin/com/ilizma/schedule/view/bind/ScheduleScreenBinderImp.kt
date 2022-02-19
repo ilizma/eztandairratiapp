@@ -3,13 +3,10 @@ package com.ilizma.schedule.view.bind
 import androidx.lifecycle.LifecycleOwner
 import com.ilizma.schedule.presentation.model.Days
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
-import com.ilizma.schedule.view.R
 import com.ilizma.schedule.view.adapter.DaysAdapter
 import com.ilizma.schedule.view.adapter.factory.DaysAdapterFactory
 import com.ilizma.schedule.view.databinding.ScheduleScreenFragmentBinding
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class ScheduleScreenBinderImp(
     viewModelLazy: Lazy<ScheduleScreenViewModel>,
     private val lifecycleOwner: () -> LifecycleOwner,
@@ -22,14 +19,8 @@ class ScheduleScreenBinderImp(
 
     override fun bind(binding: ScheduleScreenFragmentBinding) {
         this.binding = binding
-        setUpToolBar()
         initRecyclerView()
         setupObservers()
-    }
-
-    private fun setUpToolBar() {
-        (binding.root.context as MainActivity).supportActionBar?.title =
-            getString(R.string.title_schedule)
     }
 
     private fun initRecyclerView() {

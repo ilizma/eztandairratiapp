@@ -1,10 +1,6 @@
 package com.ilizma.presentation.extensions
 
-import com.google.android.material.snackbar.Snackbar
 import com.ilizma.domain.entity.base.Failure
-import com.ilizma.presentation.R
-import com.ilizma.presentation.ui.base.BaseActivity
-import com.ilizma.presentation.ui.base.BaseFragment
 
 private const val UNKNOWN = "Unknown"
 

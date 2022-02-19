@@ -3,7 +3,6 @@ package com.ilizma.net
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.ilizma.net.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
@@ -15,6 +14,7 @@ private const val TIMEOUT = 30L
 class BaseHttpClient(
     chuckerCollector: ChuckerCollector,
     context: Context,
+    isDebug: Boolean,
 ) {
 
     private val chuckerInterceptor = ChuckerInterceptor.Builder(context)
@@ -25,7 +25,7 @@ class BaseHttpClient(
         .newBuilder()
         .addInterceptor(
             HttpLoggingInterceptor().apply {
-                level = if (BuildConfig.DEBUG) BODY else NONE
+                level = if (isDebug) BODY else NONE
             }
         )
         .addInterceptor(chuckerInterceptor)

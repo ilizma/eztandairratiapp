@@ -11,6 +11,10 @@ android {
         targetSdk = ConfigData.targetSdk
     }
 
+    viewBinding {
+        isEnabled = true
+    }
+
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }
@@ -24,6 +28,7 @@ dependencies {
     implementation(Rx.binding)
     implementation(Architecture.lifecycleRuntime)
     implementation(Architecture.lifecycleCommon)
+    implementation(Annotation.annotation)
 
     // Resources
     implementation(project(":resources"))

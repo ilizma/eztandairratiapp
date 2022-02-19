@@ -26,14 +26,9 @@ android {
 dependencies {
     implementation(Hilt.hilt)
     kapt(Hilt.compiler)
-    implementation(Android.appcompat)
-    implementation(AndroidUI.constraintLayout)
-    implementation(AndroidUI.material)
-    implementation(Architecture.navigationFragment)
-
-    // Resources
-    implementation(project(":resources"))
-
-    // View
     implementation(project(":view-base"))
+    // region Error Management
+    implementation(project(":error-management-view"))
+    implementation(project(":error-management-view-imp"))
+    // endregion
 }

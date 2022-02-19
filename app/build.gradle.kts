@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    id("kotlin-android")//kotlin-parcelize
+    id("kotlin-android")
     id("kotlin-kapt")
     id("com.google.gms.google-services")
     id("dagger.hilt.android.plugin")
@@ -34,17 +34,17 @@ android {
 }
 
 dependencies {
-    // di
     implementation(Hilt.hilt)
     kapt(Hilt.compiler)
-    //firebase
+    implementation(Android.v4)
     implementation(Firebase.analytics)
     implementation(Firebase.messaging)
-    //chucker
+    implementation(CustomActivityOnCrash.customactivityoncrash)
     debugImplementation(Network.chucker)
     releaseImplementation(Network.chuckerNoOp)
 
     // api
+    implementation(project(":api-di"))
     implementation(project(":api"))
 
     // net
@@ -68,7 +68,6 @@ dependencies {
     implementation(project(":app-flow"))
     implementation(project(":app-flow-imp"))
     implementation(project(":app-view"))
-    implementation(project(":app-view-imp"))
     // endregion
 
     // region Error Management
@@ -116,7 +115,4 @@ dependencies {
     implementation(project(":menu-presentation"))
     implementation(project(":menu-presentation-imp"))
     // endregion
-
-    implementation(project(":presentation"))
-    testImplementation(project(path = ":presentation", configuration = "instrumentationTestImplementation"))
 }

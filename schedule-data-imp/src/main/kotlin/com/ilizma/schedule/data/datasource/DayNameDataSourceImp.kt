@@ -1,7 +1,7 @@
 package com.ilizma.schedule.data.datasource
 
 class DayNameDataSourceImp(
-    private val dayName: String, // (ScheduleDetailFragmentArgs by navArgs()).let { it.name }
+    private val dayName: String,
 ) : DayNameDataSource {
 
     override fun get(): String = dayName

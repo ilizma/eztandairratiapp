@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name="com.ilizma.eztandairratiapp.application.EztandaApplication"
+        android:name="com.ilizma.app.application.EztandaApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,7 +36,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
-            android:name=".notification.EztandaFirebaseMessagingService"
+            android:name="com.ilizma.app.notification.EztandaFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

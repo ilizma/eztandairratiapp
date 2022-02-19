@@ -29,6 +29,7 @@ android {
 dependencies {
     implementation(Hilt.hilt)
     kapt(Hilt.compiler)
+    implementation(Rx.java)
     implementation(Android.appcompat)
     implementation(AndroidUI.material)
     implementation(AndroidKtx.core)

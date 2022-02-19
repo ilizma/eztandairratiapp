@@ -20,4 +20,5 @@ android {
 dependencies {
     implementation(Architecture.lifecycleViewModel)
     implementation(Architecture.lifecycleLivedata)
+    implementation(Annotation.annotation)
 }

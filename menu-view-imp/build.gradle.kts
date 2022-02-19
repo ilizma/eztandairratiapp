@@ -24,6 +24,7 @@ android {
 dependencies {
     implementation(Hilt.hilt)
     kapt(Hilt.compiler)
+    implementation(Rx.java)
     implementation(project(":view-base"))
     implementation(project(":menu-view"))
     implementation(project(":menu-presentation"))

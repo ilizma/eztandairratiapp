@@ -5,15 +5,16 @@ import androidx.core.app.NotificationManagerCompat
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ServiceComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ServiceComponent::class)
 object NotificationManagerCompatModule {
 
     @Provides
     fun provideNotificationManagerCompat(
-        context: Context,
+        @ApplicationContext context: Context,
     ): NotificationManagerCompat = NotificationManagerCompat.from(context)
 
 }

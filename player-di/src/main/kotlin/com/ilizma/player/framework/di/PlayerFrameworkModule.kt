@@ -9,6 +9,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 @Module
@@ -17,16 +18,20 @@ object PlayerFrameworkModule {
 
     @Provides
     fun providePlayerFramework(
-        context: Context,
+        @ActivityContext context: Context,
     ): PlayerFramework = ComponentName(
         context,
         MusicService::class.java,
-    ).let {
-        PlayerFrameworkImp(
-            context = context,
-            serviceComponent = it,
-            playerState = BehaviorSubject.create(),
-        )
-    }
+    ).let { playerFrameworkImp(context, it) }
+
+    private fun playerFrameworkImp(
+        context: Context,
+        componentName: ComponentName
+    ): PlayerFrameworkImp = PlayerFrameworkImp(
+        context = context,
+        serviceComponent = componentName,
+        playerState = BehaviorSubject.create(),
+        playerConnectionState = BehaviorSubject.create(),
+    )
 
 }

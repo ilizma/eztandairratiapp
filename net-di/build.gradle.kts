@@ -14,8 +14,12 @@ android {
     }
 
     buildTypes {
-        getByName("debug")
-        getByName("release")
+        getByName("debug") {
+            buildConfigField("String", "BASE_URL", "\"" + Environments.debug.baseURL + "\"")
+        }
+        getByName("release") {
+            buildConfigField("String", "BASE_URL", "\"" + Environments.release.baseURL + "\"")
+        }
     }
 
     sourceSets {

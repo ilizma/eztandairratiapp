@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -32,5 +33,6 @@ dependencies {
     implementation(project(":view-base"))
     implementation(project(":player-view"))
     implementation(project(":menu-view"))
+    implementation(project(":schedule-flow"))
     implementation(project(":schedule-view"))
 }

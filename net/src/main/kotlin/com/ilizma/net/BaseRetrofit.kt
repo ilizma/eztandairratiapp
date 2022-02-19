@@ -1,6 +1,5 @@
 package com.ilizma.net
 
-import com.ilizma.net.BuildConfig
 import com.squareup.moshi.Moshi
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
@@ -11,10 +10,11 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class BaseRetrofit(
     okHttpClient: OkHttpClient,
     moshi: Moshi,
+    baseUrl: String,
 ) {
 
     val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_URL)
+        .baseUrl(baseUrl)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
         .client(okHttpClient)

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.ilizma.menu.view.bind.MenuScreenFragmentBinder
-import com.ilizma.menu.view.databinding.MenuFragmentBinding
 import com.ilizma.menu.view.R
 import com.ilizma.menu.view.databinding.MenuScreenFragmentBinding
 import com.ilizma.menu.view.router.MenuScreenRouter

@@ -5,6 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/radio_screen_abl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/title_radio"
+            app:titleTextColor="?android:attr/textColorPrimary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ImageView
         android:id="@+id/radio_screen_iv"
         android:layout_width="wrap_content"
@@ -12,14 +29,14 @@
         app:layout_constraintBottom_toTopOf="@+id/radio_screen_b"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radio_screen_abl"
         app:srcCompat="@drawable/img_eztanda"
         tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/radio_screen_b"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/radio_button_size"
+        android:layout_height="@dimen/radio_button_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

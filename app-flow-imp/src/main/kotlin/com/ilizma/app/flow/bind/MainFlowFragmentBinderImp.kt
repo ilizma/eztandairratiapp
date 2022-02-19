@@ -1,19 +1,13 @@
 package com.ilizma.app.flow.bind
 
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.ilizma.app.flow.databinding.MainFlowFragmentBinding
 import com.ilizma.app.flow.imp.R
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainFlowFragmentBinderImp(
-    private val activity: AppCompatActivity,
-    private val navigation: Navigation,
-    private val navigationUI: NavigationUI,
+    private val fragmentManager: () -> FragmentManager
 ) : MainFlowFragmentBinder {
 
     private lateinit var binding: MainFlowFragmentBinding
@@ -24,15 +18,9 @@ class MainFlowFragmentBinderImp(
     }
 
     private fun setupView() {
-        val navController = navigation.findNavController(binding.mainFlowFragmentFNavHost)
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigationRadio,
-                R.id.navigationSchedule,
-                R.id.navigationMenu,
-            )
-        )
-        navigationUI.setupActionBarWithNavController(activity, navController, appBarConfiguration)
+        val navHostFragment = fragmentManager()
+            .findFragmentById(R.id.main_flow_fragment_f_nav_host) as NavHostFragment
+        val navController = navHostFragment.navController
         binding.mainFragmentBnvMenu.setupWithNavController(navController)
     }
 

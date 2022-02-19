@@ -22,7 +22,9 @@ android {
 dependencies {
     implementation(Hilt.hilt)
     kapt(Hilt.compiler)
+    implementation(AndroidKtx.fragment)
     implementation(project(":di-base"))
+    implementation(project(":presentation-base"))
 
     // region Menu
     implementation(project(":menu-flow"))

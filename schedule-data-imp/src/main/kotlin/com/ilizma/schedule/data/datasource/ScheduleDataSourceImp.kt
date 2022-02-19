@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.core.Single
 class ScheduleDataSourceImp(
     private val api: EztandaApi,
     private val mapper: ScheduleStateDTOMapper,
-    private val unknownErrorMessage: String, // TODO: 24/12/21 R.string.unknown_error
+    private val unknownErrorMessage: String,
 ) : ScheduleDataSource {
 
     override fun get(): Single<ScheduleState> = api.getSchedule()

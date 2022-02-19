@@ -4,6 +4,8 @@ import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
+import android.os.Build
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.appcompat.content.res.AppCompatResources
@@ -13,17 +15,20 @@ import com.ilizma.player.di.R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ServiceComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 private const val TAG = "MediaSessionCompatModule"
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ServiceComponent::class)
 object MediaSessionCompatModule {
 
     @Provides
     fun provideMediaSessionCompat(
-        context: Context,
+        mainActivityIntent: Intent,
+        @ApplicationContext context: Context,
+        resources: Resources,
     ): MediaSessionCompat = MediaSessionCompat(
         context,
         TAG,
@@ -38,30 +43,35 @@ object MediaSessionCompatModule {
         PendingIntent.getActivity(
             context,
             0,
-            Intent(context, MainActivity::class.java),
-            PendingIntent.FLAG_UPDATE_CURRENT,
+            mainActivityIntent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT else PendingIntent.FLAG_UPDATE_CURRENT,
         ).let { setSessionActivity(it) }
 
-        val bitmap = AppCompatResources.getDrawable(context, R.drawable.img_eztanda)
+        AppCompatResources.getDrawable(context, R.drawable.img_eztanda)
             ?.toBitmap()
-        MediaMetadataCompat.Builder()
-            .let {
-                it.putString(
-                    MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE,
-                    getString(R.string.radio_name)
-                )
-                it.putString(
-                    MediaMetadataCompat.METADATA_KEY_DISPLAY_SUBTITLE,
-                    getString(R.string.free_radio)
-                )
-                it.putString(
-                    MediaMetadataCompat.METADATA_KEY_DISPLAY_DESCRIPTION,
-                    getString(R.string.listening)
-                )
-                it.putBitmap(MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON, bitmap)
-                it.build()
-            }.let { setMetadata(it) }
-        bitmap?.recycle()
+            ?.let { bitmap ->
+                MediaMetadataCompat.Builder()
+                    .let {
+                        it.putString(
+                            MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE,
+                            resources.getString(R.string.radio_name)
+                        )
+                        it.putString(
+                            MediaMetadataCompat.METADATA_KEY_DISPLAY_SUBTITLE,
+                            resources.getString(R.string.free_radio)
+                        )
+                        it.putString(
+                            MediaMetadataCompat.METADATA_KEY_DISPLAY_DESCRIPTION,
+                            resources.getString(R.string.listening)
+                        )
+
+                        it.putBitmap(MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON, bitmap)
+                        it.build()
+
+                    }.let { setMetadata(it) }
+                bitmap.recycle()
+            }
+
     }
 
 }

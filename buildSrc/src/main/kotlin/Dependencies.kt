@@ -16,10 +16,12 @@ object Rx {
 object Android {
     val appcompat by lazy { "androidx.appcompat:appcompat:${Versions.supportVersion}" }
     val v4 by lazy { "androidx.legacy:legacy-support-v4:${Versions.legacyVersion}" }
+    val activity by lazy { "androidx.activity:activity:${Versions.activityVersion}" }
 }
 
 object AndroidKtx {
     val core by lazy { "androidx.core:core-ktx:${Versions.coreKtxVersion}" }
+    val fragment by lazy { "androidx.fragment:fragment-ktx:${Versions.fragmentKtxVersion}" }
 }
 
 object AndroidUI {
@@ -28,10 +30,6 @@ object AndroidUI {
     val material by lazy { "com.google.android.material:material:${Versions.materialVersion}" }
     val shimmer by lazy { "com.facebook.shimmer:shimmer:${Versions.shimmerVersion}" }
     val lottie by lazy { "com.airbnb.android:lottie:${Versions.lottieVersion}" }
-}
-
-object Fragment {
-    val ktx by lazy { "androidx.fragment:fragment-ktx::${Versions.fragmentKtxVersion}" }
 }
 
 object Architecture {
@@ -75,6 +73,7 @@ object Dagger {
 
 object Annotation {
     val annotation by lazy { "androidx.annotation:annotation:${Versions.annotationVersion}" }
+}
 
 
 object Firebase {

@@ -1,14 +1,4 @@
 include(
-    ":app",
-    ":presentation",
-
-    // net
-    ":net-di",
-    ":net",
-
-    // api
-    ":api",
-
     // di
     ":di-base",
 
@@ -21,12 +11,22 @@ include(
     // resources
     ":resources",
 
+    // region Net
+    ":net-di",
+    ":net",
+    // endregion
+
+    // region Api
+    ":api-di",
+    ":api",
+    // endregion
+
     // region App
+    ":app",
     ":app-di",
     ":app-flow",
     ":app-flow-imp",
     ":app-view",
-    ":app-view-imp",
     // endregion
 
     // region Error Management

@@ -1,6 +1,6 @@
 object Versions {
     //project
-    const val buildGradleVersion = "7.0.4"
+    const val buildGradleVersion = "7.1.1"
     const val kotlinVersion = "1.6.10"
     const val googleServicesVersion = "4.3.10"
     const val hiltVersion = "2.40.5"
@@ -16,6 +16,7 @@ object Versions {
     //android
     const val supportVersion = "1.4.0"
     const val legacyVersion = "1.0.0"
+    const val activityVersion = "1.4.0"
 
     //android KTX libs
     const val coreKtxVersion = "1.7.0"
@@ -25,10 +26,10 @@ object Versions {
     const val recyclerviewVersion = "1.2.1"
     const val materialVersion = "1.6.0-alpha01"
     const val shimmerVersion = "0.5.0"
-    const val lottieVersion = "3.4.1"
+    const val lottieVersion = "4.2.1"
 
     //android architecture component
-    const val navigationVersion = "2.4.0-beta02"
+    const val navigationVersion = "2.4.1"
     const val lifecycleVersion = "2.4.0"
 
     //customactivityoncrash

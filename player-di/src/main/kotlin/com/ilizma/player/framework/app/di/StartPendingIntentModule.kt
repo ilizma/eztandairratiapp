@@ -7,19 +7,20 @@ import androidx.media.session.MediaButtonReceiver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ServiceComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Named
 
 const val START_PENDING_INTENT_NAMED = "START_PENDING_INTENT_NAMED"
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ServiceComponent::class)
 object StartPendingIntentModule {
 
     @Provides
     @Named(START_PENDING_INTENT_NAMED)
     fun provideStartPendingIntent(
-        context: Context,
+        @ApplicationContext context: Context,
     ): PendingIntent = MediaButtonReceiver.buildMediaButtonPendingIntent(
         context,
         PlaybackStateCompat.ACTION_PLAY,

@@ -4,10 +4,10 @@ import android.support.v4.media.session.PlaybackStateCompat
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ServiceComponent
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ServiceComponent::class)
 object PlaybackStateCompatBuilderModule {
 
     @Provides

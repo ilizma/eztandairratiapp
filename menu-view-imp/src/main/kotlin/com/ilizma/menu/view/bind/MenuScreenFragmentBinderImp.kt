@@ -2,11 +2,8 @@ package com.ilizma.menu.view.bind
 
 import com.ilizma.menu.presentation.viewmodel.MenuViewModel
 import com.ilizma.menu.view.databinding.MenuScreenFragmentBinding
-import com.ilizma.menu.view.imp.R
 import com.ilizma.view.extensions.setOnReactiveClickListener
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MenuScreenFragmentBinderImp(
     viewModelLazy: Lazy<MenuViewModel>,
 ) : MenuScreenFragmentBinder {
@@ -16,12 +13,7 @@ class MenuScreenFragmentBinderImp(
 
     override fun bind(binding: MenuScreenFragmentBinding) {
         this.binding = binding
-        setUpToolBar()
         setupView()
-    }
-
-    private fun setUpToolBar() {
-        binding.mainFragmentToolbar.title = binding.root.context.getString(R.string.title_radio)
     }
 
     private fun setupView() {

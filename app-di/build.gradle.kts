@@ -22,12 +22,12 @@ android {
 dependencies {
     implementation(Hilt.hilt)
     kapt(Hilt.compiler)
+    implementation(Android.appcompat)
     implementation(project(":di-base"))
 
     // region App
     implementation(project(":app-flow"))
     implementation(project(":app-flow-imp"))
     implementation(project(":app-view"))
-    implementation(project(":app-view-imp"))
     // endregion
 }

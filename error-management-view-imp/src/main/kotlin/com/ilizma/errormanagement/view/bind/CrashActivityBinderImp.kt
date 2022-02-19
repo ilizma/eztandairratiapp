@@ -6,17 +6,16 @@ import android.content.ClipboardManager
 import android.content.Context
 import androidx.core.view.isVisible
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash
-import com.ilizma.errormanagement.view.BuildConfig
+import com.ilizma.errormanagement.view.imp.BuildConfig
 import com.ilizma.errormanagement.view.databinding.CrashActivityBinding
 import com.ilizma.errormanagement.view.imp.R
 import com.ilizma.view.extensions.setOnReactiveClickListener
 import com.ilizma.view.extensions.snackbar
-import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.atomic.AtomicReference
+import javax.inject.Inject
 
 private const val CLIPBOARD_LABEL = "EztandaCrashActivity log"
 
-@AndroidEntryPoint
 class CrashActivityBinderImp : CrashActivityBinder {
 
     private lateinit var binding: CrashActivityBinding

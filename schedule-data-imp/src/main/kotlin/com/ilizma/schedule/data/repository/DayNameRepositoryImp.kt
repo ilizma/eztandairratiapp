@@ -9,5 +9,4 @@ class DayNameRepositoryImp(
 
     override fun get(): String = dataSource.get()
 
-
 }

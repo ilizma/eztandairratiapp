@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
-    id("kotlin-android-extensions")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
 }
@@ -39,7 +38,7 @@ dependencies {
     implementation(Android.appcompat)
     implementation(AndroidUI.constraintLayout)
     implementation(AndroidKtx.core)
-    implementation(Android.legacy)
+    implementation(Android.v4)
     //navigation
     implementation(Architecture.navigationFragment)
     implementation(Architecture.navigationUi)
@@ -72,7 +71,4 @@ dependencies {
     androidTestImplementation(Test.extJunit)
     androidTestImplementation(Test.espresso)
     // endregion
-
-    implementation(project(":domain"))
-    testImplementation(project(path = ":domain", configuration = "unitTestImplementation"))
 }

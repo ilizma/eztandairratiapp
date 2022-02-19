@@ -21,9 +21,11 @@ android {
 
 dependencies {
     implementation(Android.appcompat)
+    implementation(Android.activity)
     implementation(Architecture.lifecycleCommon)
     implementation(Architecture.navigationUi)
     implementation(Architecture.navigationFragment)
+    implementation(project(":app-flow"))
     implementation(project(":schedule-flow"))
     implementation(project(":schedule-view"))
     implementation(project(":schedule-presentation"))

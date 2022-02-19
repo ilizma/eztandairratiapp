@@ -1,13 +1,14 @@
 package com.ilizma.player.view.bind.di
 
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.ilizma.player.view.bind.RadioScreenBinder
 import com.ilizma.player.view.bind.RadioScreenBinderImp
-import com.ilizma.player.view.fragment.RadioScreenFragment
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
-import dagger.hilt.android.internal.lifecycle.HiltViewModelFactory
 
 @Module
 @InstallIn(FragmentComponent::class)
@@ -15,10 +16,10 @@ object RadioScreenBinderModule {
 
     @Provides
     fun provideRadioScreenBinder(
-        fragment: RadioScreenFragment,
-        viewModelFactory: HiltViewModelFactory,
+        fragment: Fragment,
+        viewModelProviderFactory: ViewModelProvider.Factory
     ): RadioScreenBinder = RadioScreenBinderImp(
-        viewModelLazy = fragment.viewModels { viewModelFactory },
+        viewModelLazy = fragment.viewModels { viewModelProviderFactory },
         lifecycleOwner = { fragment.viewLifecycleOwner },
     )
 

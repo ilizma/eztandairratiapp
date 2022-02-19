@@ -7,15 +7,16 @@ import com.ilizma.player.framework.app.di.CHANNEL_ID
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ServiceComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ServiceComponent::class)
 object NotificationCompatBuilderModule {
 
     @Provides
     fun provideNotificationCompatBuilder(
-        context: Context,
+        @ApplicationContext context: Context,
     ): NotificationCompat.Builder = NotificationCompat.Builder(context, CHANNEL_ID)
         .apply {
             setVisibility(NotificationCompat.VISIBILITY_PUBLIC)

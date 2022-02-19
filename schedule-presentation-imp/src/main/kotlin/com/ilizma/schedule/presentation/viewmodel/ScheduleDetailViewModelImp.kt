@@ -20,7 +20,7 @@ class ScheduleDetailViewModelImp(
     private val mapper: ProgramListMapper,
     private val backgroundScheduler: Scheduler,
     private val compositeDisposable: CompositeDisposable,
-    private val unknownErrorMessage: String,// R.string.unknown_error
+    private val unknownErrorMessage: String,
     private val _dayName: MutableLiveData<String>,
     private val _schedule: MutableLiveData<Schedule>,
     private val _error: MutableLiveData<String>,
