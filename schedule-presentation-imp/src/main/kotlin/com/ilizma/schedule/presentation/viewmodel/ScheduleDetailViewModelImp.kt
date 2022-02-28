@@ -10,21 +10,24 @@ import com.ilizma.schedule.presentation.mapper.ProgramListMapper
 import com.ilizma.schedule.presentation.model.Schedule
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction.Back
+import com.ilizma.schedule.presentation.viewmodel.factory.ERROR_ASSISTED
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 
-class ScheduleDetailViewModelImp(
+class ScheduleDetailViewModelImp @AssistedInject constructor(
     dayNameUseCase: DayNameUseCase,
     private val scheduleUseCase: ScheduleUseCase,
-    private val mapper: ProgramListMapper,
-    private val backgroundScheduler: Scheduler,
-    private val compositeDisposable: CompositeDisposable,
-    private val unknownErrorMessage: String,
-    private val _dayName: MutableLiveData<String>,
-    private val _schedule: MutableLiveData<Schedule>,
-    private val _error: MutableLiveData<String>,
-    private val _navigationAction: SingleLiveEvent<ScheduleDetailNavigationAction>,
+    @Assisted private val mapper: ProgramListMapper,
+    @Assisted private val backgroundScheduler: Scheduler,
+    @Assisted private val compositeDisposable: CompositeDisposable,
+    @Assisted private val unknownErrorMessage: String,
+    @Assisted private val _dayName: MutableLiveData<String>,
+    @Assisted private val _schedule: MutableLiveData<Schedule>,
+    @Assisted(ERROR_ASSISTED) private val _error: MutableLiveData<String>,
+    @Assisted private val _navigationAction: SingleLiveEvent<ScheduleDetailNavigationAction>,
 ) : ScheduleDetailViewModel() {
 
     override val dayName: LiveData<String> = _dayName

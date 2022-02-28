@@ -10,12 +10,14 @@ import com.ilizma.schedule.presentation.model.Days
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction.Back
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction.ScheduleDetail
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 
-class ScheduleScreenViewModelImp(
+class ScheduleScreenViewModelImp @AssistedInject constructor(
     useCase: DaysUseCase,
-    private val mapper: DaysMapper,
-    private val _days: MutableLiveData<Days>,
-    private val _navigationAction: SingleLiveEvent<ScheduleScreenNavigationAction>,
+    @Assisted private val mapper: DaysMapper,
+    @Assisted private val _days: MutableLiveData<Days>,
+    @Assisted private val _navigationAction: SingleLiveEvent<ScheduleScreenNavigationAction>,
 ) : ScheduleScreenViewModel() {
 
     override val days: LiveData<Days> = _days

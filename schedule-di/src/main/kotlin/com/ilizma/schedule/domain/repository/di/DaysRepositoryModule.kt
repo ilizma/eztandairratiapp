@@ -9,10 +9,10 @@ import com.ilizma.schedule.domain.repository.DaysRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.components.FragmentComponent
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(FragmentComponent::class)
 object DaysRepositoryModule {
 
     @Provides

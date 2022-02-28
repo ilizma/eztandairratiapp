@@ -53,7 +53,8 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     lateinit var notificationBuilder: NotificationCompat.Builder
 
     @Inject
-    @Named(STOP_PENDING_INTENT_NAMED) lateinit var stopPendingIntent: PendingIntent
+    @Named(STOP_PENDING_INTENT_NAMED)
+    lateinit var stopPendingIntent: PendingIntent
 
     @Inject
     lateinit var notificationManagerCompat: NotificationManagerCompat
@@ -62,10 +63,12 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     lateinit var notificationChannelLow: NotificationChannel
 
     @Inject
-    @Named(NOTIFICATION_COMPAT_PLAY_ACTION_NAMED) lateinit var playAction: NotificationCompat.Action
+    @Named(NOTIFICATION_COMPAT_PLAY_ACTION_NAMED)
+    lateinit var playAction: NotificationCompat.Action
 
     @Inject
-    @Named(NOTIFICATION_COMPAT_STOP_ACTION_NAMED) lateinit var stopAction: NotificationCompat.Action
+    @Named(NOTIFICATION_COMPAT_STOP_ACTION_NAMED)
+    lateinit var stopAction: NotificationCompat.Action
 
     @Inject
     lateinit var browseRoot: BrowserRoot
@@ -73,7 +76,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     @Inject
     lateinit var noisyAudioIntentFilter: IntentFilter
 
-    private lateinit var audioFocusRequest: AudioFocusRequest
+    private var audioFocusRequest: AudioFocusRequest? = null
 
     private val mNoisyReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent?) {
@@ -281,12 +284,15 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     }
 
     private fun abandonAudioFocus(
-        audioManager: AudioManager
-    ): Int = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-        @Suppress("DEPRECATION")
-        audioManager.abandonAudioFocus(this)
-    } else {
-        audioManager.abandonAudioFocusRequest(audioFocusRequest)
+        audioManager: AudioManager,
+    ) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            @Suppress("DEPRECATION")
+            audioManager.abandonAudioFocus(this)
+        } else {
+            audioFocusRequest
+                ?.let { audioManager.abandonAudioFocusRequest(it) }
+        }
     }
 
 }

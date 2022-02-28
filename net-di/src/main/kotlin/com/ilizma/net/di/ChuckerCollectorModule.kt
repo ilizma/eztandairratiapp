@@ -5,7 +5,7 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 @Module
@@ -14,7 +14,7 @@ object ChuckerCollectorModule {
 
     @Provides
     fun provideChuckerCollector(
-        @ActivityContext context: Context
+        @ApplicationContext context: Context
     ): ChuckerCollector = ChuckerCollector(context)
 
 }

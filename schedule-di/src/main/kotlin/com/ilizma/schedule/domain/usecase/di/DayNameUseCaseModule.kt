@@ -6,10 +6,10 @@ import com.ilizma.schedule.domain.usecase.DayNameUseCaseImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.components.FragmentComponent
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(FragmentComponent::class)
 object DayNameUseCaseModule {
 
     @Provides
