@@ -37,6 +37,7 @@
         android:id="@+id/radio_screen_b"
         android:layout_width="@dimen/radio_button_size"
         android:layout_height="@dimen/radio_button_size"
+        android:background="?android:attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -6,20 +6,16 @@ import android.content.ClipboardManager
 import android.content.Context
 import androidx.core.view.isVisible
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash
-import com.ilizma.errormanagement.view.imp.BuildConfig
 import com.ilizma.errormanagement.view.databinding.CrashActivityBinding
+import com.ilizma.errormanagement.view.imp.BuildConfig
 import com.ilizma.errormanagement.view.imp.R
 import com.ilizma.view.extensions.setOnReactiveClickListener
 import com.ilizma.view.extensions.snackbar
 import java.util.concurrent.atomic.AtomicReference
-import javax.inject.Inject
 
 private const val CLIPBOARD_LABEL = "EztandaCrashActivity log"
 
 class CrashActivityBinderImp : CrashActivityBinder {
-
-    private lateinit var binding: CrashActivityBinding
-    private lateinit var activity: Activity
 
     private val stackTrace = AtomicReference<String>()
 
@@ -27,20 +23,24 @@ class CrashActivityBinderImp : CrashActivityBinder {
         binding: CrashActivityBinding,
         activity: Activity,
     ) {
-        this.binding = binding
-        this.activity = activity
-        setupView()
-        setUpListeners()
+        setupView(binding, activity)
+        setUpListeners(binding, activity)
     }
 
-    private fun setupView() {
+    private fun setupView(
+        binding: CrashActivityBinding,
+        activity: Activity,
+    ) {
         if (BuildConfig.DEBUG) binding.crashActivityBLogcat.isVisible = true
 
         CustomActivityOnCrash.getAllErrorDetailsFromIntent(binding.root.context, activity.intent)
             .let { stackTrace.set(it) }
     }
 
-    private fun setUpListeners() {
+    private fun setUpListeners(
+        binding: CrashActivityBinding,
+        activity: Activity,
+    ) {
         binding.crashActivityBRestart.setOnReactiveClickListener {
             CustomActivityOnCrash.getConfigFromIntent(activity.intent)
                 ?.let { CustomActivityOnCrash.restartApplication(activity, it) }

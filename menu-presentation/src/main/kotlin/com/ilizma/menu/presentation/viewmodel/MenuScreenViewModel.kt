@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.ilizma.menu.presentation.model.MenuNavigationAction
 
-abstract class MenuViewModel : ViewModel() {
+abstract class MenuScreenViewModel : ViewModel() {
 
     abstract val navigationAction: LiveData<MenuNavigationAction>
 

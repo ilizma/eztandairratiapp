@@ -14,17 +14,14 @@ class CrashActivity : AppCompatActivity(R.layout.crash_activity) {
     @Inject
     internal lateinit var binder: CrashActivityBinder
 
-    private lateinit var binding: CrashActivityBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = CrashActivityBinding.inflate(layoutInflater)
         setupView()
     }
 
     private fun setupView() {
         binder.bind(
-            binding = binding,
+            binding = CrashActivityBinding.inflate(layoutInflater),
             activity = this,
         )
     }

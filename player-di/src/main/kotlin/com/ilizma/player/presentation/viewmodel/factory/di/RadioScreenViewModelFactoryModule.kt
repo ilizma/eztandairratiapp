@@ -7,30 +7,16 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
+import javax.inject.Named
+
+const val RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED = "RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED"
 
 @Module
 @InstallIn(FragmentComponent::class)
 object RadioScreenViewModelFactoryModule {
 
-    /* @Provides
-     @IntoMap
-     @ViewModelKey(RadioScreenViewModel::class)
-     fun provideRadioScreenViewModel(
-         stateUseCase: PlayerStateUseCase,
-         playUseCase: PlayerPlayUseCase,
-         stopUseCase: PlayerStopUseCase,
-     ): RadioScreenViewModel = RadioScreenViewModelImp(
-         stateUseCase = stateUseCase,
-         playUseCase = playUseCase,
-         stopUseCase = stopUseCase,
-         mapper = PlayerStateMapper(),
-         backgroundScheduler = Schedulers.io(),
-         compositeDisposable = CompositeDisposable(),
-         _playerState = MutableLiveData(),
-         _navigationAction = SingleLiveEvent(),
-     )*/
-
     @Provides
+    @Named(RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED)
     fun provideRadioScreenViewModelFactory(
         radioScreenViewModelAssistedFactory: RadioScreenViewModelAssistedFactory,
     ): ViewModelProvider.Factory = RadioScreenViewModelFactory(

@@ -1,6 +1,6 @@
 object Versions {
     //project
-    const val buildGradleVersion = "7.1.1"
+    const val buildGradleVersion = "7.1.2"
     const val kotlinVersion = "1.6.10"
     const val googleServicesVersion = "4.3.10"
     const val hiltVersion = "2.40.5"

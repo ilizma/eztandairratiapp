@@ -4,12 +4,12 @@ import androidx.lifecycle.LifecycleOwner
 import com.ilizma.menu.flow.navigator.*
 import com.ilizma.menu.presentation.model.MenuNavigationAction
 import com.ilizma.menu.presentation.model.MenuNavigationAction.*
-import com.ilizma.menu.presentation.viewmodel.MenuViewModel
+import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
 import com.ilizma.menu.view.router.MenuScreenRouter
 
 class MenuScreenRouterImp(
     private val lifecycleOwner: () -> LifecycleOwner,
-    viewModelLazy: Lazy<MenuViewModel>,
+    viewModelLazy: Lazy<MenuScreenViewModel>,
     private val twitterNavigator: TwitterNavigator,
     private val facebookNavigator: FacebookNavigator,
     private val whatsappNavigator: WhatsappNavigator,
@@ -17,7 +17,7 @@ class MenuScreenRouterImp(
     private val webNavigator: WebNavigator,
 ) : MenuScreenRouter {
 
-    private val viewModel: MenuViewModel by viewModelLazy
+    private val viewModel: MenuScreenViewModel by viewModelLazy
 
     override fun init() {
         viewModel.navigationAction.observe(
