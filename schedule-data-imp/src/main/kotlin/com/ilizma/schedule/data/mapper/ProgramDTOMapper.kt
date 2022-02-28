@@ -10,10 +10,13 @@ class ProgramDTOMapper(
     fun toData(
         dto: ProgramDTO,
     ): Program = Program(
-        hour = String.format(hourString, dto.hour ?: ""),
+        hour = hourString.format(dto.hour ?: ""),
         day = dto.day ?: -1,
         name = dto.name ?: "",
-        repeated = dto.repeated ?: false,
+        repeated = when (dto.repeated) {
+            1 -> true
+            else -> false
+        },
     )
 
 }
