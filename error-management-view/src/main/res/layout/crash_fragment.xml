@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/crash_activity_t"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/app_name"
+            app:titleTextColor="?android:attr/textColorPrimary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/error_screen" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:text="@string/crash_activity_message"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/crash_activity_b_restart"
+                style="Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="?android:attr/textColorPrimary"
+                android:text="@string/crash_activity_restart_button"
+                android:textColor="?android:attr/textColorPrimaryInverse" />
+
+            <Button
+                android:id="@+id/crash_activity_b_logcat"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/crash_activity_logcat_button"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="14sp"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/crash_activity_b_clipboard"
+                style="Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="?android:attr/textColorPrimary"
+                android:text="@string/crash_activity_clipboard_button"
+                android:textColor="?android:attr/textColorPrimaryInverse"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/crash_activity_tv_log"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                tools:text="Build version: 3.0.0
+Current date: 2019-03-29 09:11:42
+Device: OnePlus ONEPLUS A3003
+
+Stack trace:
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+    at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)
+Caused by: java.lang.reflect.InvocationTargetException
+    at java.lang.reflect.Method.invoke(Native Method)
+    at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)
+    ... 1 more
+Caused by: java.io.IOException: placeId or LatLng must not be null
+    at com.ilizma.presentation.ui.base.fragment.BaseFragment.toolbar(BaseFragment.kt:60)
+    at com.ilizma.presentation.ui.base.fragment.BaseFragment.toolbar$toolbard(BaseFragment.kt:25)
+    at com.ilizma.presentation.ui.base.fragment.BaseFragment.toolbar$toolbar$2$1.invoke(BaseFragment.kt:41)
+    at com.ilizma.presentation.ui.base.fragment.BaseFragment.toolbar$toolbar$2$1.invoke(BaseFragment.kt:25)
+    at com.ilizma.presentation.ui.base.fragment.BaseFragment.toolbar$onBindItem$1$$special$$inlined$with$lambda$1.onClick(BaseFragment.kt:22)
+    at android.view.View.performClick(View.java:6303)
+    at android.view.View$PerformClick.run(View.java:24828)
+    at android.os.Handler.handleCallback(Handler.java:789)
+    at android.os.Handler.dispatchMessage(Handler.java:98)
+    at android.os.Looper.loop(Looper.java:164)
+    at android.app.ActivityThread.main(ActivityThread.java:6798)
+    ... 3 more"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+
+
