@@ -20,7 +20,7 @@ class CrashFragment : Fragment(R.layout.crash_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binder.bind(binding)
+        binder.bind(binding, requireActivity())
     }
 
 }

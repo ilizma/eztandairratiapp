@@ -12,26 +12,24 @@ import com.ilizma.resources.R
 import com.ilizma.view.extensions.setOnReactiveClickListener
 import com.ilizma.view.extensions.snackbar
 import java.util.concurrent.atomic.AtomicReference
-import javax.inject.Inject
 
 private const val CLIPBOARD_LABEL = "EztandaCrashFragment log"
 
 class CrashFragmentBinderImp : CrashFragmentBinder {
 
-    @Inject
-    internal lateinit var activity: Activity
-
     private val stackTrace = AtomicReference<String>()
 
     override fun bind(
         binding: CrashFragmentBinding,
+        activity: Activity,
     ) {
-        setupView(binding)
-        setUpListeners(binding)
+        setupView(binding, activity)
+        setUpListeners(binding, activity)
     }
 
     private fun setupView(
         binding: CrashFragmentBinding,
+        activity: Activity,
     ) {
         if (BuildConfig.DEBUG) binding.crashActivityBLogcat.isVisible = true
 
@@ -41,6 +39,7 @@ class CrashFragmentBinderImp : CrashFragmentBinder {
 
     private fun setUpListeners(
         binding: CrashFragmentBinding,
+        activity: Activity,
     ) {
         binding.crashActivityBRestart.setOnReactiveClickListener {
             CustomActivityOnCrash.getConfigFromIntent(activity.intent)
