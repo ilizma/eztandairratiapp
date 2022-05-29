@@ -48,18 +48,12 @@ object Versions {
     //annotation
     const val annotationVersion = "1.3.0"
 
-    //timber
-    const val timberVersion = "5.0.1"
-
     //firebase
     const val firebaseAnalyticsVersion = "20.0.0"
     const val firebaseMessagingVersion = "23.0.0"
 
     //test
-    const val mockitoKotlinVersion = "2.2.0"
-    const val mockitoCoreVersion = "3.3.3"
-    const val mockitoInlineVersion = "3.3.3"
-    const val espressoVersion = "3.4.0"
+    const val mockkVersion = "1.12.4"
     const val junitVersion = "4.13.2"
     const val supportTestVersion = "1.4.0"
     const val testCoreVersion = "1.4.0"

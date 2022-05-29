@@ -92,7 +92,7 @@ dependencies {
     implementation(project(":player-framework-imp"))
     // endregion
 
-    // region Player
+    // region Schedule
     implementation(project(":schedule-di"))
     implementation(project(":schedule-flow"))
     implementation(project(":schedule-flow-imp"))

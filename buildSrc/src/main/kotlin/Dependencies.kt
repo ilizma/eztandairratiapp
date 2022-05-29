@@ -82,10 +82,7 @@ object Firebase {
 }
 
 object Test {
-    val mockitoKotlin by lazy { "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKotlinVersion}" }
-    val mockitoCore by lazy { "org.mockito:mockito-core:${Versions.mockitoCoreVersion}" }
-    val mockitoInline by lazy { "org.mockito:mockito-inline:${Versions.mockitoInlineVersion}" }
-    val espresso by lazy { "androidx.test.espresso:espresso-core:${Versions.espressoVersion}" }
+    val mockk by lazy { "io.mockk:mockk:${Versions.mockkVersion}" }
     val junit by lazy { "junit:junit:${Versions.junitVersion}" }
     val runner by lazy { "androidx.test:runner:${Versions.supportTestVersion}" }
     val rules by lazy { "androidx.test:rules:${Versions.supportTestVersion}" }
