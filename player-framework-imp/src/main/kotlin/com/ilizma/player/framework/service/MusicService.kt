@@ -181,8 +181,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     override fun onLoadChildren(
         parentId: String,
         result: Result<MutableList<MediaBrowserCompat.MediaItem>>,
-    ) { /* no-op */
-    }
+    ) { /* no-op */ }
 
     private fun initMediaPlayer() {
         with(mediaPlayer) {

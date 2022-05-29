@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import com.ilizma.player.framework.PlayerFramework
 import com.ilizma.player.framework.PlayerFrameworkImp
+import com.ilizma.player.framework.model.PlayerState
 import com.ilizma.player.framework.service.MusicService
 import dagger.Module
 import dagger.Provides
@@ -30,7 +31,7 @@ object PlayerFrameworkModule {
     ): PlayerFrameworkImp = PlayerFrameworkImp(
         context = context,
         serviceComponent = componentName,
-        playerState = BehaviorSubject.create(),
+        playerState = BehaviorSubject.createDefault(PlayerState.Stopped),
         playerConnectionState = BehaviorSubject.create(),
     )
 

@@ -1,10 +1,7 @@
 package com.ilizma.view.extensions
 
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.ColorRes
-import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
@@ -21,13 +18,6 @@ fun View.setOnReactiveClickListener(
     .throttleFirst(throttleInMillis, TimeUnit.MILLISECONDS)
     .observeOn(AndroidSchedulers.mainThread())
     .subscribe { action?.invoke() }
-
-fun ViewGroup.inflate(
-    @LayoutRes layoutRes: Int,
-    attachToRoot:
-    Boolean = false
-): View = LayoutInflater.from(context)
-    .inflate(layoutRes, this, attachToRoot)
 
 fun View.snackbar(
     title: String = "",
