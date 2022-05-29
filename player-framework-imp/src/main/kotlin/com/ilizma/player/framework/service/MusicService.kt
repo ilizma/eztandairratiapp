@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.media.MediaBrowserServiceCompat
 import androidx.media.session.MediaButtonReceiver
+import com.ilizma.player.framework.model.PlayerEvent
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
@@ -27,8 +28,6 @@ import androidx.media.app.NotificationCompat as MediaNotificationCompat
 const val STOP_PENDING_INTENT_NAMED = "STOP_PENDING_INTENT_NAMED"
 const val NOTIFICATION_COMPAT_PLAY_ACTION_NAMED = "NOTIFICATION_COMPAT_PLAY_ACTION_NAMED"
 const val NOTIFICATION_COMPAT_STOP_ACTION_NAMED = "NOTIFICATION_COMPAT_STOP_ACTION_NAMED"
-const val NETWORK_FAILURE = "com.ilizma.player.framework.service.NETWORK_FAILURE"
-const val PLAYER_START = "com.ilizma.player.framework.service.PLAYER_START"
 private const val NOTIFICATION_ID = 1076
 
 @AndroidEntryPoint
@@ -90,6 +89,8 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             super.onPlay()
             if (successfullyRetrievedAudioFocus().not()) return
 
+            initMediaPlayer()
+
             mediaSession.isActive = true
             setMediaPlaybackState(PlaybackStateCompat.STATE_PLAYING)
             showLoadingNotification()
@@ -97,10 +98,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
         override fun onStop() {
             super.onStop()
-            mediaPlayer.apply {
-                stop()
-                release()
-            }
+            mediaPlayer.stop()
             setMediaPlaybackState(PlaybackStateCompat.STATE_STOPPED)
             showStopNotification()
         }
@@ -118,6 +116,8 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
         }
 
         private fun showLoadingNotification() {
+            notificationBuilder.clearActions()
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 notificationManagerCompat.createNotificationChannel(notificationChannelLow)
             }
@@ -141,12 +141,14 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
         }
 
         private fun showStopNotification() {
+            notificationBuilder.clearActions()
             notificationBuilder.addAction(playAction)
 
             mediaStyle.let {
                 it.setShowActionsInCompactView(0)
                 it.setMediaSession(mediaSession.sessionToken)
             }.let { notificationBuilder.setStyle(it) }
+
             notificationManagerCompat
                 .apply {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -189,21 +191,20 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             setOnPreparedListener {
                 it.start()
                 showPlayingNotification()
-                mediaSession.sendSessionEvent(PLAYER_START, null)
+                mediaSession.sendSessionEvent(PlayerEvent.START.name, null)
             }
             setOnErrorListener { _, what, _ ->
                 when (what) {
-                    MediaPlayer.MEDIA_ERROR_IO,
-                    MediaPlayer.MEDIA_ERROR_MALFORMED,
-                    MediaPlayer.MEDIA_ERROR_UNSUPPORTED,
-                    MediaPlayer.MEDIA_ERROR_TIMED_OUT,
-                    MediaPlayer.MEDIA_ERROR_SERVER_DIED,
-                    MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK,
-                    MediaPlayer.MEDIA_ERROR_UNKNOWN -> {
-                        mediaSession.sendSessionEvent(NETWORK_FAILURE, null)
-                        mediaSessionCallback.onStop()
-                    }
-                }
+                    MediaPlayer.MEDIA_ERROR_IO -> PlayerEvent.IO_FAILURE
+                    MediaPlayer.MEDIA_ERROR_MALFORMED -> PlayerEvent.MALFORMED_FAILURE
+                    MediaPlayer.MEDIA_ERROR_UNSUPPORTED -> PlayerEvent.UNSUPPORTED_FAILURE
+                    MediaPlayer.MEDIA_ERROR_TIMED_OUT -> PlayerEvent.TIMEOUT_FAILURE
+                    MediaPlayer.MEDIA_ERROR_SERVER_DIED -> PlayerEvent.NETWORK_FAILURE
+                    MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK -> PlayerEvent.PROGRESSIVE_PLAYBACK_NOT_VALID_FAILURE
+                    MediaPlayer.MEDIA_ERROR_UNKNOWN -> PlayerEvent.UNKNOWN_FAILURE
+                    else -> PlayerEvent.UNKNOWN_FAILURE
+                }.let { mediaSession.sendSessionEvent(it.name, null) }
+                mediaSessionCallback.onStop()
                 true
             }
             prepareAsync()
@@ -211,9 +212,11 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     }
 
     private fun showPlayingNotification() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            notificationManagerCompat
-                .apply { createNotificationChannel(notificationChannelLow) }
+        notificationBuilder.clearActions()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManagerCompat.createNotificationChannel(notificationChannelLow)
+        }
 
         notificationBuilder.addAction(stopAction)
 
@@ -235,7 +238,6 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     private fun successfullyRetrievedAudioFocus(
     ): Boolean = requestAudioFocus(getSystemService(Context.AUDIO_SERVICE) as AudioManager)
         .let { (it == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) }
-        .also { if (it) initMediaPlayer() }
 
     private fun requestAudioFocus(
         audioManager: AudioManager,

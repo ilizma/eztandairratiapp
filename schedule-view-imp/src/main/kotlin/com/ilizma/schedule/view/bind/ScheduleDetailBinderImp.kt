@@ -22,8 +22,16 @@ class ScheduleDetailBinderImp(
 
     override fun bind(binding: ScheduleDetailFragmentBinding) {
         this.binding = binding
+        setupToolbar(binding)
         initRecyclerView()
         setupObservers()
+    }
+
+    private fun setupToolbar(
+        binding: ScheduleDetailFragmentBinding
+    ) {
+        binding.menuScreenT.setNavigationIcon(R.drawable.ic_back)
+        binding.menuScreenT.setNavigationOnClickListener { viewModel.onBack() }
     }
 
     private fun initRecyclerView() {

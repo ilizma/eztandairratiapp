@@ -14,7 +14,6 @@ object ScheduleBackCloseNavigatorModule {
     @Provides
     fun provideScheduleBackCloseNavigator(
     ): ScheduleBackCloseNavigator = ScheduleBackCloseNavigatorImp(
-        // TODO: 28/12/21  
     )
 
 }

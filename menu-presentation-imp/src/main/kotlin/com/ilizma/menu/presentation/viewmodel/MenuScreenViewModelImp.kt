@@ -33,4 +33,8 @@ class MenuScreenViewModelImp @AssistedInject constructor(
         _navigationAction.postValue(Web)
     }
 
+    override fun onBack() {
+        _navigationAction.postValue(Back)
+    }
+
 }

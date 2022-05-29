@@ -7,13 +7,10 @@ import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import com.ilizma.player.framework.model.PlayerConnectionState
+import com.ilizma.player.framework.model.PlayerEvent
 import com.ilizma.player.framework.model.PlayerState
-import com.ilizma.player.framework.service.NETWORK_FAILURE
-import com.ilizma.player.framework.service.PLAYER_START
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
-
-// TODO: 24/12/21 Manage errors differentiating them
 
 class PlayerFrameworkImp(
     context: Context,
@@ -88,8 +85,15 @@ class PlayerFrameworkImp(
         ) {
             super.onSessionEvent(event, extras)
             when (event) {
-                PLAYER_START -> playerState.onNext(PlayerState.Playing)
-                NETWORK_FAILURE -> playerState.onNext(PlayerState.Error)
+                PlayerEvent.START.name -> playerState.onNext(PlayerState.Playing)
+                // TODO: 24/12/21 Manage errors differentiating them
+                PlayerEvent.IO_FAILURE.name -> playerState.onNext(PlayerState.Error)
+                PlayerEvent.MALFORMED_FAILURE.name -> playerState.onNext(PlayerState.Error)
+                PlayerEvent.UNSUPPORTED_FAILURE.name -> playerState.onNext(PlayerState.Error)
+                PlayerEvent.TIMEOUT_FAILURE.name -> playerState.onNext(PlayerState.Error)
+                PlayerEvent.NETWORK_FAILURE.name -> playerState.onNext(PlayerState.Error)
+                PlayerEvent.PROGRESSIVE_PLAYBACK_NOT_VALID_FAILURE.name -> playerState.onNext(PlayerState.Error)
+                PlayerEvent.UNKNOWN_FAILURE.name -> playerState.onNext(PlayerState.Error)
             }
         }
 

@@ -12,4 +12,6 @@ sealed class MenuNavigationAction {
 
     object Web : MenuNavigationAction()
 
+    object Back : MenuNavigationAction()
+
 }

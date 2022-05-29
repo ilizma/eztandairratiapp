@@ -11,6 +11,8 @@ abstract class RadioScreenViewModel : ViewModel() {
 
     abstract val navigationAction: LiveData<RadioScreenNavigationAction>
 
+    abstract fun getState()
+
     abstract fun onPlay()
 
     abstract fun onStop()

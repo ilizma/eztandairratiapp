@@ -18,12 +18,12 @@ import io.reactivex.rxjava3.kotlin.addTo
 import com.ilizma.player.presentation.model.PlayerState as PresentationPlayerState
 
 class RadioScreenViewModelImp @AssistedInject constructor(
-    stateUseCase: PlayerStateUseCase,
+    private val stateUseCase: PlayerStateUseCase,
     private val playUseCase: PlayerPlayUseCase,
     private val stopUseCase: PlayerStopUseCase,
     @Assisted private val mapper: PlayerStateMapper,
-    @Assisted backgroundScheduler: Scheduler,
-    @Assisted compositeDisposable: CompositeDisposable,
+    @Assisted private val backgroundScheduler: Scheduler,
+    @Assisted private val compositeDisposable: CompositeDisposable,
     @Assisted private val _playerState: MutableLiveData<PresentationPlayerState>,
     @Assisted private val _navigationAction: SingleLiveEvent<RadioScreenNavigationAction>,
 ) : RadioScreenViewModel() {
@@ -31,7 +31,7 @@ class RadioScreenViewModelImp @AssistedInject constructor(
     override val playerState: LiveData<PresentationPlayerState> = _playerState
     override val navigationAction: LiveData<RadioScreenNavigationAction> = _navigationAction
 
-    init {
+    override fun getState() {
         stateUseCase()
             .subscribeOn(backgroundScheduler)
             .observeOn(backgroundScheduler)

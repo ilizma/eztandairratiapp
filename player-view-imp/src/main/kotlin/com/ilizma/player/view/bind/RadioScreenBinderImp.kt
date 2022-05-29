@@ -21,6 +21,7 @@ class RadioScreenBinderImp(
     override fun bind(binding: RadioScreenFragmentBinding) {
         this.binding = binding
         setupObservers()
+        viewModel.getState()
     }
 
     private fun setupObservers() {

@@ -18,4 +18,6 @@ abstract class MenuScreenViewModel : ViewModel() {
 
     abstract fun onWeb()
 
+    abstract fun onBack()
+
 }
