@@ -2,7 +2,7 @@ package com.ilizma.player.framework.media.di
 
 import android.content.Context
 import androidx.core.app.NotificationCompat
-import com.ilizma.player.di.R
+import com.ilizma.resources.R
 import com.ilizma.player.framework.app.di.CHANNEL_ID
 import dagger.Module
 import dagger.Provides

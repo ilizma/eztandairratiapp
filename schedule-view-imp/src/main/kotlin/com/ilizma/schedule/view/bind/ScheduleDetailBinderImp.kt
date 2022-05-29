@@ -7,7 +7,7 @@ import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailViewModel
 import com.ilizma.schedule.view.adapter.ProgramsAdapter
 import com.ilizma.schedule.view.adapter.factory.ProgramsAdapterFactory
 import com.ilizma.schedule.view.databinding.ScheduleDetailFragmentBinding
-import com.ilizma.schedule.view.imp.R
+import com.ilizma.resources.R
 import com.ilizma.view.extensions.snackbar
 
 class ScheduleDetailBinderImp(

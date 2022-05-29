@@ -13,7 +13,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.ilizma.app.view.activity.MainActivity
-import com.ilizma.eztandairratiapp.R
+import com.ilizma.resources.R
 import com.ilizma.player.framework.app.di.CHANNEL_ID
 import com.ilizma.player.framework.app.di.CHANNEL_NAME
 import kotlin.random.Random

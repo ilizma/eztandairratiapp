@@ -11,7 +11,7 @@ import android.support.v4.media.session.MediaSessionCompat
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.toBitmap
 import androidx.media.session.MediaButtonReceiver
-import com.ilizma.player.di.R
+import com.ilizma.resources.R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -40,6 +40,7 @@ dependencies {
     implementation(project(":presentation-base"))
     implementation(project(":api"))
     implementation(project(":app-flow"))
+    implementation(project(":resources"))
 
     // region Schedule
     implementation(project(":schedule-flow"))

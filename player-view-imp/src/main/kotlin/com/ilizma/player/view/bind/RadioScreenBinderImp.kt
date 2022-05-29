@@ -5,7 +5,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import com.ilizma.player.presentation.model.PlayerState
 import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
-import com.ilizma.player.view.R
+import com.ilizma.resources.R
 import com.ilizma.player.view.databinding.RadioScreenFragmentBinding
 import com.ilizma.view.extensions.setOnReactiveClickListener
 import com.ilizma.view.extensions.snackbar

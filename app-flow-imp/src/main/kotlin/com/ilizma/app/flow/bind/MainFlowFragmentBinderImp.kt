@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.ilizma.app.flow.databinding.MainFlowFragmentBinding
-import com.ilizma.app.flow.imp.R
+import com.ilizma.app.flow.R
 
 class MainFlowFragmentBinderImp(
     private val fragmentManager: () -> FragmentManager

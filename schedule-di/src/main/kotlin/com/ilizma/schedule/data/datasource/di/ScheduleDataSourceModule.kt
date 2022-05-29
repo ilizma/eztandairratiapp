@@ -7,7 +7,7 @@ import com.ilizma.schedule.data.datasource.ScheduleDataSourceImp
 import com.ilizma.schedule.data.mapper.ProgramDTOListMapper
 import com.ilizma.schedule.data.mapper.ProgramDTOMapper
 import com.ilizma.schedule.data.mapper.ScheduleStateDTOMapper
-import com.ilizma.schedule.di.R
+import com.ilizma.resources.R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +23,7 @@ object ScheduleDataSourceModule {
         resources: Resources,
     ): ScheduleDataSource = ScheduleDataSourceImp(
         api,
-        ScheduleStateDTOMapper(ProgramDTOListMapper(ProgramDTOMapper(resources.getString(R.string.hour)))),
+        ScheduleStateDTOMapper(ProgramDTOListMapper(ProgramDTOMapper(resources.getString(com.ilizma.resources.R.string.hour)))),
         resources.getString(R.string.unknown_error)
     )
 

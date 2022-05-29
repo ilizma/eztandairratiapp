@@ -9,7 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import javax.inject.Named
-import com.ilizma.schedule.di.R
+import com.ilizma.resources.R
 
 const val SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED = "SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED"
 

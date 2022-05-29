@@ -3,7 +3,7 @@ package com.ilizma.player.framework.core.di
 import android.app.PendingIntent
 import android.content.res.Resources
 import androidx.core.app.NotificationCompat
-import com.ilizma.player.di.R
+import com.ilizma.resources.R
 import com.ilizma.player.framework.app.di.START_PENDING_INTENT_NAMED
 import com.ilizma.player.framework.service.NOTIFICATION_COMPAT_PLAY_ACTION_NAMED
 import dagger.Module
