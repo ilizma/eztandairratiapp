@@ -1,6 +1,5 @@
 package com.ilizma.schedule.view.router.id
 
-import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -28,7 +27,7 @@ object ScheduleScreenRouterModule {
         @Named(SCHEDULE_SCREEN_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): ScheduleScreenRouter = ScheduleScreenRouterImp(
         lifecycleOwner = { fragment.viewLifecycleOwner },
-        onBackPressedDispatcher = OnBackPressedDispatcher(),
+        onBackPressedDispatcher = fragment.requireActivity().onBackPressedDispatcher,
         viewModelLazy = fragment.viewModels { viewModelProviderFactory },
         mapper = DayMapper(),
         scheduleBackCloseNavigator = scheduleBackCloseNavigator,

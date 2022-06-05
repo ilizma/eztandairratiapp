@@ -1,6 +1,5 @@
 package com.ilizma.player.view.router.di
 
-import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -25,7 +24,7 @@ object RadioScreenRouterModule {
         @Named(RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): RadioScreenRouter = RadioScreenRouterImp(
         lifecycleOwner = { fragment.viewLifecycleOwner },
-        onBackPressedDispatcher = OnBackPressedDispatcher(),
+        onBackPressedDispatcher = fragment.requireActivity().onBackPressedDispatcher,
         viewModelLazy = fragment.viewModels { viewModelProviderFactory },
         radioBackCloseNavigator = radioBackCloseNavigator,
     )

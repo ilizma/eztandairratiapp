@@ -1,6 +1,5 @@
 package com.ilizma.schedule.view.router.id
 
-import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -25,7 +24,7 @@ object ScheduleDetailRouterModule {
         @Named(SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): ScheduleDetailRouter = ScheduleDetailRouterImp(
         lifecycleOwner = { fragment.viewLifecycleOwner },
-        onBackPressedDispatcher = OnBackPressedDispatcher(),
+        onBackPressedDispatcher = fragment.requireActivity().onBackPressedDispatcher,
         viewModelLazy = fragment.viewModels { viewModelProviderFactory },
         navigator = navigator,
     )
