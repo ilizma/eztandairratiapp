@@ -27,8 +27,8 @@ android {
 }
 
 dependencies {
-    implementation(Hilt.hilt)
-    kapt(Hilt.compiler)
+    implementation(Di.hilt)
+    kapt(Di.compiler)
     implementation(Rx.java)
     implementation(Android.appcompat)
     implementation(AndroidUI.material)

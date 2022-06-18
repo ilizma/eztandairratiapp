@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     id("dagger.hilt.android.plugin")
 }
 
@@ -34,9 +35,11 @@ android {
 }
 
 dependencies {
-    implementation(Hilt.hilt)
-    kapt(Hilt.compiler)
+    implementation(Di.hilt)
+    kapt(Di.compiler)
     implementation(Android.v4)
+    implementation(platform(Firebase.bom))
+    implementation(Firebase.crashlytics)
     implementation(Firebase.analytics)
     implementation(Firebase.messaging)
     implementation(CustomActivityOnCrash.customactivityoncrash)

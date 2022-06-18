@@ -9,7 +9,9 @@ buildscript {
         classpath(Project.kotlinGradle)
         classpath(Project.navigation)
         classpath(Project.googleServices)
+        classpath(Project.crashlyticsGradle)
         classpath(Project.hilt)
+        classpath(Project.junit)
     }
 }
 

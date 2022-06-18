@@ -45,6 +45,7 @@ class RadioScreenBinderImp(
             when (state) {
                 PlayerState.Stopped -> viewModel.onPlay()
                 PlayerState.Playing -> viewModel.onStop()
+                else -> { /* no-op */ }
             }
         }
     }
@@ -70,6 +71,7 @@ class RadioScreenBinderImp(
                 R.string.no_internet,
                 R.string.retry
             ) { viewModel.onPlay() }
+            else -> { /* no-op */ }
         }
     }
 

@@ -31,9 +31,8 @@ android {
 
 dependencies {
     implementation(Rx.java)
-    implementation(Hilt.hilt)
-    kapt(Hilt.compiler)
-    implementation(Android.activity)
+    implementation(Di.hilt)
+    kapt(Di.compiler)
     implementation(Architecture.navigationFragment)
     implementation(AndroidKtx.fragment)
     implementation(project(":di-base"))

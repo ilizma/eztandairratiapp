@@ -24,11 +24,11 @@ android {
 }
 
 dependencies {
-    implementation(Hilt.hilt)
-    kapt(Hilt.compiler)
+    implementation(Di.hilt)
+    kapt(Di.compiler)
     implementation(Android.appcompat)
     implementation(AndroidUI.material)
-    implementation(AndroidUI.lottie)
+    implementation(UI.lottie)
     implementation(project(":view-base"))
     implementation(project(":app-flow"))
     implementation(project(":resources"))

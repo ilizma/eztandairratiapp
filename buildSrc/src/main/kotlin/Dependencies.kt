@@ -3,8 +3,10 @@ object Project {
     val kotlinGradle by lazy { "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}" }
     val navigation by lazy { "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigationVersion}" }
     val googleServices by lazy { "com.google.gms:google-services:${Versions.googleServicesVersion}" }
+    val crashlyticsGradle by lazy { "com.google.firebase:firebase-crashlytics-gradle:${Versions.crashlyticsGradleVersion}" }
     val kotlin by lazy { "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlinVersion}" }
     val hilt by lazy { "com.google.dagger:hilt-android-gradle-plugin:${Versions.hiltVersion}" }
+    val junit by lazy { "de.mannodermaus.gradle.plugins:android-junit5:${Versions.junitVersion}" }
 }
 
 object Rx {
@@ -16,7 +18,6 @@ object Rx {
 object Android {
     val appcompat by lazy { "androidx.appcompat:appcompat:${Versions.supportVersion}" }
     val v4 by lazy { "androidx.legacy:legacy-support-v4:${Versions.legacyVersion}" }
-    val activity by lazy { "androidx.activity:activity:${Versions.activityVersion}" }
 }
 
 object AndroidKtx {
@@ -28,6 +29,9 @@ object AndroidUI {
     val constraintLayout by lazy { "androidx.constraintlayout:constraintlayout:${Versions.constraintLayoutVersion}" }
     val recyclerview by lazy { "androidx.recyclerview:recyclerview:${Versions.recyclerviewVersion}" }
     val material by lazy { "com.google.android.material:material:${Versions.materialVersion}" }
+}
+
+object UI {
     val shimmer by lazy { "com.facebook.shimmer:shimmer:${Versions.shimmerVersion}" }
     val lottie by lazy { "com.airbnb.android:lottie:${Versions.lottieVersion}" }
 }
@@ -39,7 +43,6 @@ object Architecture {
     val lifecycleCommon by lazy { "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycleVersion}" }
     val lifecycleViewModel by lazy { "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}" }
     val lifecycleLivedata by lazy { "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleVersion}" }
-    val lifecycleReactivestreams by lazy { "androidx.lifecycle:lifecycle-reactivestreams-ktx:${Versions.lifecycleVersion}" }
 }
 
 object CustomActivityOnCrash {
@@ -58,34 +61,24 @@ object Network {
     val chuckerNoOp by lazy { "com.github.chuckerteam.chucker:library-no-op:${Versions.chuckerVersion}" }
 }
 
-object Hilt {
+object Di {
     val hilt by lazy { "com.google.dagger:hilt-android:${Versions.hiltVersion}" }
     val compiler by lazy { "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}" }
-}
-
-object Dagger {
-    val dagger by lazy { "com.google.dagger:dagger:${Versions.daggerVersion}" }
-    val android by lazy { "com.google.dagger:dagger-android:${Versions.daggerVersion}" }
-    val processor by lazy { "com.google.dagger:dagger-android-processor:${Versions.daggerVersion}" }
-    val compiler by lazy { "com.google.dagger:dagger-compiler:${Versions.daggerVersion}" }
-    val support by lazy { "com.google.dagger:dagger-android-support:${Versions.daggerVersion}" }
 }
 
 object Annotation {
     val annotation by lazy { "androidx.annotation:annotation:${Versions.annotationVersion}" }
 }
 
-
 object Firebase {
-    val analytics by lazy { "com.google.firebase:firebase-analytics:${Versions.firebaseAnalyticsVersion}" }
-    val messaging by lazy { "com.google.firebase:firebase-messaging:${Versions.firebaseMessagingVersion}" }
+    val bom by lazy { "com.google.firebase:firebase-bom:${Versions.firebaseBomVersion}" }
+    val analytics by lazy { "com.google.firebase:firebase-analytics-ktx" }
+    val crashlytics by lazy { "com.google.firebase:firebase-crashlytics-ktx" }
+    val messaging by lazy { "com.google.firebase:firebase-messaging-ktx" }
 }
 
 object Test {
     val mockk by lazy { "io.mockk:mockk:${Versions.mockkVersion}" }
-    val junit by lazy { "junit:junit:${Versions.junitVersion}" }
-    val runner by lazy { "androidx.test:runner:${Versions.supportTestVersion}" }
-    val rules by lazy { "androidx.test:rules:${Versions.supportTestVersion}" }
-    val core by lazy { "androidx.test:core:${Versions.testCoreVersion}" }
-    val extJunit by lazy { "androidx.test.ext:junit:${Versions.testExtJunitVersion}" }
+    val junitApi by lazy { "org.junit.jupiter:junit-jupiter-api:${Versions.junitJupiterVersion}" }
+    val junitEngine by lazy { "org.junit.jupiter:junit-jupiter-engine:${Versions.junitJupiterVersion}" }
 }

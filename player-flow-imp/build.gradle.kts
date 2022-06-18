@@ -20,7 +20,6 @@ android {
 
 dependencies {
     implementation(Android.appcompat)
-    implementation(Android.activity)
     implementation(Architecture.lifecycleCommon)
     implementation(project(":player-flow"))
     implementation(project(":player-view"))

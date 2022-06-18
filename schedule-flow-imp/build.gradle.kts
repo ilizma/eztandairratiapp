@@ -21,7 +21,6 @@ android {
 
 dependencies {
     implementation(Android.appcompat)
-    implementation(Android.activity)
     implementation(Architecture.lifecycleCommon)
     implementation(Architecture.navigationUi)
     implementation(Architecture.navigationFragment)

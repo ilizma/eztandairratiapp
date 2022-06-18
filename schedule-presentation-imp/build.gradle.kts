@@ -21,8 +21,8 @@ android {
 }
 
 dependencies {
-    implementation(Hilt.hilt)
-    kapt(Hilt.compiler)
+    implementation(Di.hilt)
+    kapt(Di.compiler)
     implementation(Rx.java)
     implementation(Rx.kotlin)
     implementation(Architecture.lifecycleViewModel)

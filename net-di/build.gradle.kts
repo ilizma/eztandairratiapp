@@ -29,8 +29,8 @@ android {
 }
 
 dependencies {
-    implementation(Hilt.hilt)
-    kapt(Hilt.compiler)
+    implementation(Di.hilt)
+    kapt(Di.compiler)
     debugImplementation(Network.chucker)
     releaseImplementation(Network.chuckerNoOp)
     implementation(Network.moshi)

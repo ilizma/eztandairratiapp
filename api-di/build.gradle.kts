@@ -20,8 +20,8 @@ android {
 }
 
 dependencies {
-    implementation(Hilt.hilt)
-    kapt(Hilt.compiler)
+    implementation(Di.hilt)
+    kapt(Di.compiler)
     implementation(Network.retrofit)
     implementation(project(":di-base"))
 

@@ -15,21 +15,21 @@ import java.util.concurrent.atomic.AtomicReference
 
 private const val CLIPBOARD_LABEL = "EztandaCrashFragment log"
 
-class CrashFragmentBinderImp : CrashFragmentBinder {
+class CrashFragmentBinderImp(
+    private val activity: Activity
+) : CrashFragmentBinder {
 
     private val stackTrace = AtomicReference<String>()
 
     override fun bind(
         binding: CrashFragmentBinding,
-        activity: Activity,
     ) {
-        setupView(binding, activity)
-        setUpListeners(binding, activity)
+        setupView(binding)
+        setUpListeners(binding)
     }
 
     private fun setupView(
         binding: CrashFragmentBinding,
-        activity: Activity,
     ) {
         if (BuildConfig.DEBUG) binding.crashActivityBLogcat.isVisible = true
 
@@ -39,7 +39,6 @@ class CrashFragmentBinderImp : CrashFragmentBinder {
 
     private fun setUpListeners(
         binding: CrashFragmentBinding,
-        activity: Activity,
     ) {
         binding.crashActivityBRestart.setOnReactiveClickListener {
             CustomActivityOnCrash.getConfigFromIntent(activity.intent)

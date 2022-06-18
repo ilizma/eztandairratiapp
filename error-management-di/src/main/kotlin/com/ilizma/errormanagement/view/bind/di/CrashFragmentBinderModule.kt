@@ -1,5 +1,6 @@
 package com.ilizma.errormanagement.view.bind.di
 
+import android.app.Activity
 import com.ilizma.errormanagement.view.bind.CrashFragmentBinder
 import com.ilizma.errormanagement.view.bind.CrashFragmentBinderImp
 import dagger.Module
@@ -13,6 +14,9 @@ object CrashFragmentBinderModule {
 
     @Provides
     fun provideCrashFragmentBinder(
-    ): CrashFragmentBinder = CrashFragmentBinderImp()
+        activity: Activity,
+    ): CrashFragmentBinder = CrashFragmentBinderImp(
+        activity,
+    )
 
 }
