@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.qualifiers.ActivityContext
 
 @Module
 @InstallIn(FragmentComponent::class)
@@ -15,7 +15,7 @@ object PhoneNavigatorModule {
 
     @Provides
     fun providePhoneNavigator(
-        @ApplicationContext context: Context,
+        @ActivityContext context: Context,
     ): PhoneNavigator = PhoneNavigatorImp(
         context,
     )

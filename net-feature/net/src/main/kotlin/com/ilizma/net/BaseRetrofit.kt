@@ -19,4 +19,5 @@ class BaseRetrofit(
         .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
         .client(okHttpClient)
         .build()
+
 }

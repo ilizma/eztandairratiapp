@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicReference
 private const val CLIPBOARD_LABEL = "EztandaCrashFragment log"
 
 class CrashFragmentBinderImp(
-    private val activity: Activity
+    private val activity: Activity,
 ) : CrashFragmentBinder {
 
     private val stackTrace = AtomicReference<String>()

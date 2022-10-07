@@ -5,10 +5,10 @@ import com.ilizma.schedule.data.cache.ScheduleDataSourceCacheImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ActivityComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ActivityComponent::class)
 object ScheduleDataSourceCacheModule {
 
     @Provides

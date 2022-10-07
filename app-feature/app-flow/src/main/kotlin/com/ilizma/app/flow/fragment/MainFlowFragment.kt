@@ -26,4 +26,5 @@ class MainFlowFragment : Fragment(R.layout.main_flow_fragment) {
     private fun setupView() {
         binder.bind(binding)
     }
+
 }

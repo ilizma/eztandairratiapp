@@ -8,12 +8,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import java.util.*
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object MoshiModule {
 
     @Provides
+    @Singleton
     fun provideMoshi(
     ): Moshi = Moshi.Builder()
         .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())
