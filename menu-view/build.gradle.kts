@@ -13,8 +13,8 @@ android {
         targetSdk = ConfigData.targetSdk
     }
 
-    viewBinding {
-        isEnabled = true
+    buildFeatures {
+        viewBinding = true
     }
 
     sourceSets {
