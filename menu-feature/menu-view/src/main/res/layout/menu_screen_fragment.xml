@@ -41,17 +41,6 @@
         android:text="@string/facebook" />
 
     <TextView
-        android:id="@+id/menu_fragment_tv_whatsapp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:paddingStart="@dimen/horizontal_margin"
-        android:paddingTop="@dimen/vertical_margin"
-        android:paddingEnd="@dimen/horizontal_margin"
-        android:paddingBottom="@dimen/vertical_margin"
-        android:text="@string/whatsapp" />
-
-    <TextView
         android:id="@+id/menu_fragment_tv_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

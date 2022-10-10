@@ -23,8 +23,7 @@
 
     <string name="twitter" translatable="false">Twitter</string>
     <string name="facebook" translatable="false">Facebook</string>
-    <string name="whatsapp" translatable="false">Whatsapp</string>
-    <string name="phone">Phone</string>
+    <string name="phone">Phone/Whatsapp</string>
     <string name="web" translatable="false">Web</string>
 
     <string name="radio_name">Eztanda radio</string>

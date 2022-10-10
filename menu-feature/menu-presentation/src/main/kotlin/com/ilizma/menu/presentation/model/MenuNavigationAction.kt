@@ -6,8 +6,6 @@ sealed class MenuNavigationAction {
 
     object Facebook : MenuNavigationAction()
 
-    object Whatsapp : MenuNavigationAction()
-
     object Phone : MenuNavigationAction()
 
     object Web : MenuNavigationAction()

@@ -21,10 +21,6 @@ class MenuScreenViewModelImp @AssistedInject constructor(
         _navigationAction.postValue(Facebook)
     }
 
-    override fun onWhatsapp() {
-        _navigationAction.postValue(Whatsapp)
-    }
-
     override fun onPhone() {
         _navigationAction.postValue(Phone)
     }

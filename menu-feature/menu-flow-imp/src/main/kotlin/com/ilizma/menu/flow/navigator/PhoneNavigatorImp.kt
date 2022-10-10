@@ -12,7 +12,6 @@ class PhoneNavigatorImp(
         "948563766"
             .let { Uri.parse("tel:$it") }
             .let { context.startActivity(Intent(Intent.ACTION_DIAL, it)) }
-        // TODO: 8/12/21 unify whatsapp and phone
     }
 
 }

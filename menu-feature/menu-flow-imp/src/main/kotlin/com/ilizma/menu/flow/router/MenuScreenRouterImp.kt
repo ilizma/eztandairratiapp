@@ -15,7 +15,6 @@ class MenuScreenRouterImp(
     viewModelLazy: Lazy<MenuScreenViewModel>,
     private val twitterNavigator: TwitterNavigator,
     private val facebookNavigator: FacebookNavigator,
-    private val whatsappNavigator: WhatsappNavigator,
     private val phoneNavigator: PhoneNavigator,
     private val webNavigator: WebNavigator,
     private val menuBackCloseNavigator: MenuBackCloseNavigator,
@@ -43,7 +42,6 @@ class MenuScreenRouterImp(
         when (action) {
             Twitter -> twitterNavigator.navigate()
             Facebook -> facebookNavigator.navigate()
-            Whatsapp -> whatsappNavigator.navigate()
             Phone -> phoneNavigator.navigate()
             Web -> webNavigator.navigate()
             Back -> menuBackCloseNavigator.close()

@@ -24,9 +24,6 @@ class MenuScreenFragmentBinderImp(
         binding.menuFragmentTvFacebook.setOnReactiveClickListener {
             viewModel.onFacebook()
         }
-        binding.menuFragmentTvWhatsapp.setOnReactiveClickListener {
-            viewModel.onWhatsapp()
-        }
         binding.menuFragmentTvPhone.setOnReactiveClickListener {
             viewModel.onPhone()
         }

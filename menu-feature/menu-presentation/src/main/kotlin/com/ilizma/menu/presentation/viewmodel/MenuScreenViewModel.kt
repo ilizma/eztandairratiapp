@@ -12,8 +12,6 @@ abstract class MenuScreenViewModel : ViewModel() {
 
     abstract fun onFacebook()
 
-    abstract fun onWhatsapp()
-
     abstract fun onPhone()
 
     abstract fun onWeb()
