@@ -21,6 +21,7 @@ android {
 dependencies {
     implementation(Android.appcompat)
     implementation(Architecture.lifecycleCommon)
+    implementation(Architecture.navigationUi)
     implementation(project(":player-flow"))
     implementation(project(":player-view"))
     implementation(project(":player-presentation"))

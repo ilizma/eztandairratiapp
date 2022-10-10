@@ -25,6 +25,7 @@ dependencies {
     kapt(Di.compiler)
     implementation(Android.appcompat)
     implementation(Architecture.lifecycleCommon)
+    implementation(Architecture.navigationUi)
     implementation(project(":menu-flow"))
     implementation(project(":menu-view"))
     implementation(project(":menu-presentation"))

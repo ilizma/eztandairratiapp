@@ -44,7 +44,7 @@ class MenuScreenRouterImp(
             Facebook -> facebookNavigator.navigate()
             Phone -> phoneNavigator.navigate()
             Web -> webNavigator.navigate()
-            Back -> menuBackCloseNavigator.close()
+            Back -> menuBackCloseNavigator.back()
         }
     }
 

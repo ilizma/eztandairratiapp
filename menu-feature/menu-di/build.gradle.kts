@@ -23,6 +23,7 @@ dependencies {
     implementation(Di.hilt)
     kapt(Di.compiler)
     implementation(AndroidKtx.fragment)
+    implementation(Architecture.navigationFragment)
     implementation(project(":di-base"))
     implementation(project(":presentation-base"))
 

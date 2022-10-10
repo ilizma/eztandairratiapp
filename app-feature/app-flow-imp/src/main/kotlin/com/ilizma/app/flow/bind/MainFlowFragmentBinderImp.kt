@@ -7,7 +7,7 @@ import com.ilizma.app.flow.databinding.MainFlowFragmentBinding
 import com.ilizma.app.flow.R
 
 class MainFlowFragmentBinderImp(
-    private val fragmentManager: () -> FragmentManager
+    private val fragmentManager: FragmentManager,
 ) : MainFlowFragmentBinder {
 
     private lateinit var binding: MainFlowFragmentBinding
@@ -18,10 +18,9 @@ class MainFlowFragmentBinderImp(
     }
 
     private fun setupView() {
-        val navHostFragment = fragmentManager()
-            .findFragmentById(R.id.main_flow_fragment_f_nav_host) as NavHostFragment
-        val navController = navHostFragment.navController
-        binding.mainFragmentBnvMenu.setupWithNavController(navController)
+        (fragmentManager.findFragmentById(R.id.main_flow_fragment_f_nav_host) as NavHostFragment)
+            .navController
+            .let { binding.mainFragmentBnvMenu.setupWithNavController(it) }
     }
 
 }

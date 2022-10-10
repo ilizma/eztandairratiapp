@@ -17,7 +17,7 @@ object ScheduleDetailNavigatorModule {
     fun provideScheduleDetailNavigator(
         fragment: Fragment,
     ): ScheduleDetailNavigator = ScheduleDetailNavigatorImp(
-        fragment.findNavController()
+        fragment.findNavController(),
     )
 
 }

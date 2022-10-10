@@ -1,5 +1,7 @@
 package com.ilizma.menu.flow.navigator.di
 
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.ilizma.menu.flow.navigator.MenuBackCloseNavigator
 import com.ilizma.menu.flow.navigator.MenuBackCloseNavigatorImp
 import dagger.Module
@@ -13,6 +15,9 @@ object MenuBackCloseNavigatorModule {
 
     @Provides
     fun provideMenuBackCloseNavigator(
-    ): MenuBackCloseNavigator = MenuBackCloseNavigatorImp()
+        fragment: Fragment,
+    ): MenuBackCloseNavigator = MenuBackCloseNavigatorImp(
+        navController = fragment.findNavController(),
+    )
 
 }

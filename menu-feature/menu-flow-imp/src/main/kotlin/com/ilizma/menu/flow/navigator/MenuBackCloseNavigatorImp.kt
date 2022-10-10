@@ -1,11 +1,13 @@
 package com.ilizma.menu.flow.navigator
 
-class MenuBackCloseNavigatorImp(
+import androidx.navigation.NavController
 
+class MenuBackCloseNavigatorImp(
+    private val navController: NavController,
 ) : MenuBackCloseNavigator {
 
-    override fun close() {
-        // TODO: 27/12/21
+    override fun back() {
+        navController.popBackStack()
     }
 
 }

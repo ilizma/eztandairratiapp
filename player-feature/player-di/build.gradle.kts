@@ -27,6 +27,7 @@ dependencies {
     implementation(Android.v4)
     implementation(AndroidKtx.core)
     implementation(AndroidKtx.fragment)
+    implementation(Architecture.navigationFragment)
     implementation(Architecture.lifecycleCommon)
     implementation(Annotation.annotation)
 

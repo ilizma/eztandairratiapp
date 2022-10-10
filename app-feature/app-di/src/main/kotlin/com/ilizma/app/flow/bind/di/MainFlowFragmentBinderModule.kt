@@ -15,6 +15,8 @@ object MainFlowFragmentBinderModule {
     @Provides
     fun provideMainFlowFragmentBinder(
         fragment: Fragment,
-    ): MainFlowFragmentBinder = MainFlowFragmentBinderImp { fragment.childFragmentManager }
+    ): MainFlowFragmentBinder = MainFlowFragmentBinderImp(
+        fragmentManager = fragment.childFragmentManager,
+    )
 
 }

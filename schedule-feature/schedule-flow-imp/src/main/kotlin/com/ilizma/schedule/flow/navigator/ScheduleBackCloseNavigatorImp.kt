@@ -1,11 +1,13 @@
 package com.ilizma.schedule.flow.navigator
 
-class ScheduleBackCloseNavigatorImp(
+import androidx.navigation.NavController
 
+class ScheduleBackCloseNavigatorImp(
+    private val navController: NavController,
 ) : ScheduleBackCloseNavigator {
 
-    override fun close() {
-        // TODO: 27/12/21
+    override fun back() {
+        navController.popBackStack()
     }
 
 }

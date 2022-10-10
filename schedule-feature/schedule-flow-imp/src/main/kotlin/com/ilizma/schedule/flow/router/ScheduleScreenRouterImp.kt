@@ -40,7 +40,7 @@ class ScheduleScreenRouterImp(
         action: ScheduleScreenNavigationAction,
     ) {
         when (action) {
-            Back -> scheduleBackCloseNavigator.close()
+            Back -> scheduleBackCloseNavigator.back()
             is ScheduleScreenNavigationAction.ScheduleDetail -> action.day
                 .let { mapper.toFlow(it) }
                 .let { scheduleDetailNavigator.navigate(it) }
