@@ -13,15 +13,6 @@ android {
         targetSdk = ConfigData.targetSdk
     }
 
-    buildTypes {
-        getByName("debug") {
-            buildConfigField("String", "AUDIO_URL", "\"" + Environments.debug.audioURL + "\"")
-        }
-        getByName("release") {
-            buildConfigField("String", "AUDIO_URL", "\"" + Environments.release.audioURL + "\"")
-        }
-    }
-
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }

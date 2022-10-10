@@ -1,5 +1,6 @@
 package com.ilizma.player.framework.service
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.PendingIntent
@@ -7,11 +8,13 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.media.AudioAttributes
 import android.media.AudioFocusRequest
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
@@ -19,6 +22,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.media.MediaBrowserServiceCompat
 import androidx.media.session.MediaButtonReceiver
+import com.ilizma.player.framework.imp.BuildConfig
 import com.ilizma.player.framework.model.PlayerEvent
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -27,14 +31,12 @@ import androidx.media.app.NotificationCompat as MediaNotificationCompat
 
 const val STOP_PENDING_INTENT_NAMED = "STOP_PENDING_INTENT_NAMED"
 const val NOTIFICATION_COMPAT_PLAY_ACTION_NAMED = "NOTIFICATION_COMPAT_PLAY_ACTION_NAMED"
+const val NOTIFICATION_COMPAT_LOADING_ACTION_NAMED = "NOTIFICATION_COMPAT_LOADING_ACTION_NAMED"
 const val NOTIFICATION_COMPAT_STOP_ACTION_NAMED = "NOTIFICATION_COMPAT_STOP_ACTION_NAMED"
 private const val NOTIFICATION_ID = 1076
 
 @AndroidEntryPoint
 class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChangeListener {
-
-    @Inject
-    lateinit var mediaPlayer: MediaPlayer
 
     @Inject
     lateinit var mediaSession: MediaSessionCompat
@@ -62,6 +64,10 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     lateinit var notificationChannelLow: NotificationChannel
 
     @Inject
+    @Named(NOTIFICATION_COMPAT_LOADING_ACTION_NAMED)
+    lateinit var loadingAction: NotificationCompat.Action
+
+    @Inject
     @Named(NOTIFICATION_COMPAT_PLAY_ACTION_NAMED)
     lateinit var playAction: NotificationCompat.Action
 
@@ -75,6 +81,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     @Inject
     lateinit var noisyAudioIntentFilter: IntentFilter
 
+    private lateinit var mediaPlayer: MediaPlayer
     private var audioFocusRequest: AudioFocusRequest? = null
 
     private val mNoisyReceiver = object : BroadcastReceiver() {
@@ -117,46 +124,29 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
         private fun showLoadingNotification() {
             notificationBuilder.clearActions()
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                notificationManagerCompat.createNotificationChannel(notificationChannelLow)
-            }
-
-            val controller = mediaSession.controller
-            val description = controller.metadata.description
-            notificationBuilder.apply {
-                setContentTitle(description.title)
-                setContentText(description.subtitle)
-                setSubText(description.description)
-                setLargeIcon(description.iconBitmap)
-                setContentIntent(controller.sessionActivity)
-                mediaStyle.setMediaSession(mediaSession.sessionToken)
-                    .let { setStyle(it) }
-                setDeleteIntent(stopPendingIntent)
-            }
+            notificationBuilder.addAction(loadingAction)
+            notificationBuilder.setDeleteIntent(stopPendingIntent)
+            notificationBuilder.setStyle(mediaStyle)
 
             notificationBuilder.build()
                 .apply { flags = Notification.FLAG_ONGOING_EVENT }
                 .let { startForeground(NOTIFICATION_ID, it) }
         }
 
+        @SuppressLint("MissingPermission")
         private fun showStopNotification() {
             notificationBuilder.clearActions()
             notificationBuilder.addAction(playAction)
+            notificationBuilder.setStyle(mediaStyle)
 
-            mediaStyle.let {
-                it.setShowActionsInCompactView(0)
-                it.setMediaSession(mediaSession.sessionToken)
-            }.let { notificationBuilder.setStyle(it) }
+            notificationManagerCompat.notify(NOTIFICATION_ID, notificationBuilder.build())
 
-            notificationManagerCompat
-                .apply {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        createNotificationChannel(notificationChannelLow)
-                    }
-                    notify(NOTIFICATION_ID, notificationBuilder.build())
-                }
-            stopForeground(false)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                stopForeground(STOP_FOREGROUND_DETACH)
+            } else {
+                @Suppress("DEPRECATION")
+                stopForeground(false)
+            }
         }
     }
 
@@ -165,6 +155,23 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
         mediaSession.setCallback(mediaSessionCallback)
         sessionToken = mediaSession.sessionToken
         initNoisyReceiver()
+        setNotificationConfig()
+    }
+
+    private fun setNotificationConfig() {
+        val controller = mediaSession.controller
+        val description = controller.metadata.description
+        notificationBuilder.apply {
+            setContentTitle(description.title)
+            setContentText(description.subtitle)
+            setSubText(description.description)
+            setLargeIcon(description.iconBitmap)
+            setContentIntent(controller.sessionActivity)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManagerCompat.createNotificationChannel(notificationChannelLow)
+        }
+        mediaStyle.setMediaSession(mediaSession.sessionToken)
     }
 
     override fun onStartCommand(
@@ -186,44 +193,45 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     ) { /* no-op */ }
 
     private fun initMediaPlayer() {
-        with(mediaPlayer) {
-            setVolume(1.0f, 1.0f)
-            setOnPreparedListener {
-                it.start()
-                showPlayingNotification()
-                mediaSession.sendSessionEvent(PlayerEvent.START.name, null)
+        mediaPlayer = MediaPlayer()
+            .apply {
+                setDataSource(BuildConfig.AUDIO_URL)
+                setWakeMode(this@MusicService, PowerManager.PARTIAL_WAKE_LOCK)
+                setAudioAttributes(
+                    AudioAttributes.Builder().run {
+                        setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        build()
+                    }
+                )
+                setVolume(1.0f, 1.0f)
+                isLooping = false
+                setOnPreparedListener {
+                    it.start()
+                    showPlayingNotification()
+                    mediaSession.sendSessionEvent(PlayerEvent.START.name, null)
+                }
+                setOnErrorListener { _, what, _ ->
+                    when (what) {
+                        MediaPlayer.MEDIA_ERROR_IO -> PlayerEvent.IO_FAILURE
+                        MediaPlayer.MEDIA_ERROR_MALFORMED -> PlayerEvent.MALFORMED_FAILURE
+                        MediaPlayer.MEDIA_ERROR_UNSUPPORTED -> PlayerEvent.UNSUPPORTED_FAILURE
+                        MediaPlayer.MEDIA_ERROR_TIMED_OUT -> PlayerEvent.TIMEOUT_FAILURE
+                        MediaPlayer.MEDIA_ERROR_SERVER_DIED -> PlayerEvent.NETWORK_FAILURE
+                        MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK -> PlayerEvent.PROGRESSIVE_PLAYBACK_NOT_VALID_FAILURE
+                        MediaPlayer.MEDIA_ERROR_UNKNOWN -> PlayerEvent.UNKNOWN_FAILURE
+                        else -> PlayerEvent.UNKNOWN_FAILURE
+                    }.let { mediaSession.sendSessionEvent(it.name, null) }
+                    mediaSessionCallback.onStop()
+                    true
+                }
+                prepareAsync()
             }
-            setOnErrorListener { _, what, _ ->
-                when (what) {
-                    MediaPlayer.MEDIA_ERROR_IO -> PlayerEvent.IO_FAILURE
-                    MediaPlayer.MEDIA_ERROR_MALFORMED -> PlayerEvent.MALFORMED_FAILURE
-                    MediaPlayer.MEDIA_ERROR_UNSUPPORTED -> PlayerEvent.UNSUPPORTED_FAILURE
-                    MediaPlayer.MEDIA_ERROR_TIMED_OUT -> PlayerEvent.TIMEOUT_FAILURE
-                    MediaPlayer.MEDIA_ERROR_SERVER_DIED -> PlayerEvent.NETWORK_FAILURE
-                    MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK -> PlayerEvent.PROGRESSIVE_PLAYBACK_NOT_VALID_FAILURE
-                    MediaPlayer.MEDIA_ERROR_UNKNOWN -> PlayerEvent.UNKNOWN_FAILURE
-                    else -> PlayerEvent.UNKNOWN_FAILURE
-                }.let { mediaSession.sendSessionEvent(it.name, null) }
-                mediaSessionCallback.onStop()
-                true
-            }
-            prepareAsync()
-        }
     }
 
     private fun showPlayingNotification() {
         notificationBuilder.clearActions()
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManagerCompat.createNotificationChannel(notificationChannelLow)
-        }
-
         notificationBuilder.addAction(stopAction)
-
-        mediaStyle.let {
-            it.setShowActionsInCompactView(0)
-            it.setMediaSession(mediaSession.sessionToken)
-        }.let { notificationBuilder.setStyle(it) }
+        notificationBuilder.setStyle(mediaStyle)
 
         notificationBuilder.build()
             .apply { flags = Notification.FLAG_ONGOING_EVENT }
@@ -274,7 +282,12 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     override fun onDestroy() {
         mediaSessionCallback.onStop()
         notificationManagerCompat.cancel(NOTIFICATION_ID)
-        stopForeground(true)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            stopForeground(STOP_FOREGROUND_REMOVE)
+        } else {
+            @Suppress("DEPRECATION")
+            stopForeground(true)
+        }
         mediaSession.apply {
             isActive = false
             release()

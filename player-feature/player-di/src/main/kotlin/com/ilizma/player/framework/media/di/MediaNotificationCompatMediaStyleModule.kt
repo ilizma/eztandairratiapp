@@ -13,5 +13,6 @@ object MediaNotificationCompatMediaStyleModule {
     @Provides
     fun provideMediaNotificationCompatMediaStyle(
     ): NotificationCompat.MediaStyle = NotificationCompat.MediaStyle()
+        .also { it.setShowActionsInCompactView(0) }
 
 }
