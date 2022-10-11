@@ -55,7 +55,7 @@ class RadioScreenBinderImp(
     ) {
         when (state) {
             PlayerState.Loading,
-            PlayerState.Error,
+            is PlayerState.Error,
             PlayerState.Stopped -> R.drawable.ic_play
             PlayerState.Playing -> R.drawable.ic_stop
         }.let { binding.radioScreenB.setImageResource(it) }
@@ -67,12 +67,24 @@ class RadioScreenBinderImp(
         state: PlayerState,
     ) {
         when (state) {
-            PlayerState.Error -> binding.root.snackbar(
-                R.string.no_internet,
-                R.string.retry
+            is PlayerState.Error -> binding.root.snackbar(
+                titleRes = errorRes(state),
+                actionRes = R.string.retry
             ) { viewModel.onPlay() }
             else -> { /* no-op */ }
         }
+    }
+
+    private fun errorRes(
+        errorState: PlayerState.Error
+    ): Int = when (errorState) {
+        PlayerState.Error.Malformed -> R.string.malformed_media
+        PlayerState.Error.Unsupported -> R.string.unsupported_media
+        PlayerState.Error.Timeout -> R.string.timeout_message
+        PlayerState.Error.Network -> R.string.no_internet
+        PlayerState.Error.MediaDisconnected -> R.string.media_disconnected
+        PlayerState.Error.Unknown -> R.string.unknown_error
+        PlayerState.Error.GenericError -> R.string.generic_error
     }
 
 }

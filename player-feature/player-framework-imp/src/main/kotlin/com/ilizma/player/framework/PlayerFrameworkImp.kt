@@ -25,14 +25,14 @@ class PlayerFrameworkImp(
     override fun play() {
         when (playerConnectionState.value) {
             PlayerConnectionState.Connected -> mediaController.transportControls.play()
-            PlayerConnectionState.Disconnected -> playerState.onNext(PlayerState.Error)
+            PlayerConnectionState.Disconnected -> playerState.onNext(PlayerState.Error.MediaDisconnected)
         }
     }
 
     override fun stop() {
         when (playerConnectionState.value) {
             PlayerConnectionState.Connected -> mediaController.transportControls.stop()
-            PlayerConnectionState.Disconnected -> playerState.onNext(PlayerState.Error)
+            PlayerConnectionState.Disconnected -> playerState.onNext(PlayerState.Error.MediaDisconnected)
         }
     }
 
@@ -86,14 +86,13 @@ class PlayerFrameworkImp(
             super.onSessionEvent(event, extras)
             when (event) {
                 PlayerEvent.START.name -> playerState.onNext(PlayerState.Playing)
-                // TODO: 24/12/21 Manage errors differentiating them
-                PlayerEvent.IO_FAILURE.name -> playerState.onNext(PlayerState.Error)
-                PlayerEvent.MALFORMED_FAILURE.name -> playerState.onNext(PlayerState.Error)
-                PlayerEvent.UNSUPPORTED_FAILURE.name -> playerState.onNext(PlayerState.Error)
-                PlayerEvent.TIMEOUT_FAILURE.name -> playerState.onNext(PlayerState.Error)
-                PlayerEvent.NETWORK_FAILURE.name -> playerState.onNext(PlayerState.Error)
-                PlayerEvent.PROGRESSIVE_PLAYBACK_NOT_VALID_FAILURE.name -> playerState.onNext(PlayerState.Error)
-                PlayerEvent.UNKNOWN_FAILURE.name -> playerState.onNext(PlayerState.Error)
+                PlayerEvent.IO_FAILURE.name,
+                PlayerEvent.PROGRESSIVE_PLAYBACK_NOT_VALID_FAILURE.name -> playerState.onNext(PlayerState.Error.GenericError)
+                PlayerEvent.MALFORMED_FAILURE.name -> playerState.onNext(PlayerState.Error.Malformed)
+                PlayerEvent.UNSUPPORTED_FAILURE.name -> playerState.onNext(PlayerState.Error.Unsupported)
+                PlayerEvent.TIMEOUT_FAILURE.name -> playerState.onNext(PlayerState.Error.Timeout)
+                PlayerEvent.NETWORK_FAILURE.name -> playerState.onNext(PlayerState.Error.Network)
+                PlayerEvent.UNKNOWN_FAILURE.name -> playerState.onNext(PlayerState.Error.Unknown)
             }
         }
 

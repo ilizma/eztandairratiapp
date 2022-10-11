@@ -8,6 +8,22 @@ sealed class PlayerState {
 
     object Stopped : PlayerState()
 
-    object Error : PlayerState()
+    sealed class Error : PlayerState() {
+
+        object Malformed : Error()
+
+        object Unsupported : Error()
+
+        object Timeout : Error()
+
+        object Network : Error()
+
+        object MediaDisconnected : Error()
+
+        object Unknown : Error()
+
+        object GenericError : Error()
+
+    }
 
 }
