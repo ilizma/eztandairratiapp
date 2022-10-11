@@ -20,46 +20,59 @@
 
     <TextView
         android:id="@+id/menu_fragment_tv_twitter"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
+        android:drawablePadding="@dimen/drawable_padding"
+        android:gravity="center_vertical"
         android:paddingStart="@dimen/horizontal_margin"
         android:paddingTop="@dimen/vertical_margin"
         android:paddingEnd="@dimen/horizontal_margin"
         android:paddingBottom="@dimen/vertical_margin"
-        android:text="@string/twitter" />
+        android:text="@string/twitter"
+        app:drawableStartCompat="@drawable/ic_twitter" />
 
     <TextView
         android:id="@+id/menu_fragment_tv_facebook"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
+        android:drawablePadding="@dimen/drawable_padding"
+        android:gravity="center_vertical"
         android:paddingStart="@dimen/horizontal_margin"
         android:paddingTop="@dimen/vertical_margin"
         android:paddingEnd="@dimen/horizontal_margin"
         android:paddingBottom="@dimen/vertical_margin"
-        android:text="@string/facebook" />
+        android:text="@string/facebook"
+        app:drawableStartCompat="@drawable/ic_facebook" />
 
     <TextView
         android:id="@+id/menu_fragment_tv_phone"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
+        android:drawablePadding="@dimen/drawable_padding"
+        android:gravity="center_vertical"
         android:paddingStart="@dimen/horizontal_margin"
         android:paddingTop="@dimen/vertical_margin"
         android:paddingEnd="@dimen/horizontal_margin"
         android:paddingBottom="@dimen/vertical_margin"
-        android:text="@string/phone" />
+        android:text="@string/phone"
+        app:drawableEndCompat="@drawable/ic_whatsapp"
+        app:drawableStartCompat="@drawable/ic_phone" />
 
     <TextView
         android:id="@+id/menu_fragment_tv_web"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
+        android:drawablePadding="@dimen/drawable_padding"
+        android:gravity="center_vertical"
         android:paddingStart="@dimen/horizontal_margin"
         android:paddingTop="@dimen/vertical_margin"
         android:paddingEnd="@dimen/horizontal_margin"
         android:paddingBottom="@dimen/vertical_margin"
-        android:text="@string/web" />
+        android:text="@string/web"
+        app:drawableStartCompat="@drawable/ic_web" />
 
 </LinearLayout>
