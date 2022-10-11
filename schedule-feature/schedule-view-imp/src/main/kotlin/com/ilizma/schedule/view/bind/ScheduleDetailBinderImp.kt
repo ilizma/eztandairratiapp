@@ -30,7 +30,6 @@ class ScheduleDetailBinderImp(
     private fun setupToolbar(
         binding: ScheduleDetailFragmentBinding
     ) {
-        binding.menuScreenT.setNavigationIcon(R.drawable.ic_back)
         binding.menuScreenT.setNavigationOnClickListener { viewModel.onBack() }
     }
 
