@@ -1,27 +1,24 @@
-package com.ilizma.schedule.view.viewholder
+package com.ilizma.schedule.view.bind
 
-import androidx.recyclerview.widget.RecyclerView
 import com.ilizma.schedule.presentation.model.Day
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.schedule.view.databinding.DayItemBinding
 
-class DayViewHolder(
-    private val binding: DayItemBinding,
-    viewModelLazy: Lazy<ScheduleScreenViewModel>,
-) : RecyclerView.ViewHolder(binding.root) {
+class DayItemBinderImp(
+    private val viewModel: ScheduleScreenViewModel,
+) : DayItemBinder<Day> {
 
-    private val viewModel: ScheduleScreenViewModel by viewModelLazy
+    private lateinit var binding: DayItemBinding
 
-    fun bind(
-        day: Day,
-    ) {
+    override fun bind(binding: DayItemBinding, day: Day) {
+        this.binding = binding
         binding.dayItemTv.text = day.name
         binding.dayItemTv.setOnClickListener {
             viewModel.onClick(day)
         }
     }
 
-    fun unBind() {
+    override fun unBind() {
         binding.dayItemTv.setOnClickListener(null)
     }
 

@@ -1,9 +1,9 @@
 package com.ilizma.schedule.view.adapter.util
 
-import androidx.recyclerview.widget.DiffUtil
 import com.ilizma.schedule.presentation.model.Day
+import com.ilizma.view.adapter.util.ItemDiffUtil
 
-class DayDiffUtil : DiffUtil.ItemCallback<Day>() {
+class DayDiffUtilImp : ItemDiffUtil<Day>() {
 
     override fun areItemsTheSame(
         oldItem: Day,

@@ -2,18 +2,19 @@ package com.ilizma.schedule.view.viewholder.factory
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
+import com.ilizma.schedule.presentation.model.Day
+import com.ilizma.schedule.view.bind.factory.DayBinderFactory
 import com.ilizma.schedule.view.databinding.DayItemBinding
-import com.ilizma.schedule.view.viewholder.DayViewHolder
+import com.ilizma.schedule.view.viewholder.DayViewHolderImp
+import com.ilizma.view.viewholder.ViewHolder
 
-class DayViewHolderFactory(
-    private val viewModelLazy: Lazy<ScheduleScreenViewModel>,
-) {
+class DayViewHolderFactory {
 
     fun create(
+        binderFactory: DayBinderFactory,
         parent: ViewGroup,
-    ): DayViewHolder = LayoutInflater.from(parent.context)
+    ): ViewHolder<Day> = LayoutInflater.from(parent.context)
         .let { DayItemBinding.inflate(it, parent, false) }
-        .let { DayViewHolder(it, viewModelLazy) }
+        .let { DayViewHolderImp(binderFactory.create(), it) }
 
 }

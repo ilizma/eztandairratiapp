@@ -3,10 +3,12 @@ package com.ilizma.schedule.view.bind.di
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.presentation.viewmodel.factory.di.SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED
 import com.ilizma.schedule.view.adapter.factory.ProgramsAdapterFactoryImp
 import com.ilizma.schedule.view.bind.ScheduleDetailBinder
 import com.ilizma.schedule.view.bind.ScheduleDetailBinderImp
+import com.ilizma.view.adapter.factory.AdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +22,7 @@ object ScheduleDetailBinderModule {
     @Provides
     fun provideScheduleDetailBinder(
         fragment: Fragment,
-        adapterFactory: ProgramsAdapterFactoryImp,
+        adapterFactory: AdapterFactory<ProgramType>,
         @Named(SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): ScheduleDetailBinder = ScheduleDetailBinderImp(
         viewModelLazy = fragment.viewModels { viewModelProviderFactory },

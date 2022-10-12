@@ -4,6 +4,7 @@ import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.view.adapter.factory.ProgramsAdapterFactoryImp
 import com.ilizma.schedule.view.bind.factory.ProgramBinderFactory
 import com.ilizma.schedule.view.viewholder.factory.ProgramViewHolderFactory
+import com.ilizma.view.adapter.factory.AdapterFactory
 import com.ilizma.view.adapter.util.ItemDiffUtil
 import dagger.Module
 import dagger.Provides
@@ -19,7 +20,7 @@ object ProgramsAdapterFactoryModule {
         binderFactory: ProgramBinderFactory,
         diffUtil: ItemDiffUtil<ProgramType>,
         viewHolderFactory: ProgramViewHolderFactory,
-    ): ProgramsAdapterFactoryImp = ProgramsAdapterFactoryImp(
+    ): AdapterFactory<ProgramType> = ProgramsAdapterFactoryImp(
         binderFactory = binderFactory,
         diffUtil = diffUtil,
         viewHolderFactory = viewHolderFactory,

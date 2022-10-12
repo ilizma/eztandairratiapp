@@ -2,22 +2,23 @@ package com.ilizma.schedule.view.bind
 
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
+import com.ilizma.resources.R
+import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.presentation.model.ScheduleState
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailViewModel
-import com.ilizma.schedule.view.adapter.ProgramsAdapter
-import com.ilizma.schedule.view.adapter.factory.ProgramsAdapterFactoryImp
 import com.ilizma.schedule.view.databinding.ScheduleDetailFragmentBinding
-import com.ilizma.resources.R
+import com.ilizma.view.adapter.Adapter
+import com.ilizma.view.adapter.factory.AdapterFactory
 import com.ilizma.view.extensions.snackbar
 
 class ScheduleDetailBinderImp(
     viewModelLazy: Lazy<ScheduleDetailViewModel>,
     private val lifecycleOwner: () -> LifecycleOwner,
-    adapterFactory: ProgramsAdapterFactoryImp,
+    adapterFactory: AdapterFactory<ProgramType>,
 ) : ScheduleDetailBinder {
 
     private val viewModel: ScheduleDetailViewModel by viewModelLazy
-    private val adapter: ProgramsAdapter by lazy { adapterFactory.create() }
+    private val adapter: Adapter<ProgramType> by lazy { adapterFactory.create() }
     private lateinit var binding: ScheduleDetailFragmentBinding
 
     override fun bind(binding: ScheduleDetailFragmentBinding) {
