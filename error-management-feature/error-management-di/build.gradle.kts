@@ -28,7 +28,7 @@ dependencies {
     kapt(Di.compiler)
     implementation(project(":view-base"))
     // region Error Management
-    implementation(project(":error-management-view"))
-    implementation(project(":error-management-view-imp"))
+    api(project(":error-management-view"))
+    api(project(":error-management-view-imp"))
     // endregion
 }

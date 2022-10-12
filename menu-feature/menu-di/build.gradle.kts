@@ -28,11 +28,11 @@ dependencies {
     implementation(project(":presentation-base"))
 
     // region Menu
-    implementation(project(":menu-flow"))
-    implementation(project(":menu-flow-imp"))
-    implementation(project(":menu-view"))
-    implementation(project(":menu-view-imp"))
-    implementation(project(":menu-presentation"))
-    implementation(project(":menu-presentation-imp"))
+    api(project(":menu-flow"))
+    api(project(":menu-flow-imp"))
+    api(project(":menu-view"))
+    api(project(":menu-view-imp"))
+    api(project(":menu-presentation"))
+    api(project(":menu-presentation-imp"))
     // endregion
 }

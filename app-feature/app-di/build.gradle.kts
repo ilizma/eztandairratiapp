@@ -26,8 +26,8 @@ dependencies {
     implementation(project(":di-base"))
 
     // region App
-    implementation(project(":app-flow"))
-    implementation(project(":app-flow-imp"))
-    implementation(project(":app-view"))
+    api(project(":app-flow"))
+    api(project(":app-flow-imp"))
+    api(project(":app-view"))
     // endregion
 }

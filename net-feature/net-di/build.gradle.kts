@@ -41,6 +41,6 @@ dependencies {
     implementation(project(":di-base"))
 
     // region Net
-    implementation(project(":net"))
+    api(project(":net"))
     // endregion
 }

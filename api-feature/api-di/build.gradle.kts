@@ -26,6 +26,6 @@ dependencies {
     implementation(project(":di-base"))
 
     // region Api
-    implementation(project(":api"))
+    api(project(":api"))
     // endregion
 }

@@ -44,15 +44,15 @@ dependencies {
     implementation(project(":resources"))
 
     // region Schedule
-    implementation(project(":schedule-flow"))
-    implementation(project(":schedule-flow-imp"))
-    implementation(project(":schedule-view"))
-    implementation(project(":schedule-view-imp"))
-    implementation(project(":schedule-presentation"))
-    implementation(project(":schedule-presentation-imp"))
-    implementation(project(":schedule-domain"))
-    implementation(project(":schedule-domain-imp"))
-    implementation(project(":schedule-data"))
-    implementation(project(":schedule-data-imp"))
+    api(project(":schedule-flow"))
+    api(project(":schedule-flow-imp"))
+    api(project(":schedule-view"))
+    api(project(":schedule-view-imp"))
+    api(project(":schedule-presentation"))
+    api(project(":schedule-presentation-imp"))
+    api(project(":schedule-domain"))
+    api(project(":schedule-domain-imp"))
+    api(project(":schedule-data"))
+    api(project(":schedule-data-imp"))
     // endregion
 }
