@@ -6,22 +6,22 @@ import android.content.pm.PackageManager.PackageInfoFlags
 import android.net.Uri
 import android.os.Build
 
-class FacebookNavigatorImp(
+class InstagramNavigatorImp(
     private val context: Context,
-) : FacebookNavigator {
+) : InstagramNavigator {
 
     override fun navigate() {
         try {
-            val packageName = "com.facebook.katana"
+            val packageName = "com.instagram.android"
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 context.packageManager.getPackageInfo(packageName, PackageInfoFlags.of(0))
             } else {
                 @Suppress("DEPRECATION")
                 context.packageManager?.getPackageInfo(packageName, 0)
             }
-            "fb://profile/100003479888864"
+            "http://instagram.com/_u/eztandairratia"
         } catch (e: Exception) {
-            "https://www.facebook.com/eztanda.irratia"
+            "http://instagram.com/eztandairratia"
         }.let { Uri.parse(it) }
             .let { context.startActivity(Intent(Intent.ACTION_VIEW, it)) }
     }

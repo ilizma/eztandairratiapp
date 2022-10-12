@@ -25,6 +25,7 @@ dependencies {
     implementation(Di.hilt)
     kapt(Di.compiler)
     implementation(Rx.java)
+    implementation(AndroidUI.material)
     implementation(project(":view-base"))
     implementation(project(":menu-view"))
     implementation(project(":menu-presentation"))

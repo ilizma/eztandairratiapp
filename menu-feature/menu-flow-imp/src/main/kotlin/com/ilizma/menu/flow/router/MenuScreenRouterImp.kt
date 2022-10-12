@@ -13,6 +13,7 @@ class MenuScreenRouterImp(
     private val lifecycleOwner: () -> LifecycleOwner,
     private val onBackPressedDispatcher: OnBackPressedDispatcher,
     viewModelLazy: Lazy<MenuScreenViewModel>,
+    private val instagramNavigator: InstagramNavigator,
     private val twitterNavigator: TwitterNavigator,
     private val facebookNavigator: FacebookNavigator,
     private val phoneNavigator: PhoneNavigator,
@@ -40,6 +41,7 @@ class MenuScreenRouterImp(
         action: MenuNavigationAction,
     ) {
         when (action) {
+            Instagram -> instagramNavigator.navigate()
             Twitter -> twitterNavigator.navigate()
             Facebook -> facebookNavigator.navigate()
             Phone -> phoneNavigator.navigate()

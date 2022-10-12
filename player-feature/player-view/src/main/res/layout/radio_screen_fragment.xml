@@ -14,11 +14,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/title_radio"
-            app:titleTextColor="?android:attr/textColorPrimary" />
+            app:title="@string/title_radio" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -33,16 +32,19 @@
         app:srcCompat="@drawable/img_eztanda"
         tools:ignore="ContentDescription" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/radio_screen_b"
         android:layout_width="@dimen/radio_button_size"
         android:layout_height="@dimen/radio_button_size"
+        android:adjustViewBounds="true"
         android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radio_screen_iv"
         app:srcCompat="@drawable/ic_play"
+        app:tint="@color/purple"
         tools:ignore="ContentDescription" />
 
     <ProgressBar

@@ -4,20 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/horizontal_margin"
+    android:layout_marginVertical="@dimen/vertical_margin"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingStart="@dimen/horizontal_margin"
-    android:paddingTop="@dimen/vertical_margin"
-    android:paddingEnd="@dimen/horizontal_margin"
-    android:paddingBottom="@dimen/vertical_margin">
+    android:orientation="horizontal">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/program_item_tv_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="10:00" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/program_item_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

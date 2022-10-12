@@ -2,7 +2,9 @@ package com.ilizma.menu.flow.navigator
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager.PackageInfoFlags
 import android.net.Uri
+import android.os.Build
 
 class TwitterNavigatorImp(
     private val context: Context,
@@ -10,7 +12,13 @@ class TwitterNavigatorImp(
 
     override fun navigate() {
         try {
-            context.packageManager?.getPackageInfo("com.twitter.android", 0)
+            val packageName = "com.twitter.android"
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                context.packageManager.getPackageInfo(packageName, PackageInfoFlags.of(0))
+            } else {
+                @Suppress("DEPRECATION")
+                context.packageManager?.getPackageInfo(packageName, 0)
+            }
             "twitter://user?user_id=1256809951"
         } catch (e: Exception) {
             "https://twitter.com/EztandaIrratia"

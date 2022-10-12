@@ -18,17 +18,20 @@ class MenuScreenFragmentBinderImp(
 
     private fun setupView() {
         // TODO: 03/06/2020 get url and phones from service
+        binding.menuFragmentTvInstagram.setOnReactiveClickListener {
+            viewModel.onInstagram()
+        }
         binding.menuFragmentTvTwitter.setOnReactiveClickListener {
             viewModel.onTwitter()
         }
         binding.menuFragmentTvFacebook.setOnReactiveClickListener {
             viewModel.onFacebook()
         }
-        binding.menuFragmentTvPhone.setOnReactiveClickListener {
-            viewModel.onPhone()
-        }
         binding.menuFragmentTvWeb.setOnReactiveClickListener {
             viewModel.onWeb()
+        }
+        binding.menuFragmentLlPhoneWhatsapp.setOnReactiveClickListener {
+            viewModel.onPhone()
         }
     }
 

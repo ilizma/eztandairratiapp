@@ -10,69 +10,87 @@
         android:layout_height="wrap_content"
         app:elevation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/title_menu"
-            app:titleTextColor="?android:attr/textColorPrimary" />
+            app:title="@string/title_menu" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/menu_fragment_tv_twitter"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/menu_fragment_tv_instagram"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
+        android:background="?android:attr/selectableItemBackground"
         android:drawablePadding="@dimen/drawable_padding"
         android:gravity="center_vertical"
-        android:paddingStart="@dimen/horizontal_margin"
-        android:paddingTop="@dimen/vertical_margin"
-        android:paddingEnd="@dimen/horizontal_margin"
-        android:paddingBottom="@dimen/vertical_margin"
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/vertical_margin"
+        android:text="@string/instagram"
+        app:drawableStartCompat="@drawable/ic_instagram" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/menu_fragment_tv_twitter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:drawablePadding="@dimen/drawable_padding"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/vertical_margin"
         android:text="@string/twitter"
         app:drawableStartCompat="@drawable/ic_twitter" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/menu_fragment_tv_facebook"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
+        android:background="?android:attr/selectableItemBackground"
         android:drawablePadding="@dimen/drawable_padding"
         android:gravity="center_vertical"
-        android:paddingStart="@dimen/horizontal_margin"
-        android:paddingTop="@dimen/vertical_margin"
-        android:paddingEnd="@dimen/horizontal_margin"
-        android:paddingBottom="@dimen/vertical_margin"
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/vertical_margin"
         android:text="@string/facebook"
         app:drawableStartCompat="@drawable/ic_facebook" />
 
-    <TextView
-        android:id="@+id/menu_fragment_tv_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:drawablePadding="@dimen/drawable_padding"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/horizontal_margin"
-        android:paddingTop="@dimen/vertical_margin"
-        android:paddingEnd="@dimen/horizontal_margin"
-        android:paddingBottom="@dimen/vertical_margin"
-        android:text="@string/phone"
-        app:drawableEndCompat="@drawable/ic_whatsapp"
-        app:drawableStartCompat="@drawable/ic_phone" />
-
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/menu_fragment_tv_web"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
+        android:background="?android:attr/selectableItemBackground"
         android:drawablePadding="@dimen/drawable_padding"
         android:gravity="center_vertical"
-        android:paddingStart="@dimen/horizontal_margin"
-        android:paddingTop="@dimen/vertical_margin"
-        android:paddingEnd="@dimen/horizontal_margin"
-        android:paddingBottom="@dimen/vertical_margin"
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/vertical_margin"
         android:text="@string/web"
         app:drawableStartCompat="@drawable/ic_web" />
+
+    <LinearLayout
+        android:id="@+id/menu_fragment_ll_phone_whatsapp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/vertical_margin">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:gravity="center_vertical"
+            android:text="@string/phone"
+            app:drawableStartCompat="@drawable/ic_phone" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/drawable_padding"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:gravity="center_vertical"
+            android:text="@string/whatsapp"
+            app:drawableStartCompat="@drawable/ic_whatsapp" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -8,6 +8,8 @@ abstract class MenuScreenViewModel : ViewModel() {
 
     abstract val navigationAction: LiveData<MenuNavigationAction>
 
+    abstract fun onInstagram()
+
     abstract fun onTwitter()
 
     abstract fun onFacebook()

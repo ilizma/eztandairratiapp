@@ -13,6 +13,10 @@ class MenuScreenViewModelImp @AssistedInject constructor(
 
     override val navigationAction: LiveData<MenuNavigationAction> = _navigationAction
 
+    override fun onInstagram() {
+        _navigationAction.postValue(Instagram)
+    }
+
     override fun onTwitter() {
         _navigationAction.postValue(Twitter)
     }

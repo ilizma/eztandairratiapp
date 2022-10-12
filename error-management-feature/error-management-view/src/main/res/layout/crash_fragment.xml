@@ -11,12 +11,10 @@
         android:layout_height="wrap_content"
         app:elevation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/crash_activity_t"
+        <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name"
-            app:titleTextColor="?android:attr/textColorPrimary" />
+            app:title="@string/app_name" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -41,64 +39,57 @@
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/error_screen" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginHorizontal="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:gravity="center"
                 android:text="@string/crash_activity_message"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/crash_activity_b_restart"
-                style="Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginHorizontal="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:backgroundTint="?android:attr/textColorPrimary"
                 android:text="@string/crash_activity_restart_button"
                 android:textColor="?android:attr/textColorPrimaryInverse" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/crash_activity_b_logcat"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginHorizontal="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:text="@string/crash_activity_logcat_button"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="14sp"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/crash_activity_b_clipboard"
-                style="Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginHorizontal="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:backgroundTint="?android:attr/textColorPrimary"
                 android:text="@string/crash_activity_clipboard_button"
                 android:textColor="?android:attr/textColorPrimaryInverse"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/crash_activity_tv_log"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginHorizontal="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin"
                 tools:text="Build version: 3.0.0
 Current date: 2019-03-29 09:11:42
 Device: OnePlus ONEPLUS A3003

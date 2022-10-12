@@ -20,6 +20,7 @@ object MenuScreenRouterModule {
     @Provides
     fun provideMenuScreenRouter(
         fragment: Fragment,
+        instagramNavigator: InstagramNavigator,
         twitterNavigator: TwitterNavigator,
         facebookNavigator: FacebookNavigator,
         phoneNavigator: PhoneNavigator,
@@ -30,6 +31,7 @@ object MenuScreenRouterModule {
         lifecycleOwner = { fragment.viewLifecycleOwner },
         onBackPressedDispatcher = fragment.requireActivity().onBackPressedDispatcher,
         viewModelLazy = fragment.viewModels { viewModelProviderFactory },
+        instagramNavigator = instagramNavigator,
         twitterNavigator = twitterNavigator,
         facebookNavigator = facebookNavigator,
         phoneNavigator = phoneNavigator,

@@ -11,11 +11,10 @@
         android:layout_height="wrap_content"
         app:elevation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/title_schedule"
-            app:titleTextColor="?android:attr/textColorPrimary" />
+            app:title="@string/title_schedule" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -11,12 +11,11 @@
         android:layout_height="wrap_content"
         app:elevation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/menu_screen_t"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/ic_back"
-            app:titleTextColor="?android:attr/textColorPrimary" />
+            app:navigationIcon="@drawable/ic_back" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -36,7 +35,7 @@
         app:srcCompat="@drawable/ic_empty"
         tools:ignore="ContentDescription" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/schedule_detail_fragment_tv_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
