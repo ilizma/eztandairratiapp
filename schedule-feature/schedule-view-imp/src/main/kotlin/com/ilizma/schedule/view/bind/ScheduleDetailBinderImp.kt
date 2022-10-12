@@ -1,6 +1,7 @@
 package com.ilizma.schedule.view.bind
 
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import com.ilizma.resources.R
 import com.ilizma.schedule.presentation.model.ProgramType
@@ -61,6 +62,9 @@ class ScheduleDetailBinderImp(
     private fun onSchedule(
         scheduleState: ScheduleState,
     ) {
+        binding.scheduleDetailFragmentRv.isVisible = scheduleState.list.isNotEmpty()
+        binding.scheduleDetailFragmentIvEmpty.isVisible = scheduleState.list.isEmpty()
+        binding.scheduleDetailFragmentTvEmpty.isVisible = scheduleState.list.isEmpty()
         adapter.submitList(scheduleState.list)
     }
 
