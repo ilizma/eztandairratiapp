@@ -30,6 +30,7 @@ dependencies {
     implementation(Android.appcompat)
     implementation(AndroidUI.constraintLayout)
     implementation(AndroidUI.material)
+    implementation(UI.shimmer)
 
     // Resources
     implementation(project(":resources"))

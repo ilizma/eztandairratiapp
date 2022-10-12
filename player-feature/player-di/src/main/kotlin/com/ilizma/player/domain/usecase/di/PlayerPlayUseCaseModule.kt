@@ -16,7 +16,7 @@ object PlayerPlayUseCaseModule {
     fun providePlayerPlayUseCase(
         repository: PlayerRepository,
     ): PlayerPlayUseCase = PlayerPlayUseCaseImp(
-        repository,
+        repository = repository,
     )
 
 }

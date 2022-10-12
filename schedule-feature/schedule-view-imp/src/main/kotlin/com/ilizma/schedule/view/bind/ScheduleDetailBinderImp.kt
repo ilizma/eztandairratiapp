@@ -2,10 +2,10 @@ package com.ilizma.schedule.view.bind
 
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
-import com.ilizma.schedule.presentation.model.Schedule
+import com.ilizma.schedule.presentation.model.ScheduleState
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailViewModel
 import com.ilizma.schedule.view.adapter.ProgramsAdapter
-import com.ilizma.schedule.view.adapter.factory.ProgramsAdapterFactory
+import com.ilizma.schedule.view.adapter.factory.ProgramsAdapterFactoryImp
 import com.ilizma.schedule.view.databinding.ScheduleDetailFragmentBinding
 import com.ilizma.resources.R
 import com.ilizma.view.extensions.snackbar
@@ -13,7 +13,7 @@ import com.ilizma.view.extensions.snackbar
 class ScheduleDetailBinderImp(
     viewModelLazy: Lazy<ScheduleDetailViewModel>,
     private val lifecycleOwner: () -> LifecycleOwner,
-    adapterFactory: ProgramsAdapterFactory,
+    adapterFactory: ProgramsAdapterFactoryImp,
 ) : ScheduleDetailBinder {
 
     private val viewModel: ScheduleDetailViewModel by viewModelLazy
@@ -42,7 +42,7 @@ class ScheduleDetailBinderImp(
             lifecycleOwner(),
         ) { onDayName(it) }
 
-        viewModel.schedule.observe(
+        viewModel.scheduleState.observe(
             lifecycleOwner(),
         ) { onSchedule(it) }
 
@@ -58,9 +58,9 @@ class ScheduleDetailBinderImp(
     }
 
     private fun onSchedule(
-        schedule: Schedule,
+        scheduleState: ScheduleState,
     ) {
-        adapter.submitList(schedule.programList)
+        adapter.submitList(scheduleState.list)
     }
 
     private fun onError(

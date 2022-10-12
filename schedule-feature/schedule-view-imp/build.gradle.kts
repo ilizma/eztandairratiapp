@@ -28,6 +28,7 @@ dependencies {
     implementation(AndroidKtx.core)
     implementation(AndroidUI.material)
     implementation(AndroidUI.recyclerview)
+    implementation(UI.shimmer)
     implementation(Architecture.lifecycleCommon)
     implementation(Architecture.lifecycleViewModel)
     implementation(project(":view-base"))

@@ -17,6 +17,8 @@ object ChuckerCollectorModule {
     @Singleton
     fun provideChuckerCollector(
         @ApplicationContext context: Context
-    ): ChuckerCollector = ChuckerCollector(context)
+    ): ChuckerCollector = ChuckerCollector(
+        context,
+    )
 
 }

@@ -1,4 +1,4 @@
-package com.ilizma.schedule.view.bind.id
+package com.ilizma.schedule.view.bind.di
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels

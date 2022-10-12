@@ -16,7 +16,7 @@ object PlayerStopUseCaseModule {
     fun providePlayerStopUseCase(
         repository: PlayerRepository,
     ): PlayerStopUseCase = PlayerStopUseCaseImp(
-        repository,
+        repository = repository,
     )
 
 }

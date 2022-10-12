@@ -1,16 +1,16 @@
 package com.ilizma.schedule.presentation.mapper
 
 import com.ilizma.schedule.domain.model.Program
-import com.ilizma.schedule.presentation.model.Schedule
+import com.ilizma.schedule.presentation.model.ScheduleState
 
 class ProgramListMapper(
-    private val mapper: ProgramMapper,
+    private val mapper: ProgramTypeMapper,
 ) {
 
     fun toPresentation(
         dayList: List<Program>,
-    ): Schedule = dayList
-        .map { mapper.toPresentation(it) }
-        .let { Schedule(it) }
+    ): ScheduleState = dayList
+        .map { mapper.from(it) }
+        .let { ScheduleState.Success(it) }
 
 }

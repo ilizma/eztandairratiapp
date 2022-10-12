@@ -16,7 +16,7 @@ object PlayerStateUseCaseModule {
     fun providePlayerStateUseCase(
         repository: PlayerRepository,
     ): PlayerStateUseCase = PlayerStateUseCaseImp(
-        repository,
+        repository = repository,
     )
 
 }
