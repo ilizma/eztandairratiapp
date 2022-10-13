@@ -75,6 +75,12 @@ include(
     ":menu-presentation-imp",
     // endregion
 
+    // region Review
+    ":review-di",
+    ":review-framework",
+    ":review-framework-imp",
+    // endregion
+
 )
 
 // region Net
@@ -96,8 +102,10 @@ project(":app-view").projectDir = File("app-feature/app-view")
 
 // region Error Management
 project(":error-management-di").projectDir = File("error-management-feature/error-management-di")
-project(":error-management-view").projectDir = File("error-management-feature/error-management-view")
-project(":error-management-view-imp").projectDir = File("error-management-feature/error-management-view-imp")
+project(":error-management-view").projectDir =
+    File("error-management-feature/error-management-view")
+project(":error-management-view-imp").projectDir =
+    File("error-management-feature/error-management-view-imp")
 // endregion
 
 // region Player
@@ -123,7 +131,8 @@ project(":schedule-flow-imp").projectDir = File("schedule-feature/schedule-flow-
 project(":schedule-view").projectDir = File("schedule-feature/schedule-view")
 project(":schedule-view-imp").projectDir = File("schedule-feature/schedule-view-imp")
 project(":schedule-presentation").projectDir = File("schedule-feature/schedule-presentation")
-project(":schedule-presentation-imp").projectDir = File("schedule-feature/schedule-presentation-imp")
+project(":schedule-presentation-imp").projectDir =
+    File("schedule-feature/schedule-presentation-imp")
 project(":schedule-domain").projectDir = File("schedule-feature/schedule-domain")
 project(":schedule-domain-imp").projectDir = File("schedule-feature/schedule-domain-imp")
 project(":schedule-data").projectDir = File("schedule-feature/schedule-data")
@@ -138,4 +147,10 @@ project(":menu-view").projectDir = File("menu-feature/menu-view")
 project(":menu-view-imp").projectDir = File("menu-feature/menu-view-imp")
 project(":menu-presentation").projectDir = File("menu-feature/menu-presentation")
 project(":menu-presentation-imp").projectDir = File("menu-feature/menu-presentation-imp")
+// endregion
+
+// region Review
+project(":review-di").projectDir = File("review-feature/review-di")
+project(":review-framework").projectDir = File("review-feature/review-framework")
+project(":review-framework-imp").projectDir = File("review-feature/review-framework-imp")
 // endregion

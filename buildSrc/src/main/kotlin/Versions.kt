@@ -49,6 +49,9 @@ object Versions {
     //firebase
     const val firebaseBomVersion = "30.5.0"
 
+    //play
+    const val reviewVersion = "2.0.0"
+
     //test
     const val mockkVersion = "1.13.2"
     const val junitJupiterVersion = "5.9.1"

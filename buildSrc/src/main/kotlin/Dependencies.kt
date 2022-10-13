@@ -76,6 +76,10 @@ object Firebase {
     val crashlytics by lazy { "com.google.firebase:firebase-crashlytics-ktx" }
     val messaging by lazy { "com.google.firebase:firebase-messaging-ktx" }
 }
+object Play {
+    val review by lazy { "com.google.android.play:review:${Versions.reviewVersion}" }
+    val reviewKtx by lazy { "com.google.android.play:review-ktx:${Versions.reviewVersion}" }
+}
 
 object Test {
     val mockk by lazy { "io.mockk:mockk:${Versions.mockkVersion}" }

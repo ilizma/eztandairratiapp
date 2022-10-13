@@ -13,10 +13,6 @@ android {
         targetSdk = ConfigData.targetSdk
     }
 
-    buildFeatures {
-        viewBinding = true
-    }
-
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }
@@ -26,13 +22,14 @@ android {
 dependencies {
     implementation(Di.hilt)
     kapt(Di.compiler)
-    implementation(Android.appcompat)
-    implementation(AndroidUI.constraintLayout)
-    implementation(AndroidUI.material)
-    implementation(Architecture.navigationFragment)
-    implementation(project(":view-base"))
-    implementation(project(":app-flow"))
-    implementation(project(":resources"))
+    implementation(Play.review)
+    implementation(Play.reviewKtx)
 
-    implementation(project(":review-framework"))
+    // di
+    implementation(project(":di-base"))
+
+    // region Review
+    api(project(":review-framework"))
+    api(project(":review-framework-imp"))
+    // endregion
 }

@@ -42,6 +42,8 @@ dependencies {
     implementation(Firebase.crashlytics)
     implementation(Firebase.analytics)
     implementation(Firebase.messaging)
+    implementation(Play.review)
+    implementation(Play.reviewKtx)
     implementation(CustomActivityOnCrash.customactivityoncrash)
     debugImplementation(Network.chucker)
     releaseImplementation(Network.chuckerNoOp)
@@ -82,5 +84,9 @@ dependencies {
 
     // region Menu
     implementation(project(":menu-di"))
+    // endregion
+
+    // region Review
+    implementation(project(":review-di"))
     // endregion
 }
