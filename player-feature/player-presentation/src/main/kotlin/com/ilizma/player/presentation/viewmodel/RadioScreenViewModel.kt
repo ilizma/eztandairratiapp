@@ -1,5 +1,6 @@
 package com.ilizma.player.presentation.viewmodel
 
+import android.view.Menu
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.ilizma.player.presentation.model.PlayerState
@@ -18,5 +19,10 @@ abstract class RadioScreenViewModel : ViewModel() {
     abstract fun onStop()
 
     abstract fun onBack()
+
+    abstract fun setUpMediaRouteButton(
+        menu: Menu,
+        menuResourceId: Int,
+    )
 
 }

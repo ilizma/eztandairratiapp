@@ -81,6 +81,11 @@ object Play {
     val reviewKtx by lazy { "com.google.android.play:review-ktx:${Versions.reviewVersion}" }
 }
 
+object Cast {
+    val mediarouter by lazy { "androidx.mediarouter:mediarouter:${Versions.mediarouterVersion}" }
+    val framework by lazy { "com.google.android.gms:play-services-cast-framework:${Versions.castFrameworkVersion}" }
+}
+
 object Test {
     val mockk by lazy { "io.mockk:mockk:${Versions.mockkVersion}" }
     val junitApi by lazy { "org.junit.jupiter:junit-jupiter-api:${Versions.junitJupiterVersion}" }

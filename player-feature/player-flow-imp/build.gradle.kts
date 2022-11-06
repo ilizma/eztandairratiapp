@@ -25,4 +25,6 @@ dependencies {
     implementation(project(":player-flow"))
     implementation(project(":player-view"))
     implementation(project(":player-presentation"))
+
+    implementation(project(":cast-flow"))
 }

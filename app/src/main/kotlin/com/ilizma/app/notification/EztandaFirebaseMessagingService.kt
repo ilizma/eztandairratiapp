@@ -86,10 +86,10 @@ class EztandaFirebaseMessagingService : FirebaseMessagingService() {
                 this@EztandaFirebaseMessagingService,
                 0,
                 Intent(this@EztandaFirebaseMessagingService, MainActivity::class.java),
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-                } else {
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                    else -> PendingIntent.FLAG_UPDATE_CURRENT
                 },
             ).let { setContentIntent(it) }
             setAutoCancel(true)

@@ -40,6 +40,8 @@
     <string name="play" translatable="false">Play</string>
     <string name="stop" translatable="false">Stop</string>
 
+    <string name="media_route_menu_title" translatable="false">Media route</string>
+
     <string-array name="days_array">
         <item>Monday</item>
         <item>Tuesday</item>

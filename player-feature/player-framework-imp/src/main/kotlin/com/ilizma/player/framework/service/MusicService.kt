@@ -22,6 +22,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.media.MediaBrowserServiceCompat
 import androidx.media.session.MediaButtonReceiver
+import com.ilizma.player.framework.factory.MediaPlayerFactory
 import com.ilizma.player.framework.imp.BuildConfig
 import com.ilizma.player.framework.model.PlayerEvent
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,10 +34,14 @@ const val STOP_PENDING_INTENT_NAMED = "STOP_PENDING_INTENT_NAMED"
 const val NOTIFICATION_COMPAT_PLAY_ACTION_NAMED = "NOTIFICATION_COMPAT_PLAY_ACTION_NAMED"
 const val NOTIFICATION_COMPAT_LOADING_ACTION_NAMED = "NOTIFICATION_COMPAT_LOADING_ACTION_NAMED"
 const val NOTIFICATION_COMPAT_STOP_ACTION_NAMED = "NOTIFICATION_COMPAT_STOP_ACTION_NAMED"
+const val CANCEL_NOTIFICATION = "CANCEL_NOTIFICATION"
 private const val NOTIFICATION_ID = 1076
 
 @AndroidEntryPoint
 class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChangeListener {
+
+    @Inject
+    lateinit var mediaPlayerFactory: MediaPlayerFactory<MediaPlayer>
 
     @Inject
     lateinit var mediaSession: MediaSessionCompat
@@ -110,6 +115,16 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             showStopNotification()
         }
 
+        override fun onCustomAction(action: String?, extras: Bundle?) {
+            super.onCustomAction(action, extras)
+            when(action) {
+                CANCEL_NOTIFICATION -> {
+                    onStop()
+                    cancelNotification()
+                }
+            }
+        }
+
         private fun setMediaPlaybackState(state: Int) {
             playbackStateBuilder.apply {
                 if (state == PlaybackStateCompat.STATE_PLAYING) {
@@ -147,6 +162,10 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
                 @Suppress("DEPRECATION")
                 stopForeground(false)
             }
+        }
+
+        private fun cancelNotification() {
+            notificationManagerCompat.cancel(NOTIFICATION_ID)
         }
     }
 
@@ -193,7 +212,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
     ) { /* no-op */ }
 
     private fun initMediaPlayer() {
-        mediaPlayer = MediaPlayer()
+        mediaPlayer = mediaPlayerFactory.create()
             .apply {
                 setDataSource(BuildConfig.AUDIO_URL)
                 setWakeMode(this@MusicService, PowerManager.PARTIAL_WAKE_LOCK)

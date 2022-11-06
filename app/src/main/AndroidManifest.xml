@@ -37,6 +37,19 @@
             android:name="com.ilizma.errormanagement.view.activity.CrashActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name="com.ilizma.cast.view.activity.ExpandedControlsActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:parentActivityName="com.ilizma.app.view.activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+
+        </activity>
+
         <service
             android:name="com.ilizma.app.notification.EztandaFirebaseMessagingService"
             android:exported="false">
@@ -67,6 +80,10 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification" />
+
+        <meta-data
+            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+            android:value="com.ilizma.cast.framework.provider.CastOptionsProvider" />
 
     </application>
 

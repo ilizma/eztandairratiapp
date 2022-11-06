@@ -11,4 +11,6 @@ interface PlayerFramework {
 
     fun stop()
 
+    fun cancel()
+
 }

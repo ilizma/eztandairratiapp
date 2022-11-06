@@ -1,5 +1,6 @@
 package com.ilizma.player.presentation.viewmodel.factory.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.ilizma.player.presentation.viewmodel.factory.RadioScreenViewModelAssistedFactory
 import com.ilizma.player.presentation.viewmodel.factory.RadioScreenViewModelFactory
@@ -18,9 +19,11 @@ object RadioScreenViewModelFactoryModule {
     @Provides
     @Named(RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED)
     fun provideRadioScreenViewModelFactory(
+        fragment: Fragment,
         radioScreenViewModelAssistedFactory: RadioScreenViewModelAssistedFactory,
     ): ViewModelProvider.Factory = RadioScreenViewModelFactory(
-        radioScreenViewModelAssistedFactory,
+        fragment = fragment,
+        radioScreenViewModelAssistedFactory = radioScreenViewModelAssistedFactory,
     )
 
 }

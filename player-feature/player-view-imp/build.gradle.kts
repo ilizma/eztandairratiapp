@@ -30,8 +30,13 @@ dependencies {
     implementation(AndroidKtx.core)
     implementation(Architecture.lifecycleCommon)
     implementation(Architecture.lifecycleViewModel)
+
+    implementation(project(":resources"))
+    
     implementation(project(":view-base"))
+
     implementation(project(":player-view"))
     implementation(project(":player-presentation"))
-    implementation(project(":resources"))
+
+    implementation(project(":cast-view"))
 }

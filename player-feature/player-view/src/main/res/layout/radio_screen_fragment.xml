@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/radio_screen_tb"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/title_radio" />
@@ -56,6 +57,17 @@
         app:layout_constraintEnd_toEndOf="@+id/radio_screen_b"
         app:layout_constraintStart_toStartOf="@+id/radio_screen_b"
         app:layout_constraintTop_toTopOf="@+id/radio_screen_b"
+        tools:visibility="visible" />
+
+    <fragment
+        android:id="@+id/radio_screen_f_cast_mini_controller"
+        class="com.ilizma.cast.view.fragment.MiniControllerFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

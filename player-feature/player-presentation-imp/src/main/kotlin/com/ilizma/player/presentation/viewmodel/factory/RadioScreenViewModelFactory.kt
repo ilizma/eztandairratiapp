@@ -1,5 +1,6 @@
 package com.ilizma.player.presentation.viewmodel.factory
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -9,6 +10,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RadioScreenViewModelFactory(
+    private val fragment: Fragment,
     private val radioScreenViewModelAssistedFactory: RadioScreenViewModelAssistedFactory,
 ) : ViewModelProvider.Factory {
 
@@ -20,6 +22,6 @@ class RadioScreenViewModelFactory(
         compositeDisposable = CompositeDisposable(),
         _playerState = MutableLiveData(),
         _navigationAction = SingleLiveEvent(),
-    ) as T
+    ).also { fragment.lifecycle.addObserver(it) } as T
 
 }

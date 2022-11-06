@@ -3,9 +3,11 @@ package com.ilizma.player.flow.router
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.lifecycle.LifecycleOwner
+import com.ilizma.cast.flow.navigator.CastPlayerNavigator
 import com.ilizma.player.flow.navigator.RadioBackCloseNavigator
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.Back
+import com.ilizma.player.presentation.model.RadioScreenNavigationAction.CastPlayer
 import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
 import com.ilizma.player.view.router.RadioScreenRouter
 
@@ -14,6 +16,7 @@ class RadioScreenRouterImp(
     private val onBackPressedDispatcher: OnBackPressedDispatcher,
     viewModelLazy: Lazy<RadioScreenViewModel>,
     private val radioBackCloseNavigator: RadioBackCloseNavigator,
+    private val castPlayerNavigator: CastPlayerNavigator,
 ) : RadioScreenRouter {
 
     private val viewModel: RadioScreenViewModel by viewModelLazy
@@ -37,6 +40,7 @@ class RadioScreenRouterImp(
     ) {
         when (action) {
             Back -> radioBackCloseNavigator.close()
+            CastPlayer -> castPlayerNavigator.navigate()
         }
     }
 

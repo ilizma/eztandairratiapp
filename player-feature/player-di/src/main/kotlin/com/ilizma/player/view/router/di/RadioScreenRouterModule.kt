@@ -3,6 +3,7 @@ package com.ilizma.player.view.router.di
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.ilizma.cast.flow.navigator.CastPlayerNavigator
 import com.ilizma.player.flow.navigator.RadioBackCloseNavigator
 import com.ilizma.player.flow.router.RadioScreenRouterImp
 import com.ilizma.player.presentation.viewmodel.factory.di.RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED
@@ -21,12 +22,14 @@ object RadioScreenRouterModule {
     fun provideRadioScreenRouter(
         fragment: Fragment,
         radioBackCloseNavigator: RadioBackCloseNavigator,
+        castPlayerNavigator: CastPlayerNavigator,
         @Named(RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): RadioScreenRouter = RadioScreenRouterImp(
         lifecycleOwner = { fragment.viewLifecycleOwner },
         onBackPressedDispatcher = fragment.requireActivity().onBackPressedDispatcher,
         viewModelLazy = fragment.viewModels { viewModelProviderFactory },
         radioBackCloseNavigator = radioBackCloseNavigator,
+        castPlayerNavigator = castPlayerNavigator,
     )
 
 }

@@ -54,4 +54,8 @@ dependencies {
     api(project(":player-framework"))
     api(project(":player-framework-imp"))
     // endregion
+
+    // region Cast
+    implementation(project(":cast-flow"))
+    // endregion
 }

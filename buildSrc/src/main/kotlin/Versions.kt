@@ -1,6 +1,6 @@
 object Versions {
     //project
-    const val buildGradleVersion = "7.3.0"
+    const val buildGradleVersion = "7.3.1"
     const val kotlinVersion = "1.7.20"
     const val googleServicesVersion = "4.3.14"
     const val crashlyticsGradleVersion = "2.9.2"
@@ -51,6 +51,10 @@ object Versions {
 
     //play
     const val reviewVersion = "2.0.0"
+
+    //cast
+    const val mediarouterVersion = "1.3.1"
+    const val castFrameworkVersion = "21.2.0"
 
     //test
     const val mockkVersion = "1.13.2"

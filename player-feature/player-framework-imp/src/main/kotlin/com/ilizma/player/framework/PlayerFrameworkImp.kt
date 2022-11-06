@@ -9,6 +9,7 @@ import android.support.v4.media.session.PlaybackStateCompat
 import com.ilizma.player.framework.model.PlayerConnectionState
 import com.ilizma.player.framework.model.PlayerEvent
 import com.ilizma.player.framework.model.PlayerState
+import com.ilizma.player.framework.service.CANCEL_NOTIFICATION
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
@@ -32,6 +33,13 @@ class PlayerFrameworkImp(
     override fun stop() {
         when (playerConnectionState.value) {
             PlayerConnectionState.Connected -> mediaController.transportControls.stop()
+            PlayerConnectionState.Disconnected -> playerState.onNext(PlayerState.Error.MediaDisconnected)
+        }
+    }
+
+    override fun cancel() {
+        when (playerConnectionState.value) {
+            PlayerConnectionState.Connected -> mediaController.transportControls.sendCustomAction(CANCEL_NOTIFICATION, null)
             PlayerConnectionState.Disconnected -> playerState.onNext(PlayerState.Error.MediaDisconnected)
         }
     }

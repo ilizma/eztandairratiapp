@@ -27,3 +27,7 @@
 -keepnames @kotlin.Metadata class com.ilizma.domain.entity.**
 -keep class com.ilizma.domain.entity.** { *; }
 -keepclassmembers class com.ilizma.domain.entity.** { *; }
+
+-keep class androidx.mediarouter.app.MediaRouteActionProvider{
+*;
+}

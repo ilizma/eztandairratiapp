@@ -38,13 +38,22 @@ object MediaSessionCompatModule {
         setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS or MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS)
         Intent(Intent.ACTION_MEDIA_BUTTON)
             .apply { setClass(context, MediaButtonReceiver::class.java) }
-            .let { PendingIntent.getBroadcast(context, 0, it, 0) }
+            .let { intent ->
+                when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> PendingIntent.FLAG_MUTABLE
+                    else -> 0
+                }.let { PendingIntent.getBroadcast(context, 0, intent, it) }
+            }
             .let { setMediaButtonReceiver(it) }
         PendingIntent.getActivity(
             context,
             0,
             mainActivityIntent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT else PendingIntent.FLAG_UPDATE_CURRENT,
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                else -> PendingIntent.FLAG_UPDATE_CURRENT
+            },
         ).let { setSessionActivity(it) }
 
         AppCompatResources.getDrawable(context, R.drawable.img_eztanda)

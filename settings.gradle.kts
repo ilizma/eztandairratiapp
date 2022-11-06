@@ -81,6 +81,15 @@ include(
     ":review-framework-imp",
     // endregion
 
+    // region Cast
+    ":cast-di",
+    ":cast-flow",
+    ":cast-flow-imp",
+    ":cast-view",
+    ":cast-framework",
+    ":cast-framework-imp",
+    // endregion
+
 )
 
 // region Net
@@ -102,10 +111,8 @@ project(":app-view").projectDir = File("app-feature/app-view")
 
 // region Error Management
 project(":error-management-di").projectDir = File("error-management-feature/error-management-di")
-project(":error-management-view").projectDir =
-    File("error-management-feature/error-management-view")
-project(":error-management-view-imp").projectDir =
-    File("error-management-feature/error-management-view-imp")
+project(":error-management-view").projectDir = File("error-management-feature/error-management-view")
+project(":error-management-view-imp").projectDir = File("error-management-feature/error-management-view-imp")
 // endregion
 
 // region Player
@@ -131,8 +138,7 @@ project(":schedule-flow-imp").projectDir = File("schedule-feature/schedule-flow-
 project(":schedule-view").projectDir = File("schedule-feature/schedule-view")
 project(":schedule-view-imp").projectDir = File("schedule-feature/schedule-view-imp")
 project(":schedule-presentation").projectDir = File("schedule-feature/schedule-presentation")
-project(":schedule-presentation-imp").projectDir =
-    File("schedule-feature/schedule-presentation-imp")
+project(":schedule-presentation-imp").projectDir = File("schedule-feature/schedule-presentation-imp")
 project(":schedule-domain").projectDir = File("schedule-feature/schedule-domain")
 project(":schedule-domain-imp").projectDir = File("schedule-feature/schedule-domain-imp")
 project(":schedule-data").projectDir = File("schedule-feature/schedule-data")
@@ -153,4 +159,13 @@ project(":menu-presentation-imp").projectDir = File("menu-feature/menu-presentat
 project(":review-di").projectDir = File("review-feature/review-di")
 project(":review-framework").projectDir = File("review-feature/review-framework")
 project(":review-framework-imp").projectDir = File("review-feature/review-framework-imp")
+// endregion
+
+// region Cast
+project(":cast-di").projectDir = File("cast-feature/cast-di")
+project(":cast-flow").projectDir = File("cast-feature/cast-flow")
+project(":cast-flow-imp").projectDir = File("cast-feature/cast-flow-imp")
+project(":cast-view").projectDir = File("cast-feature/cast-view")
+project(":cast-framework").projectDir = File("cast-feature/cast-framework")
+project(":cast-framework-imp").projectDir = File("cast-feature/cast-framework-imp")
 // endregion

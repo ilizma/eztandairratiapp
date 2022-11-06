@@ -30,4 +30,6 @@ dependencies {
     implementation(project(":presentation-base"))
     implementation(project(":player-presentation"))
     implementation(project(":player-domain"))
+
+    implementation(project(":cast-framework"))
 }

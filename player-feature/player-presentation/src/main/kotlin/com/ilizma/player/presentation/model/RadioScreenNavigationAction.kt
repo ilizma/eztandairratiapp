@@ -4,4 +4,6 @@ sealed class RadioScreenNavigationAction {
 
     object Back : RadioScreenNavigationAction()
 
+    object CastPlayer : RadioScreenNavigationAction()
+
 }

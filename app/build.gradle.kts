@@ -20,11 +20,16 @@ android {
     }
 
     buildTypes {
-        getByName("debug")
+        getByName("debug") {
+            applicationIdSuffix = ".debug"
+        }
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
@@ -42,8 +47,7 @@ dependencies {
     implementation(Firebase.crashlytics)
     implementation(Firebase.analytics)
     implementation(Firebase.messaging)
-    implementation(Play.review)
-    implementation(Play.reviewKtx)
+    implementation(Cast.framework)
     implementation(CustomActivityOnCrash.customactivityoncrash)
     debugImplementation(Network.chucker)
     releaseImplementation(Network.chuckerNoOp)
@@ -89,4 +93,9 @@ dependencies {
     // region Review
     implementation(project(":review-di"))
     // endregion
+
+    // region Cast
+    implementation(project(":cast-di"))
+    // endregion
+
 }

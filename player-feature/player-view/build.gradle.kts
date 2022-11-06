@@ -35,4 +35,7 @@ dependencies {
 
     // View
     implementation(project(":view-base"))
+
+    // Cast
+    implementation(project(":cast-view"))
 }
