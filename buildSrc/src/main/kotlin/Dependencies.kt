@@ -53,9 +53,9 @@ object Network {
     val moshi by lazy { "com.squareup.moshi:moshi:${Versions.moshiVersion}" }
     val moshiKotlin by lazy { "com.squareup.moshi:moshi-kotlin:${Versions.moshiVersion}" }
     val moshiAdapters by lazy { "com.squareup.moshi:moshi-adapters:${Versions.moshiVersion}" }
-    val moshiConverter by lazy { "com.squareup.retrofit2:converter-moshi:${Versions.moshiConverterVersion}" }
     val retrofit by lazy { "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}" }
     val retrofitAdapter by lazy { "com.squareup.retrofit2:adapter-rxjava3:${Versions.retrofitVersion}" }
+    val moshiConverter by lazy { "com.squareup.retrofit2:converter-moshi:${Versions.retrofitVersion}" }
     val okhttpLogging by lazy { "com.squareup.okhttp3:logging-interceptor:${Versions.okhttpLoggingVersion}" }
     val chucker by lazy { "com.github.chuckerteam.chucker:library:${Versions.chuckerVersion}" }
     val chuckerNoOp by lazy { "com.github.chuckerteam.chucker:library-no-op:${Versions.chuckerVersion}" }

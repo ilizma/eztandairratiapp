@@ -1,10 +1,10 @@
 object Versions {
     //project
-    const val buildGradleVersion = "7.3.1"
-    const val kotlinVersion = "1.7.20"
+    const val buildGradleVersion = "7.4.0-rc01"
+    const val kotlinVersion = "1.7.22"
     const val googleServicesVersion = "4.3.14"
     const val crashlyticsGradleVersion = "2.9.2"
-    const val hiltVersion = "2.44"
+    const val hiltVersion = "2.44.2"
     const val junitVersion = "1.8.2.1"
 
     //rx
@@ -38,7 +38,6 @@ object Versions {
 
     //network
     const val moshiVersion = "1.14.0"
-    const val moshiConverterVersion = "2.9.0"
     const val retrofitVersion = "2.9.0"
     const val okhttpLoggingVersion = "4.10.0"
     const val chuckerVersion = "3.5.2"

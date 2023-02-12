@@ -16,14 +16,14 @@ class ScheduleRepositoryImp(
     private val mapper: ScheduleStateMapper,
 ) : ScheduleRepository {
 
-    override fun get(): Single<ScheduleState> = (getFromCacheIfExist() ?: getFromApiAndSaveCache())
+    override fun get(): Single<ScheduleState> = (getFromCacheIfExist() ?: getFromRemoteAndSaveCache())
         .map { mapper.toDomain(it, dayIdDataSource.get()) }
 
     private fun getFromCacheIfExist(
     ): Single<DataScheduleState>? = cache.get()
         ?.let { Single.just(it) }
 
-    private fun getFromApiAndSaveCache(
+    private fun getFromRemoteAndSaveCache(
     ): Single<DataScheduleState> = dataSource.get()
         .doOnSuccess { cache.set(it) }
 
