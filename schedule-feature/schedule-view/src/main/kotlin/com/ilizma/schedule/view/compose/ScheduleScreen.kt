@@ -23,11 +23,10 @@ import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-@Preview
 @Composable
 fun ScheduleScreen(
-    @PreviewParameter(ScheduleScreenPreviewProvider::class) viewModel: ScheduleScreenViewModel,
-    paddingValues: PaddingValues = PaddingValues(),
+    viewModel: ScheduleScreenViewModel,
+    paddingValues: PaddingValues,
 ) {
     viewModel.days
         .collectAsState(Days(listOf()))
@@ -74,7 +73,8 @@ private fun DayRow(
             .padding(
                 horizontal = 16.dp,
                 vertical = 8.dp,
-            ),
+            )
+            .clickable { onClick() },
     ) {
         Text(
             text = day.name,
@@ -83,10 +83,21 @@ private fun DayRow(
                 .padding(
                     horizontal = 16.dp,
                     vertical = 8.dp,
-                )
-                .clickable { onClick() },
+                ),
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ScheduleScreenPreview(
+    @PreviewParameter(ScheduleScreenPreviewProvider::class) viewModel: ScheduleScreenViewModel,
+    paddingValues: PaddingValues = PaddingValues(),
+) {
+    ScheduleScreen(
+        viewModel = viewModel,
+        paddingValues = paddingValues,
+    )
 }
 
 private class ScheduleScreenPreviewProvider : PreviewParameterProvider<ScheduleScreenViewModel> {

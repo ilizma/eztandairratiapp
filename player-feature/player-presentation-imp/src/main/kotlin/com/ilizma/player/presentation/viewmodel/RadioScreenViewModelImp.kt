@@ -22,7 +22,6 @@ import io.reactivex.rxjava3.core.Scheduler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -30,7 +29,7 @@ import kotlinx.coroutines.rx3.asFlow
 import com.ilizma.player.presentation.model.PlayerState as PresentationPlayerState
 
 class RadioScreenViewModelImp @AssistedInject constructor(
-    private val stateUseCase: PlayerStateUseCase,
+    stateUseCase: PlayerStateUseCase,
     private val playUseCase: PlayerPlayUseCase,
     private val stopUseCase: PlayerStopUseCase,
     private val castFramework: CastFramework,
@@ -44,7 +43,6 @@ class RadioScreenViewModelImp @AssistedInject constructor(
         .observeOn(backgroundScheduler)
         .asFlow()
         .flowOn(Dispatchers.IO)
-        .distinctUntilChanged()
         .map(::onPlayerState)
         .stateIn(
             scope = viewModelScope,

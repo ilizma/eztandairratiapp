@@ -13,4 +13,5 @@ dependencies {
     implementation(libs.moshi)
     implementation(libs.retrofit)
     implementation(libs.retrofit.adapter.rxjava3)
+    implementation(libs.annotation)
 }

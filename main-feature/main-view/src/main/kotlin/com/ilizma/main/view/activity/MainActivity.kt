@@ -75,8 +75,6 @@ class MainActivity : ComponentActivity() {
     internal lateinit var scheduleDetailViewModelProviderFactory: ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // FIXME: DAY-NIGHT
-        //if (BuildConfig.DEBUG) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         super.onCreate(savedInstanceState)
 
         // As a music player, the volume controls should adjust the music volume while in the app.
@@ -86,9 +84,9 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val navController = rememberNavController()
+            val mainNavController = rememberNavController()
             scheduleDetailScreenRouter.init(navController)
-            EztandaIrratiappTheme {
-                // A surface container using the 'background' color from the theme
+            EztandaIrratiappTheme(dynamicColor = false) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
@@ -102,6 +100,7 @@ class MainActivity : ComponentActivity() {
                             viewModels<ScheduleScreenDetailViewModel> { scheduleDetailViewModelProviderFactory },
                         ),
                         navController = navController,
+                        mainNavController = mainNavController,
                         radioScreenRouter = radioScreenRouter,
                         scheduleScreenRouter = scheduleScreenRouter,
                         menuScreenRouter = menuScreenRouter,

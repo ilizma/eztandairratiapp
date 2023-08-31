@@ -63,15 +63,19 @@ class ScheduleScreenDetailViewModelImp @AssistedInject constructor(
     }
 
     override fun getSchedule() {
-        generateLoadingList()
-            .let { PresentationScheduleState.Loading(it) }
-            .let { viewModelScope.launch { _scheduleState.emit(it) } }
-
         scheduleUseCase()
             .subscribeOn(backgroundScheduler)
             .observeOn(backgroundScheduler)
             .subscribe(::onSchedule, ::onError)
             .addTo(compositeDisposable)
+    }
+
+    override fun retrySchedule() {
+        generateLoadingList()
+            .let { PresentationScheduleState.Loading(it) }
+            .let { viewModelScope.launch { _scheduleState.emit(it) } }
+
+        getSchedule()
     }
 
     private fun onSchedule(

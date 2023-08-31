@@ -6,6 +6,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -30,12 +35,11 @@ import com.ilizma.resources.R
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-@Preview
 @Composable
 fun RadioScreen(
-    @PreviewParameter(RadioScreenPreviewProvider::class) viewModel: RadioScreenViewModel,
-    paddingValues: PaddingValues = PaddingValues(),
-    snackbarHostState: SnackbarHostState = SnackbarHostState(),
+    viewModel: RadioScreenViewModel,
+    paddingValues: PaddingValues,
+    snackbarHostState: SnackbarHostState,
 ) {
     viewModel.playerState
         .collectAsState(PlayerState.Stopped)
@@ -112,23 +116,25 @@ private fun ScreenBox(
                 when (state) {
                     PlayerState.Stopped -> viewModel.onPlay()
                     PlayerState.Playing -> viewModel.onStop()
-                    else -> { /* no-op */ }
+                    else -> { /* no-op */
+                    }
                 }
             },
         ) {
             when (state) {
-                PlayerState.Loading -> CircularProgressIndicator()
-                else -> Icon(
-                    painter = painterResource(
-                        id = when (state) {
-                            PlayerState.Loading,
-                            is PlayerState.Error,
-                            PlayerState.Stopped -> R.drawable.ic_play
+                PlayerState.Loading -> CircularProgressIndicator(
+                    modifier = Modifier.then(Modifier.size(32.dp)),
+                )
 
-                            PlayerState.Playing -> R.drawable.ic_stop
-                        }
-                    ),
-                    contentDescription = "Play",
+                else -> Icon(
+                    imageVector = when (state) {
+                        PlayerState.Loading,
+                        is PlayerState.Error,
+                        PlayerState.Stopped -> Icons.Default.PlayArrow
+
+                        PlayerState.Playing -> Icons.Default.Stop
+                    },
+                    contentDescription = "Play & Stop",
                 )
             }
 
@@ -146,6 +152,20 @@ private fun errorRes(
     PlayerState.Error.MediaDisconnected -> R.string.media_disconnected
     PlayerState.Error.Unknown -> R.string.unknown_error
     PlayerState.Error.GenericError -> R.string.generic_error
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun RadioScreenPreview(
+    @PreviewParameter(RadioScreenPreviewProvider::class) viewModel: RadioScreenViewModel,
+    paddingValues: PaddingValues = PaddingValues(),
+    snackbarHostState: SnackbarHostState = SnackbarHostState(),
+) {
+    RadioScreen(
+        viewModel = viewModel,
+        paddingValues = paddingValues,
+        snackbarHostState = snackbarHostState,
+    )
 }
 
 private class RadioScreenPreviewProvider : PreviewParameterProvider<RadioScreenViewModel> {

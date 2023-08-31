@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,11 +28,10 @@ import com.ilizma.menu.presentation.model.MenuNavigationAction
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
 import com.ilizma.resources.R
 
-@Preview
 @Composable
 fun MenuScreen(
-    @PreviewParameter(MenuScreenPreviewProvider::class) viewModel: MenuScreenViewModel,
-    paddingValues: PaddingValues = PaddingValues(),
+    viewModel: MenuScreenViewModel,
+    paddingValues: PaddingValues,
 ) {
     Column(
         modifier = Modifier
@@ -81,21 +81,33 @@ private fun SimpleRow(
     @StringRes title: Int,
     onClick: () -> Unit,
 ) {
-    Row(
+    Card(
         modifier = Modifier
-            .padding(16.dp)
             .fillMaxWidth()
+            .padding(
+                horizontal = 16.dp,
+                vertical = 8.dp,
+            )
             .clickable { onClick() },
-        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(
-            painter = painterResource(iconRes),
-            contentDescription = iconDescription,
-        )
-        Spacer(modifier = Modifier.width(4.dp))
-        Text(
-            text = stringResource(title),
-        )
+        Row(
+            modifier = Modifier
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 8.dp,
+                )
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                painter = painterResource(iconRes),
+                contentDescription = iconDescription,
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = stringResource(title),
+            )
+        }
     }
 }
 
@@ -109,31 +121,55 @@ private fun DoubleRow(
     @StringRes title2: Int,
     onClick: () -> Unit,
 ) {
-    Row(
+    Card(
         modifier = Modifier
-            .padding(16.dp)
             .fillMaxWidth()
+            .padding(
+                horizontal = 16.dp,
+                vertical = 8.dp,
+            )
             .clickable { onClick() },
-        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(
-            painter = painterResource(iconRes),
-            contentDescription = iconDescription,
-        )
-        Spacer(modifier = Modifier.width(4.dp))
-        Text(
-            text = stringResource(title),
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Icon(
-            painter = painterResource(iconRes2),
-            contentDescription = iconDescription2,
-        )
-        Spacer(modifier = Modifier.width(4.dp))
-        Text(
-            text = stringResource(title2),
-        )
+        Row(
+            modifier = Modifier
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 8.dp,
+                )
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                painter = painterResource(iconRes),
+                contentDescription = iconDescription,
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = stringResource(title),
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Icon(
+                painter = painterResource(iconRes2),
+                contentDescription = iconDescription2,
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = stringResource(title2),
+            )
+        }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MenuScreenPreview(
+    @PreviewParameter(MenuScreenPreviewProvider::class) viewModel: MenuScreenViewModel,
+    paddingValues: PaddingValues = PaddingValues(),
+) {
+    MenuScreen(
+        viewModel = viewModel,
+        paddingValues = paddingValues,
+    )
 }
 
 private class MenuScreenPreviewProvider : PreviewParameterProvider<MenuScreenViewModel> {

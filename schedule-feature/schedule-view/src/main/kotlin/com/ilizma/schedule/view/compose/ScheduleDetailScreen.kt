@@ -1,7 +1,7 @@
 package com.ilizma.schedule.view.compose
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,8 +13,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.PlaylistRemove
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -31,7 +34,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,12 +49,10 @@ import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenDetailViewModel
 import com.ilizma.view.shimmer.ShimmerBrush
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import kotlin.random.Random
 
-@Preview
 @Composable
 fun ScheduleDetailScreen(
-    @PreviewParameter(ScheduleDetailScreenPreviewProvider::class) viewModel: ScheduleScreenDetailViewModel,
+    viewModel: ScheduleScreenDetailViewModel,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -89,7 +89,7 @@ fun ScheduleDetailScreen(
                         Error(
                             snackbarHostState = snackbarHostState,
                             errorMessage = it.message,
-                            onClick = { viewModel.getSchedule() }
+                            onClick = { viewModel.retrySchedule() }
                         )
                     }
                 }
@@ -130,7 +130,10 @@ private fun EmptyView(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Icon(painter = painterResource(id = R.drawable.ic_empty), contentDescription = "Empty list")
+        Icon(
+            imageVector = Icons.Default.PlaylistRemove,
+            contentDescription = "Empty list",
+        )
         Text(
             text = stringResource(R.string.empty_list),
             modifier = Modifier
@@ -172,36 +175,13 @@ private fun LoadingRow() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(
-                    horizontal = 16.dp,
-                    vertical = 8.dp,
+                .height(40.dp)
+                .background(
+                    brush = ShimmerBrush(),
+                    shape = RoundedCornerShape(12.dp),
+                    alpha = 0.5f,
                 )
         ) {
-            Box(
-                modifier = Modifier
-                    .width(40.dp)
-                    .height(25.dp),
-            ) {
-                ShimmerBrush()
-            }
-            Spacer(modifier = Modifier.width(4.dp))
-            Box(
-                modifier = Modifier
-                    .width(100.dp)
-                    .height(25.dp)
-            ) {
-                ShimmerBrush()
-            }
-            if (Random.nextBoolean()) {
-                Spacer(modifier = Modifier.width(4.dp))
-                Box(
-                    modifier = Modifier
-                        .width(25.dp)
-                        .height(25.dp)
-                ) {
-                    ShimmerBrush()
-                }
-            }
         }
     }
 }
@@ -232,7 +212,7 @@ private fun ProgramRow(
             if (program.repeated) {
                 Spacer(modifier = Modifier.width(4.dp))
                 Icon(
-                    painter = painterResource(R.drawable.ic_repeated),
+                    imageVector = Icons.Default.Refresh,
                     contentDescription = "Phone",
                 )
             }
@@ -262,9 +242,23 @@ private fun Error(
         }
 }
 
+@Preview(showBackground = true)
+@Composable
+private fun ScheduleDetailScreenPreview(
+    @PreviewParameter(ScheduleDetailScreenPreviewProvider::class) viewModel: ScheduleScreenDetailViewModel,
+) {
+    ScheduleDetailScreen(viewModel)
+}
+
 private class ScheduleDetailScreenPreviewProvider :
     PreviewParameterProvider<ScheduleScreenDetailViewModel> {
     override val values: Sequence<ScheduleScreenDetailViewModel> = sequenceOf(
+        FakeViewModel(
+            listOf(
+                ProgramType.Loading,
+                ProgramType.Loading,
+            )
+        ),
         FakeViewModel(
             listOf(
                 ProgramType.Item(
@@ -278,19 +272,24 @@ private class ScheduleDetailScreenPreviewProvider :
                     day = 1,
                     name = "Program 2",
                     repeated = true,
-                )
+                ),
             )
         ),
         FakeViewModel(),
     )
 
+    @Suppress("UNCHECKED_CAST")
     class FakeViewModel(
-        list: List<ProgramType.Item> = listOf()
+        list: List<ProgramType> = listOf()
     ) : ScheduleScreenDetailViewModel() {
         override val dayName: Flow<String> = flowOf("Monday")
 
         override val scheduleState: Flow<ScheduleState> = flowOf(
-            ScheduleState.Success(list)
+            when (list.firstOrNull()) {
+                is ProgramType.Loading -> ScheduleState.Loading(list as List<ProgramType.Loading>)
+                is ProgramType.Item -> ScheduleState.Success(list as List<ProgramType.Item>)
+                else -> ScheduleState.Success(listOf())
+            }
         )
         override val navigationAction: LiveData<ScheduleDetailNavigationAction>
             get() = TODO("Not yet implemented")
@@ -301,9 +300,11 @@ private class ScheduleDetailScreenPreviewProvider :
         override fun getSchedule() {
         }
 
-        override fun onBack() {
+        override fun retrySchedule() {
         }
 
+        override fun onBack() {
+        }
 
     }
 }

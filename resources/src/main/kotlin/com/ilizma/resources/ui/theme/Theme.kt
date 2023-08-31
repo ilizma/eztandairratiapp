@@ -16,19 +16,23 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = BackgroundNight,
-    secondary = BackgroundNight,
-    tertiary = PurpleNight
+    primary = Black,
+    secondary = SecondaryNight,
+    tertiary = PurpleNight,
+    background = BackgroundNight,
+    surface = Black,
+    onPrimary = White,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = BackgroundDay,
-    secondary = BackgroundDay,
-    tertiary = PurpleDay
+    primary = White,
+    secondary = SecondaryDay,
+    tertiary = PurpleDay,
+    background = BackgroundDay,
+    surface = White,
+    onPrimary = Black,
 
     /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
@@ -58,7 +62,8 @@ fun EztandaIrratiappTheme(
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars =
+                darkTheme.not()
         }
     }
 

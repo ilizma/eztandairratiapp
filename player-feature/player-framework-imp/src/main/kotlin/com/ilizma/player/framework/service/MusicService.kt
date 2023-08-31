@@ -117,7 +117,7 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
 
         override fun onCustomAction(action: String?, extras: Bundle?) {
             super.onCustomAction(action, extras)
-            when(action) {
+            when (action) {
                 CANCEL_NOTIFICATION -> {
                     onStop()
                     cancelNotification()
@@ -240,7 +240,6 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
                         MediaPlayer.MEDIA_ERROR_UNKNOWN -> PlayerEvent.UNKNOWN_FAILURE
                         else -> PlayerEvent.UNKNOWN_FAILURE
                     }.let { mediaSession.sendSessionEvent(it.name, null) }
-                    mediaSessionCallback.onStop()
                     true
                 }
                 prepareAsync()
@@ -257,9 +256,15 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
             .let { startForeground(NOTIFICATION_ID, it) }
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     private fun initNoisyReceiver() {
         // Handles headphones coming unplugged. cannot be done through a manifest receiver
-        registerReceiver(mNoisyReceiver, noisyAudioIntentFilter)
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
+                registerReceiver(mNoisyReceiver, noisyAudioIntentFilter, RECEIVER_NOT_EXPORTED)
+
+            else -> registerReceiver(mNoisyReceiver, noisyAudioIntentFilter)
+        }
     }
 
     private fun successfullyRetrievedAudioFocus(
@@ -288,8 +293,10 @@ class MusicService : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusChang
         when (focusChange) {
             AudioManager.AUDIOFOCUS_LOSS,
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> mediaSessionCallback.onStop()
+
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ->
                 mediaPlayer.setVolume(0.3f, 0.3f)
+
             AudioManager.AUDIOFOCUS_GAIN -> if (mediaPlayer.isPlaying.not()) {
                 mediaSessionCallback.onPlay()
             } else {

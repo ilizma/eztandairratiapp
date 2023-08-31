@@ -25,11 +25,16 @@ object PlayerFrameworkModule {
     ): PlayerFramework = ComponentName(
         context,
         MusicService::class.java,
-    ).let { playerFrameworkImp(context, it) }
+    ).let {
+        playerFrameworkImp(
+            context = context,
+            componentName = it,
+        )
+    }
 
     private fun playerFrameworkImp(
         context: Context,
-        componentName: ComponentName
+        componentName: ComponentName,
     ): PlayerFrameworkImp = PlayerFrameworkImp(
         context = context,
         serviceComponent = componentName,

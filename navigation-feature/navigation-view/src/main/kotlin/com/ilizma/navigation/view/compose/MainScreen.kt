@@ -49,17 +49,15 @@ import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.schedule.view.compose.ScheduleScreen
 import com.ilizma.schedule.view.router.ScheduleScreenRouter
 
-@Preview
 @Composable
 fun MainScreen(
-    @PreviewParameter(MainScreenPreviewProvider::class) lazyViewModels: List<Lazy<ViewModel>>,
-    navController: NavHostController = rememberNavController(),
+    lazyViewModels: List<Lazy<ViewModel>>,
+    navController: NavHostController,
+    mainNavController: NavHostController,
     radioScreenRouter: RadioScreenRouter,
     scheduleScreenRouter: ScheduleScreenRouter,
     menuScreenRouter: MenuScreenRouter,
 ) {
-    val mainNavController = rememberNavController()
-
     radioScreenRouter.init()
     scheduleScreenRouter.init(navController = navController, mainNavController = mainNavController)
     menuScreenRouter.init(mainNavController)
@@ -230,6 +228,26 @@ fun RowScope.BottomBarItem(
                 text = stringResource(textResource),
             )
         },
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MainScreenPreview(
+    @PreviewParameter(MainScreenPreviewProvider::class) lazyViewModels: List<Lazy<ViewModel>>,
+    navController: NavHostController = rememberNavController(),
+    mainNavController: NavHostController = rememberNavController(),
+    radioScreenRouter: RadioScreenRouter = FakeRadioScreenRouterImp(),
+    scheduleScreenRouter: ScheduleScreenRouter = FakeScheduleScreenRouterImp(),
+    menuScreenRouter: MenuScreenRouter = FakeMenuScreenRouterImp(),
+) {
+    MainScreen(
+        lazyViewModels = lazyViewModels,
+        navController = navController,
+        mainNavController = mainNavController,
+        radioScreenRouter = radioScreenRouter,
+        scheduleScreenRouter = scheduleScreenRouter,
+        menuScreenRouter = menuScreenRouter,
     )
 }
 

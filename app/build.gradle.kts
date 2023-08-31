@@ -25,15 +25,6 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    signingConfigs {
-        create("release") {
-            storeFile = file("/Volumes/HDD/StudioProjects/eztandairratiapp/eztanda.jks")
-            storePassword = "1076Eztanda"
-            keyAlias = "Eztanda Irratiapp"
-            keyPassword = "1076Eztanda"
-        }
-    }
-
     buildTypes {
         getByName("debug") {
             applicationIdSuffix = ".debug"
@@ -41,7 +32,6 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -58,7 +48,6 @@ android {
 dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    //implementation(Android.v4)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics.ktx)
     implementation(libs.firebase.analytics.ktx)
