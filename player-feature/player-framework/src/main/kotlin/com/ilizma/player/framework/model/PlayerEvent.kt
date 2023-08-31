@@ -1,0 +1,12 @@
+package com.ilizma.player.framework.model
+
+enum class PlayerEvent {
+    START,
+    IO_FAILURE,
+    MALFORMED_FAILURE,
+    UNSUPPORTED_FAILURE,
+    TIMEOUT_FAILURE,
+    NETWORK_FAILURE,
+    PROGRESSIVE_PLAYBACK_NOT_VALID_FAILURE,
+    UNKNOWN_FAILURE,
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="17">
+      <module name="api-feature.eztandairratiapp.api-di" target="17" />
+      <module name="app-feature.eztandairratiapp.app-di" target="17" />
+      <module name="app-feature.eztandairratiapp.app-flow" target="17" />
+      <module name="app-feature.eztandairratiapp.app-flow-imp" target="17" />
+      <module name="app-feature.eztandairratiapp.app-view" target="17" />
+      <module name="error-management-feature.eztandairratiapp.error-management-di" target="17" />
+      <module name="error-management-feature.eztandairratiapp.error-management-view" target="17" />
+      <module name="error-management-feature.eztandairratiapp.error-management-view-imp" target="17" />
+      <module name="eztandairratiapp.app" target="17" />
+      <module name="eztandairratiapp.buildSrc" target="17" />
+      <module name="eztandairratiapp.buildSrc.main" target="17" />
+      <module name="eztandairratiapp.buildSrc.test" target="17" />
+      <module name="eztandairratiapp.cast-di" target="17" />
+      <module name="eztandairratiapp.cast-flow" target="17" />
+      <module name="eztandairratiapp.cast-flow-imp" target="17" />
+      <module name="eztandairratiapp.cast-framework-imp" target="17" />
+      <module name="eztandairratiapp.cast-view" target="17" />
+      <module name="eztandairratiapp.di-base" target="17" />
+      <module name="eztandairratiapp.menu-di" target="17" />
+      <module name="eztandairratiapp.menu-flow" target="17" />
+      <module name="eztandairratiapp.menu-flow-imp" target="17" />
+      <module name="eztandairratiapp.menu-presentation" target="17" />
+      <module name="eztandairratiapp.menu-presentation-imp" target="17" />
+      <module name="eztandairratiapp.menu-view" target="17" />
+      <module name="eztandairratiapp.menu-view-imp" target="17" />
+      <module name="eztandairratiapp.presentation-base" target="17" />
+      <module name="eztandairratiapp.resources" target="17" />
+      <module name="eztandairratiapp.review-di" target="17" />
+      <module name="eztandairratiapp.review-framework-imp" target="17" />
+      <module name="eztandairratiapp.schedule-di" target="17" />
+      <module name="eztandairratiapp.schedule-flow" target="17" />
+      <module name="eztandairratiapp.schedule-flow-imp" target="17" />
+      <module name="eztandairratiapp.schedule-presentation" target="17" />
+      <module name="eztandairratiapp.schedule-presentation-imp" target="17" />
+      <module name="eztandairratiapp.schedule-view" target="17" />
+      <module name="eztandairratiapp.schedule-view-imp" target="17" />
+      <module name="eztandairratiapp.view-base" target="17" />
+      <module name="net-feature.eztandairratiapp.net" target="17" />
+      <module name="net-feature.eztandairratiapp.net-di" target="17" />
+      <module name="player-feature.eztandairratiapp.player-di" target="17" />
+      <module name="player-feature.eztandairratiapp.player-flow" target="17" />
+      <module name="player-feature.eztandairratiapp.player-flow-imp" target="17" />
+      <module name="player-feature.eztandairratiapp.player-framework-imp" target="17" />
+      <module name="player-feature.eztandairratiapp.player-presentation" target="17" />
+      <module name="player-feature.eztandairratiapp.player-presentation-imp" target="17" />
+      <module name="player-feature.eztandairratiapp.player-view" target="17" />
+      <module name="player-feature.eztandairratiapp.player-view-imp" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
