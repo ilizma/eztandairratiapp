@@ -6,11 +6,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.cast.view"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     buildFeatures {
@@ -24,11 +29,11 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    implementation(Android.appcompat)
-    implementation(Cast.mediarouter)
-    implementation(Cast.framework)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.appcompat)
+    implementation(libs.mediarouter)
+    implementation(libs.cast.framework)
 
     implementation(project(":resources"))
 }

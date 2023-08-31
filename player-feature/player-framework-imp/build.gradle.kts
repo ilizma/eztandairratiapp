@@ -6,11 +6,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.player.framework.imp"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     buildTypes {
@@ -22,6 +27,10 @@ android {
         }
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
         getByName("test").java.srcDirs("src/test/kotlin")
@@ -30,11 +39,11 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    implementation(Rx.java)
-    implementation(Android.appcompat)
-    implementation(Android.v4)
-    implementation(AndroidKtx.core)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.rxjava)
+    implementation(libs.appcompat)
+    implementation(libs.media)
+    implementation(libs.core.ktx)
     implementation(project(":player-framework"))
 }

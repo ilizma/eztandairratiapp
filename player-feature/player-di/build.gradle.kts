@@ -6,11 +6,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.player.di"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     sourceSets {
@@ -20,16 +25,16 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    implementation(Rx.java)
-    implementation(Android.appcompat)
-    implementation(Android.v4)
-    implementation(AndroidKtx.core)
-    implementation(AndroidKtx.fragment)
-    implementation(Architecture.navigationFragment)
-    implementation(Architecture.lifecycleCommon)
-    implementation(Annotation.annotation)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.rxjava)
+    implementation(libs.appcompat)
+    implementation(libs.media)
+    implementation(libs.core.ktx)
+    implementation(libs.fragment.ktx)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.lifecycle.common)
+    implementation(libs.annotation)
 
     // di
     implementation(project(":di-base"))
@@ -44,7 +49,6 @@ dependencies {
     api(project(":player-flow"))
     api(project(":player-flow-imp"))
     api(project(":player-view"))
-    api(project(":player-view-imp"))
     api(project(":player-presentation"))
     api(project(":player-presentation-imp"))
     api(project(":player-domain"))

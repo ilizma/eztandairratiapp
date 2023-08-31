@@ -8,6 +8,7 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.app"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
@@ -19,6 +20,20 @@ android {
         testInstrumentationRunner = ConfigData.testInstrumentationRunner
     }
 
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file("/Volumes/HDD/StudioProjects/eztandairratiapp/eztanda.jks")
+            storePassword = "1076Eztanda"
+            keyAlias = "Eztanda Irratiapp"
+            keyPassword = "1076Eztanda"
+        }
+    }
+
     buildTypes {
         getByName("debug") {
             applicationIdSuffix = ".debug"
@@ -26,6 +41,7 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -40,17 +56,17 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    implementation(Android.v4)
-    implementation(platform(Firebase.bom))
-    implementation(Firebase.crashlytics)
-    implementation(Firebase.analytics)
-    implementation(Firebase.messaging)
-    implementation(Cast.framework)
-    implementation(CustomActivityOnCrash.customactivityoncrash)
-    debugImplementation(Network.chucker)
-    releaseImplementation(Network.chuckerNoOp)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    //implementation(Android.v4)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics.ktx)
+    implementation(libs.firebase.analytics.ktx)
+    implementation(libs.firebase.messaging.ktx)
+    implementation(libs.cast.framework)
+    implementation(libs.customactivityoncrash)
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chucker.no.op)
 
     // api
     implementation(project(":api-di"))
@@ -70,12 +86,16 @@ dependencies {
     // Resources
     implementation(project(":resources"))
 
-    // region App
-    implementation(project(":app-di"))
+    // region Main
+    implementation(project(":main-di"))
     // endregion
 
     // region Error Management
     implementation(project(":error-management-di"))
+    // endregion
+
+    // region Navigation
+    implementation(project(":navigation-di"))
     // endregion
 
     // region Player

@@ -1,3 +1,19 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "Eztanda Irratiapp"
 include(
     // di
     ":di-base",
@@ -23,10 +39,11 @@ include(
 
     // region App
     ":app",
-    ":app-di",
-    ":app-flow",
-    ":app-flow-imp",
-    ":app-view",
+    // endregion
+
+    // region Main
+    ":main-di",
+    ":main-view",
     // endregion
 
     // region Error Management
@@ -35,12 +52,20 @@ include(
     ":error-management-view-imp",
     // endregion
 
+    // region Navigation
+    ":navigation-di",
+    ":navigation-view",
+    ":navigation-presentation",
+    ":navigation-presentation-imp",
+    ":navigation-domain",
+    ":navigation-domain-imp",
+    // endregion
+
     // region Player
     ":player-di",
     ":player-flow",
     ":player-flow-imp",
     ":player-view",
-    ":player-view-imp",
     ":player-presentation",
     ":player-presentation-imp",
     ":player-domain",
@@ -56,7 +81,6 @@ include(
     ":schedule-flow",
     ":schedule-flow-imp",
     ":schedule-view",
-    ":schedule-view-imp",
     ":schedule-presentation",
     ":schedule-presentation-imp",
     ":schedule-domain",
@@ -70,7 +94,6 @@ include(
     ":menu-flow",
     ":menu-flow-imp",
     ":menu-view",
-    ":menu-view-imp",
     ":menu-presentation",
     ":menu-presentation-imp",
     // endregion
@@ -92,6 +115,12 @@ include(
 
 )
 
+// region Base
+project(":di-base").projectDir = File("base-feature/di-base")
+project(":presentation-base").projectDir = File("base-feature/presentation-base")
+project(":view-base").projectDir = File("base-feature/view-base")
+// endregion
+
 // region Net
 project(":net-di").projectDir = File("net-feature/net-di")
 project(":net").projectDir = File("net-feature/net")
@@ -102,11 +131,9 @@ project(":api-di").projectDir = File("api-feature/api-di")
 project(":api").projectDir = File("api-feature/api")
 // endregion
 
-// region App
-project(":app-di").projectDir = File("app-feature/app-di")
-project(":app-flow").projectDir = File("app-feature/app-flow")
-project(":app-flow-imp").projectDir = File("app-feature/app-flow-imp")
-project(":app-view").projectDir = File("app-feature/app-view")
+// region Main
+project(":main-di").projectDir = File("main-feature/main-di")
+project(":main-view").projectDir = File("main-feature/main-view")
 // endregion
 
 // region Error Management
@@ -115,12 +142,20 @@ project(":error-management-view").projectDir = File("error-management-feature/er
 project(":error-management-view-imp").projectDir = File("error-management-feature/error-management-view-imp")
 // endregion
 
+// region Navigation
+project(":navigation-di").projectDir = File("navigation-feature/navigation-di")
+project(":navigation-view").projectDir = File("navigation-feature/navigation-view")
+project(":navigation-presentation").projectDir = File("navigation-feature/navigation-presentation")
+project(":navigation-presentation-imp").projectDir = File("navigation-feature/navigation-presentation-imp")
+project(":navigation-domain").projectDir = File("navigation-feature/navigation-domain")
+project(":navigation-domain-imp").projectDir = File("navigation-feature/navigation-domain-imp")
+// endregion
+
 // region Player
 project(":player-di").projectDir = File("player-feature/player-di")
 project(":player-flow").projectDir = File("player-feature/player-flow")
 project(":player-flow-imp").projectDir = File("player-feature/player-flow-imp")
 project(":player-view").projectDir = File("player-feature/player-view")
-project(":player-view-imp").projectDir = File("player-feature/player-view-imp")
 project(":player-presentation").projectDir = File("player-feature/player-presentation")
 project(":player-presentation-imp").projectDir = File("player-feature/player-presentation-imp")
 project(":player-domain").projectDir = File("player-feature/player-domain")
@@ -136,7 +171,6 @@ project(":schedule-di").projectDir = File("schedule-feature/schedule-di")
 project(":schedule-flow").projectDir = File("schedule-feature/schedule-flow")
 project(":schedule-flow-imp").projectDir = File("schedule-feature/schedule-flow-imp")
 project(":schedule-view").projectDir = File("schedule-feature/schedule-view")
-project(":schedule-view-imp").projectDir = File("schedule-feature/schedule-view-imp")
 project(":schedule-presentation").projectDir = File("schedule-feature/schedule-presentation")
 project(":schedule-presentation-imp").projectDir = File("schedule-feature/schedule-presentation-imp")
 project(":schedule-domain").projectDir = File("schedule-feature/schedule-domain")
@@ -150,7 +184,6 @@ project(":menu-di").projectDir = File("menu-feature/menu-di")
 project(":menu-flow").projectDir = File("menu-feature/menu-flow")
 project(":menu-flow-imp").projectDir = File("menu-feature/menu-flow-imp")
 project(":menu-view").projectDir = File("menu-feature/menu-view")
-project(":menu-view-imp").projectDir = File("menu-feature/menu-view-imp")
 project(":menu-presentation").projectDir = File("menu-feature/menu-presentation")
 project(":menu-presentation-imp").projectDir = File("menu-feature/menu-presentation-imp")
 // endregion

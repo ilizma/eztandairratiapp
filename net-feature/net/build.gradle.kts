@@ -6,11 +6,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.net"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     sourceSets {
@@ -20,13 +25,13 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    debugImplementation(Network.chucker)
-    releaseImplementation(Network.chuckerNoOp)
-    implementation(Network.moshi)
-    implementation(Network.moshiConverter)
-    implementation(Network.retrofit)
-    implementation(Network.retrofitAdapter)
-    implementation(Network.okhttpLogging)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chucker.no.op)
+    implementation(libs.moshi)
+    implementation(libs.retrofit.converter.moshi)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.adapter.rxjava3)
+    implementation(libs.logging.interceptor)
 }

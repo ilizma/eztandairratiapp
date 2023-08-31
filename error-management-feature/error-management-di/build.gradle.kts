@@ -6,15 +6,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.errormanagement.di"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
     }
 
-    buildFeatures {
-        viewBinding = true
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     sourceSets {
@@ -24,8 +25,8 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
     implementation(project(":view-base"))
     // region Error Management
     api(project(":error-management-view"))

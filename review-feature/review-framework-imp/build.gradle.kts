@@ -6,11 +6,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.review.framework.imp"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     sourceSets {
@@ -21,9 +26,9 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    implementation(Play.review)
-    implementation(Play.reviewKtx)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.play.review)
+    implementation(libs.play.review.ktx)
     implementation(project(":review-framework"))
 }

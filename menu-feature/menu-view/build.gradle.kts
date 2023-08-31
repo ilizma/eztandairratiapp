@@ -6,15 +6,24 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.menu.view"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     buildFeatures {
-        viewBinding = true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = ConfigData.kotlinCompilerExtensionVersion
     }
 
     sourceSets {
@@ -24,11 +33,17 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    implementation(Android.appcompat)
-    implementation(AndroidUI.constraintLayout)
-    implementation(AndroidUI.material)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.activity.compose)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.material3)
+    implementation(libs.navigation.compose)
+    debugImplementation(libs.ui.tooling)
     implementation(project(":resources"))
     implementation(project(":view-base"))
+    implementation(project(":menu-presentation"))
 }

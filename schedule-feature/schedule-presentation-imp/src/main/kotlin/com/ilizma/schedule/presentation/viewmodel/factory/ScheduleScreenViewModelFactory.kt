@@ -1,6 +1,5 @@
 package com.ilizma.schedule.presentation.viewmodel.factory
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ilizma.presentation.SingleLiveEvent
@@ -16,7 +15,6 @@ class ScheduleScreenViewModelFactory(
         modelClass: Class<T>
     ): T = scheduleScreenViewModelAssistedFactory.create(
         mapper = DaysMapper(DayListMapper(DayMapper())),
-        _days = MutableLiveData(),
         _navigationAction = SingleLiveEvent(),
     ) as T
 

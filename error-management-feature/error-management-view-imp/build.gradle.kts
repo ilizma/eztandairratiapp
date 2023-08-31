@@ -6,14 +6,22 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.errormanagement.view.imp"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
         testInstrumentationRunner = ConfigData.testInstrumentationRunner
     }
 
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
     
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
@@ -23,13 +31,13 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    implementation(Rx.java)
-    implementation(Android.appcompat)
-    implementation(AndroidUI.material)
-    implementation(AndroidKtx.core)
-    implementation(CustomActivityOnCrash.customactivityoncrash)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.rxjava)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.core.ktx)
+    implementation(libs.customactivityoncrash)
     implementation(project(":view-base"))
     implementation(project(":error-management-view"))
     implementation(project(":resources"))

@@ -2,27 +2,27 @@ package com.ilizma.player.presentation.model
 
 sealed class PlayerState {
 
-    object Playing : PlayerState()
+    data object Playing : PlayerState()
 
-    object Loading : PlayerState()
+    data object Loading : PlayerState()
 
-    object Stopped : PlayerState()
+    data object Stopped : PlayerState()
 
     sealed class Error : PlayerState() {
 
-        object Malformed : Error()
+        data object Malformed : Error()
 
-        object Unsupported : Error()
+        data object Unsupported : Error()
 
-        object Timeout : Error()
+        data object Timeout : Error()
 
-        object Network : Error()
+        data object Network : Error()
 
-        object MediaDisconnected : Error()
+        data object MediaDisconnected : Error()
 
-        object Unknown : Error()
+        data object Unknown : Error()
 
-        object GenericError : Error()
+        data object GenericError : Error()
 
     }
 

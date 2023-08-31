@@ -4,15 +4,24 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.menu.flow"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }
 
+}
+
+dependencies {
+    implementation(libs.navigation.compose)
 }

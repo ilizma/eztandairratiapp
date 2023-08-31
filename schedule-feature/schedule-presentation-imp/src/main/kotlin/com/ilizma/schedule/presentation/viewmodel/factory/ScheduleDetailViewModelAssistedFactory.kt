@@ -1,30 +1,27 @@
 package com.ilizma.schedule.presentation.viewmodel.factory
 
-import androidx.lifecycle.MutableLiveData
 import com.ilizma.presentation.SingleLiveEvent
-import com.ilizma.schedule.presentation.mapper.ProgramListMapper
-import com.ilizma.schedule.presentation.model.ScheduleState
+import com.ilizma.schedule.presentation.mapper.ScheduleStateMapper
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
-import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailViewModelImp
-import dagger.assisted.Assisted
+import com.ilizma.schedule.presentation.model.ScheduleState
+import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenDetailViewModelImp
 import dagger.assisted.AssistedFactory
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-
-const val ERROR_ASSISTED = "ERROR_ASSISTED"
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 @AssistedFactory
 interface ScheduleDetailViewModelAssistedFactory {
 
     fun create(
-        mapper: ProgramListMapper,
+        mapper: ScheduleStateMapper,
         backgroundScheduler: Scheduler,
         compositeDisposable: CompositeDisposable,
         unknownErrorMessage: String,
-        _dayName: MutableLiveData<String>,
-        _scheduleState: MutableLiveData<ScheduleState>,
-        @Assisted(ERROR_ASSISTED) _error: MutableLiveData<String>,
+        isDebug: Boolean,
+        _dayName: MutableSharedFlow<String>,
+        _scheduleState: MutableSharedFlow<ScheduleState>,
         _navigationAction: SingleLiveEvent<ScheduleDetailNavigationAction>,
-    ): ScheduleDetailViewModelImp
+    ): ScheduleScreenDetailViewModelImp
 
 }

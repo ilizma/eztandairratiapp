@@ -1,9 +1,9 @@
 package com.ilizma.schedule.flow.navigator
 
-import com.ilizma.schedule.flow.model.Day
+import androidx.navigation.NavHostController
 
 interface ScheduleDetailNavigator {
 
-    fun navigate(day: Day)
+    fun navigate(navController: NavHostController, id: Int, name: String)
 
 }

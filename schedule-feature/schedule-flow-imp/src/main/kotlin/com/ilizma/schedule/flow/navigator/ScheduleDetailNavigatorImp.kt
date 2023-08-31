@@ -1,16 +1,19 @@
 package com.ilizma.schedule.flow.navigator
 
-import androidx.navigation.NavController
-import com.ilizma.schedule.flow.model.Day
-import com.ilizma.schedule.view.fragment.ScheduleScreenFragmentDirections
+import androidx.navigation.NavHostController
+import com.ilizma.navigation.view.model.Routes.ScheduleDetail
 
-class ScheduleDetailNavigatorImp(
-    private val navController: NavController,
-) : ScheduleDetailNavigator {
+class ScheduleDetailNavigatorImp : ScheduleDetailNavigator {
 
-    override fun navigate(day: Day) {
-        ScheduleScreenFragmentDirections.toScheduleDetailFragment(day)
-            .let { navController.navigate(it) }
+    override fun navigate(
+        navController: NavHostController,
+        id: Int,
+        name: String,
+    ) {
+        ScheduleDetail.createRoute(
+            id = id,
+            name = name,
+         ).let { navController.navigate(it) }
     }
 
 }

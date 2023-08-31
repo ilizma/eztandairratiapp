@@ -4,10 +4,10 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = ConfigData.javaVersion
+    targetCompatibility = ConfigData.javaVersion
 }
 
 dependencies {
-    implementation(Rx.java)
+    implementation(libs.rxjava)
 }

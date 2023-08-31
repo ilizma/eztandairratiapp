@@ -1,34 +1,34 @@
 package com.ilizma.player.view.router.di
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import android.app.Activity
+import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.ilizma.cast.flow.navigator.CastPlayerNavigator
-import com.ilizma.player.flow.navigator.RadioBackCloseNavigator
+import com.ilizma.player.flow.navigator.RadioCloseNavigator
 import com.ilizma.player.flow.router.RadioScreenRouterImp
 import com.ilizma.player.presentation.viewmodel.factory.di.RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED
 import com.ilizma.player.view.router.RadioScreenRouter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ActivityComponent
 import javax.inject.Named
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityComponent::class)
 object RadioScreenRouterModule {
 
     @Provides
     fun provideRadioScreenRouter(
-        fragment: Fragment,
-        radioBackCloseNavigator: RadioBackCloseNavigator,
+        activity: Activity,
+        radioCloseNavigator: RadioCloseNavigator,
         castPlayerNavigator: CastPlayerNavigator,
         @Named(RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): RadioScreenRouter = RadioScreenRouterImp(
-        lifecycleOwner = { fragment.viewLifecycleOwner },
-        onBackPressedDispatcher = fragment.requireActivity().onBackPressedDispatcher,
-        viewModelLazy = fragment.viewModels { viewModelProviderFactory },
-        radioBackCloseNavigator = radioBackCloseNavigator,
+        viewModelLazy = (activity as ComponentActivity).viewModels { viewModelProviderFactory },
+        lifecycleOwner = { activity },
+        radioCloseNavigator = radioCloseNavigator,
         castPlayerNavigator = castPlayerNavigator,
     )
 

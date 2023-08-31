@@ -6,11 +6,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.menu.flow.imp"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     sourceSets {
@@ -21,12 +26,14 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    implementation(Android.appcompat)
-    implementation(Architecture.lifecycleCommon)
-    implementation(Architecture.navigationUi)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.appcompat)
+    implementation(libs.lifecycle.common)
+    implementation(libs.navigation.compose)
     implementation(project(":menu-flow"))
     implementation(project(":menu-view"))
     implementation(project(":menu-presentation"))
+
+    implementation(project(":navigation-view"))
 }

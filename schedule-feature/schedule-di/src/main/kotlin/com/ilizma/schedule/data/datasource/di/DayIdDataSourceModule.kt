@@ -1,23 +1,22 @@
 package com.ilizma.schedule.data.datasource.di
 
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
+import com.ilizma.schedule.data.cache.ScheduleDetailArgsCache
 import com.ilizma.schedule.data.datasource.DayIdDataSource
 import com.ilizma.schedule.data.datasource.DayIdDataSourceImp
-import com.ilizma.schedule.view.fragment.ScheduleDetailFragmentArgs
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ActivityComponent
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityComponent::class)
 object DayIdDataSourceModule {
 
     @Provides
     fun provideDayIdDataSource(
-        fragment: Fragment,
-    ): DayIdDataSource = fragment.navArgs<ScheduleDetailFragmentArgs>().value.day.id
-        .let { DayIdDataSourceImp(it) }
+        cache: ScheduleDetailArgsCache,
+    ): DayIdDataSource = DayIdDataSourceImp(
+        dayId = { cache.get()?.id ?: throw NullPointerException("cached id can not be null") },
+    )
 
 }

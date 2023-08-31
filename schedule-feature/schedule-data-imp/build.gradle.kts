@@ -4,14 +4,15 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = ConfigData.javaVersion
+    targetCompatibility = ConfigData.javaVersion
 }
 
 dependencies {
-    implementation(Rx.java)
-    implementation(Network.retrofitAdapter)
+    implementation(libs.rxjava)
+    implementation(libs.retrofit.adapter.rxjava3)
     implementation(project(":api"))
     implementation(project(":schedule-domain"))
     implementation(project(":schedule-data"))
+    implementation(project(":navigation-domain"))
 }

@@ -4,11 +4,24 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.resources"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = ConfigData.kotlinCompilerExtensionVersion
     }
 
     sourceSets {
@@ -18,5 +31,9 @@ android {
 }
 
 dependencies {
-    implementation(AndroidUI.material)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.material3)
+    implementation(libs.core.ktx)
 }

@@ -2,16 +2,16 @@ package com.ilizma.menu.presentation.model
 
 sealed class MenuNavigationAction {
 
-    object Instagram : MenuNavigationAction()
+    data object Instagram : MenuNavigationAction()
 
-    object Twitter : MenuNavigationAction()
+    data object Twitter : MenuNavigationAction()
 
-    object Facebook : MenuNavigationAction()
+    data object Facebook : MenuNavigationAction()
 
-    object Phone : MenuNavigationAction()
+    data object Phone : MenuNavigationAction()
 
-    object Web : MenuNavigationAction()
+    data object Web : MenuNavigationAction()
 
-    object Back : MenuNavigationAction()
+    data object Back : MenuNavigationAction()
 
 }

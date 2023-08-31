@@ -5,15 +5,25 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.schedule.flow"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }
 
+}
+
+dependencies {
+    implementation(libs.annotation)
+    implementation(libs.navigation.compose)
 }

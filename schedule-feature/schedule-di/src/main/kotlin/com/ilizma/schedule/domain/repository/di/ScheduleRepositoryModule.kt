@@ -1,6 +1,6 @@
 package com.ilizma.schedule.domain.repository.di
 
-import com.ilizma.schedule.data.cache.ScheduleDataSourceCache
+import com.ilizma.schedule.data.cache.ScheduleStateCache
 import com.ilizma.schedule.data.datasource.DayIdDataSource
 import com.ilizma.schedule.data.datasource.ScheduleDataSource
 import com.ilizma.schedule.data.mapper.ProgramListMapper
@@ -11,17 +11,17 @@ import com.ilizma.schedule.domain.repository.ScheduleRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ActivityComponent
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityComponent::class)
 object ScheduleRepositoryModule {
 
     @Provides
     fun provideScheduleRepository(
         dataSource: ScheduleDataSource,
         dayIdDataSource: DayIdDataSource,
-        cache: ScheduleDataSourceCache,
+        cache: ScheduleStateCache,
     ): ScheduleRepository = ScheduleRepositoryImp(
         dataSource = dataSource,
         dayIdDataSource = dayIdDataSource,

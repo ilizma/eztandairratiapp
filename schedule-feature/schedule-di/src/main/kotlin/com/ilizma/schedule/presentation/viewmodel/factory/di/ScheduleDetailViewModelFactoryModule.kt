@@ -7,14 +7,15 @@ import com.ilizma.schedule.presentation.viewmodel.factory.ScheduleDetailViewMode
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ActivityComponent
 import javax.inject.Named
 import com.ilizma.resources.R
+import com.ilizma.schedule.di.BuildConfig
 
 const val SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED = "SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED"
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityComponent::class)
 object ScheduleDetailViewModelFactoryModule {
 
     @Provides
@@ -25,6 +26,7 @@ object ScheduleDetailViewModelFactoryModule {
     ): ViewModelProvider.Factory = ScheduleDetailViewModelFactory(
         scheduleDetailViewModelAssistedFactory = scheduleDetailViewModelAssistedFactory,
         unknownErrorMessage = resources.getString(R.string.unknown_error),
+        isDebug = BuildConfig.DEBUG,
     )
 
 }

@@ -5,11 +5,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.schedule.flow.imp"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     sourceSets {
@@ -20,12 +25,11 @@ android {
 }
 
 dependencies {
-    implementation(Android.appcompat)
-    implementation(Architecture.lifecycleCommon)
-    implementation(Architecture.navigationUi)
-    implementation(Architecture.navigationFragment)
-    implementation(project(":app-flow"))
+    implementation(libs.appcompat)
+    implementation(libs.lifecycle.common)
+    implementation(libs.navigation.compose)
     implementation(project(":schedule-flow"))
     implementation(project(":schedule-view"))
     implementation(project(":schedule-presentation"))
+    implementation(project(":navigation-view"))
 }

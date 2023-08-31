@@ -1,9 +1,9 @@
 package com.ilizma.schedule.data.datasource
 
 class DayIdDataSourceImp(
-    private val dayId: Int,
+    private val dayId: () -> Int,
 ) : DayIdDataSource {
 
-    override fun get(): Int = dayId
+    override fun get(): Int = dayId()
 
 }

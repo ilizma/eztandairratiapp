@@ -1,0 +1,155 @@
+[versions]
+## region libraries
+coroutines-version = "1.7.1"
+rx-kotlin-version = "3.0.1"
+rx-java-version = "3.1.5"
+rx-binding-version = "4.0.0"
+appcompat-version = "1.6.1"
+ktx-version = "1.10.1"
+splash-version = "1.0.1"
+constraintlayout-version = "2.1.4"
+lifecycle-version = "2.6.1"
+customactivityoncrash-version = "2.4.0"
+fragment-version = "1.6.1"
+activity-version = "1.7.2"
+compose-bom-version = "2023.08.00"
+navigation-version = "2.7.0"
+media-version = "1.6.0"
+annotation-version = "1.6.0"
+browser-version = "1.6.0"
+hilt-version = "2.46.1"
+firebase-bom-version = "32.2.2"
+mediarouter-version = "1.4.0"
+cast-framework-version = "21.3.0"
+review-version = "2.0.1"
+material-version = "1.9.0"
+shimmer-version = "0.5.0"
+lottie-version = "5.2.0"
+chucker-version = "3.5.2"
+retrofit-version = "2.9.0"
+okhttp-version = "4.11.0"
+moshi-version = "1.15.0"
+junit-version = "4.13.2"
+junit-android-version = "1.1.5"
+espresso-version = "3.5.1"
+mockk-version = "1.13.5"
+junit-jupiter-version = "5.9.3"
+## endregion
+## region plugins
+android-plugin-version = "8.1.1"
+ksp-plugin-version = "1.9.0-1.0.12"
+kotlin-plugin-version = "1.9.0"
+google-services-plugin-version = "4.3.15"
+crashlytics-plugin-version = "2.9.8"
+safeargs-plugin-version = "2.7.0"
+hilt-plugin-version = "2.46.1"
+junit5-plugin-version = "1.9.3.0"
+ui-tooling = "1.5.0"
+## endregion
+
+[libraries]
+## region rx
+rxkotlin = { group = "io.reactivex.rxjava3", name = "rxkotlin", version.ref = "rx-kotlin-version" }
+rxjava = { group = "io.reactivex.rxjava3", name = "rxjava", version.ref = "rx-java-version" }
+rxbinding = { group = "com.jakewharton.rxbinding4", name = "rxbinding", version.ref = "rx-binding-version" }
+## endregion
+## region coroutines
+coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines-version" }##add?
+coroutines-rx3 = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-rx3", version.ref = "coroutines-version" }##add?
+coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines-version" }##add?
+coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "coroutines-version" }##add?
+## endregion
+## region androidX
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat-version" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx-version" }
+splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splash-version" }##add?
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout-version" }
+fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-version" }
+activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity-version" }##add?
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-version" }##add?
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom-version" }##add?
+compose-ui = { group = "androidx.compose.ui", name = "ui" }##add?
+compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }##add?
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }##add?
+compose-material3 = { group = "androidx.compose.material3", name = "material3" }##add?
+compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }##add?
+compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }##add?
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-version" }
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation-version" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation-version" }
+media = { group = "androidx.media", name = "media", version.ref = "media-version" }
+annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation-version" }
+browser = { group = "androidx.browser", name = "browser", version.ref = "browser-version" }##add?
+## endregion
+## region lifecycle
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-version" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-version" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle-version" }
+lifecycle-common = { group = "androidx.lifecycle", name = "lifecycle-common-java8", version.ref = "lifecycle-version" }
+## endregion
+## region customactivityoncrash
+customactivityoncrash = { group = "cat.ereza", name = "customactivityoncrash", version.ref = "customactivityoncrash-version" }
+## endregion
+## region di
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt-version" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt-version" }
+## endregion
+## region firebase
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom-version" }
+firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
+## endregion
+## region cast
+mediarouter = { group = "androidx.mediarouter", name = "mediarouter", version.ref = "mediarouter-version" }
+cast-framework = { group = "com.google.android.gms", name = "play-services-cast-framework", version.ref = "cast-framework-version" }
+## endregion
+## region review
+play-review = { group = "com.google.android.play", name = "review", version.ref = "review-version" }
+play-review-ktx = { group = "com.google.android.play", name = "review-ktx", version.ref = "review-version" }
+## endregion
+## region design
+material = { group = "com.google.android.material", name = "material", version.ref = "material-version" }
+shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer-version" }
+lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie-version" }
+## endregion
+## region network
+chucker = { group = "com.github.chuckerteam.chucker", name = "library", version.ref = "chucker-version" }
+chucker-no-op = { group = "com.github.chuckerteam.chucker", name = "library-no-op", version.ref = "chucker-version" }
+logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp-version" }
+moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi-version" }
+moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi-version" }
+moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshi-version" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit-version" }
+retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit-version" }
+retrofit-adapter-rxjava3 = { group = "com.squareup.retrofit2", name = "adapter-rxjava3", version.ref = "retrofit-version" }
+## endregion
+## region unittest
+junit = { group = "junit", name = "junit", version.ref = "junit-version" }##add?
+junit-android = { group = "androidx.test.ext", name = "junit", version.ref = "junit-android-version" }##add?
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-version" }##add?
+compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }##add?
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk-version" }##
+mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk-version" }##
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines-version" }##add?
+junit-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit-jupiter-version" }##
+junit-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit-jupiter-version" }##
+## endregion
+## region unittest
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }##add?
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "ui-tooling" }##add?
+## endregion
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "android-plugin-version" }
+android-library = { id = "com.android.library", version.ref = "android-plugin-version" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-plugin-version" }
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-plugin-version" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services-plugin-version" }
+crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics-plugin-version" }
+safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeargs-plugin-version" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt-plugin-version" }
+junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin-version" }
+
+[bundles]
