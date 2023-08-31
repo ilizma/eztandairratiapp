@@ -9,5 +9,5 @@ sealed class ProgramType {
         val repeated: Boolean,
     ) : ProgramType()
 
-    object Loading : ProgramType()
+    data object Loading : ProgramType()
 }

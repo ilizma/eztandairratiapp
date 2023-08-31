@@ -4,11 +4,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.menu.presentation"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     sourceSets {
@@ -18,6 +23,6 @@ android {
 }
 
 dependencies {
-    implementation(Architecture.lifecycleViewModel)
-    implementation(Architecture.lifecycleLivedata)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.livedata.ktx)
 }

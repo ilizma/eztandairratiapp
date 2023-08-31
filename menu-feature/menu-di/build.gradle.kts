@@ -6,11 +6,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.menu.di"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     sourceSets {
@@ -20,10 +25,9 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    implementation(AndroidKtx.fragment)
-    implementation(Architecture.navigationFragment)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.fragment.ktx)
     implementation(project(":di-base"))
     implementation(project(":presentation-base"))
 
@@ -31,7 +35,6 @@ dependencies {
     api(project(":menu-flow"))
     api(project(":menu-flow-imp"))
     api(project(":menu-view"))
-    api(project(":menu-view-imp"))
     api(project(":menu-presentation"))
     api(project(":menu-presentation-imp"))
     // endregion

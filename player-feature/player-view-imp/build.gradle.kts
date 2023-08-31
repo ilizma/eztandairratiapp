@@ -6,12 +6,17 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.player.view.imp"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
         testInstrumentationRunner = ConfigData.testInstrumentationRunner
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     sourceSets {
@@ -22,14 +27,14 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    implementation(Rx.java)
-    implementation(AndroidUI.material)
-    implementation(AndroidUI.constraintLayout)
-    implementation(AndroidKtx.core)
-    implementation(Architecture.lifecycleCommon)
-    implementation(Architecture.lifecycleViewModel)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.rxjava)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
+    implementation(libs.core.ktx)
+    implementation(libs.lifecycle.common)
+    implementation(libs.lifecycle.viewmodel.ktx)
 
     implementation(project(":resources"))
     

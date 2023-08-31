@@ -1,10 +1,10 @@
 package com.ilizma.schedule.view.router.id
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import android.app.Activity
+import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
-import com.ilizma.schedule.flow.mapper.DayMapper
-import com.ilizma.schedule.flow.navigator.ScheduleBackCloseNavigator
+import com.ilizma.schedule.flow.navigator.ScheduleBackNavigator
 import com.ilizma.schedule.flow.navigator.ScheduleDetailNavigator
 import com.ilizma.schedule.flow.router.ScheduleScreenRouterImp
 import com.ilizma.schedule.presentation.viewmodel.factory.di.SCHEDULE_SCREEN_VIEW_MODEL_PROVIDER_NAMED
@@ -12,25 +12,23 @@ import com.ilizma.schedule.view.router.ScheduleScreenRouter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ActivityComponent
 import javax.inject.Named
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityComponent::class)
 object ScheduleScreenRouterModule {
 
     @Provides
     fun provideScheduleScreenRouter(
-        fragment: Fragment,
-        scheduleBackCloseNavigator: ScheduleBackCloseNavigator,
+        activity: Activity,
+        scheduleBackNavigator: ScheduleBackNavigator,
         scheduleDetailNavigator: ScheduleDetailNavigator,
         @Named(SCHEDULE_SCREEN_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): ScheduleScreenRouter = ScheduleScreenRouterImp(
-        lifecycleOwner = { fragment.viewLifecycleOwner },
-        onBackPressedDispatcher = fragment.requireActivity().onBackPressedDispatcher,
-        viewModelLazy = fragment.viewModels { viewModelProviderFactory },
-        mapper = DayMapper(),
-        scheduleBackCloseNavigator = scheduleBackCloseNavigator,
+        viewModelLazy = (activity as ComponentActivity).viewModels { viewModelProviderFactory },
+        lifecycleOwner = { activity },
+        scheduleBackNavigator = scheduleBackNavigator,
         scheduleDetailNavigator = scheduleDetailNavigator,
     )
 

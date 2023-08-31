@@ -20,9 +20,9 @@ object BaseHttpClientModule {
         chuckerCollector: ChuckerCollector,
         @ApplicationContext context: Context,
     ): BaseHttpClient = BaseHttpClient(
-        chuckerCollector,
-        context,
-        BuildConfig.DEBUG,
+        chuckerCollector = chuckerCollector,
+        context = context,
+        isDebug = BuildConfig.DEBUG,
     )
 
 }

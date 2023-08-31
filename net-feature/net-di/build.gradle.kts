@@ -6,11 +6,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.net.di"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     buildTypes {
@@ -22,6 +27,10 @@ android {
         }
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }
@@ -29,15 +38,15 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    debugImplementation(Network.chucker)
-    releaseImplementation(Network.chuckerNoOp)
-    implementation(Network.moshi)
-    implementation(Network.moshiKotlin)
-    implementation(Network.moshiAdapters)
-    implementation(Network.retrofit)
-    implementation(Network.okhttpLogging)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chucker.no.op)
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.moshi.adapters)
+    implementation(libs.retrofit)
+    implementation(libs.logging.interceptor)
     implementation(project(":di-base"))
 
     // region Net

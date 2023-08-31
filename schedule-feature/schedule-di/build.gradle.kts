@@ -7,11 +7,20 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.schedule.di"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     sourceSets {
@@ -21,24 +30,22 @@ android {
 }
 
 dependencies {
-    implementation(Rx.java)
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    implementation(Architecture.navigationFragment)
-    implementation(AndroidKtx.fragment)
-    implementation(AndroidUI.material)
+    implementation(libs.rxjava)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.fragment.ktx)
+    implementation(libs.material)
     implementation(project(":di-base"))
     implementation(project(":view-base"))
     implementation(project(":presentation-base"))
     implementation(project(":api"))
-    implementation(project(":app-flow"))
     implementation(project(":resources"))
 
     // region Schedule
     api(project(":schedule-flow"))
     api(project(":schedule-flow-imp"))
     api(project(":schedule-view"))
-    api(project(":schedule-view-imp"))
     api(project(":schedule-presentation"))
     api(project(":schedule-presentation-imp"))
     api(project(":schedule-domain"))

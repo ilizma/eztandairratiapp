@@ -11,10 +11,10 @@ import com.ilizma.resources.R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ActivityComponent
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityComponent::class)
 object ScheduleDataSourceModule {
 
     @Provides
@@ -23,7 +23,7 @@ object ScheduleDataSourceModule {
         resources: Resources,
     ): ScheduleDataSource = ScheduleDataSourceImp(
         api,
-        ScheduleStateDTOMapper(ProgramDTOListMapper(ProgramDTOMapper(resources.getString(com.ilizma.resources.R.string.hour)))),
+        ScheduleStateDTOMapper(ProgramDTOListMapper(ProgramDTOMapper(resources.getString(R.string.hour)))),
         resources.getString(R.string.unknown_error)
     )
 

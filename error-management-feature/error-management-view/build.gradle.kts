@@ -6,11 +6,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.errormanagement.view"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     buildFeatures {
@@ -24,12 +29,11 @@ android {
 }
 
 dependencies {
-    implementation(Di.hilt)
-    kapt(Di.compiler)
-    implementation(Android.appcompat)
-    implementation(AndroidUI.material)
-    implementation(UI.lottie)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.lottie)
     implementation(project(":view-base"))
-    implementation(project(":app-flow"))
     implementation(project(":resources"))
 }

@@ -1,6 +1,6 @@
 package com.ilizma.schedule.data.repository
 
-import com.ilizma.schedule.data.cache.ScheduleDataSourceCache
+import com.ilizma.schedule.data.cache.ScheduleStateCache
 import com.ilizma.schedule.data.datasource.DayIdDataSource
 import com.ilizma.schedule.data.datasource.ScheduleDataSource
 import com.ilizma.schedule.data.mapper.ScheduleStateMapper
@@ -12,7 +12,7 @@ import com.ilizma.schedule.data.model.ScheduleState as DataScheduleState
 class ScheduleRepositoryImp(
     private val dataSource: ScheduleDataSource,
     private val dayIdDataSource: DayIdDataSource,
-    private val cache: ScheduleDataSourceCache,
+    private val cache: ScheduleStateCache,
     private val mapper: ScheduleStateMapper,
 ) : ScheduleRepository {
 

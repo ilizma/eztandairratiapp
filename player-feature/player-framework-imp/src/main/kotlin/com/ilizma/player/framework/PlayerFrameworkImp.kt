@@ -22,25 +22,31 @@ class PlayerFrameworkImp(
 
     override fun getState(
     ): Observable<PlayerState> = playerState
+        .distinctUntilChanged()
 
     override fun play() {
         when (playerConnectionState.value) {
             PlayerConnectionState.Connected -> mediaController.transportControls.play()
-            PlayerConnectionState.Disconnected -> playerState.onNext(PlayerState.Error.MediaDisconnected)
+            PlayerConnectionState.Disconnected,
+            null -> playerState.onNext(PlayerState.Error.MediaDisconnected)
         }
     }
 
     override fun stop() {
         when (playerConnectionState.value) {
             PlayerConnectionState.Connected -> mediaController.transportControls.stop()
-            PlayerConnectionState.Disconnected -> playerState.onNext(PlayerState.Error.MediaDisconnected)
+            PlayerConnectionState.Disconnected,
+            null -> playerState.onNext(PlayerState.Error.MediaDisconnected)
         }
     }
 
     override fun cancel() {
         when (playerConnectionState.value) {
-            PlayerConnectionState.Connected -> mediaController.transportControls.sendCustomAction(CANCEL_NOTIFICATION, null)
-            PlayerConnectionState.Disconnected -> playerState.onNext(PlayerState.Error.MediaDisconnected)
+            PlayerConnectionState.Connected -> mediaController.transportControls
+                .sendCustomAction(CANCEL_NOTIFICATION, null)
+
+            PlayerConnectionState.Disconnected,
+            null -> playerState.onNext(PlayerState.Error.MediaDisconnected)
         }
     }
 
@@ -95,7 +101,9 @@ class PlayerFrameworkImp(
             when (event) {
                 PlayerEvent.START.name -> playerState.onNext(PlayerState.Playing)
                 PlayerEvent.IO_FAILURE.name,
-                PlayerEvent.PROGRESSIVE_PLAYBACK_NOT_VALID_FAILURE.name -> playerState.onNext(PlayerState.Error.GenericError)
+                PlayerEvent.PROGRESSIVE_PLAYBACK_NOT_VALID_FAILURE.name -> playerState
+                    .onNext(PlayerState.Error.GenericError)
+
                 PlayerEvent.MALFORMED_FAILURE.name -> playerState.onNext(PlayerState.Error.Malformed)
                 PlayerEvent.UNSUPPORTED_FAILURE.name -> playerState.onNext(PlayerState.Error.Unsupported)
                 PlayerEvent.TIMEOUT_FAILURE.name -> playerState.onNext(PlayerState.Error.Timeout)

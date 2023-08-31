@@ -5,11 +5,16 @@ plugins {
 }
 
 android {
+    namespace = "com.ilizma.schedule.flow"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 
     sourceSets {
@@ -19,5 +24,6 @@ android {
 }
 
 dependencies {
-    implementation(Annotation.annotation)
+    implementation(libs.annotation)
+    implementation(libs.navigation.compose)
 }

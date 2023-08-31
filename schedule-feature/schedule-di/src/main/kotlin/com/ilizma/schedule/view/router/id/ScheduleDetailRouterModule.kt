@@ -1,31 +1,31 @@
 package com.ilizma.schedule.view.router.id
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import android.app.Activity
+import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
-import com.ilizma.schedule.flow.navigator.ScheduleDetailBackCloseNavigator
+import com.ilizma.schedule.flow.navigator.ScheduleDetailCloseNavigator
 import com.ilizma.schedule.flow.router.ScheduleDetailRouterImp
 import com.ilizma.schedule.presentation.viewmodel.factory.di.SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED
 import com.ilizma.schedule.view.router.ScheduleDetailRouter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ActivityComponent
 import javax.inject.Named
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityComponent::class)
 object ScheduleDetailRouterModule {
 
     @Provides
     fun provideScheduleDetailRouter(
-        fragment: Fragment,
-        navigator: ScheduleDetailBackCloseNavigator,
+        activity: Activity,
+        navigator: ScheduleDetailCloseNavigator,
         @Named(SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): ScheduleDetailRouter = ScheduleDetailRouterImp(
-        lifecycleOwner = { fragment.viewLifecycleOwner },
-        onBackPressedDispatcher = fragment.requireActivity().onBackPressedDispatcher,
-        viewModelLazy = fragment.viewModels { viewModelProviderFactory },
+        viewModelLazy = (activity as ComponentActivity).viewModels { viewModelProviderFactory },
+        lifecycleOwner = { activity },
         navigator = navigator,
     )
 

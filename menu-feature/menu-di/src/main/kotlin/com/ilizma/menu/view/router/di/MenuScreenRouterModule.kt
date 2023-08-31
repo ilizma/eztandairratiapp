@@ -1,7 +1,8 @@
 package com.ilizma.menu.view.router.di
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import android.app.Activity
+import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.ilizma.menu.flow.navigator.*
 import com.ilizma.menu.flow.router.MenuScreenRouterImp
@@ -10,33 +11,32 @@ import com.ilizma.menu.view.router.MenuScreenRouter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ActivityComponent
 import javax.inject.Named
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityComponent::class)
 object MenuScreenRouterModule {
 
     @Provides
     fun provideMenuScreenRouter(
-        fragment: Fragment,
+        activity: Activity,
         instagramNavigator: InstagramNavigator,
         twitterNavigator: TwitterNavigator,
         facebookNavigator: FacebookNavigator,
         phoneNavigator: PhoneNavigator,
         webNavigator: WebNavigator,
-        menuBackCloseNavigator: MenuBackCloseNavigator,
+        menuBackNavigator: MenuBackNavigator,
         @Named(MENU_SCREEN_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): MenuScreenRouter = MenuScreenRouterImp(
-        lifecycleOwner = { fragment.viewLifecycleOwner },
-        onBackPressedDispatcher = fragment.requireActivity().onBackPressedDispatcher,
-        viewModelLazy = fragment.viewModels { viewModelProviderFactory },
+        viewModelLazy = (activity as ComponentActivity).viewModels { viewModelProviderFactory },
+        lifecycleOwner = { activity },
         instagramNavigator = instagramNavigator,
         twitterNavigator = twitterNavigator,
         facebookNavigator = facebookNavigator,
         phoneNavigator = phoneNavigator,
         webNavigator = webNavigator,
-        menuBackCloseNavigator = menuBackCloseNavigator,
+        menuBackNavigator = menuBackNavigator,
     )
 
 }

@@ -4,7 +4,7 @@ import android.view.Menu
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.ilizma.cast.framework.CastFramework
 import com.ilizma.cast.framework.model.CastState
 import com.ilizma.player.domain.model.PlayerState
@@ -19,8 +19,14 @@ import com.ilizma.presentation.SingleLiveEvent
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.kotlin.addTo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.rx3.asFlow
 import com.ilizma.player.presentation.model.PlayerState as PresentationPlayerState
 
 class RadioScreenViewModelImp @AssistedInject constructor(
@@ -30,25 +36,26 @@ class RadioScreenViewModelImp @AssistedInject constructor(
     private val castFramework: CastFramework,
     @Assisted private val mapper: PlayerStateMapper,
     @Assisted private val backgroundScheduler: Scheduler,
-    @Assisted private val compositeDisposable: CompositeDisposable,
-    @Assisted private val _playerState: MutableLiveData<PresentationPlayerState>,
     @Assisted private val _navigationAction: SingleLiveEvent<RadioScreenNavigationAction>,
 ) : RadioScreenViewModel(), DefaultLifecycleObserver {
 
-    override val playerState: LiveData<PresentationPlayerState> = _playerState
+    override val playerState: Flow<PresentationPlayerState> = stateUseCase()
+        .subscribeOn(backgroundScheduler)
+        .observeOn(backgroundScheduler)
+        .asFlow()
+        .flowOn(Dispatchers.IO)
+        .distinctUntilChanged()
+        .map(::onPlayerState)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
+            initialValue = PresentationPlayerState.Stopped,
+        )
+
     override val navigationAction: LiveData<RadioScreenNavigationAction> = _navigationAction
 
     init {
         castFramework.init()
-        getState()
-    }
-
-    override fun getState() {
-        stateUseCase()
-            .subscribeOn(backgroundScheduler)
-            .observeOn(backgroundScheduler)
-            .subscribe(::onPlayerState)
-            .addTo(compositeDisposable)
     }
 
     override fun onPlay() {
@@ -77,11 +84,9 @@ class RadioScreenViewModelImp @AssistedInject constructor(
     }
 
     private fun onPlayerState(
-        state: PlayerState
-    ) {
-        mapper.toPresentation(state)
-            .let { _playerState.postValue(it) }
-    }
+        state: PlayerState,
+    ): PresentationPlayerState = mapper.toPresentation(state)
+
 
     override fun onResume(owner: LifecycleOwner) {
         super.onResume(owner)

@@ -2,8 +2,8 @@ package com.ilizma.player.presentation.model
 
 sealed class RadioScreenNavigationAction {
 
-    object Back : RadioScreenNavigationAction()
+    data object Back : RadioScreenNavigationAction()
 
-    object CastPlayer : RadioScreenNavigationAction()
+    data object CastPlayer : RadioScreenNavigationAction()
 
 }
