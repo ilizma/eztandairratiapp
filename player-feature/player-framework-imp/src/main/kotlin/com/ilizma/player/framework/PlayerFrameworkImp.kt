@@ -2,12 +2,16 @@ package com.ilizma.player.framework
 
 import android.content.ComponentName
 import android.content.Context
-import android.os.Bundle
-import android.support.v4.media.MediaBrowserCompat
-import android.support.v4.media.session.MediaControllerCompat
-import android.support.v4.media.session.PlaybackStateCompat
-import com.ilizma.player.framework.model.PlayerConnectionState
-import com.ilizma.player.framework.model.PlayerEvent
+import android.util.Log
+import androidx.core.os.bundleOf
+import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
+import androidx.media3.common.Player
+import androidx.media3.session.MediaController
+import androidx.media3.session.SessionCommand
+import androidx.media3.session.SessionToken
+import com.google.common.util.concurrent.MoreExecutors
+import com.ilizma.player.framework.imp.BuildConfig
 import com.ilizma.player.framework.model.PlayerState
 import com.ilizma.player.framework.service.CANCEL_NOTIFICATION
 import io.reactivex.rxjava3.core.Observable
@@ -17,105 +21,133 @@ class PlayerFrameworkImp(
     context: Context,
     serviceComponent: ComponentName,
     private val playerState: BehaviorSubject<PlayerState>,
-    private val playerConnectionState: BehaviorSubject<PlayerConnectionState>,
 ) : PlayerFramework {
+
+    private lateinit var mediaController: MediaController
+
+    //private val controllerFuture: ListenableFuture<MediaController>
+    private val playerListener = object : Player.Listener {
+        override fun onIsLoadingChanged(isLoading: Boolean) {
+            super.onIsLoadingChanged(isLoading)
+            if (isLoading) {
+                PlayerState.Loading
+                    .let { playerState.onNext(it) }
+                    .also { Log.d("asdf", "loading") }
+            }
+        }
+
+        override fun onIsPlayingChanged(isPlaying: Boolean) {
+            super.onIsPlayingChanged(isPlaying)
+            when {
+                isPlaying -> PlayerState.Playing
+                    .let { playerState.onNext(it) }
+                    .also { Log.d("asdf", "playing") }
+
+                else -> PlayerState.Stopped
+                    .let { playerState.onNext(it) }
+                    .also { Log.d("asdf", "stopped") }
+
+                /** Playback is paused, ended, suppressed, or
+                Player is buffering, stopped or failed.
+                Check player.playWhenReady, player.playbackState,
+                player.playbackSuppressionReason and player.playerError for details. */
+            }
+        }
+
+        override fun onPlayerError(error: PlaybackException) {
+            super.onPlayerError(error)
+            when (error.errorCode) {
+                PlaybackException.ERROR_CODE_IO_BAD_HTTP_STATUS,
+                PlaybackException.ERROR_CODE_IO_CLEARTEXT_NOT_PERMITTED,
+                PlaybackException.ERROR_CODE_IO_FILE_NOT_FOUND,
+                PlaybackException.ERROR_CODE_IO_NO_PERMISSION,
+                PlaybackException.ERROR_CODE_IO_UNSPECIFIED,
+                PlaybackException.ERROR_CODE_IO_INVALID_HTTP_CONTENT_TYPE,
+                PlaybackException.ERROR_CODE_IO_NETWORK_CONNECTION_FAILED,
+                PlaybackException.ERROR_CODE_IO_NETWORK_CONNECTION_TIMEOUT,
+                PlaybackException.ERROR_CODE_IO_READ_POSITION_OUT_OF_RANGE,
+
+                PlaybackException.ERROR_CODE_FAILED_RUNTIME_CHECK,
+                PlaybackException.ERROR_CODE_DECODER_INIT_FAILED,
+                PlaybackException.ERROR_CODE_DECODER_QUERY_FAILED,
+                PlaybackException.ERROR_CODE_DECODING_FAILED,
+                PlaybackException.ERROR_CODE_DECODING_FORMAT_EXCEEDS_CAPABILITIES,
+                -> PlayerState.Error.GenericError
+
+                PlaybackException.ERROR_CODE_PARSING_MANIFEST_MALFORMED,
+                PlaybackException.ERROR_CODE_PARSING_CONTAINER_MALFORMED,
+                -> PlayerState.Error.Malformed
+
+                PlaybackException.ERROR_CODE_PARSING_CONTAINER_UNSUPPORTED,
+                PlaybackException.ERROR_CODE_PARSING_MANIFEST_UNSUPPORTED,
+                PlaybackException.ERROR_CODE_DECODING_FORMAT_UNSUPPORTED,
+                -> PlayerState.Error.Unsupported
+
+                PlaybackException.ERROR_CODE_TIMEOUT -> PlayerState.Error.Timeout
+                PlaybackException.ERROR_CODE_REMOTE_ERROR,
+                PlaybackException.ERROR_CODE_AUDIO_TRACK_INIT_FAILED,
+                PlaybackException.ERROR_CODE_AUDIO_TRACK_WRITE_FAILED,
+                -> PlayerState.Error.Network
+
+                PlaybackException.ERROR_CODE_UNSPECIFIED -> PlayerState.Error.Unknown
+                else -> PlayerState.Error.Unknown
+            }.let { playerState.onNext(it) }
+                .also { Log.d("asdf", it.toString()) }
+        }
+    }
+
+    init {
+        Log.d("asdf", "PlayerFragment init")
+        val sessionToken = SessionToken(
+            context,
+            serviceComponent,
+        )
+
+        MediaController.Builder(
+            context,
+            sessionToken,
+        ).buildAsync()
+            //.also { controllerFuture = it }
+            .let { controllerFuture ->
+                controllerFuture.addListener(
+                    {
+                        mediaController = controllerFuture.get()
+                            .also { it.addListener(playerListener) }
+                    },
+                    MoreExecutors.directExecutor(),
+                )
+            }
+    }
 
     override fun getState(
     ): Observable<PlayerState> = playerState
         .distinctUntilChanged()
 
     override fun play() {
-        when (playerConnectionState.value) {
-            PlayerConnectionState.Connected -> mediaController.transportControls.play()
-            PlayerConnectionState.Disconnected,
-            null -> playerState.onNext(PlayerState.Error.MediaDisconnected)
-        }
+        initMediaPlayer()
     }
 
     override fun stop() {
-        when (playerConnectionState.value) {
-            PlayerConnectionState.Connected -> mediaController.transportControls.stop()
-            PlayerConnectionState.Disconnected,
-            null -> playerState.onNext(PlayerState.Error.MediaDisconnected)
-        }
+        mediaController.stop()
+        PlayerState.Stopped
+            .let { playerState.onNext(it) }
+            .also { Log.v("asdf", "stopped from stop") }
+        //MediaController.releaseFuture(controllerFuture)
     }
 
     override fun cancel() {
-        when (playerConnectionState.value) {
-            PlayerConnectionState.Connected -> mediaController.transportControls
-                .sendCustomAction(CANCEL_NOTIFICATION, null)
-
-            PlayerConnectionState.Disconnected,
-            null -> playerState.onNext(PlayerState.Error.MediaDisconnected)
-        }
+        SessionCommand(CANCEL_NOTIFICATION, bundleOf())
+            .let { mediaController.sendCustomCommand(it, bundleOf()) }
     }
 
-    private lateinit var mediaController: MediaControllerCompat
-
-    private val mediaBrowserConnectionCallback = MediaBrowserConnectionCallback(context)
-    private val mediaBrowser = MediaBrowserCompat(
-        context,
-        serviceComponent,
-        mediaBrowserConnectionCallback,
-        null,
-    ).apply { connect() }
-
-    private inner class MediaBrowserConnectionCallback(
-        private val context: Context,
-    ) : MediaBrowserCompat.ConnectionCallback() {
-
-        override fun onConnected() {
-            mediaController = MediaControllerCompat(context, mediaBrowser.sessionToken)
-                .apply { registerCallback(MediaControllerCallback()) }
-            playerConnectionState.onNext(PlayerConnectionState.Connected)
-        }
-
-        override fun onConnectionSuspended() {
-            playerConnectionState.onNext(PlayerConnectionState.Disconnected)
-        }
-
-        override fun onConnectionFailed() {
-            playerConnectionState.onNext(PlayerConnectionState.Disconnected)
-        }
-    }
-
-    private inner class MediaControllerCallback : MediaControllerCompat.Callback() {
-
-        override fun onPlaybackStateChanged(
-            state: PlaybackStateCompat,
-        ) {
-            super.onPlaybackStateChanged(state)
-            when (state.state) {
-                PlaybackStateCompat.ACTION_STOP.toInt() -> playerState.onNext(PlayerState.Stopped)
-                PlaybackStateCompat.ACTION_PLAY.toInt(),
-                PlaybackStateCompat.STATE_PLAYING -> if (playerState.value != PlayerState.Playing)
-                    playerState.onNext(PlayerState.Loading)
+    private fun initMediaPlayer() {
+        Log.w("asdf", "initMediaPlayer")
+        mediaController
+            .apply {
+                MediaItem.fromUri(BuildConfig.AUDIO_URL)
+                    .let { setMediaItem(it) }
+                prepare()
+                play()
             }
-        }
-
-        override fun onSessionEvent(
-            event: String?,
-            extras: Bundle?
-        ) {
-            super.onSessionEvent(event, extras)
-            when (event) {
-                PlayerEvent.START.name -> playerState.onNext(PlayerState.Playing)
-                PlayerEvent.IO_FAILURE.name,
-                PlayerEvent.PROGRESSIVE_PLAYBACK_NOT_VALID_FAILURE.name -> playerState
-                    .onNext(PlayerState.Error.GenericError)
-
-                PlayerEvent.MALFORMED_FAILURE.name -> playerState.onNext(PlayerState.Error.Malformed)
-                PlayerEvent.UNSUPPORTED_FAILURE.name -> playerState.onNext(PlayerState.Error.Unsupported)
-                PlayerEvent.TIMEOUT_FAILURE.name -> playerState.onNext(PlayerState.Error.Timeout)
-                PlayerEvent.NETWORK_FAILURE.name -> playerState.onNext(PlayerState.Error.Network)
-                PlayerEvent.UNKNOWN_FAILURE.name -> playerState.onNext(PlayerState.Error.Unknown)
-            }
-        }
-
-        override fun onSessionDestroyed() {
-            mediaBrowserConnectionCallback.onConnectionSuspended()
-            mediaBrowser.disconnect()
-        }
     }
-
 }

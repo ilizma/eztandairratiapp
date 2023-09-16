@@ -13,10 +13,13 @@ class InstagramNavigatorImp(
     override fun navigate() {
         try {
             val packageName = "com.instagram.android"
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                context.packageManager.getPackageInfo(packageName, PackageInfoFlags.of(0))
-            } else {
-                @Suppress("DEPRECATION")
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> context.packageManager.getPackageInfo(
+                    packageName,
+                    PackageInfoFlags.of(0)
+                )
+
+                else -> @Suppress("DEPRECATION")
                 context.packageManager?.getPackageInfo(packageName, 0)
             }
             "http://instagram.com/_u/eztandairratia"

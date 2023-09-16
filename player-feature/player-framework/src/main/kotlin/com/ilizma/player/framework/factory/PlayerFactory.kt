@@ -1,6 +1,6 @@
 package com.ilizma.player.framework.factory
 
-interface MediaPlayerFactory<T> {
+interface PlayerFactory<T> {
 
     fun create(): T
 

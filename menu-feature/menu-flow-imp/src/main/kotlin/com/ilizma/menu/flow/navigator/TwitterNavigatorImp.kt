@@ -13,10 +13,13 @@ class TwitterNavigatorImp(
     override fun navigate() {
         try {
             val packageName = "com.twitter.android"
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                context.packageManager.getPackageInfo(packageName, PackageInfoFlags.of(0))
-            } else {
-                @Suppress("DEPRECATION")
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> context.packageManager.getPackageInfo(
+                    packageName,
+                    PackageInfoFlags.of(0)
+                )
+
+                else -> @Suppress("DEPRECATION")
                 context.packageManager?.getPackageInfo(packageName, 0)
             }
             "twitter://user?user_id=1256809951"

@@ -2,6 +2,7 @@ package com.ilizma.player.framework.di
 
 import android.content.ComponentName
 import android.content.Context
+import androidx.media3.common.util.UnstableApi
 import com.ilizma.player.framework.PlayerFramework
 import com.ilizma.player.framework.PlayerFrameworkImp
 import com.ilizma.player.framework.model.PlayerState
@@ -14,6 +15,7 @@ import dagger.hilt.components.SingletonComponent
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.inject.Singleton
 
+@UnstableApi
 @Module
 @InstallIn(SingletonComponent::class)
 object PlayerFrameworkModule {
@@ -26,20 +28,11 @@ object PlayerFrameworkModule {
         context,
         MusicService::class.java,
     ).let {
-        playerFrameworkImp(
+        PlayerFrameworkImp(
             context = context,
-            componentName = it,
+            serviceComponent = it,
+            playerState = BehaviorSubject.createDefault(PlayerState.Stopped),
         )
     }
-
-    private fun playerFrameworkImp(
-        context: Context,
-        componentName: ComponentName,
-    ): PlayerFrameworkImp = PlayerFrameworkImp(
-        context = context,
-        serviceComponent = componentName,
-        playerState = BehaviorSubject.createDefault(PlayerState.Stopped),
-        playerConnectionState = BehaviorSubject.create(),
-    )
 
 }

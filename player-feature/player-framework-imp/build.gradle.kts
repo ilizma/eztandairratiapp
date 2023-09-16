@@ -44,6 +44,9 @@ dependencies {
     implementation(libs.rxjava)
     implementation(libs.appcompat)
     implementation(libs.media)
+    implementation(libs.session)
+    implementation(libs.exoplayer)
     implementation(libs.core.ktx)
+    implementation(project(":resources"))
     implementation(project(":player-framework"))
 }

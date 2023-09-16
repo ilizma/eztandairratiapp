@@ -30,6 +30,8 @@ dependencies {
     implementation(libs.rxjava)
     implementation(libs.appcompat)
     implementation(libs.media)
+    implementation(libs.session)
+    implementation(libs.exoplayer)
     implementation(libs.core.ktx)
     implementation(libs.fragment.ktx)
     implementation(libs.navigation.fragment.ktx)

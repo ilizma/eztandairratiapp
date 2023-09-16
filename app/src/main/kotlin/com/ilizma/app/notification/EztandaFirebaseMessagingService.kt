@@ -14,11 +14,11 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.ilizma.main.view.activity.MainActivity
 import com.ilizma.resources.R
-import com.ilizma.player.framework.app.di.CHANNEL_ID
-import com.ilizma.player.framework.app.di.CHANNEL_NAME
 import kotlin.random.Random
 
 private const val TAG = "MessagingService"
+const val CHANNEL_ID = "com.ilizma.eztanda_channel_id"
+const val CHANNEL_NAME = "com.ilizma.eztanda_channel_name"
 
 class EztandaFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -39,8 +39,8 @@ class EztandaFirebaseMessagingService : FirebaseMessagingService() {
 
         getNotificationBuilder(title, body)
             .also {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    it.setCategory(Notification.CATEGORY_PROMO)
+                when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> it.setCategory(Notification.CATEGORY_PROMO)
                 }
             }
             .let { notify(it) }
@@ -53,11 +53,13 @@ class EztandaFirebaseMessagingService : FirebaseMessagingService() {
         NotificationManagerCompat
             .from(this)
             .apply {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) NotificationChannel(
-                    CHANNEL_ID,
-                    CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_HIGH
-                ).let { createNotificationChannel(it) }
+                when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> NotificationChannel(
+                        CHANNEL_ID,
+                        CHANNEL_NAME,
+                        NotificationManager.IMPORTANCE_HIGH
+                    ).let { createNotificationChannel(it) }
+                }
                 notify(Random.nextInt(), builder.build())
             }
     }
@@ -77,10 +79,9 @@ class EztandaFirebaseMessagingService : FirebaseMessagingService() {
             RingtoneManager.TYPE_NOTIFICATION
                 .let { RingtoneManager.getDefaultUri(it) }
                 .let { setSound(it) }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                NotificationManager.IMPORTANCE_HIGH
-            } else {
-                NotificationCompat.PRIORITY_HIGH
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> NotificationManager.IMPORTANCE_HIGH
+                else -> NotificationCompat.PRIORITY_HIGH
             }.let { setPriority(it) }
             PendingIntent.getActivity(
                 this@EztandaFirebaseMessagingService,
