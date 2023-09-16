@@ -116,8 +116,7 @@ private fun ScreenBox(
                 when (state) {
                     PlayerState.Stopped -> viewModel.onPlay()
                     PlayerState.Playing -> viewModel.onStop()
-                    else -> { /* no-op */
-                    }
+                    else -> { /* no-op */ }
                 }
             },
         ) {

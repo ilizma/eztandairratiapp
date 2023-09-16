@@ -1,14 +1,20 @@
 package com.ilizma.main.view.activity
 
+import android.Manifest
+import android.app.Activity
 import android.media.AudioManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
@@ -82,6 +88,9 @@ class MainActivity : ComponentActivity() {
 
         reviewFramework.request()
 
+        val requestPermissionLauncher =
+            registerForActivityResult(RequestPermission()) {}
+
         setContent {
             val navController = rememberNavController()
             val mainNavController = rememberNavController()
@@ -91,6 +100,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
+                    checkPostNotificationPermission(
+                        activity = this,
+                        requestPermissionLauncher = requestPermissionLauncher,
+                    )
                     NavigationScreen(
                         lazyViewModels = listOf(
                             viewModels<NavigationScreenViewModel> { navigationViewModelProviderFactory },
@@ -107,6 +120,18 @@ class MainActivity : ComponentActivity() {
                     )
                 }
             }
+        }
+    }
+}
+
+fun checkPostNotificationPermission(
+    activity: Activity,
+    requestPermissionLauncher: ActivityResultLauncher<String>,
+) {
+    if (shouldShowRequestPermissionRationale(activity, Manifest.permission.POST_NOTIFICATIONS).not()) {
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 }

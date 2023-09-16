@@ -1,13 +1,16 @@
 package com.ilizma.app.notification
 
+import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -60,7 +63,16 @@ class EztandaFirebaseMessagingService : FirebaseMessagingService() {
                         NotificationManager.IMPORTANCE_HIGH
                     ).let { createNotificationChannel(it) }
                 }
-                notify(Random.nextInt(), builder.build())
+                if (ActivityCompat.checkSelfPermission(
+                        this@EztandaFirebaseMessagingService,
+                        Manifest.permission.POST_NOTIFICATIONS,
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    return
+                }
+                if (areNotificationsEnabled()) {
+                    notify(Random.nextInt(), builder.build())
+                }
             }
     }
 
