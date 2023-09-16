@@ -2,6 +2,7 @@ package com.ilizma.main.view.activity
 
 import android.Manifest
 import android.app.Activity
+import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
@@ -14,7 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
@@ -128,7 +129,12 @@ fun checkPostNotificationPermission(
     activity: Activity,
     requestPermissionLauncher: ActivityResultLauncher<String>,
 ) {
-    if (shouldShowRequestPermissionRationale(activity, Manifest.permission.POST_NOTIFICATIONS).not()) {
+    // TODO create a notification for the new versions if (shouldShowRequestPermissionRationale(activity, Manifest.permission.POST_NOTIFICATIONS).not()) { }
+    if (ActivityCompat.checkSelfPermission(
+            activity,
+            Manifest.permission.POST_NOTIFICATIONS,
+        ) != PackageManager.PERMISSION_GRANTED
+    ) {
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
