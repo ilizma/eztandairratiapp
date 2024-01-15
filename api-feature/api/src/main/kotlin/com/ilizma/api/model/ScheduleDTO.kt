@@ -1,10 +1,11 @@
 package com.ilizma.api.model
 
 import androidx.annotation.Keep
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Keep
-@JvmInline
-value class ScheduleDTO(
-    @Json(name = "data") val schedule: List<ProgramDTO>? = null,
+@Serializable
+data class ScheduleDTO(
+    @SerialName(value = "data") val schedule: List<ProgramDTO>? = null,
 )

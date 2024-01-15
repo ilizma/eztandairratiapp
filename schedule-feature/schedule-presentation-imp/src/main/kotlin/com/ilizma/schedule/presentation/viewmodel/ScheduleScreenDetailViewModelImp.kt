@@ -12,9 +12,6 @@ import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction.Back
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.kotlin.addTo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -29,8 +26,6 @@ class ScheduleScreenDetailViewModelImp @AssistedInject constructor(
     private val dayNameUseCase: DayNameUseCase,
     private val scheduleUseCase: ScheduleUseCase,
     @Assisted private val mapper: ScheduleStateMapper,
-    @Assisted private val backgroundScheduler: Scheduler,
-    @Assisted private val compositeDisposable: CompositeDisposable,
     @Assisted private val unknownErrorMessage: String,
     @Assisted private val isDebug: Boolean,
     @Assisted private val _dayName: MutableSharedFlow<String>,
@@ -63,11 +58,14 @@ class ScheduleScreenDetailViewModelImp @AssistedInject constructor(
     }
 
     override fun getSchedule() {
-        scheduleUseCase()
-            .subscribeOn(backgroundScheduler)
-            .observeOn(backgroundScheduler)
-            .subscribe(::onSchedule, ::onError)
-            .addTo(compositeDisposable)
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                scheduleUseCase()
+                    .let { onSchedule(it) }
+            } catch (e: Exception) {
+                onError(e)
+            }
+        }
     }
 
     override fun retrySchedule() {

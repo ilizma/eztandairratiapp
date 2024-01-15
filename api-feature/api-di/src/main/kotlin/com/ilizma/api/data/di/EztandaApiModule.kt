@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
+import de.jensklingenberg.ktorfit.Ktorfit
 import javax.inject.Singleton
 
 @Module
@@ -15,7 +15,7 @@ object EztandaApiModule {
     @Provides
     @Singleton
     fun provideEztandaApi(
-        retrofit: Retrofit,
-    ): EztandaApi = retrofit.create(EztandaApi::class.java)
+        ktorfit: Ktorfit,
+    ): EztandaApi = ktorfit.create()
 
 }

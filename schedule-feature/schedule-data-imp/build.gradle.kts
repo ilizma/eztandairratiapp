@@ -1,6 +1,8 @@
 plugins {
     id("java-library")
     id("kotlin")
+    id("com.google.devtools.ksp")
+    id("de.jensklingenberg.ktorfit")
 }
 
 java {
@@ -10,7 +12,8 @@ java {
 
 dependencies {
     implementation(libs.rxjava)
-    implementation(libs.retrofit.adapter.rxjava3)
+    ksp(libs.ktorfit.ksp)
+    implementation(libs.ktorfit)
     implementation(project(":api"))
     implementation(project(":schedule-domain"))
     implementation(project(":schedule-data"))

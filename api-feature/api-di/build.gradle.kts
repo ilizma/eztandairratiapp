@@ -2,6 +2,8 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("com.google.devtools.ksp")
+    id("de.jensklingenberg.ktorfit")
     id("dagger.hilt.android.plugin")
 }
 
@@ -27,7 +29,8 @@ android {
 dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    implementation(libs.retrofit)
+    ksp(libs.ktorfit.ksp)
+    implementation(libs.ktorfit)
     implementation(project(":di-base"))
 
     // region Api

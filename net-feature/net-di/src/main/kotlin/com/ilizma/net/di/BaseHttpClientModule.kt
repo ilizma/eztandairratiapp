@@ -22,7 +22,6 @@ object BaseHttpClientModule {
     ): BaseHttpClient = BaseHttpClient(
         chuckerCollector = chuckerCollector,
         context = context,
-        isDebug = BuildConfig.DEBUG,
     )
 
 }

@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.os.PowerManager
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
-import androidx.media3.common.util.Log
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.util.EventLogger
@@ -63,7 +62,6 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
             controller: ControllerInfo
         ): MediaSession.ConnectionResult = super.onConnect(session, controller)
             .let {
-                Log.i("asdf", "onServiceConnect")
                 it.availableSessionCommands
                     .buildUpon()
                     .build() to it.availablePlayerCommands
@@ -102,7 +100,6 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
 
     override fun onCreate() {
         super.onCreate()
-        Log.i("asdf", "onServiceCreate")
         player = playerFactory.create()
             .apply {
                 setWakeMode(PowerManager.PARTIAL_WAKE_LOCK)

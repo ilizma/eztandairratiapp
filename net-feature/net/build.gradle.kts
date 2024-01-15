@@ -2,6 +2,9 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("com.google.devtools.ksp")
+    id("de.jensklingenberg.ktorfit")
+    id("org.jetbrains.kotlin.plugin.serialization")
     id("dagger.hilt.android.plugin")
 }
 
@@ -29,9 +32,9 @@ dependencies {
     kapt(libs.hilt.android.compiler)
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
-    implementation(libs.moshi)
-    implementation(libs.retrofit.converter.moshi)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.adapter.rxjava3)
-    implementation(libs.logging.interceptor)
+    ksp(libs.ktorfit.ksp)
+    implementation(libs.ktorfit)
+    implementation(libs.ktor.client.negotiation)
+    implementation(libs.ktor.json.serialization)
+    implementation(libs.okhttp)
 }

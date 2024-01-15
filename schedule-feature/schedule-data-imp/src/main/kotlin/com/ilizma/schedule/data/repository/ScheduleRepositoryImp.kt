@@ -6,7 +6,6 @@ import com.ilizma.schedule.data.datasource.ScheduleDataSource
 import com.ilizma.schedule.data.mapper.ScheduleStateMapper
 import com.ilizma.schedule.domain.model.ScheduleState
 import com.ilizma.schedule.domain.repository.ScheduleRepository
-import io.reactivex.rxjava3.core.Single
 import com.ilizma.schedule.data.model.ScheduleState as DataScheduleState
 
 class ScheduleRepositoryImp(
@@ -16,15 +15,11 @@ class ScheduleRepositoryImp(
     private val mapper: ScheduleStateMapper,
 ) : ScheduleRepository {
 
-    override fun get(): Single<ScheduleState> = (getFromCacheIfExist() ?: getFromRemoteAndSaveCache())
-        .map { mapper.toDomain(it, dayIdDataSource.get()) }
+    override suspend fun get(): ScheduleState = (cache.get() ?: getFromRemoteAndSaveCache())
+        .let { mapper.toDomain(it, dayIdDataSource.get()) }
 
-    private fun getFromCacheIfExist(
-    ): Single<DataScheduleState>? = cache.get()
-        ?.let { Single.just(it) }
-
-    private fun getFromRemoteAndSaveCache(
-    ): Single<DataScheduleState> = dataSource.get()
-        .doOnSuccess { cache.set(it) }
+    private suspend fun getFromRemoteAndSaveCache(
+    ): DataScheduleState = dataSource.get()
+        .also { cache.set(it) }
 
 }

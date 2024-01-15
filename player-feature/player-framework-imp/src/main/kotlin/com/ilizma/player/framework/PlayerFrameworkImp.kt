@@ -2,7 +2,6 @@ package com.ilizma.player.framework
 
 import android.content.ComponentName
 import android.content.Context
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
@@ -32,7 +31,6 @@ class PlayerFrameworkImp(
             if (isLoading) {
                 PlayerState.Loading
                     .let { playerState.onNext(it) }
-                    .also { Log.d("asdf", "loading") }
             }
         }
 
@@ -41,11 +39,9 @@ class PlayerFrameworkImp(
             when {
                 isPlaying -> PlayerState.Playing
                     .let { playerState.onNext(it) }
-                    .also { Log.d("asdf", "playing") }
 
                 else -> PlayerState.Stopped
                     .let { playerState.onNext(it) }
-                    .also { Log.d("asdf", "stopped") }
 
                 /** Playback is paused, ended, suppressed, or
                 Player is buffering, stopped or failed.
@@ -92,12 +88,10 @@ class PlayerFrameworkImp(
                 PlaybackException.ERROR_CODE_UNSPECIFIED -> PlayerState.Error.Unknown
                 else -> PlayerState.Error.Unknown
             }.let { playerState.onNext(it) }
-                .also { Log.d("asdf", it.toString()) }
         }
     }
 
     init {
-        Log.d("asdf", "PlayerFragment init")
         val sessionToken = SessionToken(
             context,
             serviceComponent,
@@ -131,7 +125,6 @@ class PlayerFrameworkImp(
         mediaController.stop()
         PlayerState.Stopped
             .let { playerState.onNext(it) }
-            .also { Log.v("asdf", "stopped from stop") }
         //MediaController.releaseFuture(controllerFuture)
     }
 
@@ -141,7 +134,6 @@ class PlayerFrameworkImp(
     }
 
     private fun initMediaPlayer() {
-        Log.w("asdf", "initMediaPlayer")
         mediaController
             .apply {
                 MediaItem.fromUri(BuildConfig.AUDIO_URL)

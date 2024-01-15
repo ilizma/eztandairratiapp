@@ -2,6 +2,8 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("com.google.devtools.ksp")
+    id("de.jensklingenberg.ktorfit")
     id("dagger.hilt.android.plugin")
 }
 
@@ -42,11 +44,8 @@ dependencies {
     kapt(libs.hilt.android.compiler)
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
-    implementation(libs.moshi)
-    implementation(libs.moshi.kotlin)
-    implementation(libs.moshi.adapters)
-    implementation(libs.retrofit)
-    implementation(libs.logging.interceptor)
+    ksp(libs.ktorfit.ksp)
+    implementation(libs.ktorfit)
     implementation(project(":di-base"))
 
     // region Net

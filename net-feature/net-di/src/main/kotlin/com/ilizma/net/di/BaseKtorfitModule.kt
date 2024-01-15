@@ -1,6 +1,6 @@
 package com.ilizma.net.di
 
-import com.ilizma.net.BaseHttpClient
+import com.ilizma.net.BaseKtorfit
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,12 +10,15 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object OkHttpClientModule {
+object BaseKtorfitModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(
-        baseHttpClient: BaseHttpClient
-    ): HttpClient = baseHttpClient.httpClient
+    fun provideBaseKtorfit(
+        httpClient: HttpClient,
+    ): BaseKtorfit = BaseKtorfit(
+        httpClient = httpClient,
+        baseUrl = BuildConfig.BASE_URL,
+    )
 
 }

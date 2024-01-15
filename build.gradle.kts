@@ -11,14 +11,23 @@ plugins {
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.junit5) apply false
     alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.ktorfit) apply false
+    alias(libs.plugins.serialization) apply false
 }
 
 subprojects {
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = ConfigData.javaVersion.toString()
+        kotlinOptions {
+            jvmTarget = ConfigData.javaVersion.toString()
+//            freeCompilerArgs = listOf(
+//                "-Xallow-jvm-ir-dependencies",
+//                "-P",
+//                "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+//            )
+        }
     }
 }
 
 tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+    delete(rootProject.layout.buildDirectory)
 }

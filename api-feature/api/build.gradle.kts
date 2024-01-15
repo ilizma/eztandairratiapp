@@ -1,6 +1,9 @@
 plugins {
     id("java-library")
     id("kotlin")
+    id("com.google.devtools.ksp")
+    id("de.jensklingenberg.ktorfit")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 java {
@@ -10,8 +13,8 @@ java {
 
 dependencies {
     implementation(libs.rxjava)
-    implementation(libs.moshi)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.adapter.rxjava3)
+    ksp(libs.ktorfit.ksp)
+    implementation(libs.ktorfit)
+    implementation(libs.ktor.json.serialization)
     implementation(libs.annotation)
 }
