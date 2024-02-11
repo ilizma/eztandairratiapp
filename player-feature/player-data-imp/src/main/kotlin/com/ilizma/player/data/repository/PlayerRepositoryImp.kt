@@ -4,7 +4,8 @@ import com.ilizma.player.data.datasource.PlayerDataSource
 import com.ilizma.player.data.mapper.PlayerStateMapper
 import com.ilizma.player.domain.model.PlayerState
 import com.ilizma.player.domain.repository.PlayerRepository
-import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class PlayerRepositoryImp(
     private val dataSource: PlayerDataSource,
@@ -12,7 +13,7 @@ class PlayerRepositoryImp(
 ) : PlayerRepository {
 
     override fun getState(
-    ): Observable<PlayerState> = dataSource.getState()
+    ): Flow<PlayerState> = dataSource.getState()
         .map { mapper.toDomain(it) }
 
     override fun play() {

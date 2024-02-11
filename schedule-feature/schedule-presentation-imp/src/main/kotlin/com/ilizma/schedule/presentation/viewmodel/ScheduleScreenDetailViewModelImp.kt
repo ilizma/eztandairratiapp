@@ -54,7 +54,7 @@ class ScheduleScreenDetailViewModelImp @AssistedInject constructor(
 
     override fun getTitle() {
         dayNameUseCase()
-            .let { viewModelScope.launch { _dayName.emit(it) } }
+            .let { viewModelScope.launch(Dispatchers.IO) { _dayName.emit(it) } }
     }
 
     override fun getSchedule() {
@@ -71,7 +71,7 @@ class ScheduleScreenDetailViewModelImp @AssistedInject constructor(
     override fun retrySchedule() {
         generateLoadingList()
             .let { PresentationScheduleState.Loading(it) }
-            .let { viewModelScope.launch { _scheduleState.emit(it) } }
+            .let { viewModelScope.launch(Dispatchers.IO) { _scheduleState.emit(it) } }
 
         getSchedule()
     }
@@ -80,7 +80,7 @@ class ScheduleScreenDetailViewModelImp @AssistedInject constructor(
         state: ScheduleState,
     ) {
         mapper.from(state)
-            .let { viewModelScope.launch { _scheduleState.emit(it) } }
+            .let { viewModelScope.launch(Dispatchers.IO) { _scheduleState.emit(it) } }
     }
 
     private fun onError(
@@ -90,7 +90,7 @@ class ScheduleScreenDetailViewModelImp @AssistedInject constructor(
             true -> throwable.message ?: unknownErrorMessage
             false -> unknownErrorMessage
         }.let { PresentationScheduleState.Error(it) }
-            .let { viewModelScope.launch { _scheduleState.emit(it) } }
+            .let { viewModelScope.launch(Dispatchers.IO) { _scheduleState.emit(it) } }
     }
 
     override fun onBack() {

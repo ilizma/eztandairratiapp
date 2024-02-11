@@ -12,7 +12,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import io.reactivex.rxjava3.subjects.BehaviorSubject
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Module
 @InstallIn(ActivityComponent::class)
@@ -24,7 +24,7 @@ object CastFrameworkModule {
         playerFramework: PlayerFramework,
     ): CastFramework = CastFrameworkImp(
         activity = activity,
-        castStateSubject = BehaviorSubject.createDefault(DISCONNECTED),
+        castStateFlow = MutableStateFlow(DISCONNECTED),
         castStateListener = CastStateListenerImp(),
         sessionManagerListener = SessionManagerListenerImp(),
         title = activity.getString(R.string.radio_name),

@@ -29,7 +29,7 @@ android {
 dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    implementation(libs.rxjava)
+    //implementation(libs.coroutines)
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.core.ktx)

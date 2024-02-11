@@ -9,7 +9,6 @@ import cat.ereza.customactivityoncrash.CustomActivityOnCrash
 import com.ilizma.errormanagement.view.databinding.CrashFragmentBinding
 import com.ilizma.errormanagement.view.imp.BuildConfig
 import com.ilizma.resources.R
-import com.ilizma.view.extensions.setOnReactiveClickListener
 import com.ilizma.view.extensions.snackbar
 import java.util.concurrent.atomic.AtomicReference
 
@@ -40,17 +39,17 @@ class CrashFragmentBinderImp(
     private fun setUpListeners(
         binding: CrashFragmentBinding,
     ) {
-        binding.crashActivityBRestart.setOnReactiveClickListener {
+        binding.crashActivityBRestart.setOnClickListener {
             CustomActivityOnCrash.getConfigFromIntent(activity.intent)
                 ?.let { CustomActivityOnCrash.restartApplication(activity, it) }
         }
 
-        binding.crashActivityBLogcat.setOnReactiveClickListener {
+        binding.crashActivityBLogcat.setOnClickListener {
             binding.crashActivityTvLog.text = stackTrace.get()
             binding.crashActivityBClipboard.isVisible = true
         }
 
-        binding.crashActivityBClipboard.setOnReactiveClickListener {
+        binding.crashActivityBClipboard.setOnClickListener {
             val clipboard = binding.root.context
                 .getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText(CLIPBOARD_LABEL, binding.crashActivityTvLog.text)

@@ -34,8 +34,7 @@ android {
 dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.rxjava)
-    implementation(libs.rxbinding)
+    //implementation(libs.coroutines)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.common)
     implementation(libs.annotation)

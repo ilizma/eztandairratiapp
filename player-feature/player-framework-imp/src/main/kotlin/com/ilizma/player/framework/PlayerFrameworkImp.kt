@@ -13,13 +13,14 @@ import com.google.common.util.concurrent.MoreExecutors
 import com.ilizma.player.framework.imp.BuildConfig
 import com.ilizma.player.framework.model.PlayerState
 import com.ilizma.player.framework.service.CANCEL_NOTIFICATION
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.subjects.BehaviorSubject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 class PlayerFrameworkImp(
     context: Context,
     serviceComponent: ComponentName,
-    private val playerState: BehaviorSubject<PlayerState>,
+    private val playerState: MutableStateFlow<PlayerState>,
 ) : PlayerFramework {
 
     private lateinit var mediaController: MediaController
@@ -30,7 +31,7 @@ class PlayerFrameworkImp(
             super.onIsLoadingChanged(isLoading)
             if (isLoading) {
                 PlayerState.Loading
-                    .let { playerState.onNext(it) }
+                    .let { playerState.value = it }
             }
         }
 
@@ -38,10 +39,10 @@ class PlayerFrameworkImp(
             super.onIsPlayingChanged(isPlaying)
             when {
                 isPlaying -> PlayerState.Playing
-                    .let { playerState.onNext(it) }
+                    .let { playerState.value = it }
 
                 else -> PlayerState.Stopped
-                    .let { playerState.onNext(it) }
+                    .let { playerState.value = it }
 
                 /** Playback is paused, ended, suppressed, or
                 Player is buffering, stopped or failed.
@@ -87,7 +88,7 @@ class PlayerFrameworkImp(
 
                 PlaybackException.ERROR_CODE_UNSPECIFIED -> PlayerState.Error.Unknown
                 else -> PlayerState.Error.Unknown
-            }.let { playerState.onNext(it) }
+            }.let { playerState.value = it }
         }
     }
 
@@ -114,8 +115,8 @@ class PlayerFrameworkImp(
     }
 
     override fun getState(
-    ): Observable<PlayerState> = playerState
-        .distinctUntilChanged()
+    ): Flow<PlayerState> = playerState
+        .distinctUntilChanged { old, new -> old == new }
 
     override fun play() {
         initMediaPlayer()
@@ -124,7 +125,7 @@ class PlayerFrameworkImp(
     override fun stop() {
         mediaController.stop()
         PlayerState.Stopped
-            .let { playerState.onNext(it) }
+            .let { playerState.value = it }
         //MediaController.releaseFuture(controllerFuture)
     }
 

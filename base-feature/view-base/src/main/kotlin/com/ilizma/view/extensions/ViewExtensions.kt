@@ -6,18 +6,6 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.ilizma.resources.R
-import com.jakewharton.rxbinding4.view.clicks
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.Disposable
-import java.util.concurrent.TimeUnit
-
-fun View.setOnReactiveClickListener(
-    throttleInMillis: Long = 500,
-    action: (() -> Unit)?
-): Disposable = clicks()
-    .throttleFirst(throttleInMillis, TimeUnit.MILLISECONDS)
-    .observeOn(AndroidSchedulers.mainThread())
-    .subscribe { action?.invoke() }
 
 fun View.snackbar(
     title: String = "",

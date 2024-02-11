@@ -11,7 +11,7 @@ java {
 }
 
 dependencies {
-    implementation(libs.rxjava)
+    //implementation(libs.coroutines)
     ksp(libs.ktorfit.ksp)
     implementation(libs.ktorfit)
     implementation(project(":api"))

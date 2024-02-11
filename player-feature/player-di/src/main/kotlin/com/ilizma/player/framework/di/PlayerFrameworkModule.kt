@@ -12,7 +12,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import io.reactivex.rxjava3.subjects.BehaviorSubject
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Singleton
 
 @UnstableApi
@@ -31,7 +31,7 @@ object PlayerFrameworkModule {
         PlayerFrameworkImp(
             context = context,
             serviceComponent = it,
-            playerState = BehaviorSubject.createDefault(PlayerState.Stopped),
+            playerState = MutableStateFlow(PlayerState.Stopped),
         )
     }
 

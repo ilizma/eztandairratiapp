@@ -18,14 +18,14 @@ import com.ilizma.player.presentation.model.RadioScreenNavigationAction.CastPlay
 import com.ilizma.presentation.SingleLiveEvent
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import io.reactivex.rxjava3.core.Scheduler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.rx3.asFlow
+import kotlinx.coroutines.launch
 import com.ilizma.player.presentation.model.PlayerState as PresentationPlayerState
 
 class RadioScreenViewModelImp @AssistedInject constructor(
@@ -34,14 +34,10 @@ class RadioScreenViewModelImp @AssistedInject constructor(
     private val stopUseCase: PlayerStopUseCase,
     private val castFramework: CastFramework,
     @Assisted private val mapper: PlayerStateMapper,
-    @Assisted private val backgroundScheduler: Scheduler,
     @Assisted private val _navigationAction: SingleLiveEvent<RadioScreenNavigationAction>,
 ) : RadioScreenViewModel(), DefaultLifecycleObserver {
 
     override val playerState: Flow<PresentationPlayerState> = stateUseCase()
-        .subscribeOn(backgroundScheduler)
-        .observeOn(backgroundScheduler)
-        .asFlow()
         .flowOn(Dispatchers.IO)
         .map(::onPlayerState)
         .stateIn(
@@ -57,9 +53,11 @@ class RadioScreenViewModelImp @AssistedInject constructor(
     }
 
     override fun onPlay() {
-        when (castFramework.castState.blockingFirst()) {
-            CastState.CONNECTED -> _navigationAction.postValue(CastPlayer)
-            CastState.DISCONNECTED -> playUseCase()
+        viewModelScope.launch(Dispatchers.IO) {
+            when (castFramework.castState.last()) {
+                CastState.CONNECTED -> _navigationAction.postValue(CastPlayer)
+                CastState.DISCONNECTED -> playUseCase()
+            }
         }
     }
 

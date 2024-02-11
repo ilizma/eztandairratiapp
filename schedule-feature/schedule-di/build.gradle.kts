@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.rxjava)
+    //implementation(libs.coroutines)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.navigation.fragment.ktx)

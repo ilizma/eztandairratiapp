@@ -28,11 +28,10 @@ android {
 dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    implementation(libs.rxjava)
-    implementation(libs.rxkotlin)
+    //implementation(libs.coroutines)
+    //implementation(libs.coroutines.android)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.livedata.ktx)
-    implementation(libs.coroutines.rx3)
     implementation(project(":presentation-base"))
     implementation(project(":player-presentation"))
     implementation(project(":player-domain"))

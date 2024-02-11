@@ -1,11 +1,11 @@
 package com.ilizma.player.framework
 
 import com.ilizma.player.framework.model.PlayerState
-import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.flow.Flow
 
 interface PlayerFramework {
 
-    fun getState(): Observable<PlayerState>
+    fun getState(): Flow<PlayerState>
 
     fun play()
 

@@ -9,6 +9,6 @@ java {
 }
 
 dependencies {
-    implementation(libs.rxjava)
+    //implementation(libs.coroutines)
     implementation(libs.annotation)
 }

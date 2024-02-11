@@ -9,7 +9,7 @@ java {
 }
 
 dependencies {
-    implementation(libs.rxjava)
+    implementation(libs.coroutines)
     implementation(project(":player-domain"))
     implementation(project(":player-data"))
     implementation(project(":player-framework"))

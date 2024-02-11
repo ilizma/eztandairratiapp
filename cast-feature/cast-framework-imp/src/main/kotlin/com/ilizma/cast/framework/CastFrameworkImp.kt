@@ -17,12 +17,12 @@ import com.ilizma.cast.framework.listener.CastStateListenerImp
 import com.ilizma.cast.framework.listener.SessionManagerListenerImp
 import com.ilizma.cast.framework.model.CastState
 import com.ilizma.player.framework.PlayerFramework
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.subjects.Subject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class CastFrameworkImp(
     private val activity: Activity,
-    private val castStateSubject: Subject<CastState>,
+    private val castStateFlow: MutableStateFlow<CastState>,
     private val castStateListener: CastStateListenerImp,
     private val sessionManagerListener: SessionManagerListenerImp,
     private val title: String,
@@ -39,7 +39,7 @@ class CastFrameworkImp(
         sessionManager = castContext?.sessionManager
     }
 
-    override val castState: Observable<CastState> = castStateSubject
+    override val castState: Flow<CastState> = castStateFlow
 
     override fun <T> setUpMediaRouteButton(
         menu: T,
@@ -49,7 +49,7 @@ class CastFrameworkImp(
 
         (menu as Menu).findItem(menuResourceId)
             .let { it.actionView as MediaRouteButton }
-            .let { castStateListener.init { castStateSubject.onNext(it) } }
+            .let { castStateListener.init { castStateFlow.value = it } }
         sessionManagerListener.init(
             started = { play() },
             resumed = { /*resume()*/ },

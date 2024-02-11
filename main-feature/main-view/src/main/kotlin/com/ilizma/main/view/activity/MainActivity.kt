@@ -129,7 +129,7 @@ fun checkPostNotificationPermission(
     activity: Activity,
     requestPermissionLauncher: ActivityResultLauncher<String>,
 ) {
-    // TODO create a notification for the new versions if (shouldShowRequestPermissionRationale(activity, Manifest.permission.POST_NOTIFICATIONS).not()) { }
+    // TODO create a dialog for the new versions if (shouldShowRequestPermissionRationale(activity, Manifest.permission.POST_NOTIFICATIONS).not()) { }
     if (ActivityCompat.checkSelfPermission(
             activity,
             Manifest.permission.POST_NOTIFICATIONS,

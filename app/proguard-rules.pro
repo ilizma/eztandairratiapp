@@ -9,5 +9,3 @@
 
 -dontwarn org.jetbrains.annotations.**
 -keep class kotlin.Metadata { *; }
-
--keep,allowobfuscation,allowshrinking class io.reactivex.rxjava3.core.Single

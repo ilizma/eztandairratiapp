@@ -28,8 +28,8 @@ android {
 dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    implementation(libs.rxjava)
-    implementation(libs.rxkotlin)
+    //implementation(libs.coroutines)
+    //implementation(libs.coroutines.android)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(project(":presentation-base"))

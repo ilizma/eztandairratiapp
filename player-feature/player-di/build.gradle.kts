@@ -27,7 +27,7 @@ android {
 dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    implementation(libs.rxjava)
+    //implementation(libs.coroutines)
     implementation(libs.appcompat)
     implementation(libs.media)
     implementation(libs.session)
