@@ -4,7 +4,13 @@ import android.app.Activity
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
-import com.ilizma.menu.flow.navigator.*
+import androidx.lifecycle.lifecycleScope
+import com.ilizma.menu.flow.navigator.FacebookNavigator
+import com.ilizma.menu.flow.navigator.InstagramNavigator
+import com.ilizma.menu.flow.navigator.MenuBackNavigator
+import com.ilizma.menu.flow.navigator.PhoneNavigator
+import com.ilizma.menu.flow.navigator.TwitterNavigator
+import com.ilizma.menu.flow.navigator.WebNavigator
 import com.ilizma.menu.flow.router.MenuScreenRouterImp
 import com.ilizma.menu.presentation.viewmodel.factory.di.MENU_SCREEN_VIEW_MODEL_PROVIDER_NAMED
 import com.ilizma.menu.view.router.MenuScreenRouter
@@ -30,7 +36,7 @@ object MenuScreenRouterModule {
         @Named(MENU_SCREEN_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): MenuScreenRouter = MenuScreenRouterImp(
         viewModelLazy = (activity as ComponentActivity).viewModels { viewModelProviderFactory },
-        lifecycleOwner = { activity },
+        lifecycleCoroutineScope = activity.lifecycleScope,
         instagramNavigator = instagramNavigator,
         twitterNavigator = twitterNavigator,
         facebookNavigator = facebookNavigator,

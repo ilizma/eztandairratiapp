@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ilizma.player.presentation.mapper.PlayerStateMapper
-import com.ilizma.presentation.SingleLiveEvent
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 class RadioScreenViewModelFactory(
     private val activity: Activity,
@@ -16,7 +16,7 @@ class RadioScreenViewModelFactory(
         modelClass: Class<T>
     ): T = radioScreenViewModelAssistedFactory.create(
         mapper = PlayerStateMapper(),
-        _navigationAction = SingleLiveEvent(),
+        _navigationAction = MutableSharedFlow(),
     ).also { (activity as ComponentActivity).lifecycle.addObserver(it) } as T
 
 }

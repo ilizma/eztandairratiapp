@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.ilizma.cast.flow.navigator.CastPlayerNavigator
 import com.ilizma.player.flow.navigator.RadioCloseNavigator
 import com.ilizma.player.flow.router.RadioScreenRouterImp
@@ -27,7 +28,7 @@ object RadioScreenRouterModule {
         @Named(RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): RadioScreenRouter = RadioScreenRouterImp(
         viewModelLazy = (activity as ComponentActivity).viewModels { viewModelProviderFactory },
-        lifecycleOwner = { activity },
+        lifecycleCoroutineScope = activity.lifecycleScope,
         radioCloseNavigator = radioCloseNavigator,
         castPlayerNavigator = castPlayerNavigator,
     )

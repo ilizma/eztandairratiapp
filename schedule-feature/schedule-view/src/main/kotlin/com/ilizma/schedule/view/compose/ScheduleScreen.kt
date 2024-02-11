@@ -15,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
 import com.ilizma.schedule.presentation.model.Day
 import com.ilizma.schedule.presentation.model.Days
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction
@@ -106,7 +105,7 @@ private class ScheduleScreenPreviewProvider : PreviewParameterProvider<ScheduleS
     )
 
     class FakeViewModel : ScheduleScreenViewModel() {
-        override val navigationAction: LiveData<ScheduleScreenNavigationAction>
+        override val navigationAction: Flow<ScheduleScreenNavigationAction>
             get() = TODO("Not yet implemented")
 
         override val days: Flow<Days> = flowOf(

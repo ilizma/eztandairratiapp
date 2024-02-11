@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
@@ -27,7 +26,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
 import com.ilizma.player.presentation.model.PlayerState
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction
 import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
@@ -178,7 +176,7 @@ private class RadioScreenPreviewProvider : PreviewParameterProvider<RadioScreenV
     class FakeViewModel(
         state: PlayerState,
     ) : RadioScreenViewModel() {
-        override val navigationAction: LiveData<RadioScreenNavigationAction>
+        override val navigationAction: Flow<RadioScreenNavigationAction>
             get() = TODO("Not yet implemented")
 
         override val playerState: Flow<PlayerState> = flowOf(state)

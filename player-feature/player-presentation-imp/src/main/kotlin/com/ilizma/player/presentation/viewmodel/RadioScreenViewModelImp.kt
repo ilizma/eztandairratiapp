@@ -3,7 +3,6 @@ package com.ilizma.player.presentation.viewmodel
 import android.view.Menu
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.ilizma.cast.framework.CastFramework
 import com.ilizma.cast.framework.model.CastState
@@ -15,11 +14,11 @@ import com.ilizma.player.presentation.mapper.PlayerStateMapper
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.Back
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.CastPlayer
-import com.ilizma.presentation.SingleLiveEvent
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.last
@@ -34,7 +33,7 @@ class RadioScreenViewModelImp @AssistedInject constructor(
     private val stopUseCase: PlayerStopUseCase,
     private val castFramework: CastFramework,
     @Assisted private val mapper: PlayerStateMapper,
-    @Assisted private val _navigationAction: SingleLiveEvent<RadioScreenNavigationAction>,
+    @Assisted private val _navigationAction: MutableSharedFlow<RadioScreenNavigationAction>,
 ) : RadioScreenViewModel(), DefaultLifecycleObserver {
 
     override val playerState: Flow<PresentationPlayerState> = stateUseCase()
@@ -46,7 +45,7 @@ class RadioScreenViewModelImp @AssistedInject constructor(
             initialValue = PresentationPlayerState.Stopped,
         )
 
-    override val navigationAction: LiveData<RadioScreenNavigationAction> = _navigationAction
+    override val navigationAction: Flow<RadioScreenNavigationAction> = _navigationAction
 
     init {
         castFramework.init()
@@ -55,7 +54,7 @@ class RadioScreenViewModelImp @AssistedInject constructor(
     override fun onPlay() {
         viewModelScope.launch(Dispatchers.IO) {
             when (castFramework.castState.last()) {
-                CastState.CONNECTED -> _navigationAction.postValue(CastPlayer)
+                CastState.CONNECTED -> _navigationAction.emit(CastPlayer)
                 CastState.DISCONNECTED -> playUseCase()
             }
         }
@@ -66,7 +65,7 @@ class RadioScreenViewModelImp @AssistedInject constructor(
     }
 
     override fun onBack() {
-        _navigationAction.postValue(Back)
+        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Back) }
     }
 
     override fun setUpMediaRouteButton(

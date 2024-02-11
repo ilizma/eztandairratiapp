@@ -1,7 +1,6 @@
 package com.ilizma.player.presentation.viewmodel
 
 import android.view.Menu
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.ilizma.player.presentation.model.PlayerState
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction
@@ -11,7 +10,7 @@ abstract class RadioScreenViewModel : ViewModel() {
 
     abstract val playerState: Flow<PlayerState>
 
-    abstract val navigationAction: LiveData<RadioScreenNavigationAction>
+    abstract val navigationAction: Flow<RadioScreenNavigationAction>
 
     abstract fun onPlay()
 

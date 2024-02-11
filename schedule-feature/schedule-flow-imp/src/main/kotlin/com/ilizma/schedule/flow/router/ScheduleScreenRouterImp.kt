@@ -1,6 +1,6 @@
 package com.ilizma.schedule.flow.router
 
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.NavHostController
 import com.ilizma.schedule.flow.navigator.ScheduleBackNavigator
 import com.ilizma.schedule.flow.navigator.ScheduleDetailNavigator
@@ -8,9 +8,10 @@ import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction.Back
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.schedule.view.router.ScheduleScreenRouter
+import kotlinx.coroutines.launch
 
 class ScheduleScreenRouterImp(
-    private val lifecycleOwner: () -> LifecycleOwner,
+    private val lifecycleCoroutineScope: LifecycleCoroutineScope,
     viewModelLazy: Lazy<ScheduleScreenViewModel>,
     private val scheduleBackNavigator: ScheduleBackNavigator,
     private val scheduleDetailNavigator: ScheduleDetailNavigator,
@@ -22,14 +23,14 @@ class ScheduleScreenRouterImp(
         navController: NavHostController,
         mainNavController: NavHostController,
     ) {
-        viewModel.navigationAction.observe(
-            lifecycleOwner(),
-        ) {
-            onNavigationAction(
-                navController = navController,
-                mainNavController = mainNavController,
-                action = it
-            )
+        lifecycleCoroutineScope.launch {
+            viewModel.navigationAction.collect {
+                onNavigationAction(
+                    navController = navController,
+                    mainNavController = mainNavController,
+                    action = it
+                )
+            }
         }
     }
 

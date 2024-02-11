@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.ilizma.schedule.flow.navigator.ScheduleDetailCloseNavigator
 import com.ilizma.schedule.flow.router.ScheduleDetailRouterImp
 import com.ilizma.schedule.presentation.viewmodel.factory.di.SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED
@@ -25,7 +26,7 @@ object ScheduleDetailRouterModule {
         @Named(SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): ScheduleDetailRouter = ScheduleDetailRouterImp(
         viewModelLazy = (activity as ComponentActivity).viewModels { viewModelProviderFactory },
-        lifecycleOwner = { activity },
+        lifecycleCoroutineScope = activity.lifecycleScope,
         navigator = navigator,
     )
 

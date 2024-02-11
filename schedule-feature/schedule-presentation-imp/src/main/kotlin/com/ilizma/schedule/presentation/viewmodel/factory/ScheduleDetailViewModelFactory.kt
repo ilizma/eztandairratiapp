@@ -2,7 +2,6 @@ package com.ilizma.schedule.presentation.viewmodel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ilizma.presentation.SingleLiveEvent
 import com.ilizma.schedule.presentation.mapper.ProgramTypeMapper
 import com.ilizma.schedule.presentation.mapper.ScheduleStateMapper
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,7 +20,7 @@ class ScheduleDetailViewModelFactory(
         isDebug = isDebug,
         _dayName = MutableSharedFlow(),
         _scheduleState = MutableSharedFlow(),
-        _navigationAction = SingleLiveEvent(),
+        _navigationAction = MutableSharedFlow(),
     ) as T
 
 }

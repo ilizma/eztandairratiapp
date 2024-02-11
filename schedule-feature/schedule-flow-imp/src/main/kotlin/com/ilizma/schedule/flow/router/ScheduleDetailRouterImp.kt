@@ -1,15 +1,16 @@
 package com.ilizma.schedule.flow.router
 
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.NavHostController
 import com.ilizma.schedule.flow.navigator.ScheduleDetailCloseNavigator
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction.Back
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenDetailViewModel
 import com.ilizma.schedule.view.router.ScheduleDetailRouter
+import kotlinx.coroutines.launch
 
 class ScheduleDetailRouterImp(
-    private val lifecycleOwner: () -> LifecycleOwner,
+    private val lifecycleCoroutineScope: LifecycleCoroutineScope,
     viewModelLazy: Lazy<ScheduleScreenDetailViewModel>,
     private val navigator: ScheduleDetailCloseNavigator,
 ) : ScheduleDetailRouter {
@@ -19,13 +20,13 @@ class ScheduleDetailRouterImp(
     override fun init(
         navController: NavHostController,
     ) {
-        viewModel.navigationAction.observe(
-            lifecycleOwner(),
-        ) {
-            onNavigationAction(
-                navController = navController,
-                action = it,
-            )
+        lifecycleCoroutineScope.launch {
+            viewModel.navigationAction.collect {
+                onNavigationAction(
+                    navController = navController,
+                    action = it,
+                )
+            }
         }
     }
 

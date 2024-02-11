@@ -1,40 +1,48 @@
 package com.ilizma.menu.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.ilizma.menu.presentation.model.MenuNavigationAction
-import com.ilizma.menu.presentation.model.MenuNavigationAction.*
-import com.ilizma.presentation.SingleLiveEvent
+import com.ilizma.menu.presentation.model.MenuNavigationAction.Back
+import com.ilizma.menu.presentation.model.MenuNavigationAction.Facebook
+import com.ilizma.menu.presentation.model.MenuNavigationAction.Instagram
+import com.ilizma.menu.presentation.model.MenuNavigationAction.Phone
+import com.ilizma.menu.presentation.model.MenuNavigationAction.Twitter
+import com.ilizma.menu.presentation.model.MenuNavigationAction.Web
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 
 class MenuScreenViewModelImp @AssistedInject constructor(
-    @Assisted private val _navigationAction: SingleLiveEvent<MenuNavigationAction>,
+    @Assisted private val _navigationAction: MutableSharedFlow<MenuNavigationAction>,
 ) : MenuScreenViewModel() {
 
-    override val navigationAction: LiveData<MenuNavigationAction> = _navigationAction
+    override val navigationAction: Flow<MenuNavigationAction> = _navigationAction
 
     override fun onInstagram() {
-        _navigationAction.postValue(Instagram)
+        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Instagram) }
     }
 
     override fun onTwitter() {
-        _navigationAction.postValue(Twitter)
+        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Twitter) }
     }
 
     override fun onFacebook() {
-        _navigationAction.postValue(Facebook)
+        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Facebook) }
     }
 
     override fun onPhone() {
-        _navigationAction.postValue(Phone)
+        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Phone) }
     }
 
     override fun onWeb() {
-        _navigationAction.postValue(Web)
+        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Web) }
     }
 
     override fun onBack() {
-        _navigationAction.postValue(Back)
+        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Back) }
     }
 
 }

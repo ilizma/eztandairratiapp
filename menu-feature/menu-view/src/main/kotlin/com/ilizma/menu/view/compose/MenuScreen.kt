@@ -23,10 +23,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
 import com.ilizma.menu.presentation.model.MenuNavigationAction
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
 import com.ilizma.resources.R
+import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun MenuScreen(
@@ -176,7 +176,7 @@ private class MenuScreenPreviewProvider : PreviewParameterProvider<MenuScreenVie
     override val values: Sequence<MenuScreenViewModel> = sequenceOf(FakeViewModel())
 
     class FakeViewModel : MenuScreenViewModel() {
-        override val navigationAction: LiveData<MenuNavigationAction>
+        override val navigationAction: Flow<MenuNavigationAction>
             get() = TODO("Not yet implemented")
 
         override fun onInstagram() {

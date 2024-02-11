@@ -1,8 +1,6 @@
 package com.ilizma.schedule.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.ilizma.presentation.SingleLiveEvent
 import com.ilizma.schedule.domain.model.ScheduleState
 import com.ilizma.schedule.domain.usecase.DayNameUseCase
 import com.ilizma.schedule.domain.usecase.ScheduleUseCase
@@ -30,7 +28,7 @@ class ScheduleScreenDetailViewModelImp @AssistedInject constructor(
     @Assisted private val isDebug: Boolean,
     @Assisted private val _dayName: MutableSharedFlow<String>,
     @Assisted private val _scheduleState: MutableSharedFlow<PresentationScheduleState>,
-    @Assisted private val _navigationAction: SingleLiveEvent<ScheduleDetailNavigationAction>,
+    @Assisted private val _navigationAction: MutableSharedFlow<ScheduleDetailNavigationAction>,
 ) : ScheduleScreenDetailViewModel() {
 
     override val dayName: Flow<String> = _dayName
@@ -50,7 +48,7 @@ class ScheduleScreenDetailViewModelImp @AssistedInject constructor(
             initialValue = generateLoadingList()
                 .let { PresentationScheduleState.Loading(it) },
         )
-    override val navigationAction: LiveData<ScheduleDetailNavigationAction> = _navigationAction
+    override val navigationAction: Flow<ScheduleDetailNavigationAction> = _navigationAction
 
     override fun getTitle() {
         dayNameUseCase()
@@ -94,7 +92,7 @@ class ScheduleScreenDetailViewModelImp @AssistedInject constructor(
     }
 
     override fun onBack() {
-        _navigationAction.postValue(Back)
+        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Back) }
     }
 
     private fun generateLoadingList(

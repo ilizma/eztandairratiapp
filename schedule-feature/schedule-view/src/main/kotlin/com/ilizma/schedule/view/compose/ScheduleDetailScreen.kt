@@ -40,7 +40,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
 import com.ilizma.resources.R
 import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
@@ -291,7 +290,7 @@ private class ScheduleDetailScreenPreviewProvider :
                 else -> ScheduleState.Success(listOf())
             }
         )
-        override val navigationAction: LiveData<ScheduleDetailNavigationAction>
+        override val navigationAction: Flow<ScheduleDetailNavigationAction>
             get() = TODO("Not yet implemented")
 
         override fun getTitle() {
