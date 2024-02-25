@@ -31,7 +31,7 @@ object PlayerFrameworkModule {
         PlayerFrameworkImp(
             context = context,
             serviceComponent = it,
-            playerState = MutableStateFlow(PlayerState.Stopped),
+            _playerState = MutableStateFlow(PlayerState.Stopped),
         )
     }
 

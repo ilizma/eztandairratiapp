@@ -17,7 +17,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -26,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ilizma.player.presentation.model.PlayerState
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction
 import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
@@ -40,7 +40,7 @@ fun RadioScreen(
     snackbarHostState: SnackbarHostState,
 ) {
     viewModel.playerState
-        .collectAsState(PlayerState.Stopped)
+        .collectAsStateWithLifecycle(PlayerState.Stopped)
         .value
         .let {
             ScreenState(
@@ -120,7 +120,7 @@ private fun ScreenBox(
         ) {
             when (state) {
                 PlayerState.Loading -> CircularProgressIndicator(
-                    modifier = Modifier.then(Modifier.size(32.dp)),
+                    modifier = Modifier.size(32.dp),
                 )
 
                 else -> Icon(

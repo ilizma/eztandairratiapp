@@ -12,24 +12,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.ilizma.menu.view.router.MenuScreenRouter
 import com.ilizma.navigation.presentation.model.ScheduleDetailArgs
 import com.ilizma.navigation.presentation.viewmodel.NavigationScreenViewModel
 import com.ilizma.navigation.view.model.Routes.Main
 import com.ilizma.navigation.view.model.Routes.ScheduleDetail
-import com.ilizma.player.view.router.RadioScreenRouter
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenDetailViewModel
 import com.ilizma.schedule.view.compose.ScheduleDetailScreen
-import com.ilizma.schedule.view.router.ScheduleScreenRouter
 
 @Composable
 fun NavigationScreen(
     lazyViewModels: List<Lazy<ViewModel>>,
     navController: NavHostController,
     mainNavController: NavHostController,
-    radioScreenRouter: RadioScreenRouter,
-    scheduleScreenRouter: ScheduleScreenRouter,
-    menuScreenRouter: MenuScreenRouter,
 ) {
     NavHost(
         navController = navController,
@@ -40,11 +34,7 @@ fun NavigationScreen(
         ) {
             MainScreen(
                 lazyViewModels = lazyViewModels,
-                navController = navController,
                 mainNavController = mainNavController,
-                radioScreenRouter = radioScreenRouter,
-                scheduleScreenRouter = scheduleScreenRouter,
-                menuScreenRouter = menuScreenRouter,
             )
         }
         composable(
@@ -88,17 +78,11 @@ private fun NavigationScreenPreview(
     @PreviewParameter(NavigationScreenPreviewProvider::class) lazyViewModels: List<Lazy<ViewModel>>,
     navController: NavHostController = rememberNavController(),
     mainNavController: NavHostController = rememberNavController(),
-    radioScreenRouter: RadioScreenRouter = FakeRadioScreenRouterImp(),
-    scheduleScreenRouter: ScheduleScreenRouter = FakeScheduleScreenRouterImp(),
-    menuScreenRouter: MenuScreenRouter = FakeMenuScreenRouterImp(),
 ) {
     NavigationScreen(
         lazyViewModels = lazyViewModels,
         navController = navController,
         mainNavController = mainNavController,
-        radioScreenRouter = radioScreenRouter,
-        scheduleScreenRouter = scheduleScreenRouter,
-        menuScreenRouter = menuScreenRouter,
     )
 }
 
@@ -108,24 +92,4 @@ private class NavigationScreenPreviewProvider : PreviewParameterProvider<List<La
     )
 
     class FakeViewModel : ViewModel()
-}
-
-internal class FakeRadioScreenRouterImp : RadioScreenRouter {
-    override fun init() {
-    }
-
-}
-
-internal class FakeScheduleScreenRouterImp : ScheduleScreenRouter {
-
-    override fun init(navController: NavHostController, mainNavController: NavHostController) {
-    }
-
-}
-
-internal class FakeMenuScreenRouterImp : MenuScreenRouter {
-
-    override fun init(mainNavController: NavHostController) {
-    }
-
 }

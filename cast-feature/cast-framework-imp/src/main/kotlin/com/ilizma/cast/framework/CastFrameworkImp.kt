@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class CastFrameworkImp(
     private val activity: Activity,
-    private val castStateFlow: MutableStateFlow<CastState>,
+    private val _castStateFlow: MutableStateFlow<CastState>,
     private val castStateListener: CastStateListenerImp,
     private val sessionManagerListener: SessionManagerListenerImp,
     private val title: String,
@@ -39,7 +39,7 @@ class CastFrameworkImp(
         sessionManager = castContext?.sessionManager
     }
 
-    override val castState: Flow<CastState> = castStateFlow
+    override val castState: Flow<CastState> = _castStateFlow
 
     override fun <T> setUpMediaRouteButton(
         menu: T,
@@ -49,7 +49,7 @@ class CastFrameworkImp(
 
         (menu as Menu).findItem(menuResourceId)
             .let { it.actionView as MediaRouteButton }
-            .let { castStateListener.init { castStateFlow.value = it } }
+            .let { castStateListener.init { _castStateFlow.value = it } }
         sessionManagerListener.init(
             started = { play() },
             resumed = { /*resume()*/ },

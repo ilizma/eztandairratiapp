@@ -20,8 +20,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -37,8 +37,8 @@ class RadioScreenViewModelImp @AssistedInject constructor(
 ) : RadioScreenViewModel(), DefaultLifecycleObserver {
 
     override val playerState: Flow<PresentationPlayerState> = stateUseCase()
-        .flowOn(Dispatchers.IO)
         .map(::onPlayerState)
+        .flowOn(Dispatchers.IO)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
@@ -53,9 +53,9 @@ class RadioScreenViewModelImp @AssistedInject constructor(
 
     override fun onPlay() {
         viewModelScope.launch(Dispatchers.IO) {
-            when (castFramework.castState.last()) {
+            when (castFramework.castState.first()) {
                 CastState.CONNECTED -> _navigationAction.emit(CastPlayer)
-                CastState.DISCONNECTED -> playUseCase()
+                CastState.DISCONNECTED -> viewModelScope.launch(Dispatchers.Main) { playUseCase() }
             }
         }
     }

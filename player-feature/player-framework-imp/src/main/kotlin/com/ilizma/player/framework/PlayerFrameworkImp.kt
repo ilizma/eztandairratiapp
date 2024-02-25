@@ -15,12 +15,11 @@ import com.ilizma.player.framework.model.PlayerState
 import com.ilizma.player.framework.service.CANCEL_NOTIFICATION
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
 
 class PlayerFrameworkImp(
     context: Context,
     serviceComponent: ComponentName,
-    private val playerState: MutableStateFlow<PlayerState>,
+    private val _playerState: MutableStateFlow<PlayerState>,
 ) : PlayerFramework {
 
     private lateinit var mediaController: MediaController
@@ -31,7 +30,7 @@ class PlayerFrameworkImp(
             super.onIsLoadingChanged(isLoading)
             if (isLoading) {
                 PlayerState.Loading
-                    .let { playerState.value = it }
+                    .let { _playerState.value = it }
             }
         }
 
@@ -39,10 +38,10 @@ class PlayerFrameworkImp(
             super.onIsPlayingChanged(isPlaying)
             when {
                 isPlaying -> PlayerState.Playing
-                    .let { playerState.value = it }
+                    .let { _playerState.value = it }
 
                 else -> PlayerState.Stopped
-                    .let { playerState.value = it }
+                    .let { _playerState.value = it }
 
                 /** Playback is paused, ended, suppressed, or
                 Player is buffering, stopped or failed.
@@ -88,7 +87,7 @@ class PlayerFrameworkImp(
 
                 PlaybackException.ERROR_CODE_UNSPECIFIED -> PlayerState.Error.Unknown
                 else -> PlayerState.Error.Unknown
-            }.let { playerState.value = it }
+            }.let { _playerState.value = it }
         }
     }
 
@@ -115,8 +114,7 @@ class PlayerFrameworkImp(
     }
 
     override fun getState(
-    ): Flow<PlayerState> = playerState
-        .distinctUntilChanged { old, new -> old == new }
+    ): Flow<PlayerState> = _playerState
 
     override fun play() {
         initMediaPlayer()
@@ -125,7 +123,7 @@ class PlayerFrameworkImp(
     override fun stop() {
         mediaController.stop()
         PlayerState.Stopped
-            .let { playerState.value = it }
+            .let { _playerState.value = it }
         //MediaController.releaseFuture(controllerFuture)
     }
 

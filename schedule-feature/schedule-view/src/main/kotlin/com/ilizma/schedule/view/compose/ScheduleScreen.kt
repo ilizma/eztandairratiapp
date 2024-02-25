@@ -9,12 +9,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ilizma.schedule.presentation.model.Day
 import com.ilizma.schedule.presentation.model.Days
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction
@@ -28,7 +28,7 @@ fun ScheduleScreen(
     paddingValues: PaddingValues,
 ) {
     viewModel.days
-        .collectAsState(Days(listOf()))
+        .collectAsStateWithLifecycle(Days(listOf()))
         .value
         .let { days ->
             Schedule(

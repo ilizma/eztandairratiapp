@@ -28,9 +28,9 @@ class ScheduleScreenViewModelImp @AssistedInject constructor(
 ) : ScheduleScreenViewModel() {
 
     override val days: Flow<Days> = flowOf(useCase())
-        .flowOn(Dispatchers.IO)
         .distinctUntilChanged()
         .map { mapper.toPresentation(it) }
+        .flowOn(Dispatchers.IO)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
@@ -39,8 +39,10 @@ class ScheduleScreenViewModelImp @AssistedInject constructor(
     override val navigationAction: Flow<ScheduleScreenNavigationAction> = _navigationAction
 
     override fun onClick(day: Day) {
-        ScheduleDetail(day)
-            .let { viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(it) } }
+        viewModelScope.launch(Dispatchers.IO) {
+            ScheduleDetail(day)
+                .let { _navigationAction.emit(it) }
+        }
     }
 
     override fun onBack() {

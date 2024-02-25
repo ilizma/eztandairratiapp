@@ -36,32 +36,21 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
 import com.ilizma.menu.view.compose.MenuScreen
-import com.ilizma.menu.view.router.MenuScreenRouter
 import com.ilizma.navigation.view.model.NavigationBarItemType
 import com.ilizma.navigation.view.model.NavigationBarItemType.MENU
 import com.ilizma.navigation.view.model.NavigationBarItemType.RADIO
 import com.ilizma.navigation.view.model.NavigationBarItemType.SCHEDULE
 import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
 import com.ilizma.player.view.compose.RadioScreen
-import com.ilizma.player.view.router.RadioScreenRouter
 import com.ilizma.resources.R
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.schedule.view.compose.ScheduleScreen
-import com.ilizma.schedule.view.router.ScheduleScreenRouter
 
 @Composable
 fun MainScreen(
     lazyViewModels: List<Lazy<ViewModel>>,
-    navController: NavHostController,
     mainNavController: NavHostController,
-    radioScreenRouter: RadioScreenRouter,
-    scheduleScreenRouter: ScheduleScreenRouter,
-    menuScreenRouter: MenuScreenRouter,
 ) {
-    radioScreenRouter.init()
-    scheduleScreenRouter.init(navController = navController, mainNavController = mainNavController)
-    menuScreenRouter.init(mainNavController)
-
     val snackbarHostState = remember { SnackbarHostState() }
     var navigationBarItemType by rememberSaveable { mutableStateOf(RADIO) }
     Scaffold(
@@ -235,19 +224,11 @@ fun RowScope.BottomBarItem(
 @Composable
 private fun MainScreenPreview(
     @PreviewParameter(MainScreenPreviewProvider::class) lazyViewModels: List<Lazy<ViewModel>>,
-    navController: NavHostController = rememberNavController(),
     mainNavController: NavHostController = rememberNavController(),
-    radioScreenRouter: RadioScreenRouter = FakeRadioScreenRouterImp(),
-    scheduleScreenRouter: ScheduleScreenRouter = FakeScheduleScreenRouterImp(),
-    menuScreenRouter: MenuScreenRouter = FakeMenuScreenRouterImp(),
 ) {
     MainScreen(
         lazyViewModels = lazyViewModels,
-        navController = navController,
         mainNavController = mainNavController,
-        radioScreenRouter = radioScreenRouter,
-        scheduleScreenRouter = scheduleScreenRouter,
-        menuScreenRouter = menuScreenRouter,
     )
 }
 

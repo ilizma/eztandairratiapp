@@ -9,7 +9,7 @@ lifecycle-version = "2.7.0"
 customactivityoncrash-version = "2.4.0"
 fragment-version = "1.6.2"
 activity-version = "1.8.2"
-compose-bom-version = "2024.02.00"
+compose-bom-version = "2024.02.01"
 navigation-version = "2.7.7"
 media-version = "1.7.0"
 media3-version = "1.2.1"
@@ -27,11 +27,11 @@ junit-version = "4.13.2"
 junit-android-version = "1.1.5"
 espresso-version = "3.5.1"
 mockk-version = "1.13.7"
-junit-jupiter-version = "5.10.0"
+junit-jupiter-version = "5.10.2"
 chucker-version = "4.0.0"
 ktorfit-version = "1.11.1"
 ktor-version = "2.3.7"
-ui-tooling = "1.6.1"
+ui-tooling = "1.6.2"
 ## endregion
 ## region plugins
 android-plugin-version = "8.2.2"
@@ -81,6 +81,7 @@ lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtim
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-version" }
 lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle-version" }
 lifecycle-common = { group = "androidx.lifecycle", name = "lifecycle-common-java8", version.ref = "lifecycle-version" }
+lifecycle-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle-version" }
 ## endregion
 ## region customactivityoncrash
 customactivityoncrash = { group = "cat.ereza", name = "customactivityoncrash", version.ref = "customactivityoncrash-version" }

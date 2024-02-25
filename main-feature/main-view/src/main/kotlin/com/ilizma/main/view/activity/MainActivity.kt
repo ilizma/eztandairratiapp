@@ -95,7 +95,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val mainNavController = rememberNavController()
+            radioScreenRouter.init()
+            scheduleScreenRouter.init(navController = navController, mainNavController = mainNavController)
             scheduleDetailScreenRouter.init(navController)
+            menuScreenRouter.init(mainNavController)
             EztandaIrratiappTheme(dynamicColor = false) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -115,9 +118,6 @@ class MainActivity : ComponentActivity() {
                         ),
                         navController = navController,
                         mainNavController = mainNavController,
-                        radioScreenRouter = radioScreenRouter,
-                        scheduleScreenRouter = scheduleScreenRouter,
-                        menuScreenRouter = menuScreenRouter,
                     )
                 }
             }

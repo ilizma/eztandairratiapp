@@ -30,7 +30,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ilizma.resources.R
 import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
@@ -60,7 +60,7 @@ fun ScheduleDetailScreen(
         topBar = {
             TopBar(
                 title = viewModel.dayName
-                    .collectAsState("")
+                    .collectAsStateWithLifecycle("")
                     .value,
                 onBackClick = { viewModel.onBack() },
             )
@@ -68,7 +68,7 @@ fun ScheduleDetailScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { paddingValues ->
         viewModel.scheduleState
-            .collectAsState(ScheduleState.Loading(listOf()))
+            .collectAsStateWithLifecycle(ScheduleState.Loading(listOf()))
             .value
             .let {
                 when (it) {

@@ -24,7 +24,7 @@ object CastFrameworkModule {
         playerFramework: PlayerFramework,
     ): CastFramework = CastFrameworkImp(
         activity = activity,
-        castStateFlow = MutableStateFlow(DISCONNECTED),
+        _castStateFlow = MutableStateFlow(DISCONNECTED),
         castStateListener = CastStateListenerImp(),
         sessionManagerListener = SessionManagerListenerImp(),
         title = activity.getString(R.string.radio_name),
