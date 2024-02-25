@@ -25,20 +25,12 @@ const val CHANNEL_NAME = "com.ilizma.eztanda_channel_name"
 
 class EztandaFirebaseMessagingService : FirebaseMessagingService() {
 
-    override fun onNewToken(
-        token: String,
-    ) {
-        Log.i(TAG, "Firebase new token generated = $token")
-        super.onNewToken(token)
-    }
-
     override fun onMessageReceived(
         remoteMessage: RemoteMessage,
     ) {
         super.onMessageReceived(remoteMessage)
         val (title, body) =
             (remoteMessage.notification?.title ?: "") to (remoteMessage.notification?.body ?: "")
-        Log.i(TAG, "Firebase new remote message = Title: $title, Body: $body")
 
         getNotificationBuilder(title, body)
             .also {
