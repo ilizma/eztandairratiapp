@@ -1,9 +1,15 @@
 package com.ilizma.schedule.view.router
 
-import androidx.navigation.NavHostController
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
 
 interface ScheduleScreenRouter {
 
-    fun init(navController: NavHostController, mainNavController: NavHostController)
+    fun init(
+        navigator: Navigator,
+        tabNavigator: TabNavigator,
+        tab: Tab,
+    )
 
 }

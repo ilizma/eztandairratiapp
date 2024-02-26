@@ -14,7 +14,6 @@ interface ScheduleDetailViewModelAssistedFactory {
         mapper: ScheduleStateMapper,
         unknownErrorMessage: String,
         isDebug: Boolean,
-        _dayName: MutableSharedFlow<String>,
         _scheduleState: MutableSharedFlow<ScheduleState>,
         _navigationAction: MutableSharedFlow<ScheduleDetailNavigationAction>,
     ): ScheduleScreenDetailViewModelImp

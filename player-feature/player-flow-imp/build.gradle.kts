@@ -26,7 +26,7 @@ android {
 dependencies {
     implementation(libs.appcompat)
     implementation(libs.lifecycle.common)
-    implementation(libs.navigation.compose)
+    implementation(libs.voyager.navigation)
     implementation(project(":player-flow"))
     implementation(project(":player-view"))
     implementation(project(":player-presentation"))

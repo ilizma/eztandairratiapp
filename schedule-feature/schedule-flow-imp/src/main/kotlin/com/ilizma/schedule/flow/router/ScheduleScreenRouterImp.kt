@@ -1,7 +1,9 @@
 package com.ilizma.schedule.flow.router
 
 import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.navigation.NavHostController
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
 import com.ilizma.schedule.flow.navigator.ScheduleBackNavigator
 import com.ilizma.schedule.flow.navigator.ScheduleDetailNavigator
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction
@@ -20,14 +22,16 @@ class ScheduleScreenRouterImp(
     private val viewModel: ScheduleScreenViewModel by viewModelLazy
 
     override fun init(
-        navController: NavHostController,
-        mainNavController: NavHostController,
+        navigator: Navigator,
+        tabNavigator: TabNavigator,
+        tab: Tab,
     ) {
         lifecycleCoroutineScope.launch {
             viewModel.navigationAction.collect {
                 onNavigationAction(
-                    navController = navController,
-                    mainNavController = mainNavController,
+                    navigator = navigator,
+                    tabNavigator = tabNavigator,
+                    tab = tab,
                     action = it
                 )
             }
@@ -35,14 +39,25 @@ class ScheduleScreenRouterImp(
     }
 
     private fun onNavigationAction(
-        navController: NavHostController,
-        mainNavController: NavHostController,
+        navigator: Navigator,
+        tabNavigator: TabNavigator,
+        tab: Tab,
         action: ScheduleScreenNavigationAction,
     ) {
         when (action) {
-            Back -> scheduleBackNavigator.back(mainNavController)
+            Back -> scheduleBackNavigator.back(
+                navigator = tabNavigator,
+                tab = tab,
+            )
+
             is ScheduleScreenNavigationAction.ScheduleDetail -> action.day
-                .let { scheduleDetailNavigator.navigate(navController, it.id, it.name) }
+                .let {
+                    scheduleDetailNavigator.navigate(
+                        navigator = navigator,
+                        id = it.id,
+                        name = it.name
+                    )
+                }
         }
     }
 

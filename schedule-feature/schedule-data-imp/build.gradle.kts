@@ -17,5 +17,4 @@ dependencies {
     implementation(project(":api"))
     implementation(project(":schedule-domain"))
     implementation(project(":schedule-data"))
-    implementation(project(":navigation-domain"))
 }

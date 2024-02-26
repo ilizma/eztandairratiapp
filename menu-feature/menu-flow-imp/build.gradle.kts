@@ -30,10 +30,8 @@ dependencies {
     kapt(libs.hilt.android.compiler)
     implementation(libs.appcompat)
     implementation(libs.lifecycle.common)
-    implementation(libs.navigation.compose)
+    implementation(libs.voyager.navigation)
     implementation(project(":menu-flow"))
     implementation(project(":menu-view"))
     implementation(project(":menu-presentation"))
-
-    implementation(project(":navigation-view"))
 }

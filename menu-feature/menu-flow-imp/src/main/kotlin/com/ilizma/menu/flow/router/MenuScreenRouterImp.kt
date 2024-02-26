@@ -1,7 +1,8 @@
 package com.ilizma.menu.flow.router
 
 import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.navigation.NavHostController
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
 import com.ilizma.menu.flow.navigator.FacebookNavigator
 import com.ilizma.menu.flow.navigator.InstagramNavigator
 import com.ilizma.menu.flow.navigator.MenuBackNavigator
@@ -33,12 +34,14 @@ class MenuScreenRouterImp(
     private val viewModel: MenuScreenViewModel by viewModelLazy
 
     override fun init(
-        mainNavController: NavHostController,
+        navigator: TabNavigator,
+        tab: Tab,
     ) {
         lifecycleCoroutineScope.launch {
             viewModel.navigationAction.collect {
                 onNavigationAction(
-                    navController = mainNavController,
+                    navigator = navigator,
+                    tab = tab,
                     action = it,
                 )
             }
@@ -46,7 +49,8 @@ class MenuScreenRouterImp(
     }
 
     private fun onNavigationAction(
-        navController: NavHostController,
+        navigator: TabNavigator,
+        tab: Tab,
         action: MenuNavigationAction,
     ) {
         when (action) {
@@ -55,7 +59,10 @@ class MenuScreenRouterImp(
             Facebook -> facebookNavigator.navigate()
             Phone -> phoneNavigator.navigate()
             Web -> webNavigator.navigate()
-            Back -> menuBackNavigator.back(navController)
+            Back -> menuBackNavigator.back(
+                navigator = navigator,
+                tab = tab,
+            )
         }
     }
 

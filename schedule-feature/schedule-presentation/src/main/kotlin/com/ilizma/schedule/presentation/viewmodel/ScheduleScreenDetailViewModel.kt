@@ -7,13 +7,11 @@ import kotlinx.coroutines.flow.Flow
 
 abstract class ScheduleScreenDetailViewModel : ViewModel() {
 
-    abstract val dayName: Flow<String>
-
     abstract val scheduleState: Flow<ScheduleState>
 
     abstract val navigationAction: Flow<ScheduleDetailNavigationAction>
 
-    abstract fun getTitle()
+    abstract fun getTitle(): String
 
     abstract fun getSchedule()
 

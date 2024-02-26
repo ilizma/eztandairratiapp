@@ -33,8 +33,7 @@ dependencies {
     implementation(libs.session)
     implementation(libs.exoplayer)
     implementation(libs.core.ktx)
-    implementation(libs.fragment.ktx)
-    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.activity.ktx)
     implementation(libs.lifecycle.common)
     implementation(libs.annotation)
 

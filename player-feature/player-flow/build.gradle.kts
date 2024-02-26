@@ -23,5 +23,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.navigation.compose)
+    implementation(libs.voyager.navigation)
 }

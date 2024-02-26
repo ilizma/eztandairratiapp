@@ -1,5 +1,6 @@
 package com.ilizma.schedule.view.compose
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,6 +28,8 @@ fun ScheduleScreen(
     viewModel: ScheduleScreenViewModel,
     paddingValues: PaddingValues,
 ) {
+
+    BackHandler { viewModel.onBack() }
     viewModel.days
         .collectAsStateWithLifecycle(Days(listOf()))
         .value

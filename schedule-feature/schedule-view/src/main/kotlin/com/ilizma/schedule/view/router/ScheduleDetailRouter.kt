@@ -1,9 +1,9 @@
 package com.ilizma.schedule.view.router
 
-import androidx.navigation.NavHostController
+import cafe.adriel.voyager.navigator.Navigator
 
 interface ScheduleDetailRouter {
 
-    fun init(navController: NavHostController)
+    fun init(navigator: Navigator)
 
 }

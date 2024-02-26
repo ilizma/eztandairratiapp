@@ -1,7 +1,7 @@
 package com.ilizma.schedule.flow.router
 
 import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.navigation.NavHostController
+import cafe.adriel.voyager.navigator.Navigator
 import com.ilizma.schedule.flow.navigator.ScheduleDetailCloseNavigator
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction.Back
@@ -12,18 +12,18 @@ import kotlinx.coroutines.launch
 class ScheduleDetailRouterImp(
     private val lifecycleCoroutineScope: LifecycleCoroutineScope,
     viewModelLazy: Lazy<ScheduleScreenDetailViewModel>,
-    private val navigator: ScheduleDetailCloseNavigator,
+    private val closeNavigator: ScheduleDetailCloseNavigator,
 ) : ScheduleDetailRouter {
 
     private val viewModel: ScheduleScreenDetailViewModel by viewModelLazy
 
     override fun init(
-        navController: NavHostController,
+        navigator: Navigator,
     ) {
         lifecycleCoroutineScope.launch {
             viewModel.navigationAction.collect {
                 onNavigationAction(
-                    navController = navController,
+                    navigator = navigator,
                     action = it,
                 )
             }
@@ -31,11 +31,11 @@ class ScheduleDetailRouterImp(
     }
 
     private fun onNavigationAction(
-        navController: NavHostController,
+        navigator: Navigator,
         action: ScheduleDetailNavigationAction,
     ) {
         when (action) {
-            Back -> navigator.close(navController)
+            Back -> closeNavigator.close(navigator)
         }
     }
 

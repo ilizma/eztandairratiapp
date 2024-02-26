@@ -22,12 +22,12 @@ object ScheduleDetailRouterModule {
     @Provides
     fun provideScheduleDetailRouter(
         activity: Activity,
-        navigator: ScheduleDetailCloseNavigator,
+        closeNavigator: ScheduleDetailCloseNavigator,
         @Named(SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED) viewModelProviderFactory: ViewModelProvider.Factory,
     ): ScheduleDetailRouter = ScheduleDetailRouterImp(
         viewModelLazy = (activity as ComponentActivity).viewModels { viewModelProviderFactory },
         lifecycleCoroutineScope = activity.lifecycleScope,
-        navigator = navigator,
+        closeNavigator = closeNavigator,
     )
 
 }

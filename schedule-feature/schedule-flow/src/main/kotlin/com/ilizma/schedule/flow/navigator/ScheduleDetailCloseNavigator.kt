@@ -1,9 +1,9 @@
 package com.ilizma.schedule.flow.navigator
 
-import androidx.navigation.NavHostController
+import cafe.adriel.voyager.navigator.Navigator
 
 interface ScheduleDetailCloseNavigator {
 
-    fun close(navController: NavHostController)
+    fun close(navigator: Navigator)
 
 }

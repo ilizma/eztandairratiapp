@@ -3,7 +3,6 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -33,9 +32,9 @@ dependencies {
     //implementation(libs.coroutines)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    implementation(libs.navigation.fragment.ktx)
-    implementation(libs.fragment.ktx)
+    implementation(libs.activity.ktx)
     implementation(libs.material)
+    implementation(libs.settings)
     implementation(project(":di-base"))
     implementation(project(":view-base"))
     implementation(project(":presentation-base"))

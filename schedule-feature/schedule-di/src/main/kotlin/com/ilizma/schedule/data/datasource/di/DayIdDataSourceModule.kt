@@ -1,8 +1,9 @@
 package com.ilizma.schedule.data.datasource.di
 
-import com.ilizma.schedule.data.cache.ScheduleDetailArgsCache
 import com.ilizma.schedule.data.datasource.DayIdDataSource
 import com.ilizma.schedule.data.datasource.DayIdDataSourceImp
+import com.ilizma.schedule.view.compose.SCHEDULE_ID
+import com.russhwolf.settings.Settings
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,9 +15,8 @@ object DayIdDataSourceModule {
 
     @Provides
     fun provideDayIdDataSource(
-        cache: ScheduleDetailArgsCache,
     ): DayIdDataSource = DayIdDataSourceImp(
-        dayId = { cache.get()?.id ?: throw NullPointerException("cached id can not be null") },
+        dayId = { Settings().getInt(SCHEDULE_ID, -1) },
     )
 
 }

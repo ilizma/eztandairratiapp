@@ -1,5 +1,6 @@
 package com.ilizma.schedule.view.compose
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -40,6 +41,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import cafe.adriel.voyager.core.screen.Screen
 import com.ilizma.resources.R
 import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
@@ -49,196 +51,202 @@ import com.ilizma.view.shimmer.ShimmerBrush
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-@Composable
-fun ScheduleDetailScreen(
-    viewModel: ScheduleScreenDetailViewModel,
-) {
-    val snackbarHostState = remember { SnackbarHostState() }
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            TopBar(
-                title = viewModel.dayName
-                    .collectAsStateWithLifecycle("")
-                    .value,
-                onBackClick = { viewModel.onBack() },
-            )
-        },
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-    ) { paddingValues ->
-        viewModel.scheduleState
-            .collectAsStateWithLifecycle(ScheduleState.Loading(listOf()))
-            .value
-            .let {
-                when (it) {
-                    is ScheduleState.Loading,
-                    is ScheduleState.Success -> when (it.list.isEmpty()) {
-                        true -> EmptyView(
-                            paddingValues = paddingValues,
-                        )
+const val SCHEDULE_ID = "SCHEDULE_ID"
+const val SCHEDULE_NAME = "SCHEDULE_NAME"
 
-                        false -> Schedule(
-                            paddingValues = paddingValues,
-                            list = it.list,
-                        )
+class ScheduleDetailScreen(
+    private val viewModel: ScheduleScreenDetailViewModel,
+) : Screen {
+
+    @Composable
+    override fun Content() {
+        val snackbarHostState = remember { SnackbarHostState() }
+        BackHandler { viewModel.onBack() }
+
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            topBar = {
+                TopBar(
+                    title = viewModel.getTitle(),
+                    onBackClick = { viewModel.onBack() },
+                )
+            },
+            snackbarHost = { SnackbarHost(snackbarHostState) },
+        ) { paddingValues ->
+            viewModel.scheduleState
+                .collectAsStateWithLifecycle(ScheduleState.Loading(listOf()))
+                .value
+                .let {
+                    when (it) {
+                        is ScheduleState.Loading,
+                        is ScheduleState.Success -> when (it.list.isEmpty()) {
+                            true -> EmptyView(
+                                paddingValues = paddingValues,
+                            )
+
+                            false -> Schedule(
+                                paddingValues = paddingValues,
+                                list = it.list,
+                            )
+                        }
+
+                        is ScheduleState.Error -> if (it.message.isNotEmpty()) {
+                            Error(
+                                snackbarHostState = snackbarHostState,
+                                errorMessage = it.message,
+                                onClick = { viewModel.retrySchedule() }
+                            )
+                        }
                     }
 
-                    is ScheduleState.Error -> if (it.message.isNotEmpty()) {
-                        Error(
-                            snackbarHostState = snackbarHostState,
-                            errorMessage = it.message,
-                            onClick = { viewModel.retrySchedule() }
-                        )
-                    }
                 }
-
-            }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun TopBar(
-    title: String,
-    onBackClick: () -> Unit,
-) {
-    TopAppBar(
-        title = { Text(text = title) },
-        navigationIcon = {
-            IconButton(
-                onClick = { onBackClick() },
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back"
-                )
-            }
-        }
-    )
-}
-
-@Composable
-private fun EmptyView(
-    paddingValues: PaddingValues,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingValues),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Icon(
-            imageVector = Icons.Default.PlaylistRemove,
-            contentDescription = "Empty list",
-        )
-        Text(
-            text = stringResource(R.string.empty_list),
-            modifier = Modifier
-                .padding(top = 16.dp),
-        )
-    }
-}
-
-@Composable
-private fun Schedule(
-    paddingValues: PaddingValues,
-    list: List<ProgramType>,
-) {
-    LazyColumn(
-        modifier = Modifier.fillMaxWidth(),
-        contentPadding = paddingValues,
-    ) {
-        items(
-            items = list,
-        ) { program ->
-            when (program) {
-                is ProgramType.Loading -> LoadingRow()
-                is ProgramType.Item -> ProgramRow(program = program)
-            }
         }
     }
-}
 
-@Composable
-private fun LoadingRow() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                horizontal = 16.dp,
-                vertical = 8.dp,
-            ),
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun TopBar(
+        title: String,
+        onBackClick: () -> Unit,
     ) {
-        Row(
+        TopAppBar(
+            title = { Text(text = title) },
+            navigationIcon = {
+                IconButton(
+                    onClick = { onBackClick() },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back"
+                    )
+                }
+            }
+        )
+    }
+
+    @Composable
+    private fun EmptyView(
+        paddingValues: PaddingValues,
+    ) {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(40.dp)
-                .background(
-                    brush = ShimmerBrush(),
-                    shape = RoundedCornerShape(12.dp),
-                    alpha = 0.5f,
-                )
+                .fillMaxSize()
+                .padding(paddingValues),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            Icon(
+                imageVector = Icons.Default.PlaylistRemove,
+                contentDescription = "Empty list",
+            )
+            Text(
+                text = stringResource(R.string.empty_list),
+                modifier = Modifier
+                    .padding(top = 16.dp),
+            )
         }
     }
-}
 
-@Composable
-private fun ProgramRow(
-    program: ProgramType.Item,
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                horizontal = 16.dp,
-                vertical = 8.dp,
-            ),
+    @Composable
+    private fun Schedule(
+        paddingValues: PaddingValues,
+        list: List<ProgramType>,
     ) {
-        Row(
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth(),
+            contentPadding = paddingValues,
+        ) {
+            items(
+                items = list,
+            ) { program ->
+                when (program) {
+                    is ProgramType.Loading -> LoadingRow()
+                    is ProgramType.Item -> ProgramRow(program = program)
+                }
+            }
+        }
+    }
+
+    @Composable
+    private fun LoadingRow() {
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
                     horizontal = 16.dp,
                     vertical = 8.dp,
-                )
+                ),
         ) {
-            Text(text = program.hour)
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(text = program.name, fontWeight = FontWeight.Bold)
-            if (program.repeated) {
-                Spacer(modifier = Modifier.width(4.dp))
-                Icon(
-                    imageVector = Icons.Default.Refresh,
-                    contentDescription = "Phone",
-                )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp)
+                    .background(
+                        brush = ShimmerBrush(),
+                        shape = RoundedCornerShape(12.dp),
+                        alpha = 0.5f,
+                    )
+            ) {
             }
-
         }
     }
-}
 
-@Composable
-private fun Error(
-    snackbarHostState: SnackbarHostState,
-    errorMessage: String,
-    onClick: () -> Unit,
-) {
-    stringResource(R.string.retry)
-        .let { retryString ->
-            LaunchedEffect(snackbarHostState) {
-                snackbarHostState.showSnackbar(
-                    message = errorMessage,
-                    actionLabel = retryString,
-                ).let { snackbarResult ->
-                    if (snackbarResult == SnackbarResult.ActionPerformed) {
-                        onClick()
+    @Composable
+    private fun ProgramRow(
+        program: ProgramType.Item,
+    ) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 8.dp,
+                ),
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 8.dp,
+                    )
+            ) {
+                Text(text = program.hour)
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(text = program.name, fontWeight = FontWeight.Bold)
+                if (program.repeated) {
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Icon(
+                        imageVector = Icons.Default.Refresh,
+                        contentDescription = "Phone",
+                    )
+                }
+
+            }
+        }
+    }
+
+    @Composable
+    private fun Error(
+        snackbarHostState: SnackbarHostState,
+        errorMessage: String,
+        onClick: () -> Unit,
+    ) {
+        stringResource(R.string.retry)
+            .let { retryString ->
+                LaunchedEffect(snackbarHostState) {
+                    snackbarHostState.showSnackbar(
+                        message = errorMessage,
+                        actionLabel = retryString,
+                    ).let { snackbarResult ->
+                        if (snackbarResult == SnackbarResult.ActionPerformed) {
+                            onClick()
+                        }
                     }
                 }
             }
-        }
+    }
 }
 
 @Preview(showBackground = true)
@@ -281,8 +289,6 @@ private class ScheduleDetailScreenPreviewProvider :
     class FakeViewModel(
         list: List<ProgramType> = listOf()
     ) : ScheduleScreenDetailViewModel() {
-        override val dayName: Flow<String> = flowOf("Monday")
-
         override val scheduleState: Flow<ScheduleState> = flowOf(
             when (list.firstOrNull()) {
                 is ProgramType.Loading -> ScheduleState.Loading(list as List<ProgramType.Loading>)
@@ -293,8 +299,7 @@ private class ScheduleDetailScreenPreviewProvider :
         override val navigationAction: Flow<ScheduleDetailNavigationAction>
             get() = TODO("Not yet implemented")
 
-        override fun getTitle() {
-        }
+        override fun getTitle() = "Monday"
 
         override fun getSchedule() {
         }

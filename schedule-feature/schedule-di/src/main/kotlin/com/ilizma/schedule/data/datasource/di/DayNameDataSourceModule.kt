@@ -1,8 +1,9 @@
 package com.ilizma.schedule.data.datasource.di
 
-import com.ilizma.schedule.data.cache.ScheduleDetailArgsCache
 import com.ilizma.schedule.data.datasource.DayNameDataSource
 import com.ilizma.schedule.data.datasource.DayNameDataSourceImp
+import com.ilizma.schedule.view.compose.SCHEDULE_NAME
+import com.russhwolf.settings.Settings
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,9 +15,8 @@ object DayNameDataSourceModule {
 
     @Provides
     fun provideDayNameDataSource(
-        cache: ScheduleDetailArgsCache,
     ): DayNameDataSource = DayNameDataSourceImp(
-        dayName = { cache.get()?.name ?: throw NullPointerException("cached name can not be null") },
+        dayName = { Settings().getString(SCHEDULE_NAME, "") },
     )
 
 }

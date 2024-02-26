@@ -25,5 +25,6 @@ android {
 
 dependencies {
     implementation(libs.annotation)
-    implementation(libs.navigation.compose)
+    implementation(libs.voyager.navigation)
+    implementation(libs.settings)
 }

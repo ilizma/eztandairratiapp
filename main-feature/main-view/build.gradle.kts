@@ -42,13 +42,15 @@ dependencies {
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
-    implementation(libs.navigation.compose)
+    implementation(libs.compose.material.icons.extended)
+    implementation(libs.voyager.navigation)
+    implementation(libs.settings)
     debugImplementation(libs.ui.tooling)
+    implementation(libs.mediarouter)
+    implementation(libs.cast.framework)
+
     implementation(project(":view-base"))
     implementation(project(":resources"))
-
-    implementation(project(":navigation-view"))
-    implementation(project(":navigation-presentation"))
 
     implementation(project(":player-view"))
     implementation(project(":player-presentation"))

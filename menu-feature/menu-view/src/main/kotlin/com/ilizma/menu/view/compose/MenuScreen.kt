@@ -1,5 +1,6 @@
 package com.ilizma.menu.view.compose
 
+import androidx.activity.compose.BackHandler
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
@@ -33,6 +34,8 @@ fun MenuScreen(
     viewModel: MenuScreenViewModel,
     paddingValues: PaddingValues,
 ) {
+
+    BackHandler { viewModel.onBack() }
     Column(
         modifier = Modifier
             .fillMaxSize()

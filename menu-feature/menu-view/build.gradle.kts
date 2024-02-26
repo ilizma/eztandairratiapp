@@ -41,7 +41,7 @@ dependencies {
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
-    implementation(libs.navigation.compose)
+    implementation(libs.voyager.navigation)
     debugImplementation(libs.ui.tooling)
     implementation(project(":resources"))
     implementation(project(":view-base"))

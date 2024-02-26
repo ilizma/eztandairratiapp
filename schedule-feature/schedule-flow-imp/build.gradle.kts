@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
-    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -27,9 +26,9 @@ android {
 dependencies {
     implementation(libs.appcompat)
     implementation(libs.lifecycle.common)
-    implementation(libs.navigation.compose)
+    implementation(libs.voyager.navigation)
+    implementation(libs.settings)
     implementation(project(":schedule-flow"))
     implementation(project(":schedule-view"))
     implementation(project(":schedule-presentation"))
-    implementation(project(":navigation-view"))
 }

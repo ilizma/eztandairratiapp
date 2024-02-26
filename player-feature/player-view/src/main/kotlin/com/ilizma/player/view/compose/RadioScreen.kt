@@ -1,6 +1,7 @@
 package com.ilizma.player.view.compose
 
 import android.view.Menu
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -39,6 +40,8 @@ fun RadioScreen(
     paddingValues: PaddingValues,
     snackbarHostState: SnackbarHostState,
 ) {
+
+    BackHandler { viewModel.onBack() }
     viewModel.playerState
         .collectAsStateWithLifecycle(PlayerState.Stopped)
         .value
@@ -114,7 +117,8 @@ private fun ScreenBox(
                 when (state) {
                     PlayerState.Stopped -> viewModel.onPlay()
                     PlayerState.Playing -> viewModel.onStop()
-                    else -> { /* no-op */ }
+                    else -> { /* no-op */
+                    }
                 }
             },
         ) {

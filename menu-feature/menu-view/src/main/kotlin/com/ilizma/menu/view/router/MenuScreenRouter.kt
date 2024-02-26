@@ -1,9 +1,10 @@
 package com.ilizma.menu.view.router
 
-import androidx.navigation.NavHostController
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
 
 interface MenuScreenRouter {
 
-    fun init(mainNavController: NavHostController)
+    fun init(navigator: TabNavigator, tab: Tab)
 
 }

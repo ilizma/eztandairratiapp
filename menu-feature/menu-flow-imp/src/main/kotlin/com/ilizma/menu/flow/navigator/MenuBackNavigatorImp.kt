@@ -1,17 +1,15 @@
 package com.ilizma.menu.flow.navigator
 
-import androidx.navigation.NavHostController
-import com.ilizma.navigation.view.model.NavigationBarItemType
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
 
 class MenuBackNavigatorImp : MenuBackNavigator {
 
     override fun back(
-        navController: NavHostController,
+        navigator: TabNavigator,
+        tab: Tab,
     ) {
-        navController.popBackStack(
-            route = NavigationBarItemType.RADIO.name,
-            inclusive = false,
-        )
+        navigator.current = tab
     }
 
 }

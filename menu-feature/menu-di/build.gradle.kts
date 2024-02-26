@@ -27,7 +27,7 @@ android {
 dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    implementation(libs.fragment.ktx)
+    implementation(libs.activity.ktx)
     implementation(project(":di-base"))
     implementation(project(":presentation-base"))
 

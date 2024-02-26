@@ -18,7 +18,6 @@ class ScheduleDetailViewModelFactory(
         mapper = ScheduleStateMapper(ProgramTypeMapper()),
         unknownErrorMessage = unknownErrorMessage,
         isDebug = isDebug,
-        _dayName = MutableSharedFlow(),
         _scheduleState = MutableSharedFlow(),
         _navigationAction = MutableSharedFlow(),
     ) as T

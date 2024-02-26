@@ -26,19 +26,10 @@ class ScheduleScreenDetailViewModelImp @AssistedInject constructor(
     @Assisted private val mapper: ScheduleStateMapper,
     @Assisted private val unknownErrorMessage: String,
     @Assisted private val isDebug: Boolean,
-    @Assisted private val _dayName: MutableSharedFlow<String>,
     @Assisted private val _scheduleState: MutableSharedFlow<PresentationScheduleState>,
     @Assisted private val _navigationAction: MutableSharedFlow<ScheduleDetailNavigationAction>,
 ) : ScheduleScreenDetailViewModel() {
 
-    override val dayName: Flow<String> = _dayName
-        .distinctUntilChanged()
-        .flowOn(Dispatchers.IO)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-            initialValue = "",
-        )
     override val scheduleState: Flow<PresentationScheduleState> = _scheduleState
         .distinctUntilChanged()
         .flowOn(Dispatchers.IO)
@@ -50,10 +41,7 @@ class ScheduleScreenDetailViewModelImp @AssistedInject constructor(
         )
     override val navigationAction: Flow<ScheduleDetailNavigationAction> = _navigationAction
 
-    override fun getTitle() {
-        dayNameUseCase()
-            .let { viewModelScope.launch(Dispatchers.IO) { _dayName.emit(it) } }
-    }
+    override fun getTitle(): String = dayNameUseCase()
 
     override fun getSchedule() {
         viewModelScope.launch(Dispatchers.IO) {

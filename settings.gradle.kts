@@ -52,15 +52,6 @@ include(
     ":error-management-view-imp",
     // endregion
 
-    // region Navigation
-    ":navigation-di",
-    ":navigation-view",
-    ":navigation-presentation",
-    ":navigation-presentation-imp",
-    ":navigation-domain",
-    ":navigation-domain-imp",
-    // endregion
-
     // region Player
     ":player-di",
     ":player-flow",
@@ -140,15 +131,6 @@ project(":main-view").projectDir = File("main-feature/main-view")
 project(":error-management-di").projectDir = File("error-management-feature/error-management-di")
 project(":error-management-view").projectDir = File("error-management-feature/error-management-view")
 project(":error-management-view-imp").projectDir = File("error-management-feature/error-management-view-imp")
-// endregion
-
-// region Navigation
-project(":navigation-di").projectDir = File("navigation-feature/navigation-di")
-project(":navigation-view").projectDir = File("navigation-feature/navigation-view")
-project(":navigation-presentation").projectDir = File("navigation-feature/navigation-presentation")
-project(":navigation-presentation-imp").projectDir = File("navigation-feature/navigation-presentation-imp")
-project(":navigation-domain").projectDir = File("navigation-feature/navigation-domain")
-project(":navigation-domain-imp").projectDir = File("navigation-feature/navigation-domain-imp")
 // endregion
 
 // region Player

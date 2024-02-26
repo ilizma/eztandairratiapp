@@ -1,9 +1,10 @@
 package com.ilizma.schedule.flow.navigator
 
-import androidx.navigation.NavHostController
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
 
 interface ScheduleBackNavigator {
 
-    fun back(navController: NavHostController)
+    fun back(navigator: TabNavigator, tab: Tab)
 
 }

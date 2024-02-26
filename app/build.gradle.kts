@@ -84,10 +84,6 @@ dependencies {
     implementation(project(":error-management-di"))
     // endregion
 
-    // region Navigation
-    implementation(project(":navigation-di"))
-    // endregion
-
     // region Player
     implementation(project(":player-di"))
     // endregion

@@ -1,9 +1,13 @@
 package com.ilizma.schedule.flow.navigator
 
-import androidx.navigation.NavHostController
+import cafe.adriel.voyager.navigator.Navigator
 
 interface ScheduleDetailNavigator {
 
-    fun navigate(navController: NavHostController, id: Int, name: String)
+    fun navigate(
+        navigator: Navigator,
+        id: Int,
+        name: String
+    )
 
 }

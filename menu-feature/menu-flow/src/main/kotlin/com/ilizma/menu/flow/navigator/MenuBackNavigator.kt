@@ -1,9 +1,10 @@
 package com.ilizma.menu.flow.navigator
 
-import androidx.navigation.NavHostController
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
 
 interface MenuBackNavigator {
 
-    fun back(navController: NavHostController)
+    fun back(navigator: TabNavigator, tab: Tab)
 
 }
