@@ -10,6 +10,48 @@
       <module name="error-management-feature.eztandairratiapp.error-management-di" target="17" />
       <module name="error-management-feature.eztandairratiapp.error-management-view" target="17" />
       <module name="error-management-feature.eztandairratiapp.error-management-view-imp" target="17" />
+      <module name="Eztanda_Irratiapp.api-di" target="21" />
+      <module name="Eztanda_Irratiapp.app" target="21" />
+      <module name="Eztanda_Irratiapp.buildSrc" target="21" />
+      <module name="Eztanda_Irratiapp.buildSrc.main" target="21" />
+      <module name="Eztanda_Irratiapp.buildSrc.test" target="21" />
+      <module name="Eztanda_Irratiapp.cast-di" target="21" />
+      <module name="Eztanda_Irratiapp.cast-flow" target="21" />
+      <module name="Eztanda_Irratiapp.cast-flow-imp" target="21" />
+      <module name="Eztanda_Irratiapp.cast-framework-imp" target="21" />
+      <module name="Eztanda_Irratiapp.cast-view" target="21" />
+      <module name="Eztanda_Irratiapp.di-base" target="21" />
+      <module name="Eztanda_Irratiapp.error-management-di" target="21" />
+      <module name="Eztanda_Irratiapp.error-management-view" target="21" />
+      <module name="Eztanda_Irratiapp.error-management-view-imp" target="21" />
+      <module name="Eztanda_Irratiapp.main-di" target="21" />
+      <module name="Eztanda_Irratiapp.main-view" target="21" />
+      <module name="Eztanda_Irratiapp.menu-di" target="21" />
+      <module name="Eztanda_Irratiapp.menu-flow" target="21" />
+      <module name="Eztanda_Irratiapp.menu-flow-imp" target="21" />
+      <module name="Eztanda_Irratiapp.menu-presentation" target="21" />
+      <module name="Eztanda_Irratiapp.menu-presentation-imp" target="21" />
+      <module name="Eztanda_Irratiapp.menu-view" target="21" />
+      <module name="Eztanda_Irratiapp.net" target="21" />
+      <module name="Eztanda_Irratiapp.net-di" target="21" />
+      <module name="Eztanda_Irratiapp.player-di" target="21" />
+      <module name="Eztanda_Irratiapp.player-flow" target="21" />
+      <module name="Eztanda_Irratiapp.player-flow-imp" target="21" />
+      <module name="Eztanda_Irratiapp.player-framework-imp" target="21" />
+      <module name="Eztanda_Irratiapp.player-presentation" target="21" />
+      <module name="Eztanda_Irratiapp.player-presentation-imp" target="21" />
+      <module name="Eztanda_Irratiapp.player-view" target="21" />
+      <module name="Eztanda_Irratiapp.presentation-base" target="21" />
+      <module name="Eztanda_Irratiapp.resources" target="21" />
+      <module name="Eztanda_Irratiapp.review-di" target="21" />
+      <module name="Eztanda_Irratiapp.review-framework-imp" target="21" />
+      <module name="Eztanda_Irratiapp.schedule-di" target="21" />
+      <module name="Eztanda_Irratiapp.schedule-flow" target="21" />
+      <module name="Eztanda_Irratiapp.schedule-flow-imp" target="21" />
+      <module name="Eztanda_Irratiapp.schedule-presentation" target="21" />
+      <module name="Eztanda_Irratiapp.schedule-presentation-imp" target="21" />
+      <module name="Eztanda_Irratiapp.schedule-view" target="21" />
+      <module name="Eztanda_Irratiapp.view-base" target="21" />
       <module name="eztandairratiapp.app" target="17" />
       <module name="eztandairratiapp.buildSrc" target="17" />
       <module name="eztandairratiapp.buildSrc.main" target="17" />

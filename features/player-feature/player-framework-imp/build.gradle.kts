@@ -1,0 +1,52 @@
+plugins {
+    id("com.android.library")
+    id("kotlin-android")
+    id("com.google.devtools.ksp")
+    id("dagger.hilt.android.plugin")
+}
+
+android {
+    namespace = "com.ilizma.player.framework.imp"
+    compileSdk = ConfigData.compileSdkVersion
+
+    defaultConfig {
+        minSdk = ConfigData.minSdkVersion
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
+    }
+
+    buildTypes {
+        getByName("debug") {
+            buildConfigField("String", "AUDIO_URL", "\"" + Environments.debug.audioURL + "\"")
+        }
+        getByName("release") {
+            buildConfigField("String", "AUDIO_URL", "\"" + Environments.release.audioURL + "\"")
+        }
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    sourceSets {
+        getByName("main").java.srcDirs("src/main/kotlin")
+        getByName("test").java.srcDirs("src/test/kotlin")
+    }
+
+}
+
+dependencies {
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    //implementation(libs.coroutines)
+    implementation(libs.appcompat)
+    implementation(libs.media)
+    implementation(libs.session)
+    implementation(libs.exoplayer)
+    implementation(libs.core.ktx)
+    implementation(project(":resources"))
+    implementation(project(":player-framework"))
+}

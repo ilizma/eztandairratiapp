@@ -1,6 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
@@ -17,13 +17,8 @@ plugins {
 
 subprojects {
     tasks.withType<KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = ConfigData.javaVersion.toString()
-//            freeCompilerArgs = listOf(
-//                "-Xallow-jvm-ir-dependencies",
-//                "-P",
-//                "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
-//            )
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
 }
