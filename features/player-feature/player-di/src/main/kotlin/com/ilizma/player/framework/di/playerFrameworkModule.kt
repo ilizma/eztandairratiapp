@@ -2,6 +2,8 @@ package com.ilizma.player.framework.di
 
 import android.content.ComponentName
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.session.MediaController
+import androidx.media3.session.SessionToken
 import com.ilizma.player.framework.PlayerFramework
 import com.ilizma.player.framework.PlayerFrameworkImp
 import com.ilizma.player.framework.model.PlayerState
@@ -19,9 +21,18 @@ val playerFrameworkModule: Module = module {
             androidContext(),
             MusicService::class.java,
         ).let {
+            SessionToken(
+                androidContext(),
+                it,
+            )
+        }.let {
+            MediaController.Builder(
+                androidContext(),
+                it,
+            )
+        }.let {
             PlayerFrameworkImp(
-                context = androidContext(),
-                serviceComponent = it,
+                mediaControllerBuilder = it,
                 _playerState = MutableStateFlow(PlayerState.Stopped),
             )
         }

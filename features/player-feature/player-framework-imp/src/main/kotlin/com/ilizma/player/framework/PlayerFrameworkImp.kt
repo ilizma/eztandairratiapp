@@ -1,14 +1,11 @@
 package com.ilizma.player.framework
 
-import android.content.ComponentName
-import android.content.Context
 import androidx.core.os.bundleOf
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionCommand
-import androidx.media3.session.SessionToken
 import com.google.common.util.concurrent.MoreExecutors
 import com.ilizma.player.framework.imp.BuildConfig
 import com.ilizma.player.framework.model.PlayerState
@@ -18,8 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 private const val CANCEL_NOTIFICATION = "CANCEL_NOTIFICATION"
 
 class PlayerFrameworkImp(
-    context: Context,
-    serviceComponent: ComponentName,
+    mediaControllerBuilder: MediaController.Builder,
     private val _playerState: MutableStateFlow<PlayerState>,
 ) : PlayerFramework {
 
@@ -93,20 +89,12 @@ class PlayerFrameworkImp(
     }
 
     init {
-        val sessionToken = SessionToken(
-            context,
-            serviceComponent,
-        )
-
-        MediaController.Builder(
-            context,
-            sessionToken,
-        ).buildAsync()
+        mediaControllerBuilder.buildAsync()
             //.also { controllerFuture = it }
-            .let { controllerFuture ->
-                controllerFuture.addListener(
+            .let {
+                it.addListener(
                     {
-                        mediaController = controllerFuture.get()
+                        mediaController = it.get()
                             .also { it.addListener(playerListener) }
                     },
                     MoreExecutors.directExecutor(),
