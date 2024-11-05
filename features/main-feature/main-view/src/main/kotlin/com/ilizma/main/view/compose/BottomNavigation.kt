@@ -24,7 +24,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -39,11 +38,16 @@ import com.ilizma.resources.R
 import com.ilizma.schedule.flow.model.ScheduleTab
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.schedule.view.compose.ScheduleScreen
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.scope.Scope
 
 @Composable
 internal fun BottomNavigation(
-    lazyViewModels: List<Lazy<ViewModel>>,
+    scope: Scope,
     navController: NavHostController,
+    radioScreenViewModel: RadioScreenViewModel,
+    scheduleScreenViewModel: ScheduleScreenViewModel,
+    menuScreenViewModel: MenuScreenViewModel,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val navigationBarItemType = rememberSaveable { mutableStateOf(BottomBarItemType.RADIO) }
@@ -64,11 +68,14 @@ internal fun BottomNavigation(
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { paddingValues ->
         Content(
-            lazyViewModels = lazyViewModels,
+            scope = scope,
             navigationBarItemType = { navigationBarItemType.value = it },
             navController = navController,
             snackbarHostState = snackbarHostState,
             paddingValues = paddingValues,
+            radioScreenViewModel = radioScreenViewModel,
+            scheduleScreenViewModel = scheduleScreenViewModel,
+            menuScreenViewModel = menuScreenViewModel,
         )
     }
 }
@@ -160,7 +167,7 @@ private fun RowScope.BottomBarItem(
     @StringRes textResource: Int,
     icon: ImageVector,
     contentDescription: String,
-    itemSelected: () -> Unit
+    itemSelected: () -> Unit,
 ) {
     NavigationBarItem(
         selected = selected,
@@ -181,17 +188,20 @@ private fun RowScope.BottomBarItem(
 
 @Composable
 private fun Content(
-    lazyViewModels: List<Lazy<ViewModel>>,
+    scope: Scope,
     navigationBarItemType: (BottomBarItemType) -> Unit,
     navController: NavHostController,
     snackbarHostState: SnackbarHostState,
     paddingValues: PaddingValues,
+    radioScreenViewModel: RadioScreenViewModel,
+    scheduleScreenViewModel: ScheduleScreenViewModel,
+    menuScreenViewModel: MenuScreenViewModel,
 ) {
     NavHost(navController = navController, startDestination = RadioTab) {
         composable<RadioTab> {
             navigationBarItemType(BottomBarItemType.RADIO)
             RadioScreen(
-                viewModel = lazyViewModels.first { it.value is RadioScreenViewModel }.value as RadioScreenViewModel,
+                viewModel = radioScreenViewModel,
                 paddingValues = paddingValues,
                 snackbarHostState = snackbarHostState,
             )
@@ -200,7 +210,7 @@ private fun Content(
         composable<ScheduleTab> {
             navigationBarItemType(BottomBarItemType.SCHEDULE)
             ScheduleScreen(
-                viewModel = lazyViewModels.first { it.value is ScheduleScreenViewModel }.value as ScheduleScreenViewModel,
+                viewModel = scheduleScreenViewModel,
                 paddingValues = paddingValues,
             )
         }
@@ -208,7 +218,7 @@ private fun Content(
         composable<MenuTab> {
             navigationBarItemType(BottomBarItemType.MENU)
             MenuScreen(
-                viewModel = lazyViewModels.first { it.value is MenuScreenViewModel }.value as MenuScreenViewModel,
+                viewModel = menuScreenViewModel,
                 paddingValues = paddingValues,
             )
         }

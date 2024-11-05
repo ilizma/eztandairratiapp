@@ -26,7 +26,9 @@ class FacebookNavigatorImp(
         } catch (e: Exception) {
             "https://www.facebook.com/eztanda.irratia"
         }.let { Uri.parse(it) }
-            .let { context.startActivity(Intent(Intent.ACTION_VIEW, it)) }
+            .let { Intent(Intent.ACTION_VIEW, it) }
+            .apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK }
+            .let { context.startActivity(it) }
     }
 
 }

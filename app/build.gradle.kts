@@ -4,7 +4,6 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -46,8 +45,9 @@ android {
 }
 
 dependencies {
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics.ktx)
     implementation(libs.firebase.analytics.ktx)
@@ -64,14 +64,8 @@ dependencies {
     // net
     implementation(project(":net-di"))
 
-    // di
-    implementation(project(":di-base"))
-
     // View
     implementation(project(":view-base"))
-
-    // Presentation
-    implementation(project(":presentation-base"))
 
     // Resources
     implementation(project(":resources"))

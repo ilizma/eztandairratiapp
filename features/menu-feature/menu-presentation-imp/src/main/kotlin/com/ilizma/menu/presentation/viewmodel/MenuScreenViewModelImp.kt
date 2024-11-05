@@ -8,15 +8,13 @@ import com.ilizma.menu.presentation.model.MenuNavigationAction.Instagram
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Phone
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Twitter
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Web
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class MenuScreenViewModelImp @AssistedInject constructor(
-    @Assisted private val _navigationAction: MutableSharedFlow<MenuNavigationAction>,
+class MenuScreenViewModelImp(
+    private val _navigationAction: MutableSharedFlow<MenuNavigationAction>,
 ) : MenuScreenViewModel() {
 
     override val navigationAction: Flow<MenuNavigationAction> = _navigationAction

@@ -2,7 +2,6 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -25,8 +24,10 @@ android {
 }
 
 dependencies {
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.core.viewmodel)
+    implementation(libs.koin.android)
     //implementation(libs.coroutines)
     implementation(libs.appcompat)
     implementation(libs.media)
@@ -36,12 +37,6 @@ dependencies {
     implementation(libs.activity.ktx)
     implementation(libs.lifecycle.common)
     implementation(libs.annotation)
-
-    // di
-    implementation(project(":di-base"))
-
-    // Presentation
-    implementation(project(":presentation-base"))
 
     // Resources
     implementation(project(":resources"))
@@ -62,5 +57,8 @@ dependencies {
 
     // region Cast
     implementation(project(":cast-flow"))
+    implementation(project(":cast-framework"))
     // endregion
+
+    implementation(project(":main-view"))
 }

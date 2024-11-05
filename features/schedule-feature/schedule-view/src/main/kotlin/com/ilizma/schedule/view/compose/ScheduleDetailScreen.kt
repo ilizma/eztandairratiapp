@@ -46,14 +46,14 @@ import com.ilizma.resources.R
 import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
 import com.ilizma.schedule.presentation.model.ScheduleState
-import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenDetailViewModel
+import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
 import com.ilizma.view.shimmer.ShimmerBrush
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun ScheduleDetailScreen(
-    viewModel: ScheduleScreenDetailViewModel,
+    viewModel: ScheduleDetailScreenViewModel,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     BackHandler { viewModel.onBack() }
@@ -251,21 +251,21 @@ private fun Error(
 @Preview(showBackground = true)
 @Composable
 private fun ScheduleDetailScreenPreview(
-    @PreviewParameter(ScheduleDetailScreenPreviewProvider::class) viewModel: ScheduleScreenDetailViewModel,
+    @PreviewParameter(ScheduleDetailScreenPreviewProvider::class) viewModel: ScheduleDetailScreenViewModel,
 ) {
     ScheduleDetailScreen(viewModel)
 }
 
 private class ScheduleDetailScreenPreviewProvider :
-    PreviewParameterProvider<ScheduleScreenDetailViewModel> {
-    override val values: Sequence<ScheduleScreenDetailViewModel> = sequenceOf(
-        FakeViewModel(
+    PreviewParameterProvider<ScheduleDetailScreenViewModel> {
+    override val values: Sequence<ScheduleDetailScreenViewModel> = sequenceOf(
+        FakeScreenViewModel(
             listOf(
                 ProgramType.Loading,
                 ProgramType.Loading,
             )
         ),
-        FakeViewModel(
+        FakeScreenViewModel(
             listOf(
                 ProgramType.Item(
                     hour = "12:00",
@@ -281,13 +281,13 @@ private class ScheduleDetailScreenPreviewProvider :
                 ),
             )
         ),
-        FakeViewModel(),
+        FakeScreenViewModel(),
     )
 
     @Suppress("UNCHECKED_CAST")
-    class FakeViewModel(
+    class FakeScreenViewModel(
         list: List<ProgramType> = listOf()
-    ) : ScheduleScreenDetailViewModel() {
+    ) : ScheduleDetailScreenViewModel() {
         override val scheduleState: Flow<ScheduleState> = flowOf(
             when (list.firstOrNull()) {
                 is ProgramType.Loading -> ScheduleState.Loading(list as List<ProgramType.Loading>)

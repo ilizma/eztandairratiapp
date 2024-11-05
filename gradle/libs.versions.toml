@@ -17,7 +17,7 @@ media-version = "1.7.0"
 media3-version = "1.4.1"
 annotation-version = "1.9.1"
 browser-version = "1.8.0"
-hilt-version = "2.52"
+koin-version = "4.0.0"
 firebase-bom-version = "33.5.1"
 mediarouter-version = "1.7.0"
 cast-framework-version = "22.0.0"
@@ -32,12 +32,12 @@ mockk-version = "1.13.11"
 junit-jupiter-version = "5.10.2"
 chucker-version = "4.0.0"
 ktorfit-version = "2.1.0"
-ktor-version = "2.3.12"
+ktor-version = "3.0.0"
 ui-tooling = "1.7.5"
 ## endregion
 ## region plugins
 android-plugin-version = "8.7.2"
-ksp-plugin-version = "2.0.20-1.0.24"
+ksp-plugin-version = "2.0.21-1.0.25"
 google-services-plugin-version = "4.4.2"
 crashlytics-plugin-version = "3.0.2"
 safeargs-plugin-version = "2.7.7"
@@ -83,8 +83,13 @@ lifecycle-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-co
 customactivityoncrash = { group = "cat.ereza", name = "customactivityoncrash", version.ref = "customactivityoncrash-version" }
 ## endregion
 ## region di
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt-version" }
-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt-version" }
+koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin-version" }
+koin-core = { group = "io.insert-koin", name = "koin-core" }
+koin-core-viewmodel = { group = "io.insert-koin", name = "koin-core-viewmodel" }
+koin-android = { group = "io.insert-koin", name = "koin-android" }
+koin-compose = { group = "io.insert-koin", name = "koin-compose" }
+koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel" }
+koin-compose-viewmodel-navigation = { group = "io.insert-koin", name = "koin-androidx-compose-viewmodel-navigation" }
 ## endregion
 ## region firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom-version" }
@@ -142,7 +147,6 @@ kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin-version" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services-plugin-version" }
 crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics-plugin-version" }
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt-version" }
 junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin-version" }
 ktorfit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit-version" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-version" }

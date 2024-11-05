@@ -35,6 +35,7 @@ import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
 import com.ilizma.resources.R
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun RadioScreen(

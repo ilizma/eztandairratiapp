@@ -2,7 +2,6 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -25,12 +24,9 @@ android {
 }
 
 dependencies {
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
-    //implementation(libs.coroutines)
-
-    // di
-    implementation(project(":di-base"))
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.coroutines)
 
     // resources
     implementation(project(":resources"))
@@ -46,4 +42,6 @@ dependencies {
     // region Player
     implementation(project(":player-framework"))
     // endregion
+
+    implementation(project(":main-view"))
 }

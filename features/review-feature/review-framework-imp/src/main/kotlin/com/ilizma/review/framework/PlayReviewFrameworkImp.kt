@@ -5,12 +5,14 @@ import com.google.android.play.core.review.ReviewManager
 
 class PlayReviewFrameworkImp(
     private val activity: Activity,
-    private val manager: ReviewManager,
+    private val manager: () -> ReviewManager,
 ) : PlayReviewFramework {
 
     override fun request() {
-        manager.requestReviewFlow().addOnSuccessListener {
-            manager.launchReviewFlow(activity, it)
+        manager().apply {
+            requestReviewFlow().addOnSuccessListener {
+                launchReviewFlow(activity, it)
+            }
         }
     }
 

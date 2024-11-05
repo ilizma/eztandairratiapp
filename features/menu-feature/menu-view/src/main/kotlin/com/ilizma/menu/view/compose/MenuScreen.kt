@@ -28,6 +28,7 @@ import com.ilizma.menu.presentation.model.MenuNavigationAction
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
 import com.ilizma.resources.R
 import kotlinx.coroutines.flow.Flow
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MenuScreen(

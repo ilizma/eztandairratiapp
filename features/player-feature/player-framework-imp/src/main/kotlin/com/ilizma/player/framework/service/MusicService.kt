@@ -25,26 +25,14 @@ import com.google.common.collect.ImmutableList
 import com.ilizma.player.framework.factory.MediaSessionBuilderFactory
 import com.ilizma.player.framework.factory.PlayerFactory
 import com.ilizma.resources.R
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-
-const val CANCEL_NOTIFICATION = "CANCEL_NOTIFICATION"
+import org.koin.android.ext.android.inject
 
 @UnstableApi
-@AndroidEntryPoint
 class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListener {
 
-    @Inject
-    lateinit var playerFactory: PlayerFactory<ExoPlayer>
-
-    @Inject
-    lateinit var mediaSessionBuilderFactory: MediaSessionBuilderFactory<MediaSession.Builder, ExoPlayer>
-
-    @Inject
-    lateinit var audioFocusRequestBuilder: AudioFocusRequest.Builder
-
-    @Inject
-    lateinit var noisyAudioIntentFilter: IntentFilter
+    private val playerFactory: PlayerFactory<ExoPlayer> by inject()
+    private val mediaSessionBuilderFactory: MediaSessionBuilderFactory<MediaSession.Builder, ExoPlayer> by inject()
+    private val noisyAudioIntentFilter: IntentFilter by inject()
 
     private lateinit var player: ExoPlayer
     private lateinit var mediaSession: MediaSession
@@ -164,7 +152,7 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
             player.release()
             release()
         }
-        abandonAudioFocus(getSystemService(Context.AUDIO_SERVICE) as AudioManager)
+        abandonAudioFocus(getSystemService(AUDIO_SERVICE) as AudioManager)
         unregisterReceiver(mNoisyReceiver)
         super.onDestroy()
     }

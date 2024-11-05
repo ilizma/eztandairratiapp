@@ -12,14 +12,13 @@ import kotlinx.coroutines.launch
 
 class RadioScreenRouterImp(
     private val lifecycleCoroutineScope: LifecycleCoroutineScope,
-    viewModelLazy: Lazy<RadioScreenViewModel>,
     private val radioCloseNavigator: RadioCloseNavigator,
     private val castPlayerNavigator: CastPlayerNavigator,
 ) : RadioScreenRouter {
 
-    private val viewModel: RadioScreenViewModel by viewModelLazy
-
-    override fun init() {
+    override fun init(
+        viewModel: RadioScreenViewModel,
+    ) {
         lifecycleCoroutineScope.launch {
             viewModel.navigationAction.collect { onNavigationAction(it) }
         }

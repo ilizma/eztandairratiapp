@@ -2,7 +2,6 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -25,16 +24,16 @@ android {
 }
 
 dependencies {
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
     implementation(libs.play.review)
     implementation(libs.play.review.ktx)
-
-    // di
-    implementation(project(":di-base"))
 
     // region Review
     api(project(":review-framework"))
     api(project(":review-framework-imp"))
     // endregion
+
+    implementation(project(":main-view"))
 }

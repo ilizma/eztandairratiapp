@@ -4,9 +4,7 @@ import android.view.Menu
 import com.google.android.gms.cast.framework.CastButtonFactory
 import com.google.android.gms.cast.framework.media.widget.ExpandedControllerActivity
 import com.ilizma.cast.view.R
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class ExpandedControlsActivity : ExpandedControllerActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

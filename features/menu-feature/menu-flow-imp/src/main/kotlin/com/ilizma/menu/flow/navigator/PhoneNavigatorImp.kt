@@ -11,7 +11,9 @@ class PhoneNavigatorImp(
     override fun navigate() {
         "948563766"
             .let { Uri.parse("tel:$it") }
-            .let { context.startActivity(Intent(Intent.ACTION_DIAL, it)) }
+            .let { Intent(Intent.ACTION_DIAL, it) }
+            .apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK }
+            .let { context.startActivity(it) }
     }
 
 }

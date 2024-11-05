@@ -4,7 +4,6 @@ plugins {
     id("com.google.devtools.ksp")
     id("de.jensklingenberg.ktorfit")
     id("org.jetbrains.kotlin.plugin.serialization")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -27,8 +26,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
     implementation(libs.ktorfit)

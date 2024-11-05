@@ -8,8 +8,6 @@ import com.ilizma.schedule.presentation.model.Days
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction.Back
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction.ScheduleDetail
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,10 +19,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class ScheduleScreenViewModelImp @AssistedInject constructor(
+class ScheduleScreenViewModelImp(
     useCase: DaysUseCase,
-    @Assisted private val mapper: DaysMapper,
-    @Assisted private val _navigationAction: MutableSharedFlow<ScheduleScreenNavigationAction>,
+    private val mapper: DaysMapper,
+    private val _navigationAction: MutableSharedFlow<ScheduleScreenNavigationAction>,
 ) : ScheduleScreenViewModel() {
 
     override val days: Flow<Days> = flowOf(useCase())

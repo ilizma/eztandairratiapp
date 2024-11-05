@@ -21,7 +21,6 @@ import kotlinx.coroutines.launch
 
 class MenuScreenRouterImp(
     private val lifecycleCoroutineScope: LifecycleCoroutineScope,
-    viewModelLazy: Lazy<MenuScreenViewModel>,
     private val instagramNavigator: InstagramNavigator,
     private val twitterNavigator: TwitterNavigator,
     private val facebookNavigator: FacebookNavigator,
@@ -30,9 +29,8 @@ class MenuScreenRouterImp(
     private val menuBackNavigator: MenuBackNavigator,
 ) : MenuScreenRouter {
 
-    private val viewModel: MenuScreenViewModel by viewModelLazy
-
     override fun init(
+        viewModel: MenuScreenViewModel,
         navController: NavHostController,
     ) {
         lifecycleCoroutineScope.launch {

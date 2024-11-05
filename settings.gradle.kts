@@ -19,14 +19,8 @@ include(
     ":app",
     // endregion
 
-    // di
-    ":di-base",
-
     // View
     ":view-base",
-
-    // Presentation
-    ":presentation-base",
 
     // resources
     ":resources",
@@ -112,8 +106,6 @@ project(":resources").projectDir = File("core/resources")
 // endregion Resources
 
 // region Base
-project(":di-base").projectDir = File("core/di-base")
-project(":presentation-base").projectDir = File("core/presentation-base")
 project(":view-base").projectDir = File("core/view-base")
 // endregion Base
 // endregion CORE

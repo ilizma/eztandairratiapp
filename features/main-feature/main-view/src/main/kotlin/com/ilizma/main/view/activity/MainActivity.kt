@@ -10,74 +10,31 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
-import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.ViewModelProvider
 import com.ilizma.main.view.compose.AppNavigation
-import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
-import com.ilizma.menu.view.router.MenuScreenRouter
-import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
-import com.ilizma.player.view.router.RadioScreenRouter
 import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
 import com.ilizma.review.framework.PlayReviewFramework
-import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenDetailViewModel
-import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
-import com.ilizma.schedule.view.router.ScheduleDetailRouter
-import com.ilizma.schedule.view.router.ScheduleScreenRouter
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-import javax.inject.Named
+import org.koin.android.ext.android.inject
+import org.koin.android.scope.AndroidScopeComponent
+import org.koin.androidx.scope.activityScope
+import org.koin.compose.KoinContext
+import org.koin.core.scope.Scope
 
-private const val RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED = "RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED"
-private const val SCHEDULE_SCREEN_VIEW_MODEL_PROVIDER_NAMED =
-    "SCHEDULE_SCREEN_VIEW_MODEL_PROVIDER_NAMED"
-private const val MENU_SCREEN_VIEW_MODEL_PROVIDER_NAMED = "MENU_SCREEN_VIEW_MODEL_PROVIDER_NAMED"
-private const val SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED =
-    "SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED"
+class MainActivity : ComponentActivity(), AndroidScopeComponent {
 
-@AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+    override val scope: Scope by activityScope()
 
-    @Inject
-    internal lateinit var reviewFramework: PlayReviewFramework
-
-    @Inject
-    internal lateinit var radioScreenRouter: RadioScreenRouter
-
-    @Inject
-    internal lateinit var scheduleScreenRouter: ScheduleScreenRouter
-
-    @Inject
-    internal lateinit var menuScreenRouter: MenuScreenRouter
-
-    @Inject
-    internal lateinit var scheduleDetailScreenRouter: ScheduleDetailRouter
-
-    @Named(RADIO_SCREEN_VIEW_MODEL_PROVIDER_NAMED)
-    @Inject
-    internal lateinit var radioViewModelProviderFactory: ViewModelProvider.Factory
-
-    @Named(SCHEDULE_SCREEN_VIEW_MODEL_PROVIDER_NAMED)
-    @Inject
-    internal lateinit var scheduleViewModelProviderFactory: ViewModelProvider.Factory
-
-    @Named(MENU_SCREEN_VIEW_MODEL_PROVIDER_NAMED)
-    @Inject
-    internal lateinit var menuViewModelProviderFactory: ViewModelProvider.Factory
-
-    @Named(SCHEDULE_DETAIL_VIEW_MODEL_PROVIDER_NAMED)
-    @Inject
-    internal lateinit var scheduleDetailViewModelProviderFactory: ViewModelProvider.Factory
+    private val reviewFramework: PlayReviewFramework by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        checkNotNull(scope)
         // As a music player, the volume controls should adjust the music volume while in the app.
         volumeControlStream = AudioManager.STREAM_MUSIC
 
         reviewFramework.request()
 
-        val requestPermissionLauncher =
-            registerForActivityResult(RequestPermission()) {}
+        val requestPermissionLauncher = registerForActivityResult(RequestPermission()) {}
 
         setContent {
             EztandaIrratiappTheme(dynamicColor = false) {
@@ -85,20 +42,18 @@ class MainActivity : ComponentActivity() {
                     activity = this,
                     requestPermissionLauncher = requestPermissionLauncher,
                 )
-                AppNavigation(
-                    lazyViewModels = listOf(
-                        viewModels<RadioScreenViewModel> { radioViewModelProviderFactory },
-                        viewModels<ScheduleScreenViewModel> { scheduleViewModelProviderFactory },
-                        viewModels<MenuScreenViewModel> { menuViewModelProviderFactory },
-                        viewModels<ScheduleScreenDetailViewModel> { scheduleDetailViewModelProviderFactory },
-                    ),
-                    radioScreenRouter = radioScreenRouter,
-                    scheduleScreenRouter = scheduleScreenRouter,
-                    scheduleDetailScreenRouter = scheduleDetailScreenRouter,
-                    menuScreenRouter = menuScreenRouter,
-                )
+                KoinContext {
+                    AppNavigation(
+                        scope = scope,
+                    )
+                }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.close()
     }
 }
 

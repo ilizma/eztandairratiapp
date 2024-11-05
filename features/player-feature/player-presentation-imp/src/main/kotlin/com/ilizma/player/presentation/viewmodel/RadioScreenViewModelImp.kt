@@ -14,8 +14,6 @@ import com.ilizma.player.presentation.mapper.PlayerStateMapper
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.Back
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.CastPlayer
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -27,13 +25,13 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import com.ilizma.player.presentation.model.PlayerState as PresentationPlayerState
 
-class RadioScreenViewModelImp @AssistedInject constructor(
+class RadioScreenViewModelImp(
     stateUseCase: PlayerStateUseCase,
     private val playUseCase: PlayerPlayUseCase,
     private val stopUseCase: PlayerStopUseCase,
     private val castFramework: CastFramework,
-    @Assisted private val mapper: PlayerStateMapper,
-    @Assisted private val _navigationAction: MutableSharedFlow<RadioScreenNavigationAction>,
+    private val mapper: PlayerStateMapper,
+    private val _navigationAction: MutableSharedFlow<RadioScreenNavigationAction>,
 ) : RadioScreenViewModel(), DefaultLifecycleObserver {
 
     override val playerState: Flow<PresentationPlayerState> = stateUseCase()

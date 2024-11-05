@@ -12,14 +12,12 @@ import kotlinx.coroutines.launch
 
 class ScheduleScreenRouterImp(
     private val lifecycleCoroutineScope: LifecycleCoroutineScope,
-    viewModelLazy: Lazy<ScheduleScreenViewModel>,
     private val scheduleBackNavigator: ScheduleBackNavigator,
     private val scheduleDetailNavigator: ScheduleDetailNavigator,
 ) : ScheduleScreenRouter {
 
-    private val viewModel: ScheduleScreenViewModel by viewModelLazy
-
     override fun init(
+        viewModel: ScheduleScreenViewModel,
         navController: NavHostController,
         bottomNavController: NavHostController,
     ) {

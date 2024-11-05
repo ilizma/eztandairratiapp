@@ -19,11 +19,14 @@ import com.ilizma.main.view.activity.MainActivity
 import com.ilizma.resources.R
 import kotlin.random.Random
 
-private const val TAG = "MessagingService"
 const val CHANNEL_ID = "com.ilizma.eztanda_channel_id"
 const val CHANNEL_NAME = "com.ilizma.eztanda_channel_name"
 
 class EztandaFirebaseMessagingService : FirebaseMessagingService() {
+
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+    }
 
     override fun onMessageReceived(
         remoteMessage: RemoteMessage,

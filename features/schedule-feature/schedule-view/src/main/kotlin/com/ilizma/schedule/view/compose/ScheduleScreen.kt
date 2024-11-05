@@ -23,6 +23,7 @@ import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ScheduleScreen(

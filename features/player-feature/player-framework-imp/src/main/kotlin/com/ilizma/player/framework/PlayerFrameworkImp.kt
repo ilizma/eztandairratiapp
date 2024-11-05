@@ -12,9 +12,10 @@ import androidx.media3.session.SessionToken
 import com.google.common.util.concurrent.MoreExecutors
 import com.ilizma.player.framework.imp.BuildConfig
 import com.ilizma.player.framework.model.PlayerState
-import com.ilizma.player.framework.service.CANCEL_NOTIFICATION
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+
+private const val CANCEL_NOTIFICATION = "CANCEL_NOTIFICATION"
 
 class PlayerFrameworkImp(
     context: Context,
