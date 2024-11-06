@@ -2,6 +2,7 @@ package com.ilizma.main.view.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -29,9 +30,9 @@ internal fun AppNavigation(
     scope: Scope,
 ) {
     val radioScreenRouter: RadioScreenRouter = koinInject(scope = scope)
-    val scheduleScreenRouter: ScheduleScreenRouter = koinInject(scope = scope)
-    val menuScreenRouter: MenuScreenRouter = koinInject(scope = scope)
-    val scheduleDetailScreenRouter: ScheduleDetailRouter = koinInject(scope = scope)
+    val scheduleScreenRouter: ScheduleScreenRouter = koinInject()
+    val menuScreenRouter: MenuScreenRouter = koinInject()
+    val scheduleDetailScreenRouter: ScheduleDetailRouter = koinInject()
     val radioScreenViewModel: RadioScreenViewModel = koinViewModel(scope = scope)
     val scheduleScreenViewModel: ScheduleScreenViewModel = koinViewModel()
     val menuScreenViewModel: MenuScreenViewModel = koinViewModel()
@@ -43,6 +44,7 @@ internal fun AppNavigation(
 
     radioScreenRouter.init(
         viewModel = radioScreenViewModel,
+        coroutineScope = rememberCoroutineScope()
     )
     scheduleScreenRouter.init(
         viewModel = scheduleScreenViewModel,
@@ -59,7 +61,6 @@ internal fun AppNavigation(
     )
 
     Content(
-        scope = scope,
         navigationBarItemType = { navigationBarItemType.value = it },
         navController = navController,
         bottomNavController = bottomNavController,
@@ -72,7 +73,6 @@ internal fun AppNavigation(
 
 @Composable
 private fun Content(
-    scope: Scope,
     navigationBarItemType: (AppItemType) -> Unit,
     navController: NavHostController,
     bottomNavController: NavHostController,
@@ -85,7 +85,6 @@ private fun Content(
         composable<BottomNavigation> {
             navigationBarItemType(AppItemType.BOTTOM_NAVIGATION)
             BottomNavigation(
-                scope = scope,
                 navController = bottomNavController,
                 radioScreenViewModel = radioScreenViewModel,
                 scheduleScreenViewModel = scheduleScreenViewModel,

@@ -38,12 +38,9 @@ import com.ilizma.resources.R
 import com.ilizma.schedule.flow.model.ScheduleTab
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.schedule.view.compose.ScheduleScreen
-import org.koin.compose.viewmodel.koinViewModel
-import org.koin.core.scope.Scope
 
 @Composable
 internal fun BottomNavigation(
-    scope: Scope,
     navController: NavHostController,
     radioScreenViewModel: RadioScreenViewModel,
     scheduleScreenViewModel: ScheduleScreenViewModel,
@@ -68,7 +65,6 @@ internal fun BottomNavigation(
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { paddingValues ->
         Content(
-            scope = scope,
             navigationBarItemType = { navigationBarItemType.value = it },
             navController = navController,
             snackbarHostState = snackbarHostState,
@@ -188,7 +184,6 @@ private fun RowScope.BottomBarItem(
 
 @Composable
 private fun Content(
-    scope: Scope,
     navigationBarItemType: (BottomBarItemType) -> Unit,
     navController: NavHostController,
     snackbarHostState: SnackbarHostState,

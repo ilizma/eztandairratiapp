@@ -1,6 +1,6 @@
 package com.ilizma.menu.flow.router
 
-import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.NavHostController
 import com.ilizma.menu.flow.navigator.FacebookNavigator
 import com.ilizma.menu.flow.navigator.InstagramNavigator
@@ -20,7 +20,6 @@ import com.ilizma.menu.view.router.MenuScreenRouter
 import kotlinx.coroutines.launch
 
 class MenuScreenRouterImp(
-    private val lifecycleCoroutineScope: LifecycleCoroutineScope,
     private val instagramNavigator: InstagramNavigator,
     private val twitterNavigator: TwitterNavigator,
     private val facebookNavigator: FacebookNavigator,
@@ -33,7 +32,7 @@ class MenuScreenRouterImp(
         viewModel: MenuScreenViewModel,
         navController: NavHostController,
     ) {
-        lifecycleCoroutineScope.launch {
+        navController.currentBackStackEntry?.lifecycle?.coroutineScope?.launch {
             viewModel.navigationAction.collect {
                 onNavigationAction(
                     navController = navController,

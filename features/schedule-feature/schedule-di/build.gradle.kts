@@ -52,6 +52,4 @@ dependencies {
     api(project(":schedule-data"))
     api(project(":schedule-data-imp"))
     // endregion
-
-    implementation(project(":main-view"))
 }

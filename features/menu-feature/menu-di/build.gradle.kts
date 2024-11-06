@@ -37,6 +37,4 @@ dependencies {
     api(project(":menu-presentation"))
     api(project(":menu-presentation-imp"))
     // endregion
-
-    implementation(project(":main-view"))
 }

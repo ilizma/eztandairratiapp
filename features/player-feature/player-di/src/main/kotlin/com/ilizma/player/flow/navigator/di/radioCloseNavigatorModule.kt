@@ -1,6 +1,5 @@
 package com.ilizma.player.flow.navigator.di
 
-import android.app.Activity
 import com.ilizma.main.view.activity.MainActivity
 import com.ilizma.player.flow.navigator.RadioCloseNavigator
 import com.ilizma.player.flow.navigator.RadioCloseNavigatorImp

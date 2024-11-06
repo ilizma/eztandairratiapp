@@ -93,7 +93,10 @@ class EztandaFirebaseMessagingService : FirebaseMessagingService() {
             PendingIntent.getActivity(
                 this@EztandaFirebaseMessagingService,
                 0,
-                Intent(this@EztandaFirebaseMessagingService, MainActivity::class.java),
+                Intent(
+                    this@EztandaFirebaseMessagingService,
+                    MainActivity::class.java
+                ),
                 when {
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT

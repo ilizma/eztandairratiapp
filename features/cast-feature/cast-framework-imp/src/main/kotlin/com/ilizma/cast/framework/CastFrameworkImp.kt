@@ -1,6 +1,6 @@
 package com.ilizma.cast.framework
 
-import android.app.Activity
+import android.content.Context
 import android.net.Uri
 import android.view.Menu
 import androidx.mediarouter.app.MediaRouteButton
@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class CastFrameworkImp(
-    private val activity: Activity,
+    private val context: Context,
     private val _castStateFlow: MutableStateFlow<CastState>,
     private val castStateListener: CastStateListenerImp,
     private val sessionManagerListener: SessionManagerListenerImp,
@@ -45,7 +45,7 @@ class CastFrameworkImp(
         menu: T,
         menuResourceId: Int,
     ) {
-        CastButtonFactory.setUpMediaRouteButton(activity, menu as Menu, menuResourceId)
+        CastButtonFactory.setUpMediaRouteButton(context, menu as Menu, menuResourceId)
 
         (menu as Menu).findItem(menuResourceId)
             .let { it.actionView as MediaRouteButton }

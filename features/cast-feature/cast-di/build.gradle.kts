@@ -26,6 +26,7 @@ android {
 dependencies {
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.core)
+    implementation(libs.koin.android)
     implementation(libs.coroutines)
 
     // resources
@@ -42,6 +43,4 @@ dependencies {
     // region Player
     implementation(project(":player-framework"))
     // endregion
-
-    implementation(project(":main-view"))
 }
