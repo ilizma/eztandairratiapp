@@ -1,17 +1,19 @@
 [versions]
 ## region libraries
+android-minSdk = "21"
+android-compileSdk = "35"
+android-targetSdk = "35"
 kotlin-version = "2.0.21"
-serialization-version = "1.7.1"
-coroutines-version = "1.8.1"
+serialization-version = "1.7.3"
+coroutines-version = "1.9.0"
 appcompat-version = "1.7.0"
 ktx-version = "1.15.0"
 splash-version = "1.0.1"
-constraintlayout-version = "2.2.0"
 lifecycle-version = "2.8.7"
+jetbrains-lifecycle-version = "2.8.3"
 customactivityoncrash-version = "2.4.0"
 activity-version = "1.9.3"
-compose-bom-version = "2024.10.01"
-navigation-compose-version = "2.8.3"
+navigation-compose-version = "2.8.0-alpha10"
 settings-multiplatform = "1.1.1"
 media-version = "1.7.0"
 media3-version = "1.4.1"
@@ -36,12 +38,14 @@ ktor-version = "3.0.0"
 ui-tooling = "1.7.5"
 ## endregion
 ## region plugins
-android-plugin-version = "8.7.2"
-ksp-plugin-version = "2.0.21-1.0.25"
+agp-version = "8.7.2"
+compose-multiplatform-version = "1.7.0"
+ksp-plugin-version = "2.0.21-1.0.26"
 google-services-plugin-version = "4.4.2"
 crashlytics-plugin-version = "3.0.2"
 safeargs-plugin-version = "2.7.7"
 junit5-plugin-version = "1.9.3.0"
+buildconfig-plugin-version = "5.5.0"
 ## endregion
 
 [libraries]
@@ -54,18 +58,9 @@ coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-co
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat-version" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx-version" }
 splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splash-version" }##add?
-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout-version" }
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity-version" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-version" }##add?
-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom-version" }##add?
-compose-ui = { group = "androidx.compose.ui", name = "ui" }##add?
-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }##add?
-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }##add?
-compose-material3 = { group = "androidx.compose.material3", name = "material3" }##add?
-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }##add?
-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }##add?
-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose-version" }
-settings = { group = "com.russhwolf", name = "multiplatform-settings-no-arg", version.ref = "settings-multiplatform" }
+navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose-version" }
 media = { group = "androidx.media", name = "media", version.ref = "media-version" }
 exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3-version" }
 session = { group = "androidx.media3", name = "media3-session", version.ref = "media3-version" }
@@ -74,10 +69,9 @@ browser = { group = "androidx.browser", name = "browser", version.ref = "browser
 ## endregion
 ## region lifecycle
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-version" }
-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-version" }
-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle-version" }
+lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "jetbrains-lifecycle-version" }
 lifecycle-common = { group = "androidx.lifecycle", name = "lifecycle-common-java8", version.ref = "lifecycle-version" }
-lifecycle-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle-version" }
+lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "jetbrains-lifecycle-version" }
 ## endregion
 ## region customactivityoncrash
 customactivityoncrash = { group = "cat.ereza", name = "customactivityoncrash", version.ref = "customactivityoncrash-version" }
@@ -89,7 +83,6 @@ koin-core-viewmodel = { group = "io.insert-koin", name = "koin-core-viewmodel" }
 koin-android = { group = "io.insert-koin", name = "koin-android" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose" }
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel" }
-koin-compose-viewmodel-navigation = { group = "io.insert-koin", name = "koin-androidx-compose-viewmodel-navigation" }
 ## endregion
 ## region firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom-version" }
@@ -117,7 +110,8 @@ chucker-no-op = { group = "com.github.chuckerteam.chucker", name = "library-no-o
 ktorfit = { group = "de.jensklingenberg.ktorfit", name = "ktorfit-lib", version.ref = "ktorfit-version" }
 ktorfit-converter-call = { group = "de.jensklingenberg.ktorfit", name = "ktorfit-converters-call", version.ref = "ktorfit-version" }
 ktorfit-converter-flow = { group = "de.jensklingenberg.ktorfit", name = "ktorfit-converters-flow", version.ref = "ktorfit-version" }
-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor-version" }
+ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor-version" }
+ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor-version" }
 ktor-client-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor-version" }
 ktor-json-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor-version" }
 serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization-version" }
@@ -140,15 +134,18 @@ ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref =
 ## endregion
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "android-plugin-version" }
-android-library = { id = "com.android.library", version.ref = "android-plugin-version" }
+android-application = { id = "com.android.application", version.ref = "agp-version" }
+android-library = { id = "com.android.library", version.ref = "agp-version" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform-version" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-plugin-version" }
-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin-version" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin-version" }
+compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin-version" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services-plugin-version" }
 crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics-plugin-version" }
 junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin-version" }
 ktorfit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit-version" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-version" }
+buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig-plugin-version" }
 
 [bundles]

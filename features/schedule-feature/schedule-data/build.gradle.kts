@@ -1,14 +1,39 @@
 plugins {
-    id("java-library")
-    id("kotlin")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
 }
 
-java {
-    sourceCompatibility = ConfigData.javaVersion
-    targetCompatibility = ConfigData.javaVersion
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        androidMain.dependencies {
+            implementation(libs.annotation)
+        }
+    }
 }
 
-dependencies {
-    //implementation(libs.coroutines)
-    implementation(libs.annotation)
+android {
+    namespace = "com.ilizma.schedule.data"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+
+    defaultConfig {
+        minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
+    }
+
 }

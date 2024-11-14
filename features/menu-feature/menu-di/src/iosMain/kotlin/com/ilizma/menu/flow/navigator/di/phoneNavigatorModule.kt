@@ -1,0 +1,12 @@
+package com.ilizma.menu.flow.navigator.di
+
+import com.ilizma.menu.flow.navigator.PhoneNavigator
+import com.ilizma.menu.flow.navigator.PhoneNavigatorImp
+import org.koin.core.module.Module
+import org.koin.dsl.module
+
+actual val phoneNavigatorModule: Module = module {
+
+    factory<PhoneNavigator> { PhoneNavigatorImp() }
+
+}

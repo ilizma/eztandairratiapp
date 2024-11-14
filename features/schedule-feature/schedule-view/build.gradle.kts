@@ -1,16 +1,61 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("com.google.devtools.ksp")
-    id("org.jetbrains.kotlin.plugin.compose")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose)
+    //alias(libs.plugins.ksp)
+}
+
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(libs.activity.compose)
+        }
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.ui)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.navigation.compose)
+            implementation(libs.lifecycle.runtime.compose)
+
+            // Resources
+            implementation(project(":resources"))
+
+            // View
+            implementation(project(":view-base"))
+
+            // Schedule
+            implementation(project(":schedule-presentation"))
+        }
+    }
 }
 
 android {
     namespace = "com.ilizma.schedule.view"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {
@@ -18,36 +63,8 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    buildFeatures {
-        compose = true
-    }
-
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-    }
-
 }
 
 dependencies {
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.core)
-    implementation(libs.koin.compose.viewmodel)
-    implementation(libs.activity.compose)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.material3)
-    implementation(libs.compose.material.icons.extended)
-    implementation(libs.navigation.compose)
-    implementation(libs.settings)
-    implementation(libs.lifecycle.compose)
-    debugImplementation(libs.ui.tooling)
-
-    // Resources
-    implementation(project(":resources"))
-
-    // View
-    implementation(project(":view-base"))
-    implementation(project(":schedule-presentation"))
+    debugImplementation(compose.uiTooling)
 }

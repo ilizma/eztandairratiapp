@@ -1,15 +1,15 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    //alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "com.ilizma.errormanagement.di"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {

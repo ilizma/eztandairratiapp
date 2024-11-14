@@ -1,15 +1,50 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    //alias(libs.plugins.ksp)
+}
+
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        androidMain.dependencies {
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.android)
+            implementation(libs.appcompat)
+            implementation(libs.media)
+            implementation(libs.session)
+            implementation(libs.exoplayer)
+            implementation(libs.core.ktx)
+        }
+        commonMain.dependencies {
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(project(":resources"))
+            implementation(project(":player-framework"))
+        }
+        iosMain.dependencies {
+            implementation(libs.coroutines)
+        }
+    }
 }
 
 android {
     namespace = "com.ilizma.player.framework.imp"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {
@@ -30,23 +65,4 @@ android {
         buildConfig = true
     }
 
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-        getByName("test").java.srcDirs("src/test/kotlin")
-    }
-
-}
-
-dependencies {
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
-    //implementation(libs.coroutines)
-    implementation(libs.appcompat)
-    implementation(libs.media)
-    implementation(libs.session)
-    implementation(libs.exoplayer)
-    implementation(libs.core.ktx)
-    implementation(project(":resources"))
-    implementation(project(":player-framework"))
 }

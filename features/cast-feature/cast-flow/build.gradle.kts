@@ -1,14 +1,14 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace = "com.ilizma.cast.flow"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {

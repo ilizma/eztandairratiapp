@@ -1,15 +1,35 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("org.jetbrains.kotlin.plugin.serialization")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.serialization)
+}
+
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.serialization.json)
+        }
+    }
 }
 
 android {
     namespace = "com.ilizma.player.flow"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {
@@ -17,12 +37,4 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-    }
-
-}
-
-dependencies {
-    implementation(libs.serialization.json)
 }

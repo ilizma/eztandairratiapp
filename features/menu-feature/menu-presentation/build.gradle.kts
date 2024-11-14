@@ -1,14 +1,37 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+}
+
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        //androidMain.dependencies {
+        //    implementation(libs.lifecycle.livedata.ktx)
+        //}
+        commonMain.dependencies {
+            implementation(libs.lifecycle.viewmodel)
+        }
+    }
 }
 
 android {
     namespace = "com.ilizma.menu.presentation"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {
@@ -16,13 +39,4 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-    }
-
-}
-
-dependencies {
-    implementation(libs.lifecycle.viewmodel.ktx)
-    implementation(libs.lifecycle.livedata.ktx)
 }

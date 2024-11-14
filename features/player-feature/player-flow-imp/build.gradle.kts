@@ -1,14 +1,41 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+}
+
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        androidMain.dependencies {
+            implementation(libs.appcompat)
+            implementation(libs.lifecycle.common)
+            implementation(project(":cast-flow"))
+        }
+        commonMain.dependencies {
+            implementation(project(":player-flow"))
+            implementation(project(":player-view"))
+            implementation(project(":player-presentation"))
+        }
+    }
 }
 
 android {
     namespace = "com.ilizma.player.flow.imp"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {
@@ -16,19 +43,4 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-        getByName("test").java.srcDirs("src/test/kotlin")
-    }
-
-}
-
-dependencies {
-    implementation(libs.appcompat)
-    implementation(libs.lifecycle.common)
-    implementation(project(":player-flow"))
-    implementation(project(":player-view"))
-    implementation(project(":player-presentation"))
-
-    implementation(project(":cast-flow"))
 }

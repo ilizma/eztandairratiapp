@@ -1,0 +1,41 @@
+<resources>
+    <string name="title_radio">Radio</string>
+    <string name="title_schedule">Schedule</string>
+    <string name="title_menu">Menu</string>
+
+    <string name="generic_error">An error occurred</string>
+    <string name="no_internet">No Internet connection</string>
+    <string name="timeout_message">Oops! Slow connection</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="unknown_reason">Unknown reason</string>
+    <string name="malformed_media">Malformed content</string>
+    <string name="unsupported_media">Unsupported content</string>
+    <string name="media_disconnected">The multimedia service is disconnected</string>
+
+    <string name="retry">Retry</string>
+    <string name="empty_list">Empty list</string>
+
+    <string name="instagram" translatable="false">Instagram</string>
+    <string name="twitter" translatable="false">Twitter</string>
+    <string name="facebook" translatable="false">Facebook</string>
+    <string name="phone">Phone</string>
+    <string name="whatsapp" translatable="false">Whatsapp</string>
+    <string name="web" translatable="false">Web</string>
+
+    <string name="radio_name">Eztanda radio</string>
+    <string name="free_radio">The free radio of Sakana</string>
+    <string name="listening">listening</string>
+
+    <string name="play" translatable="false">Play</string>
+    <string name="stop" translatable="false">Stop</string>
+
+    <string-array name="days_array">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+</resources>

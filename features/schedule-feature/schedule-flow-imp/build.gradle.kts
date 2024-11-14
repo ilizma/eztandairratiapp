@@ -1,15 +1,44 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("org.jetbrains.kotlin.plugin.serialization")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.serialization)
+}
+
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        androidMain.dependencies {
+            implementation(libs.appcompat)
+            implementation(libs.lifecycle.common)
+        }
+        commonMain.dependencies {
+            implementation(libs.serialization.json)
+            implementation(libs.navigation.compose)
+            implementation(project(":schedule-flow"))
+            implementation(project(":schedule-view"))
+            implementation(project(":schedule-presentation"))
+            implementation(project(":player-flow"))
+        }
+    }
 }
 
 android {
     namespace = "com.ilizma.schedule.flow.imp"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {
@@ -17,20 +46,4 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-        getByName("test").java.srcDirs("src/test/kotlin")
-    }
-
-}
-
-dependencies {
-    implementation(libs.appcompat)
-    implementation(libs.lifecycle.common)
-    implementation(libs.navigation.compose)
-    implementation(libs.serialization.json)
-    implementation(libs.settings)
-    implementation(project(":schedule-flow"))
-    implementation(project(":schedule-view"))
-    implementation(project(":schedule-presentation"))
 }

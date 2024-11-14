@@ -1,15 +1,75 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    //alias(libs.plugins.ksp)
+}
+
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        androidMain.dependencies {
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.android)
+            implementation(libs.appcompat)
+            implementation(libs.media)
+            implementation(libs.session)
+            implementation(libs.exoplayer)
+            implementation(libs.core.ktx)
+            implementation(libs.activity.ktx)
+            implementation(libs.lifecycle.common)
+            implementation(libs.annotation)
+
+            // region Cast
+            implementation(project(":cast-flow"))
+            implementation(project(":cast-framework"))
+            // endregion
+
+            implementation(project(":main-view"))
+        }
+        commonMain.dependencies {
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.koin.core.viewmodel)
+
+            // Resources
+            implementation(project(":resources"))
+
+            // region Player
+            api(project(":player-flow"))
+            api(project(":player-flow-imp"))
+            api(project(":player-view"))
+            api(project(":player-presentation"))
+            api(project(":player-presentation-imp"))
+            api(project(":player-domain"))
+            api(project(":player-domain-imp"))
+            api(project(":player-data"))
+            api(project(":player-data-imp"))
+            api(project(":player-framework"))
+            api(project(":player-framework-imp"))
+            // endregion
+
+            implementation(project(":main-view"))
+        }
+    }
 }
 
 android {
     namespace = "com.ilizma.player.di"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {
@@ -17,48 +77,4 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-    }
-
-}
-
-dependencies {
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.core)
-    implementation(libs.koin.core.viewmodel)
-    implementation(libs.koin.android)
-    //implementation(libs.coroutines)
-    implementation(libs.appcompat)
-    implementation(libs.media)
-    implementation(libs.session)
-    implementation(libs.exoplayer)
-    implementation(libs.core.ktx)
-    implementation(libs.activity.ktx)
-    implementation(libs.lifecycle.common)
-    implementation(libs.annotation)
-
-    // Resources
-    implementation(project(":resources"))
-
-    // region Player
-    api(project(":player-flow"))
-    api(project(":player-flow-imp"))
-    api(project(":player-view"))
-    api(project(":player-presentation"))
-    api(project(":player-presentation-imp"))
-    api(project(":player-domain"))
-    api(project(":player-domain-imp"))
-    api(project(":player-data"))
-    api(project(":player-data-imp"))
-    api(project(":player-framework"))
-    api(project(":player-framework-imp"))
-    // endregion
-
-    // region Cast
-    implementation(project(":cast-flow"))
-    implementation(project(":cast-framework"))
-    // endregion
-
-    implementation(project(":main-view"))
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="17">
+    <bytecodeTargetLevel target="21">
       <module name="api-feature.eztandairratiapp.api-di" target="17" />
       <module name="app-feature.eztandairratiapp.app-di" target="17" />
       <module name="app-feature.eztandairratiapp.app-flow" target="17" />
@@ -10,6 +10,7 @@
       <module name="error-management-feature.eztandairratiapp.error-management-di" target="17" />
       <module name="error-management-feature.eztandairratiapp.error-management-view" target="17" />
       <module name="error-management-feature.eztandairratiapp.error-management-view-imp" target="17" />
+      <module name="Eztanda_Irratiapp.androidApp" target="21" />
       <module name="Eztanda_Irratiapp.api-di" target="21" />
       <module name="Eztanda_Irratiapp.app" target="21" />
       <module name="Eztanda_Irratiapp.buildSrc" target="21" />
@@ -52,6 +53,7 @@
       <module name="Eztanda_Irratiapp.schedule-presentation-imp" target="21" />
       <module name="Eztanda_Irratiapp.schedule-view" target="21" />
       <module name="Eztanda_Irratiapp.view-base" target="21" />
+      <module name="EztandaIrratiapp.app" target="21" />
       <module name="eztandairratiapp.app" target="17" />
       <module name="eztandairratiapp.buildSrc" target="17" />
       <module name="eztandairratiapp.buildSrc.main" target="17" />
@@ -81,6 +83,7 @@
       <module name="eztandairratiapp.schedule-view" target="17" />
       <module name="eztandairratiapp.schedule-view-imp" target="17" />
       <module name="eztandairratiapp.view-base" target="17" />
+      <module name="menu-feature.EztandaIrratiapp.menu-flow-imp" target="21" />
       <module name="net-feature.eztandairratiapp.net" target="17" />
       <module name="net-feature.eztandairratiapp.net-di" target="17" />
       <module name="player-feature.eztandairratiapp.player-di" target="17" />

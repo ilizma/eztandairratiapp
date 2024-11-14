@@ -1,0 +1,10 @@
+<resources>
+    <string name="radio_name">Radio Eztanda</string>
+    <string name="free_radio">La radio libre de Sakana</string>
+
+    <string name="crash_activity_message">Ha ocurrido un error inesperado. Sentimos los inconvenientes ocasionados.</string>
+    <string name="crash_activity_restart_button">REINICIAR APP</string>
+    <string name="crash_activity_clipboard_button">COPIAR AL PORTAPAPELES</string>
+    <string name="crash_activity_snackbar_successful_title">Copiado</string>
+    <string name="crash_activity_snackbar_successful_action">BIEN</string>
+</resources>

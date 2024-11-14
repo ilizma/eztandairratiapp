@@ -1,19 +1,43 @@
 plugins {
-    id("java-library")
-    id("kotlin")
-    id("com.google.devtools.ksp")
-    id("de.jensklingenberg.ktorfit")
-    id("org.jetbrains.kotlin.plugin.serialization")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.ktorfit)
+    alias(libs.plugins.serialization)
 }
 
-java {
-    sourceCompatibility = ConfigData.javaVersion
-    targetCompatibility = ConfigData.javaVersion
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.ktorfit)
+            implementation(libs.ktor.json.serialization)
+        }
+    }
 }
 
-dependencies {
-    //implementation(libs.coroutines)
-    implementation(libs.ktorfit)
-    implementation(libs.ktor.json.serialization)
-    implementation(libs.annotation)
+android {
+    namespace = "com.ilizma.api"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+
+    defaultConfig {
+        minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
+    }
+
 }

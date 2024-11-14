@@ -1,15 +1,45 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    //alias(libs.plugins.ksp)
+}
+
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        androidMain.dependencies {
+            implementation(libs.lifecycle.common)
+
+            implementation(project(":cast-framework"))
+        }
+        commonMain.dependencies {
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.lifecycle.viewmodel)
+
+            implementation(project(":player-presentation"))
+            implementation(project(":player-domain"))
+        }
+    }
 }
 
 android {
     namespace = "com.ilizma.player.presentation.imp"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {
@@ -17,23 +47,4 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-        getByName("test").java.srcDirs("src/test/kotlin")
-    }
-
-}
-
-dependencies {
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.core)
-    //implementation(libs.coroutines)
-    //implementation(libs.coroutines.android)
-    implementation(libs.lifecycle.viewmodel.ktx)
-    implementation(libs.lifecycle.livedata.ktx)
-    
-    implementation(project(":player-presentation"))
-    implementation(project(":player-domain"))
-
-    implementation(project(":cast-framework"))
 }

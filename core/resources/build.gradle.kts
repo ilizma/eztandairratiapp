@@ -1,15 +1,43 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("org.jetbrains.kotlin.plugin.compose")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose)
+}
+
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        androidMain.dependencies {
+            implementation(libs.core.ktx)
+            implementation(libs.splashscreen)
+        }
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.material3)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+        }
+    }
 }
 
 android {
     namespace = "com.ilizma.resources"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {
@@ -17,21 +45,10 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    buildFeatures {
-        compose = true
-    }
-
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-    }
-
 }
 
-dependencies {
-    implementation(platform(libs.compose.bom))
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.material3)
-    implementation(libs.core.ktx)
-    implementation(libs.splashscreen)
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.ilizma.resources"
+    generateResClass = always
 }

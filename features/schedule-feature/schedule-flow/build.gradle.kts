@@ -1,16 +1,39 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("kotlin-parcelize")
-    id("org.jetbrains.kotlin.plugin.serialization")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.serialization)
+}
+
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        androidMain.dependencies {
+            implementation(libs.annotation)
+        }
+        commonMain.dependencies {
+            implementation(libs.navigation.compose)
+            implementation(libs.serialization.json)
+        }
+    }
 }
 
 android {
     namespace = "com.ilizma.schedule.flow"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {
@@ -18,15 +41,4 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-    }
-
-}
-
-dependencies {
-    implementation(libs.annotation)
-    implementation(libs.navigation.compose)
-    implementation(libs.serialization.json)
-    implementation(libs.settings)
 }

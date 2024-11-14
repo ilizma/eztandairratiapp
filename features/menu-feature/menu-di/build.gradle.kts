@@ -1,15 +1,51 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    //alias(libs.plugins.ksp)
+}
+
+kotlin {
+    androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        androidMain.dependencies {
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.android)
+            implementation(libs.activity.ktx)
+
+        }
+        commonMain.dependencies {
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.koin.core.viewmodel)
+
+            // region Menu
+            api(project(":menu-flow"))
+            api(project(":menu-flow-imp"))
+            api(project(":menu-view"))
+            api(project(":menu-presentation"))
+            api(project(":menu-presentation-imp"))
+            // endregion
+        }
+    }
 }
 
 android {
     namespace = "com.ilizma.menu.di"
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {
@@ -17,24 +53,4 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-    }
-
-}
-
-dependencies {
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.core)
-    implementation(libs.koin.core.viewmodel)
-    implementation(libs.koin.android)
-    implementation(libs.activity.ktx)
-
-    // region Menu
-    api(project(":menu-flow"))
-    api(project(":menu-flow-imp"))
-    api(project(":menu-view"))
-    api(project(":menu-presentation"))
-    api(project(":menu-presentation-imp"))
-    // endregion
 }
