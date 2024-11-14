@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    //alias(libs.plugins.ksp)
 }
 
 android {
@@ -40,7 +39,6 @@ android {
 dependencies {
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.core)
-    //implementation(libs.coroutines)
     implementation(libs.appcompat)
     implementation(libs.mediarouter)
     implementation(libs.cast.framework)

@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose)
-    //alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -24,7 +23,6 @@ kotlin {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.lifecycle.viewmodel)
-            //implementation(libs.lifecycle.livedata.ktx)
             implementation(compose.runtime)
             implementation(compose.components.resources)
 

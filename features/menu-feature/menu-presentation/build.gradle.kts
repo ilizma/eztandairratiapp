@@ -17,9 +17,6 @@ kotlin {
     }
 
     sourceSets {
-        //androidMain.dependencies {
-        //    implementation(libs.lifecycle.livedata.ktx)
-        //}
         commonMain.dependencies {
             implementation(libs.lifecycle.viewmodel)
         }

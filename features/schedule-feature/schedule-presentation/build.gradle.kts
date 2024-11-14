@@ -20,7 +20,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.lifecycle.viewmodel)
-            //implementation(libs.lifecycle.livedata.ktx)
         }
     }
 }
