@@ -9,6 +9,8 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 import kotlin.let
 
+private const val HOUR_FORMAT = "%@:00"
+
 actual val scheduleDataSourceModule: Module = module {
 
     factory<ScheduleDataSource> {

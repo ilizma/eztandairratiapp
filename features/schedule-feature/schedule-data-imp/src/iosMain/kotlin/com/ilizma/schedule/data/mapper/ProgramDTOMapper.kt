@@ -12,7 +12,7 @@ class ProgramDTOMapper(
     fun toData(
         dto: ProgramDTO,
     ): Program = Program(
-        hour = NSString.stringWithFormat(hourString, dto.hour ?: ""),
+        hour = NSString.stringWithFormat(hourString, (dto.hour ?: "") as NSString),
         day = dto.day ?: -1,
         name = dto.name ?: "",
         repeated = when (dto.repeated) {

@@ -159,6 +159,7 @@ private fun DoubleRow(
         ) {
             Icon(
                 painter = painterResource(iconRes),
+                tint = MaterialTheme.colorScheme.onPrimary,
                 contentDescription = iconDescription,
             )
             Spacer(modifier = Modifier.width(4.dp))
@@ -168,6 +169,7 @@ private fun DoubleRow(
             Spacer(modifier = Modifier.width(8.dp))
             Icon(
                 painter = painterResource(iconRes2),
+                tint = MaterialTheme.colorScheme.onPrimary,
                 contentDescription = iconDescription2,
             )
             Spacer(modifier = Modifier.width(4.dp))

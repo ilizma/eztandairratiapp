@@ -38,17 +38,15 @@ class MainActivity : ComponentActivity(), AndroidScopeComponent {
         val requestPermissionLauncher = registerForActivityResult(RequestPermission()) {}
 
         setContent {
-            EztandaIrratiappTheme(dynamicColor = false) {
-                checkPostNotificationPermission(
-                    activity = this,
-                    requestPermissionLauncher = requestPermissionLauncher,
+            checkPostNotificationPermission(
+                activity = this,
+                requestPermissionLauncher = requestPermissionLauncher,
+            )
+            KoinContext {
+                AppNavigation(
+                    radioScreenRouter = koinInject(scope = scope),
+                    radioScreenViewModel = koinViewModel(scope = scope)
                 )
-                KoinContext {
-                    AppNavigation(
-                        radioScreenRouter = koinInject(scope = scope),
-                        radioScreenViewModel = koinViewModel(scope = scope)
-                    )
-                }
             }
         }
     }

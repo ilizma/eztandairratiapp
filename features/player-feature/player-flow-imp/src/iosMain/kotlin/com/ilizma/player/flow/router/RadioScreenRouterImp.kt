@@ -14,8 +14,8 @@ class RadioScreenRouterImp(
 ) : RadioScreenRouter {
 
     override fun init(
-        viewModel: RadioScreenViewModel,
         coroutineScope: CoroutineScope,
+        viewModel: RadioScreenViewModel,
     ) {
         coroutineScope.launch {
             viewModel.navigationAction.collect { onNavigationAction(it) }

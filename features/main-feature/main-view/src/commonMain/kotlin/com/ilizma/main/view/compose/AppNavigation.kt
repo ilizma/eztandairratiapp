@@ -1,9 +1,7 @@
 package com.ilizma.main.view.compose
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,6 +12,7 @@ import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
 import com.ilizma.menu.view.router.MenuScreenRouter
 import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
 import com.ilizma.player.view.router.RadioScreenRouter
+import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
 import com.ilizma.schedule.flow.model.ScheduleDetail
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
@@ -22,13 +21,25 @@ import com.ilizma.schedule.view.router.ScheduleDetailRouter
 import com.ilizma.schedule.view.router.ScheduleScreenRouter
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
-import org.koin.core.scope.Scope
 
 @Composable
 fun AppNavigation(
     radioScreenRouter: RadioScreenRouter,
     radioScreenViewModel: RadioScreenViewModel,
 ) {
+    EztandaIrratiappTheme(dynamicColor = false) {
+        InitRadioScreen(
+            radioScreenRouter = radioScreenRouter,
+            radioScreenViewModel = radioScreenViewModel,
+        )
+    }
+}
+
+@Composable
+private fun InitRadioScreen(
+    radioScreenRouter: RadioScreenRouter,
+    radioScreenViewModel: RadioScreenViewModel,
+){
     val scheduleScreenRouter: ScheduleScreenRouter = koinInject()
     val menuScreenRouter: MenuScreenRouter = koinInject()
     val scheduleDetailScreenRouter: ScheduleDetailRouter = koinInject()

@@ -1,8 +1,10 @@
 [versions]
-## region libraries
+## region config
 android-minSdk = "21"
 android-compileSdk = "35"
 android-targetSdk = "35"
+## endregion
+## region libraries
 kotlin-version = "2.0.21"
 serialization-version = "1.7.3"
 coroutines-version = "1.9.0"
@@ -14,7 +16,6 @@ jetbrains-lifecycle-version = "2.8.3"
 customactivityoncrash-version = "2.4.0"
 activity-version = "1.9.3"
 navigation-compose-version = "2.8.0-alpha10"
-settings-multiplatform = "1.1.1"
 media-version = "1.7.0"
 media3-version = "1.4.1"
 annotation-version = "1.9.1"
@@ -25,8 +26,7 @@ mediarouter-version = "1.7.0"
 cast-framework-version = "22.0.0"
 review-version = "2.0.2"
 material-version = "1.12.0"
-shimmer-version = "0.5.0"
-lottie-version = "6.4.1"
+lottie-version = "6.6.0"
 junit-version = "4.13.2"
 junit-android-version = "1.2.1"
 espresso-version = "3.6.1"
@@ -43,7 +43,6 @@ compose-multiplatform-version = "1.7.0"
 ksp-plugin-version = "2.0.21-1.0.26"
 google-services-plugin-version = "4.4.2"
 crashlytics-plugin-version = "3.0.2"
-safeargs-plugin-version = "2.7.7"
 junit5-plugin-version = "1.9.3.0"
 buildconfig-plugin-version = "5.5.0"
 ## endregion
@@ -51,8 +50,6 @@ buildconfig-plugin-version = "5.5.0"
 [libraries]
 ## region coroutines
 coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines-version" }
-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines-version" }
-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "coroutines-version" }##add?
 ## endregion
 ## region androidX
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat-version" }
@@ -101,7 +98,6 @@ play-review-ktx = { group = "com.google.android.play", name = "review-ktx", vers
 ## endregion
 ## region design
 material = { group = "com.google.android.material", name = "material", version.ref = "material-version" }
-shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer-version" }
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie-version" }
 ## endregion
 ## region network
