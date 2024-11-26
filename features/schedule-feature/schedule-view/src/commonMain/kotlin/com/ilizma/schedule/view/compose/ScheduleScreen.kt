@@ -121,7 +121,7 @@ private class ScheduleScreenPreviewProvider : PreviewParameterProvider<ScheduleS
 
     class FakeViewModel : ScheduleScreenViewModel() {
         override val navigationAction: Flow<ScheduleScreenNavigationAction>
-            get() = TODO("Not yet implemented")
+            get() = TODO("Fake VM")
 
         override val days: Flow<Days> = flowOf(
             Days(

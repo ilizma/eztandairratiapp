@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.buildconfig)
 }
 
 kotlin {
@@ -51,17 +52,8 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    buildTypes {
-        getByName("debug") {
-            buildConfigField("String", "AUDIO_URL", "\"" + Environments.debug.audioURL + "\"")
-        }
-        getByName("release") {
-            buildConfigField("String", "AUDIO_URL", "\"" + Environments.release.audioURL + "\"")
-        }
-    }
+}
 
-    buildFeatures {
-        buildConfig = true
-    }
-
+buildConfig {
+    buildConfigField("String", "AUDIO_URL", "\"" + Environments.release.baseURL + "\"")
 }

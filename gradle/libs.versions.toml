@@ -21,7 +21,7 @@ media3-version = "1.4.1"
 annotation-version = "1.9.1"
 browser-version = "1.8.0"
 koin-version = "4.0.0"
-firebase-bom-version = "33.5.1"
+firebase-bom-version = "33.6.0"
 mediarouter-version = "1.7.0"
 cast-framework-version = "22.0.0"
 review-version = "2.0.2"
@@ -83,9 +83,9 @@ koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmo
 ## endregion
 ## region firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom-version" }
-firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
-firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
-firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
 ## endregion
 ## region cast
 mediarouter = { group = "androidx.mediarouter", name = "mediarouter", version.ref = "mediarouter-version" }

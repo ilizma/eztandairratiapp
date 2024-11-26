@@ -195,7 +195,7 @@ private class RadioScreenPreviewProvider : PreviewParameterProvider<RadioScreenV
         state: PlayerState,
     ) : RadioScreenViewModel() {
         override val navigationAction: Flow<RadioScreenNavigationAction>
-            get() = TODO("Not yet implemented")
+            get() = TODO("Fake VM")
 
         override val playerState: Flow<PlayerState> = flowOf(state)
 

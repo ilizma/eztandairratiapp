@@ -8,6 +8,8 @@ import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction.Bac
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
 import com.ilizma.schedule.view.router.ScheduleDetailRouter
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 
 class ScheduleDetailRouterImp(
@@ -19,7 +21,7 @@ class ScheduleDetailRouterImp(
         viewModel: ScheduleDetailScreenViewModel,
         navController: NavHostController,
     ) {
-        coroutineScope.launch {
+        coroutineScope.launch(Dispatchers.Main) {
             viewModel.navigationAction.collect {
                 onNavigationAction(
                     navController = navController,

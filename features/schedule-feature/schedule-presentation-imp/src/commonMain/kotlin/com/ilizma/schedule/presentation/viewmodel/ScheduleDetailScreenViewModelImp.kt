@@ -89,7 +89,7 @@ class ScheduleDetailScreenViewModelImp(
             true -> throwable.message ?: getString(Res.string.unknown_error)
             false -> getString(Res.string.unknown_error)
         }.let { PresentationScheduleState.Error(it) }
-            .let { viewModelScope.launch(Dispatchers.IO) { _scheduleState.emit(it) } }
+            .let { _scheduleState.emit(it) }
     }
 
     override fun onBack() {

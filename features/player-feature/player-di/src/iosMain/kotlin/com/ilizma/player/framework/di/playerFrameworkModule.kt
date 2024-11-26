@@ -11,6 +11,7 @@ actual val playerFrameworkModule: Module = module {
 
     single<PlayerFramework> {
         PlayerFrameworkImp(
+            musicHelper = get(),
             _playerState = MutableStateFlow(PlayerState.Stopped),
         )
     }

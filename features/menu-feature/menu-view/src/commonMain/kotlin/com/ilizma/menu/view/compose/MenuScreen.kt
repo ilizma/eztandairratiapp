@@ -197,7 +197,7 @@ private class MenuScreenPreviewProvider : PreviewParameterProvider<MenuScreenVie
 
     class FakeViewModel : MenuScreenViewModel() {
         override val navigationAction: Flow<MenuNavigationAction>
-            get() = TODO("Not yet implemented")
+            get() = TODO("Fake VM")
 
         override fun onInstagram() {
         }

@@ -161,6 +161,12 @@ private fun Schedule(
     ) {
         items(
             items = list,
+            key = {
+                when (it) {
+                    is ProgramType.Loading -> {}
+                    is ProgramType.Item -> it.hour
+                }
+            },
         ) { program ->
             when (program) {
                 is ProgramType.Loading -> LoadingRow()
@@ -302,7 +308,7 @@ private class ScheduleDetailScreenPreviewProvider :
             }
         )
         override val navigationAction: Flow<ScheduleDetailNavigationAction>
-            get() = TODO("Not yet implemented")
+            get() = TODO("Fake VM")
 
         override fun saveCache(id: Int, name: String) {
         }

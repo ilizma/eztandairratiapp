@@ -2,6 +2,7 @@ package com.ilizma.main.view.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -62,6 +63,7 @@ private fun InitRadioScreen(
         bottomNavController = bottomNavController
     )
     menuScreenRouter.init(
+        uriHandler = LocalUriHandler.current,
         coroutineScope = coroutineScope,
         viewModel = menuScreenViewModel,
         navController = bottomNavController,
