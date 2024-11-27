@@ -92,3 +92,5 @@ sample/gen-external-apklibs
 app/release
 
 .cxx
+
+prebuilds/fullsdk-darwin
