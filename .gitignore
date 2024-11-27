@@ -94,3 +94,5 @@ app/release
 .cxx
 
 prebuilds/fullsdk-darwin
+
+UserInterfaceState.xcuserstate
