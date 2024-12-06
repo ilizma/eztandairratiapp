@@ -2,6 +2,7 @@ package com.ilizma.schedule.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
+import com.ilizma.schedule.presentation.model.ScheduleDetailScreenIntent
 import com.ilizma.schedule.presentation.model.ScheduleState
 import kotlinx.coroutines.flow.Flow
 
@@ -11,12 +12,6 @@ abstract class ScheduleDetailScreenViewModel : ViewModel() {
 
     abstract val navigationAction: Flow<ScheduleDetailNavigationAction>
 
-    abstract fun saveCache(id: Int, name: String)
-
-    abstract fun getSchedule()
-
-    abstract fun retrySchedule()
-
-    abstract fun onBack()
+    abstract fun onIntent(intent: ScheduleDetailScreenIntent)
 
 }

@@ -17,9 +17,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
-import com.ilizma.menu.presentation.model.MenuNavigationAction
+import com.ilizma.menu.presentation.model.MenuScreenIntent
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
 import com.ilizma.resources.Res
 import com.ilizma.resources.facebook
@@ -34,14 +33,10 @@ import com.ilizma.resources.phone
 import com.ilizma.resources.twitter
 import com.ilizma.resources.web
 import com.ilizma.resources.whatsapp
-import kotlinx.coroutines.flow.Flow
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 @Composable
 fun MenuScreen(
@@ -49,7 +44,18 @@ fun MenuScreen(
     paddingValues: PaddingValues,
 ) {
 
-    // TODO BackHandler { viewModel.onBack() }
+    //TODO BackHandler { viewModel.onIntent(MenuScreenIntent.Back) }
+    Content(
+        paddingValues = paddingValues,
+        onIntent = { viewModel.onIntent(it) },
+    )
+}
+
+@Composable
+internal fun Content(
+    paddingValues: PaddingValues,
+    onIntent: (MenuScreenIntent) -> Unit,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -59,25 +65,25 @@ fun MenuScreen(
             iconRes = Res.drawable.ic_instagram,
             iconDescription = "Instagram",
             title = Res.string.instagram,
-            onClick = { viewModel.onInstagram() },
+            onClick = { onIntent(MenuScreenIntent.Instagram) },
         )
         SimpleRow(
             iconRes = Res.drawable.ic_twitter,
             iconDescription = "Twitter",
             title = Res.string.twitter,
-            onClick = { viewModel.onTwitter() },
+            onClick = { onIntent(MenuScreenIntent.Twitter) },
         )
         SimpleRow(
             iconRes = Res.drawable.ic_facebook,
             iconDescription = "Facebook",
             title = Res.string.facebook,
-            onClick = { viewModel.onFacebook() },
+            onClick = { onIntent(MenuScreenIntent.Facebook) },
         )
         SimpleRow(
             iconRes = Res.drawable.ic_web,
             iconDescription = "Web",
             title = Res.string.web,
-            onClick = { viewModel.onWeb() },
+            onClick = { onIntent(MenuScreenIntent.Web) },
         )
         DoubleRow(
             iconRes = Res.drawable.ic_phone,
@@ -86,7 +92,7 @@ fun MenuScreen(
             iconDescription2 = "Whatsapp",
             title = Res.string.phone,
             title2 = Res.string.whatsapp,
-            onClick = { viewModel.onPhone() },
+            onClick = { onIntent(MenuScreenIntent.Phone) },
         )
     }
 }
@@ -177,45 +183,5 @@ private fun DoubleRow(
                 text = stringResource(title2),
             )
         }
-    }
-}
-
-@Preview
-@Composable
-private fun MenuScreenPreview(
-    @PreviewParameter(MenuScreenPreviewProvider::class) viewModel: MenuScreenViewModel,
-    paddingValues: PaddingValues = PaddingValues(),
-) {
-    MenuScreen(
-        viewModel = viewModel,
-        paddingValues = paddingValues,
-    )
-}
-
-private class MenuScreenPreviewProvider : PreviewParameterProvider<MenuScreenViewModel> {
-    override val values: Sequence<MenuScreenViewModel> = sequenceOf(FakeViewModel())
-
-    class FakeViewModel : MenuScreenViewModel() {
-        override val navigationAction: Flow<MenuNavigationAction>
-            get() = TODO("Fake VM")
-
-        override fun onInstagram() {
-        }
-
-        override fun onTwitter() {
-        }
-
-        override fun onFacebook() {
-        }
-
-        override fun onPhone() {
-        }
-
-        override fun onWeb() {
-        }
-
-        override fun onBack() {
-        }
-
     }
 }

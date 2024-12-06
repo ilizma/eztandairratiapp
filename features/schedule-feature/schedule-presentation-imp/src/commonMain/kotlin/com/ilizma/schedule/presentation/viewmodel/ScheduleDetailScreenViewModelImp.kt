@@ -11,6 +11,7 @@ import com.ilizma.schedule.presentation.mapper.ScheduleStateMapper
 import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction.Back
+import com.ilizma.schedule.presentation.model.ScheduleDetailScreenIntent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
@@ -44,7 +45,20 @@ class ScheduleDetailScreenViewModelImp(
         )
     override val navigationAction: Flow<ScheduleDetailNavigationAction> = _navigationAction
 
-    override fun saveCache(
+    override fun onIntent(intent: ScheduleDetailScreenIntent) {
+        when (intent) {
+            is ScheduleDetailScreenIntent.SaveCache -> saveCache(
+                id = intent.id,
+                name = intent.name,
+            )
+
+            ScheduleDetailScreenIntent.GetSchedule -> getSchedule()
+            ScheduleDetailScreenIntent.RetrySchedule -> retrySchedule()
+            ScheduleDetailScreenIntent.Back -> onBack()
+        }
+    }
+
+    private fun saveCache(
         id: Int,
         name: String,
     ) {
@@ -53,7 +67,7 @@ class ScheduleDetailScreenViewModelImp(
         }
     }
 
-    override fun getSchedule() {
+    private fun getSchedule() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 scheduleUseCase()
@@ -64,7 +78,7 @@ class ScheduleDetailScreenViewModelImp(
         }
     }
 
-    override fun retrySchedule() {
+    private fun retrySchedule() {
         generateLoadingList()
             .let { PresentationScheduleState.Loading(it) }
             .let { viewModelScope.launch(Dispatchers.IO) { _scheduleState.emit(it) } }
@@ -92,7 +106,7 @@ class ScheduleDetailScreenViewModelImp(
             .let { _scheduleState.emit(it) }
     }
 
-    override fun onBack() {
+    private fun onBack() {
         viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Back) }
     }
 

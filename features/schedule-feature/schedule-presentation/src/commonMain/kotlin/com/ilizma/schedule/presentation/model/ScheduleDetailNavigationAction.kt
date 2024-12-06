@@ -1,7 +1,7 @@
 package com.ilizma.schedule.presentation.model
 
-sealed class ScheduleDetailNavigationAction {
+sealed interface ScheduleDetailNavigationAction {
 
-    data object Back : ScheduleDetailNavigationAction()
+    data object Back : ScheduleDetailNavigationAction
 
 }

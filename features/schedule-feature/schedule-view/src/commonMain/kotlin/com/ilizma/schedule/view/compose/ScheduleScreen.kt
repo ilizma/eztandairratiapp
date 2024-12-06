@@ -5,40 +5,26 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.ilizma.resources.Res
-import com.ilizma.resources.days_array
 import com.ilizma.schedule.presentation.model.Day
 import com.ilizma.schedule.presentation.model.Days
-import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction
+import com.ilizma.schedule.presentation.model.ScheduleScreenIntent
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.getStringArray
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
+import kotlin.let
 
 @Composable
 fun ScheduleScreen(
     viewModel: ScheduleScreenViewModel,
     paddingValues: PaddingValues,
 ) {
-    //TODO BackHandler { viewModel.onBack() }
+    //TODO BackHandler { viewModel.onIntent(ScheduleScreenIntent.Back) }
 
     viewModel.days
         .collectAsStateWithLifecycle(
@@ -49,13 +35,17 @@ fun ScheduleScreen(
             Schedule(
                 paddingValues = paddingValues,
                 list = days.dayList,
-                onClick = { viewModel.onClick(it) }
+                onClick = { day ->
+                    ScheduleScreenIntent.Click(
+                        day = day,
+                    ).let { viewModel.onIntent(it) }
+                }
             )
         }
 }
 
 @Composable
-private fun Schedule(
+internal fun Schedule(
     paddingValues: PaddingValues,
     list: List<Day>,
     onClick: (Day) -> Unit,
@@ -99,44 +89,5 @@ private fun DayRow(
                     vertical = 8.dp,
                 ),
         )
-    }
-}
-
-@Preview
-@Composable
-private fun ScheduleScreenPreview(
-    @PreviewParameter(ScheduleScreenPreviewProvider::class) viewModel: ScheduleScreenViewModel,
-    paddingValues: PaddingValues = PaddingValues(),
-) {
-    ScheduleScreen(
-        viewModel = viewModel,
-        paddingValues = paddingValues,
-    )
-}
-
-private class ScheduleScreenPreviewProvider : PreviewParameterProvider<ScheduleScreenViewModel> {
-    override val values: Sequence<ScheduleScreenViewModel> = sequenceOf(
-        FakeViewModel(),
-    )
-
-    class FakeViewModel : ScheduleScreenViewModel() {
-        override val navigationAction: Flow<ScheduleScreenNavigationAction>
-            get() = TODO("Fake VM")
-
-        override val days: Flow<Days> = flowOf(
-            Days(
-                listOf(
-                    Day(id = 1, name = "Monday"),
-                    Day(id = 2, name = "Tuesday"),
-                )
-            )
-        )
-
-        override fun onClick(day: Day) {
-        }
-
-        override fun onBack() {
-        }
-
     }
 }

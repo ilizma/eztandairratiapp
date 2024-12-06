@@ -1,28 +1,28 @@
 package com.ilizma.player.presentation.model
 
-sealed class PlayerState {
+sealed interface PlayerState {
 
-    data object Playing : PlayerState()
+    data object Playing : PlayerState
 
-    data object Loading : PlayerState()
+    data object Loading : PlayerState
 
-    data object Stopped : PlayerState()
+    data object Stopped : PlayerState
 
-    sealed class Error : PlayerState() {
+    sealed interface Error : PlayerState {
 
-        data object Malformed : Error()
+        data object Malformed : Error
 
-        data object Unsupported : Error()
+        data object Unsupported : Error
 
-        data object Timeout : Error()
+        data object Timeout : Error
 
-        data object Network : Error()
+        data object Network : Error
 
-        data object MediaDisconnected : Error()
+        data object MediaDisconnected : Error
 
-        data object Unknown : Error()
+        data object Unknown : Error
 
-        data object GenericError : Error()
+        data object GenericError : Error
 
     }
 

@@ -41,23 +41,18 @@ import com.ilizma.resources.Res
 import com.ilizma.resources.empty_list
 import com.ilizma.resources.retry
 import com.ilizma.schedule.presentation.model.ProgramType
-import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
+import com.ilizma.schedule.presentation.model.ScheduleDetailScreenIntent
 import com.ilizma.schedule.presentation.model.ScheduleState
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
 import com.ilizma.view.shimmer.ShimmerBrush
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 @Composable
 fun ScheduleDetailScreen(
     viewModel: ScheduleDetailScreenViewModel,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-    //TODO BackHandler { viewModel.onBack() }
+    //TODO BackHandler { viewModel.onIntent(ScheduleDetailScreenIntent.Back) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -68,7 +63,7 @@ fun ScheduleDetailScreen(
                         initialValue = ScheduleState.Loading(listOf()),
                         lifecycleOwner = LocalLifecycleOwner.current,
                     ).value as? ScheduleState.Success)?.title.orEmpty(),
-                onBackClick = { viewModel.onBack() },
+                onBackClick = { viewModel.onIntent(ScheduleDetailScreenIntent.Back) },
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -79,30 +74,44 @@ fun ScheduleDetailScreen(
                 lifecycleOwner = LocalLifecycleOwner.current,
             ).value
             .let {
-                when (it) {
-                    is ScheduleState.Loading,
-                    is ScheduleState.Success,
-                        -> when (it.list.isEmpty()) {
-                        true -> EmptyView(
-                            paddingValues = paddingValues,
-                        )
-
-                        false -> Schedule(
-                            paddingValues = paddingValues,
-                            list = it.list,
-                        )
-                    }
-
-                    is ScheduleState.Error -> if (it.message.isNotEmpty()) {
-                        Error(
-                            snackbarHostState = snackbarHostState,
-                            errorMessage = it.message,
-                            onClick = { viewModel.retrySchedule() }
-                        )
-                    }
-                }
-
+                Content(
+                    state = it,
+                    paddingValues = paddingValues,
+                    snackbarHostState = snackbarHostState,
+                    onIntent = { viewModel.onIntent(it) },
+                )
             }
+    }
+}
+
+@Composable
+internal fun Content(
+    state: ScheduleState,
+    paddingValues: PaddingValues,
+    snackbarHostState: SnackbarHostState,
+    onIntent: (ScheduleDetailScreenIntent) -> Unit,
+) {
+    when (state) {
+        is ScheduleState.Loading,
+        is ScheduleState.Success,
+            -> when (state.list.isEmpty()) {
+            true -> EmptyView(
+                paddingValues = paddingValues,
+            )
+
+            false -> Schedule(
+                paddingValues = paddingValues,
+                list = state.list,
+            )
+        }
+
+        is ScheduleState.Error -> if (state.message.isNotEmpty()) {
+            Error(
+                snackbarHostState = snackbarHostState,
+                errorMessage = state.message,
+                onClick = { onIntent(ScheduleDetailScreenIntent.RetrySchedule) },
+            )
+        }
     }
 }
 
@@ -161,12 +170,6 @@ private fun Schedule(
     ) {
         items(
             items = list,
-            key = {
-                when (it) {
-                    is ProgramType.Loading -> {}
-                    is ProgramType.Item -> it.hour
-                }
-            },
         ) { program ->
             when (program) {
                 is ProgramType.Loading -> LoadingRow()
@@ -254,73 +257,4 @@ private fun Error(
                 }
             }
         }
-}
-
-@Preview
-@Composable
-private fun ScheduleDetailScreenPreview(
-    @PreviewParameter(ScheduleDetailScreenPreviewProvider::class) viewModel: ScheduleDetailScreenViewModel,
-) {
-    ScheduleDetailScreen(viewModel)
-}
-
-private class ScheduleDetailScreenPreviewProvider :
-    PreviewParameterProvider<ScheduleDetailScreenViewModel> {
-    override val values: Sequence<ScheduleDetailScreenViewModel> = sequenceOf(
-        FakeScreenViewModel(
-            listOf(
-                ProgramType.Loading,
-                ProgramType.Loading,
-            )
-        ),
-        FakeScreenViewModel(
-            listOf(
-                ProgramType.Item(
-                    hour = "12:00",
-                    day = 1,
-                    name = "Program 1",
-                    repeated = false,
-                ),
-                ProgramType.Item(
-                    hour = "13:00",
-                    day = 1,
-                    name = "Program 2",
-                    repeated = true,
-                ),
-            )
-        ),
-        FakeScreenViewModel(),
-    )
-
-    @Suppress("UNCHECKED_CAST")
-    class FakeScreenViewModel(
-        list: List<ProgramType> = listOf(),
-    ) : ScheduleDetailScreenViewModel() {
-        override val scheduleState: Flow<ScheduleState> = flowOf(
-            when (list.firstOrNull()) {
-                is ProgramType.Loading -> ScheduleState.Loading(list as List<ProgramType.Loading>)
-                is ProgramType.Item -> ScheduleState.Success(
-                    "Monday",
-                    list as List<ProgramType.Item>
-                )
-
-                else -> ScheduleState.Success("Monday", listOf())
-            }
-        )
-        override val navigationAction: Flow<ScheduleDetailNavigationAction>
-            get() = TODO("Fake VM")
-
-        override fun saveCache(id: Int, name: String) {
-        }
-
-        override fun getSchedule() {
-        }
-
-        override fun retrySchedule() {
-        }
-
-        override fun onBack() {
-        }
-
-    }
 }

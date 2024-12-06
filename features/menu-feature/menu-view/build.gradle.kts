@@ -20,6 +20,7 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
+            implementation(compose.preview)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.activity.compose)
         }

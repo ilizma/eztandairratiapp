@@ -6,6 +6,7 @@ import com.ilizma.player.domain.usecase.PlayerPlayUseCase
 import com.ilizma.player.domain.usecase.PlayerStateUseCase
 import com.ilizma.player.domain.usecase.PlayerStopUseCase
 import com.ilizma.player.presentation.mapper.PlayerStateMapper
+import com.ilizma.player.presentation.model.RadioScreenIntent
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.Back
 import kotlinx.coroutines.Dispatchers
@@ -38,17 +39,27 @@ class RadioScreenViewModelImp(
 
     override val navigationAction: Flow<RadioScreenNavigationAction> = _navigationAction
 
-    override fun onPlay() {
+    override fun onIntent(
+        intent: RadioScreenIntent,
+    ) {
+        when (intent) {
+            RadioScreenIntent.Play -> onPlay()
+            RadioScreenIntent.Stop -> onStop()
+            RadioScreenIntent.Back -> onBack()
+        }
+    }
+
+    private fun onPlay() {
         viewModelScope.launch(Dispatchers.IO) {
             viewModelScope.launch(Dispatchers.Main) { playUseCase() }
         }
     }
 
-    override fun onStop() {
+    private fun onStop() {
         stopUseCase()
     }
 
-    override fun onBack() {
+    private fun onBack() {
         viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Back) }
     }
 

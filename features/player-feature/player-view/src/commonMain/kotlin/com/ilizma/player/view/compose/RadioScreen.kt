@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import com.ilizma.player.presentation.model.PlayerState
-import com.ilizma.player.presentation.model.RadioScreenNavigationAction
+import com.ilizma.player.presentation.model.RadioScreenIntent
 import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
 import com.ilizma.resources.Res
 import com.ilizma.resources.generic_error
@@ -37,14 +37,9 @@ import com.ilizma.resources.timeout_message
 import com.ilizma.resources.unknown_error
 import com.ilizma.resources.unsupported_media
 import com.ilizma.view.lifecycle.collectAsStateMultiplatform
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 @Composable
 fun RadioScreen(
@@ -53,7 +48,7 @@ fun RadioScreen(
     snackbarHostState: SnackbarHostState,
 ) {
 
-    //TODO BackHandler { viewModel.onBack() }
+    //TODO BackHandler { viewModel.onIntent(RadioScreenIntent.Back) }
     viewModel.playerState
         .collectAsStateMultiplatform(
             initialValue = PlayerState.Stopped,
@@ -62,25 +57,29 @@ fun RadioScreen(
             ScreenState(
                 state = it,
                 snackbarHostState = snackbarHostState,
-                viewModel = viewModel,
+                onIntent = { viewModel.onIntent(it) },
                 paddingValues = paddingValues
             )
         }
 }
 
 @Composable
-private fun ScreenState(
+internal fun ScreenState(
     state: PlayerState,
     snackbarHostState: SnackbarHostState,
-    viewModel: RadioScreenViewModel,
-    paddingValues: PaddingValues
+    onIntent: (RadioScreenIntent) -> Unit,
+    paddingValues: PaddingValues,
 ) {
     ErrorSnackbar(
         state = state,
         snackbarHostState = snackbarHostState,
-        viewModel = viewModel,
+        onRetry = { onIntent(RadioScreenIntent.Play) },
     )
-    ScreenBox(paddingValues, state, viewModel)
+    ScreenBox(
+        paddingValues = paddingValues,
+        state = state,
+        onIntent = onIntent
+    )
     // TODO: 2023/08/30 Cast MiniController
 }
 
@@ -88,7 +87,7 @@ private fun ScreenState(
 private fun ErrorSnackbar(
     state: PlayerState,
     snackbarHostState: SnackbarHostState,
-    viewModel: RadioScreenViewModel
+    onRetry: () -> Unit,
 ) {
     if (state is PlayerState.Error) {
         val message = stringResource(errorRes(state))
@@ -99,7 +98,7 @@ private fun ErrorSnackbar(
                 actionLabel = actionLabel,
             ).let { snackbarResult ->
                 if (snackbarResult == SnackbarResult.ActionPerformed) {
-                    viewModel.onPlay()
+                    onRetry()
                 }
             }
         }
@@ -110,7 +109,7 @@ private fun ErrorSnackbar(
 private fun ScreenBox(
     paddingValues: PaddingValues,
     state: PlayerState,
-    viewModel: RadioScreenViewModel
+    onIntent: (RadioScreenIntent) -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -129,8 +128,8 @@ private fun ScreenBox(
                 .padding(16.dp),
             onClick = {
                 when (state) {
-                    PlayerState.Stopped -> viewModel.onPlay()
-                    PlayerState.Playing -> viewModel.onStop()
+                    PlayerState.Stopped -> onIntent(RadioScreenIntent.Play)
+                    PlayerState.Playing -> onIntent(RadioScreenIntent.Stop)
                     else -> { /* no-op */ }
                 }
             },
@@ -145,7 +144,8 @@ private fun ScreenBox(
                     imageVector = when (state) {
                         PlayerState.Loading,
                         is PlayerState.Error,
-                        PlayerState.Stopped -> Icons.Default.PlayArrow
+                        PlayerState.Stopped,
+                            -> Icons.Default.PlayArrow
 
                         PlayerState.Playing -> Icons.Default.Stop
                     },
@@ -158,7 +158,7 @@ private fun ScreenBox(
 }
 
 private fun errorRes(
-    errorState: PlayerState.Error
+    errorState: PlayerState.Error,
 ): StringResource = when (errorState) {
     PlayerState.Error.Malformed -> Res.string.malformed_media
     PlayerState.Error.Unsupported -> Res.string.unsupported_media
@@ -167,49 +167,4 @@ private fun errorRes(
     PlayerState.Error.MediaDisconnected -> Res.string.media_disconnected
     PlayerState.Error.Unknown -> Res.string.unknown_error
     PlayerState.Error.GenericError -> Res.string.generic_error
-}
-
-@Preview
-@Composable
-private fun RadioScreenPreview(
-    @PreviewParameter(RadioScreenPreviewProvider::class) viewModel: RadioScreenViewModel,
-    paddingValues: PaddingValues = PaddingValues(),
-    snackbarHostState: SnackbarHostState = SnackbarHostState(),
-) {
-    RadioScreen(
-        viewModel = viewModel,
-        paddingValues = paddingValues,
-        snackbarHostState = snackbarHostState,
-    )
-}
-
-private class RadioScreenPreviewProvider : PreviewParameterProvider<RadioScreenViewModel> {
-    override val values: Sequence<RadioScreenViewModel> = sequenceOf(
-        FakeViewModel(PlayerState.Stopped),
-        FakeViewModel(PlayerState.Loading),
-        FakeViewModel(PlayerState.Playing),
-        FakeViewModel(PlayerState.Error.GenericError),
-    )
-
-    class FakeViewModel(
-        state: PlayerState,
-    ) : RadioScreenViewModel() {
-        override val navigationAction: Flow<RadioScreenNavigationAction>
-            get() = TODO("Fake VM")
-
-        override val playerState: Flow<PlayerState> = flowOf(state)
-
-        override fun onPlay() {
-        }
-
-        override fun onStop() {
-        }
-
-        override fun onBack() {
-        }
-
-        /*override fun setUpMediaRouteButton(menu: Menu, menuResourceId: Int) {
-        }*/
-
-    }
 }

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose)
 }
 
 kotlin {
@@ -18,7 +20,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(compose.runtime)
             implementation(libs.lifecycle.viewmodel)
+            implementation(libs.immutable)
         }
     }
 }

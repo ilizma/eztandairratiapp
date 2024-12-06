@@ -1,13 +1,13 @@
 package com.ilizma.schedule.data.model
 
-sealed class ScheduleState {
+sealed interface ScheduleState {
 
     data class Success(
         val programList: List<Program>,
-    ) : ScheduleState()
+    ) : ScheduleState
 
     data class Error(
         val message: String,
-    ) : ScheduleState()
+    ) : ScheduleState
 
 }

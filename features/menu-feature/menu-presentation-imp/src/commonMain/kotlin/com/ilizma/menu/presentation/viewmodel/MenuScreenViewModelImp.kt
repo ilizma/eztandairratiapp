@@ -8,6 +8,7 @@ import com.ilizma.menu.presentation.model.MenuNavigationAction.Instagram
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Phone
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Twitter
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Web
+import com.ilizma.menu.presentation.model.MenuScreenIntent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
@@ -20,27 +21,38 @@ class MenuScreenViewModelImp(
 
     override val navigationAction: Flow<MenuNavigationAction> = _navigationAction
 
-    override fun onInstagram() {
+    override fun onIntent(intent: MenuScreenIntent) {
+        when (intent) {
+            MenuScreenIntent.Instagram -> onInstagram()
+            MenuScreenIntent.Twitter -> onTwitter()
+            MenuScreenIntent.Facebook -> onFacebook()
+            MenuScreenIntent.Phone -> onPhone()
+            MenuScreenIntent.Web -> onWeb()
+            MenuScreenIntent.Back -> onBack()
+        }
+    }
+
+    private fun onInstagram() {
         viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Instagram) }
     }
 
-    override fun onTwitter() {
+    private fun onTwitter() {
         viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Twitter) }
     }
 
-    override fun onFacebook() {
+    private fun onFacebook() {
         viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Facebook) }
     }
 
-    override fun onPhone() {
+    private fun onPhone() {
         viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Phone) }
     }
 
-    override fun onWeb() {
+    private fun onWeb() {
         viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Web) }
     }
 
-    override fun onBack() {
+    private fun onBack() {
         viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Back) }
     }
 

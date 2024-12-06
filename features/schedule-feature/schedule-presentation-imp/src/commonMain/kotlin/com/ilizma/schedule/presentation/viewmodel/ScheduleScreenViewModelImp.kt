@@ -6,6 +6,7 @@ import com.ilizma.resources.days_array
 import com.ilizma.schedule.presentation.mapper.DayMapper
 import com.ilizma.schedule.presentation.model.Day
 import com.ilizma.schedule.presentation.model.Days
+import com.ilizma.schedule.presentation.model.ScheduleScreenIntent
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction.Back
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction.ScheduleDetail
@@ -42,14 +43,26 @@ class ScheduleScreenViewModelImp(
         )
     override val navigationAction: Flow<ScheduleScreenNavigationAction> = _navigationAction
 
-    override fun onClick(day: Day) {
+    override fun onIntent(
+        intent: ScheduleScreenIntent,
+    ) {
+        when (intent) {
+            is ScheduleScreenIntent.Click -> onClick(
+                day = intent.day,
+            )
+
+            ScheduleScreenIntent.Back -> onBack()
+        }
+    }
+
+    private fun onClick(day: Day) {
         viewModelScope.launch(Dispatchers.IO) {
             ScheduleDetail(day)
                 .let { _navigationAction.emit(it) }
         }
     }
 
-    override fun onBack() {
+    private fun onBack() {
         viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Back) }
     }
 

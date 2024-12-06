@@ -1,9 +1,9 @@
 package com.ilizma.schedule.presentation.model
 
-sealed class ScheduleScreenNavigationAction {
+sealed interface ScheduleScreenNavigationAction {
 
-    data object Back : ScheduleScreenNavigationAction()
+    data object Back : ScheduleScreenNavigationAction
 
-    data class ScheduleDetail(val day: Day) : ScheduleScreenNavigationAction()
+    data class ScheduleDetail(val day: Day) : ScheduleScreenNavigationAction
 
 }
