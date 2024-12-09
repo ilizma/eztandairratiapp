@@ -45,7 +45,9 @@ class ScheduleDetailScreenViewModelImp(
         )
     override val navigationAction: Flow<ScheduleDetailNavigationAction> = _navigationAction
 
-    override fun onIntent(intent: ScheduleDetailScreenIntent) {
+    override fun onIntent(
+        intent: ScheduleDetailScreenIntent,
+    ) {
         when (intent) {
             is ScheduleDetailScreenIntent.SaveCache -> saveCache(
                 id = intent.id,

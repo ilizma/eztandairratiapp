@@ -1,6 +1,5 @@
 package com.ilizma.player.view.compose
 
-//TODO import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -36,32 +35,16 @@ import com.ilizma.resources.retry
 import com.ilizma.resources.timeout_message
 import com.ilizma.resources.unknown_error
 import com.ilizma.resources.unsupported_media
-import com.ilizma.view.lifecycle.collectAsStateMultiplatform
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun RadioScreen(
+expect fun RadioScreen(
     viewModel: RadioScreenViewModel,
     paddingValues: PaddingValues,
     snackbarHostState: SnackbarHostState,
-) {
-
-    //TODO BackHandler { viewModel.onIntent(RadioScreenIntent.Back) }
-    viewModel.playerState
-        .collectAsStateMultiplatform(
-            initialValue = PlayerState.Stopped,
-        ).value
-        .let {
-            ScreenState(
-                state = it,
-                snackbarHostState = snackbarHostState,
-                onIntent = { viewModel.onIntent(it) },
-                paddingValues = paddingValues
-            )
-        }
-}
+)
 
 @Composable
 internal fun ScreenState(

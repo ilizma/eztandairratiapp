@@ -1,6 +1,6 @@
 package com.ilizma.player.framework.helper
 
-import EztandaIrratiapp.player_framework_imp.BuildConfig
+import com.ilizma.player.framework.imp.BuildKonfig
 import kotlinx.cinterop.*
 import platform.AVFAudio.AVAudioSession
 import platform.AVFAudio.AVAudioSessionCategoryPlayback
@@ -13,7 +13,7 @@ import platform.darwin.NSEC_PER_SEC
 
 class MusicHelper {
 
-    private val player: AVPlayer = BuildConfig.AUDIO_URL
+    private val player: AVPlayer = BuildKonfig.AUDIO_URL
         .let { NSURL.URLWithString(URLString = it)!! }
         .let { AVPlayer(it) }
 
@@ -34,7 +34,7 @@ class MusicHelper {
         stop()
         startTimeObserver(observer = observer)
         showNotification()
-        //BuildConfig.AUDIO_URL
+        //BuildKonfig.AUDIO_URL
         //    .let { NSURL.URLWithString(URLString = it) }
         //    ?.let { AVPlayerItem(uRL = it) }
         //    ?.let { player.replaceCurrentItemWithPlayerItem(item = it) }

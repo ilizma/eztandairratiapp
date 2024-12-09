@@ -22,21 +22,16 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ilizma.resources.Res
 import com.ilizma.resources.empty_list
 import com.ilizma.resources.retry
@@ -48,41 +43,9 @@ import com.ilizma.view.shimmer.ShimmerBrush
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun ScheduleDetailScreen(
+expect fun ScheduleDetailScreen(
     viewModel: ScheduleDetailScreenViewModel,
-) {
-    val snackbarHostState = remember { SnackbarHostState() }
-    //TODO BackHandler { viewModel.onIntent(ScheduleDetailScreenIntent.Back) }
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            TopBar(
-                title = (viewModel.scheduleState
-                    .collectAsStateWithLifecycle(
-                        initialValue = ScheduleState.Loading(listOf()),
-                        lifecycleOwner = LocalLifecycleOwner.current,
-                    ).value as? ScheduleState.Success)?.title.orEmpty(),
-                onBackClick = { viewModel.onIntent(ScheduleDetailScreenIntent.Back) },
-            )
-        },
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-    ) { paddingValues ->
-        viewModel.scheduleState
-            .collectAsStateWithLifecycle(
-                initialValue = ScheduleState.Loading(listOf()),
-                lifecycleOwner = LocalLifecycleOwner.current,
-            ).value
-            .let {
-                Content(
-                    state = it,
-                    paddingValues = paddingValues,
-                    snackbarHostState = snackbarHostState,
-                    onIntent = { viewModel.onIntent(it) },
-                )
-            }
-    }
-}
+)
 
 @Composable
 internal fun Content(
@@ -117,7 +80,7 @@ internal fun Content(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopBar(
+internal fun TopBar(
     title: String,
     onBackClick: () -> Unit,
 ) {

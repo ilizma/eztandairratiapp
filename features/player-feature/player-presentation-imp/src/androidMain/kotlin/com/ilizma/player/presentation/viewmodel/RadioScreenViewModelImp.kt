@@ -10,6 +10,7 @@ import com.ilizma.player.domain.usecase.PlayerPlayUseCase
 import com.ilizma.player.domain.usecase.PlayerStateUseCase
 import com.ilizma.player.domain.usecase.PlayerStopUseCase
 import com.ilizma.player.presentation.mapper.PlayerStateMapper
+import com.ilizma.player.presentation.model.RadioScreenIntent
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.Back
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.CastPlayer
@@ -48,7 +49,15 @@ class RadioScreenViewModelImp(
         castFramework.init()
     }
 
-    override fun onPlay() {
+    override fun onIntent(intent: RadioScreenIntent) {
+        when (intent) {
+            RadioScreenIntent.Play -> onPlay()
+            RadioScreenIntent.Stop -> onStop()
+            RadioScreenIntent.Back -> onBack()
+        }
+    }
+
+    private fun onPlay() {
         viewModelScope.launch(Dispatchers.IO) {
             when (castFramework.castState.first()) {
                 CastState.CONNECTED -> _navigationAction.emit(CastPlayer)
@@ -57,11 +66,11 @@ class RadioScreenViewModelImp(
         }
     }
 
-    override fun onStop() {
+    private fun onStop() {
         stopUseCase()
     }
 
-    override fun onBack() {
+    private fun onBack() {
         viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Back) }
     }
 

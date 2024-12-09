@@ -11,38 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ilizma.schedule.presentation.model.Day
-import com.ilizma.schedule.presentation.model.Days
-import com.ilizma.schedule.presentation.model.ScheduleScreenIntent
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
-import kotlin.let
 
 @Composable
-fun ScheduleScreen(
+expect fun ScheduleScreen(
     viewModel: ScheduleScreenViewModel,
     paddingValues: PaddingValues,
-) {
-    //TODO BackHandler { viewModel.onIntent(ScheduleScreenIntent.Back) }
-
-    viewModel.days
-        .collectAsStateWithLifecycle(
-            initialValue = Days(listOf()),
-            lifecycleOwner = LocalLifecycleOwner.current,
-        ).value
-        .let { days ->
-            Schedule(
-                paddingValues = paddingValues,
-                list = days.dayList,
-                onClick = { day ->
-                    ScheduleScreenIntent.Click(
-                        day = day,
-                    ).let { viewModel.onIntent(it) }
-                }
-            )
-        }
-}
+)
 
 @Composable
 internal fun Schedule(

@@ -15,6 +15,7 @@ import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
 import com.ilizma.player.view.router.RadioScreenRouter
 import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
 import com.ilizma.schedule.flow.model.ScheduleDetail
+import com.ilizma.schedule.presentation.model.ScheduleDetailScreenIntent
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.schedule.view.compose.ScheduleDetailScreen
@@ -40,7 +41,7 @@ fun AppNavigation(
 private fun InitRadioScreen(
     radioScreenRouter: RadioScreenRouter,
     radioScreenViewModel: RadioScreenViewModel,
-){
+) {
     val scheduleScreenRouter: ScheduleScreenRouter = koinInject()
     val menuScreenRouter: MenuScreenRouter = koinInject()
     val scheduleDetailScreenRouter: ScheduleDetailRouter = koinInject()
@@ -112,13 +113,15 @@ private fun Content(
                     .also { vm ->
                         backStackEntry.toRoute<ScheduleDetail>()
                             .let {
-                                vm.saveCache(
-                                    id = it.id,
-                                    name = it.name
+                                vm.onIntent(
+                                    ScheduleDetailScreenIntent.SaveCache(
+                                        id = it.id,
+                                        name = it.name
+                                    )
                                 )
                             }
                     }
-                    .also { it.getSchedule() },
+                    .also { it.onIntent(ScheduleDetailScreenIntent.GetSchedule) },
             )
         }
     }

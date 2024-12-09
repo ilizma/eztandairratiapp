@@ -1,6 +1,5 @@
 package com.ilizma.player.framework
 
-import EztandaIrratiapp.player_framework_imp.BuildConfig
 import androidx.core.os.bundleOf
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
@@ -8,6 +7,7 @@ import androidx.media3.common.Player
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionCommand
 import com.google.common.util.concurrent.MoreExecutors
+import com.ilizma.player.framework.imp.BuildKonfig
 import com.ilizma.player.framework.model.PlayerState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -124,7 +124,7 @@ class PlayerFrameworkImp(
     private fun initMediaPlayer() {
         mediaController
             .apply {
-                MediaItem.fromUri(BuildConfig.AUDIO_URL)
+                MediaItem.fromUri(BuildKonfig.AUDIO_URL)
                     .let { setMediaItem(it) }
                 prepare()
                 play()

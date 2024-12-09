@@ -1,6 +1,5 @@
 package com.ilizma.menu.view.compose
 
-//TODO import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -39,17 +38,10 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun MenuScreen(
+expect fun MenuScreen(
     viewModel: MenuScreenViewModel,
     paddingValues: PaddingValues,
-) {
-
-    //TODO BackHandler { viewModel.onIntent(MenuScreenIntent.Back) }
-    Content(
-        paddingValues = paddingValues,
-        onIntent = { viewModel.onIntent(it) },
-    )
-}
+)
 
 @Composable
 internal fun Content(

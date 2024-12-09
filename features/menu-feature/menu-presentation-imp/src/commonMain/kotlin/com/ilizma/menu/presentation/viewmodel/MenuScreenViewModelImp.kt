@@ -21,7 +21,9 @@ class MenuScreenViewModelImp(
 
     override val navigationAction: Flow<MenuNavigationAction> = _navigationAction
 
-    override fun onIntent(intent: MenuScreenIntent) {
+    override fun onIntent(
+        intent: MenuScreenIntent,
+    ) {
         when (intent) {
             MenuScreenIntent.Instagram -> onInstagram()
             MenuScreenIntent.Twitter -> onTwitter()

@@ -1,5 +1,6 @@
 package com.ilizma.player.view.compose
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
@@ -11,7 +12,33 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.ilizma.player.presentation.model.PlayerState
+import com.ilizma.player.presentation.model.RadioScreenIntent
+import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
 import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
+import com.ilizma.view.lifecycle.collectAsStateMultiplatform
+
+@Composable
+actual fun RadioScreen(
+    viewModel: RadioScreenViewModel,
+    paddingValues: PaddingValues,
+    snackbarHostState: SnackbarHostState,
+) {
+
+    BackHandler { viewModel.onIntent(RadioScreenIntent.Back) }
+
+    viewModel.playerState
+        .collectAsStateMultiplatform(
+            initialValue = PlayerState.Stopped,
+        ).value
+        .let {
+            ScreenState(
+                state = it,
+                snackbarHostState = snackbarHostState,
+                onIntent = { viewModel.onIntent(it) },
+                paddingValues = paddingValues
+            )
+        }
+}
 
 @PreviewLightDark
 @Composable

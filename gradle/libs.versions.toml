@@ -45,7 +45,7 @@ ksp-plugin-version = "2.1.0-1.0.29"
 google-services-plugin-version = "4.4.2"
 crashlytics-plugin-version = "3.0.2"
 junit5-plugin-version = "1.9.3.0"
-buildconfig-plugin-version = "5.5.0"
+buildkonfig-plugin-version = "0.15.2"
 ## endregion
 
 [libraries]
@@ -144,6 +144,6 @@ crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlyti
 junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin-version" }
 ktorfit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit-version" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-version" }
-buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig-plugin-version" }
+buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig-plugin-version" }
 
 [bundles]
