@@ -86,5 +86,5 @@ android {
 }
 
 dependencies {
-    debugImplementation(libs.ui.tooling)
+    debugImplementation(compose.uiTooling)
 }

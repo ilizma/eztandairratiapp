@@ -28,15 +28,15 @@ cast-framework-version = "22.0.0"
 review-version = "2.0.2"
 material-version = "1.12.0"
 lottie-version = "6.6.0"
-junit-version = "4.13.2"
-junit-android-version = "1.2.1"
-espresso-version = "3.6.1"
-mockk-version = "1.13.13"
-junit-jupiter-version = "5.10.2"
 chucker-version = "4.0.0"
 ktorfit-version = "2.2.0"
 ktor-version = "3.0.1"
-ui-tooling = "1.7.5"
+mockk-version = "1.13.13"
+uiTestJunit4AndroidVersion = "1.7.5"
+uiTestManifestVersion = "1.7.5"
+firebaseAnalyticsVersion = "22.1.0" #Do not update the library because gitlive is using this version
+firebaseCommonKtxVersion = "21.0.0" #Do not update the library because gitlive is using this version
+firebaseCrashlyticsKtxVersion = "19.0.3" #Do not update the library because gitlive is using this version
 ## endregion
 ## region plugins
 agp-version = "8.7.3"
@@ -115,20 +115,17 @@ ktor-json-serialization = { group = "io.ktor", name = "ktor-serialization-kotlin
 serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization-version" }
 ## endregion
 ## region unittest
-junit = { group = "junit", name = "junit", version.ref = "junit-version" }##add?
-junit-android = { group = "androidx.test.ext", name = "junit", version.ref = "junit-android-version" }##add?
-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-version" }##add?
-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }##add?
-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk-version" }##
-mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk-version" }##
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk-version" }
+mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk-version" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin-version" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines-version" }##add?
-junit-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit-jupiter-version" }##
-junit-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit-jupiter-version" }##
 ## endregion
-## region unittest
-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }##add?
-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "ui-tooling" }##add?
+## region uitest
+ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4AndroidVersion" }
+ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "uiTestManifestVersion" }
+firebase-common-ktx = { module = "com.google.firebase:firebase-common-ktx", version.ref = "firebaseCommonKtxVersion" }
+firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebaseCrashlyticsKtxVersion" }
+google-firebase-analytics = { module = "com.google.firebase:firebase-analytics", version.ref = "firebaseAnalyticsVersion" }
 ## endregion
 
 [plugins]
@@ -141,7 +138,6 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin-version" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services-plugin-version" }
 crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics-plugin-version" }
-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin-version" }
 ktorfit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit-version" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-version" }
 buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig-plugin-version" }
