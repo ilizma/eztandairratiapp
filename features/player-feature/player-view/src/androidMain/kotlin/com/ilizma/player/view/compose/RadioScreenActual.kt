@@ -15,7 +15,6 @@ import com.ilizma.player.presentation.model.PlayerState
 import com.ilizma.player.presentation.model.RadioScreenIntent
 import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
 import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
-import com.ilizma.view.lifecycle.collectAsStateMultiplatform
 
 @Composable
 actual fun RadioScreen(
@@ -23,21 +22,12 @@ actual fun RadioScreen(
     paddingValues: PaddingValues,
     snackbarHostState: SnackbarHostState,
 ) {
-
     BackHandler { viewModel.onIntent(RadioScreenIntent.Back) }
-
-    viewModel.playerState
-        .collectAsStateMultiplatform(
-            initialValue = PlayerState.Stopped,
-        ).value
-        .let {
-            ScreenState(
-                state = it,
-                snackbarHostState = snackbarHostState,
-                onIntent = { viewModel.onIntent(it) },
-                paddingValues = paddingValues
-            )
-        }
+    RadioScreenContent(
+        viewModel = viewModel,
+        paddingValues = paddingValues,
+        snackbarHostState = snackbarHostState,
+    )
 }
 
 @PreviewLightDark

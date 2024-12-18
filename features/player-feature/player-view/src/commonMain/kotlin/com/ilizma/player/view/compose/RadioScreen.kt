@@ -35,6 +35,7 @@ import com.ilizma.resources.retry
 import com.ilizma.resources.timeout_message
 import com.ilizma.resources.unknown_error
 import com.ilizma.resources.unsupported_media
+import com.ilizma.view.lifecycle.collectAsStateMultiplatform
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -45,6 +46,26 @@ expect fun RadioScreen(
     paddingValues: PaddingValues,
     snackbarHostState: SnackbarHostState,
 )
+
+@Composable
+internal fun RadioScreenContent(
+    viewModel: RadioScreenViewModel,
+    paddingValues: PaddingValues,
+    snackbarHostState: SnackbarHostState,
+) {
+    viewModel.playerState
+        .collectAsStateMultiplatform(
+            initialValue = PlayerState.Stopped,
+        ).value
+        .let {
+            ScreenState(
+                state = it,
+                snackbarHostState = snackbarHostState,
+                onIntent = { viewModel.onIntent(it) },
+                paddingValues = paddingValues
+            )
+        }
+}
 
 @Composable
 internal fun ScreenState(

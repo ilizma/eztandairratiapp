@@ -44,7 +44,7 @@ expect fun MenuScreen(
 )
 
 @Composable
-internal fun Content(
+internal fun MenuScreenContent(
     paddingValues: PaddingValues,
     onIntent: (MenuScreenIntent) -> Unit,
 ) {

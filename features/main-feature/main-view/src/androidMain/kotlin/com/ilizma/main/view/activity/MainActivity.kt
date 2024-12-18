@@ -12,7 +12,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.core.app.ActivityCompat
 import com.ilizma.main.view.compose.AppNavigation
-import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
 import com.ilizma.review.framework.PlayReviewFramework
 import org.koin.android.ext.android.inject
 import org.koin.android.scope.AndroidScopeComponent

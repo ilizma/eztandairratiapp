@@ -16,9 +16,8 @@ actual fun MenuScreen(
     viewModel: MenuScreenViewModel,
     paddingValues: PaddingValues,
 ) {
-
     BackHandler { viewModel.onIntent(MenuScreenIntent.Back) }
-    Content(
+    MenuScreenContent(
         paddingValues = paddingValues,
         onIntent = { viewModel.onIntent(it) },
     )
@@ -31,7 +30,7 @@ private fun MenuScreenPreview() {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
         ) { paddingValues ->
-            Content(
+            MenuScreenContent(
                 paddingValues = paddingValues,
                 onIntent = {},
             )

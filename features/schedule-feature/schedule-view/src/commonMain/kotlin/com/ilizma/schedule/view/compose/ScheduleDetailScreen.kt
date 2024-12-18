@@ -22,12 +22,15 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +42,7 @@ import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.presentation.model.ScheduleDetailScreenIntent
 import com.ilizma.schedule.presentation.model.ScheduleState
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
+import com.ilizma.view.lifecycle.collectAsStateMultiplatform
 import com.ilizma.view.shimmer.ShimmerBrush
 import org.jetbrains.compose.resources.stringResource
 
@@ -48,7 +52,41 @@ expect fun ScheduleDetailScreen(
 )
 
 @Composable
-internal fun Content(
+internal fun ScheduleDetailScreenContent(
+    viewModel: ScheduleDetailScreenViewModel,
+) {
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopBar(
+                title = (viewModel.scheduleState
+                    .collectAsStateMultiplatform(
+                        initialValue = ScheduleState.Loading(listOf()),
+                    ).value as? ScheduleState.Success)?.title.orEmpty(),
+                onBackClick = { viewModel.onIntent(ScheduleDetailScreenIntent.Back) },
+            )
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+    ) { paddingValues ->
+        viewModel.scheduleState
+            .collectAsStateMultiplatform(
+                initialValue = ScheduleState.Loading(listOf()),
+            ).value
+            .let {
+                ScreenState(
+                    state = it,
+                    paddingValues = paddingValues,
+                    snackbarHostState = snackbarHostState,
+                    onIntent = { viewModel.onIntent(it) },
+                )
+            }
+    }
+}
+
+@Composable
+internal fun ScreenState(
     state: ScheduleState,
     paddingValues: PaddingValues,
     snackbarHostState: SnackbarHostState,

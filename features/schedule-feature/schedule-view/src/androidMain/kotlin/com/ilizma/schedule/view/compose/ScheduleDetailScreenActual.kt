@@ -4,7 +4,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -17,41 +16,15 @@ import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.presentation.model.ScheduleDetailScreenIntent
 import com.ilizma.schedule.presentation.model.ScheduleState
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
-import com.ilizma.view.lifecycle.collectAsStateMultiplatform
 
 @Composable
 actual fun ScheduleDetailScreen(
     viewModel: ScheduleDetailScreenViewModel,
 ) {
-    val snackbarHostState = remember { SnackbarHostState() }
     BackHandler { viewModel.onIntent(ScheduleDetailScreenIntent.Back) }
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            TopBar(
-                title = (viewModel.scheduleState
-                    .collectAsStateMultiplatform(
-                        initialValue = ScheduleState.Loading(listOf()),
-                    ).value as? ScheduleState.Success)?.title.orEmpty(),
-                onBackClick = { viewModel.onIntent(ScheduleDetailScreenIntent.Back) },
-            )
-        },
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-    ) { paddingValues ->
-        viewModel.scheduleState
-            .collectAsStateMultiplatform(
-                initialValue = ScheduleState.Loading(listOf()),
-            ).value
-            .let {
-                Content(
-                    state = it,
-                    paddingValues = paddingValues,
-                    snackbarHostState = snackbarHostState,
-                    onIntent = { viewModel.onIntent(it) },
-                )
-            }
-    }
+    ScheduleDetailScreenContent(
+        viewModel = viewModel,
+    )
 }
 
 @PreviewLightDark
@@ -63,7 +36,7 @@ private fun ScheduleDetailScreenPreview(
         Scaffold(
             modifier = Modifier.fillMaxSize(),
         ) { paddingValues ->
-            Content(
+            ScreenState(
                 state = state,
                 paddingValues = PaddingValues(),
                 snackbarHostState = remember { SnackbarHostState() },

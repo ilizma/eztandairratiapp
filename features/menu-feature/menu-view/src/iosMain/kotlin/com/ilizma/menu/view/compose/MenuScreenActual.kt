@@ -9,7 +9,7 @@ actual fun MenuScreen(
     viewModel: MenuScreenViewModel,
     paddingValues: PaddingValues,
 ) {
-    Content(
+    MenuScreenContent(
         paddingValues = paddingValues,
         onIntent = { viewModel.onIntent(it) },
     )
