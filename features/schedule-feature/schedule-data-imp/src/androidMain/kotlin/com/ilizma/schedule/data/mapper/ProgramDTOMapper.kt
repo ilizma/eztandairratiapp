@@ -7,7 +7,7 @@ class ProgramDTOMapper(
     private val hourString: String,
 ) {
 
-    fun toData(
+    fun from(
         dto: ProgramDTO,
     ): Program = Program(
         hour = hourString.format(dto.hour ?: ""),

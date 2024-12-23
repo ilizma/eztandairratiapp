@@ -8,8 +8,8 @@ class ProgramDTOListMapper(
     private val mapper: ProgramDTOMapper,
 ) {
 
-    fun toData(
+    fun from(
         dtoList: List<ProgramDTO>,
-    ): List<Program> = dtoList.map { mapper.toData(it) }
+    ): List<Program> = dtoList.map { mapper.from(it) }
 
 }

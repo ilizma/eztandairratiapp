@@ -7,12 +7,12 @@ class ProgramListMapper(
     private val mapper: ProgramMapper,
 ) {
 
-    fun toDomain(
+    fun from(
         programList: List<DataProgram>,
         dayId: Int,
     ): List<Program> = programList
         .filter { it.day == dayId }
         .sortedBy { it.hour }
-        .map { mapper.toDomain(it) }
+        .map { mapper.from(it) }
 
 }

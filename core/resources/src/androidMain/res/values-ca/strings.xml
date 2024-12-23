@@ -7,4 +7,5 @@
     <string name="crash_activity_clipboard_button">COPIAR AL PORTA-RETALLS</string>
     <string name="crash_activity_snackbar_successful_title">Copiat</string>
     <string name="crash_activity_snackbar_successful_action">BÉ</string>
+    <string name="unknown_error">Error desconegut</string>
 </resources>

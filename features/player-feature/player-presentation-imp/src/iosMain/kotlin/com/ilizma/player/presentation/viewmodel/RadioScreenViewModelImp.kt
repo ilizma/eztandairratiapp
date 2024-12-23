@@ -65,6 +65,6 @@ class RadioScreenViewModelImp(
 
     private fun onPlayerState(
         state: PlayerState,
-    ): PresentationPlayerState = mapper.toPresentation(state)
+    ): PresentationPlayerState = mapper.from(state)
 
 }

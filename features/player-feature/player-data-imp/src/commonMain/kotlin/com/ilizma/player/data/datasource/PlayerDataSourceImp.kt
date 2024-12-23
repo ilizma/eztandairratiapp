@@ -13,7 +13,7 @@ class PlayerDataSourceImp(
 
     override fun getState(
     ): Flow<PlayerState> = framework.getState()
-        .map { mapper.toData(it) }
+        .map { mapper.from(it) }
 
     override fun play() {
         framework.play()

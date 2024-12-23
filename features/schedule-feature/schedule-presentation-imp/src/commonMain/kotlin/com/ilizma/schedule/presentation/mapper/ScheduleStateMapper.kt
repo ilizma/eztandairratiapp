@@ -15,14 +15,14 @@ class ScheduleStateMapper(
         is ScheduleState.Error -> PresentationScheduleState.Error(state.message)
         is ScheduleState.Success -> from(
             title = title,
-            dayList = state.programList
+            programList = state.programList
         )
     }
 
     fun from(
         title: String,
-        dayList: List<Program>,
-    ): PresentationScheduleState = dayList
+        programList: List<Program>,
+    ): PresentationScheduleState = programList
         .map { mapper.from(it) }
         .let {
             PresentationScheduleState.Success(

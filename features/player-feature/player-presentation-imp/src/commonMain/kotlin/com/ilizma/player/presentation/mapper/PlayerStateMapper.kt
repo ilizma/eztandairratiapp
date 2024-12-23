@@ -5,7 +5,7 @@ import com.ilizma.player.presentation.model.PlayerState as PresentationPlayerSta
 
 class PlayerStateMapper {
 
-    fun toPresentation(
+    fun from(
         state: PlayerState,
     ): PresentationPlayerState = when (state) {
         PlayerState.Playing -> PresentationPlayerState.Playing

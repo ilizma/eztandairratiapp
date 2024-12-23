@@ -9,6 +9,7 @@ import com.ilizma.menu.presentation.model.MenuNavigationAction.Phone
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Twitter
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Web
 import com.ilizma.menu.presentation.model.MenuScreenIntent
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
 class MenuScreenViewModelImp(
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val _navigationAction: MutableSharedFlow<MenuNavigationAction>,
 ) : MenuScreenViewModel() {
 
@@ -35,27 +37,27 @@ class MenuScreenViewModelImp(
     }
 
     private fun onInstagram() {
-        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Instagram) }
+        viewModelScope.launch(dispatcher) { _navigationAction.emit(Instagram) }
     }
 
     private fun onTwitter() {
-        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Twitter) }
+        viewModelScope.launch(dispatcher) { _navigationAction.emit(Twitter) }
     }
 
     private fun onFacebook() {
-        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Facebook) }
+        viewModelScope.launch(dispatcher) { _navigationAction.emit(Facebook) }
     }
 
     private fun onPhone() {
-        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Phone) }
+        viewModelScope.launch(dispatcher) { _navigationAction.emit(Phone) }
     }
 
     private fun onWeb() {
-        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Web) }
+        viewModelScope.launch(dispatcher) { _navigationAction.emit(Web) }
     }
 
     private fun onBack() {
-        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Back) }
+        viewModelScope.launch(dispatcher) { _navigationAction.emit(Back) }
     }
 
 }

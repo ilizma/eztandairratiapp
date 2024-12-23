@@ -15,7 +15,7 @@ class ScheduleDataSourceImp(
 
     override suspend fun get(): ScheduleState = try {
         api.getSchedule()
-            .let { mapper.toData(it, getString(Res.string.unknown_error)) }
+            .let { mapper.from(it, getString(Res.string.unknown_error)) }
     } catch (e: Exception) {
         ScheduleState.Error(e.message ?: getString(Res.string.unknown_error))
     }

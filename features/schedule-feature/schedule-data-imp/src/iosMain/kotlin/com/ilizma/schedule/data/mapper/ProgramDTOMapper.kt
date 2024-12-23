@@ -9,7 +9,7 @@ class ProgramDTOMapper(
     private val hourString: String,
 ) {
 
-    fun toData(
+    fun from(
         dto: ProgramDTO,
     ): Program = Program(
         hour = NSString.stringWithFormat(hourString, (dto.hour ?: "") as NSString),

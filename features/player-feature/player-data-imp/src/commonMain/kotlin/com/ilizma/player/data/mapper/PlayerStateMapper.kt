@@ -6,7 +6,7 @@ import com.ilizma.player.framework.model.PlayerState as FrameworkPlayerState
 
 class PlayerStateMapper {
 
-    fun toDomain(
+    fun from(
         state: DataPlayerState,
     ): PlayerState = when (state) {
         DataPlayerState.Playing -> PlayerState.Playing
@@ -21,7 +21,7 @@ class PlayerStateMapper {
         DataPlayerState.Error.GenericError -> PlayerState.Error.GenericError
     }
 
-    fun toData(
+    fun from(
         state: FrameworkPlayerState,
     ): DataPlayerState = when (state) {
         FrameworkPlayerState.Playing -> DataPlayerState.Playing

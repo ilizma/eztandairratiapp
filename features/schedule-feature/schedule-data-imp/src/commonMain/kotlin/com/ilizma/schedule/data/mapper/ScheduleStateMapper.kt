@@ -7,13 +7,13 @@ class ScheduleStateMapper(
     private val mapper: ProgramListMapper,
 ) {
 
-    fun toDomain(
+    fun from(
         state: DataScheduleState,
         dayId: Int,
     ): ScheduleState = when (state) {
         is DataScheduleState.Error -> ScheduleState.Error(state.message)
         is DataScheduleState.Success -> state.programList
-            .let { mapper.toDomain(it, dayId) }
+            .let { mapper.from(it, dayId) }
             .let { ScheduleState.Success(it) }
     }
 

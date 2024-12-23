@@ -8,11 +8,11 @@ class ScheduleStateDTOMapper(
     private val mapper: ProgramDTOListMapper,
 ) {
 
-    fun toData(
+    fun from(
         result: ScheduleDTO,
         unknownErrorMessage: String,
     ): ScheduleState = result.schedule
-        ?.let { mapper.toData(it) }
+        ?.let { mapper.from(it) }
         ?.let { ScheduleState.Success(it) }
         ?: ScheduleState.Error(unknownErrorMessage)
 

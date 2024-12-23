@@ -5,7 +5,7 @@ import com.ilizma.schedule.data.model.Program as DataProgram
 
 class ProgramMapper {
 
-    fun toDomain(
+    fun from(
         schedule: DataProgram,
     ): Program = Program(
         hour = schedule.hour,

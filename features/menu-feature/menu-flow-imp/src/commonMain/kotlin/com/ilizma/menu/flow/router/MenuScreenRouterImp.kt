@@ -17,11 +17,13 @@ import com.ilizma.menu.presentation.model.MenuNavigationAction.Twitter
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Web
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
 import com.ilizma.menu.view.router.MenuScreenRouter
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MenuScreenRouterImp(
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main,
     private val instagramNavigator: InstagramNavigator,
     private val twitterNavigator: TwitterNavigator,
     private val facebookNavigator: FacebookNavigator,
@@ -36,7 +38,7 @@ class MenuScreenRouterImp(
         viewModel: MenuScreenViewModel,
         navController: NavHostController,
     ) {
-        coroutineScope.launch(Dispatchers.Main) {
+        coroutineScope.launch(dispatcher) {
             viewModel.navigationAction.collect {
                 onNavigationAction(
                     uriHandler = uriHandler,

@@ -12,4 +12,6 @@
     <string name="crash_activity_snackbar_successful_action">OKAY</string>
 
     <string name="media_route_menu_title" translatable="false">Media route</string>
+
+    <string name="unknown_error">Unknown error</string>
 </resources>

@@ -12,6 +12,7 @@ import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction
 import com.ilizma.schedule.presentation.model.ScheduleDetailNavigationAction.Back
 import com.ilizma.schedule.presentation.model.ScheduleDetailScreenIntent
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +26,7 @@ import org.jetbrains.compose.resources.getString
 import com.ilizma.schedule.presentation.model.ScheduleState as PresentationScheduleState
 
 class ScheduleDetailScreenViewModelImp(
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val saveCacheUseCase: SaveScheduleDetailArgsUseCase,
     private val dayNameUseCase: DayNameUseCase,
     private val scheduleUseCase: ScheduleUseCase,
@@ -36,7 +38,7 @@ class ScheduleDetailScreenViewModelImp(
 
     override val scheduleState: Flow<PresentationScheduleState> = _scheduleState
         .distinctUntilChanged()
-        .flowOn(Dispatchers.IO)
+        .flowOn(dispatcher)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
@@ -64,13 +66,11 @@ class ScheduleDetailScreenViewModelImp(
         id: Int,
         name: String,
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            saveCacheUseCase(id, name)
-        }
+        viewModelScope.launch(dispatcher) { saveCacheUseCase(id, name) }
     }
 
     private fun getSchedule() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             try {
                 scheduleUseCase()
                     .let { onSchedule(dayNameUseCase(), it) }
@@ -83,7 +83,7 @@ class ScheduleDetailScreenViewModelImp(
     private fun retrySchedule() {
         generateLoadingList()
             .let { PresentationScheduleState.Loading(it) }
-            .let { viewModelScope.launch(Dispatchers.IO) { _scheduleState.emit(it) } }
+            .let { viewModelScope.launch(dispatcher) { _scheduleState.emit(it) } }
 
         getSchedule()
     }
@@ -95,7 +95,7 @@ class ScheduleDetailScreenViewModelImp(
         mapper.from(
             title = title,
             state = state,
-        ).let { viewModelScope.launch(Dispatchers.IO) { _scheduleState.emit(it) } }
+        ).let { viewModelScope.launch(dispatcher) { _scheduleState.emit(it) } }
     }
 
     private suspend fun onError(
@@ -109,7 +109,7 @@ class ScheduleDetailScreenViewModelImp(
     }
 
     private fun onBack() {
-        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Back) }
+        viewModelScope.launch(dispatcher) { _navigationAction.emit(Back) }
     }
 
     private fun generateLoadingList(

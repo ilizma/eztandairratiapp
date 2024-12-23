@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
@@ -5,7 +8,12 @@ plugins {
 }
 
 kotlin {
-    androidTarget()
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_21)
+        }
+    }
 
     listOf(
         iosX64(),
@@ -22,6 +30,7 @@ kotlin {
             implementation(libs.appcompat)
             implementation(libs.lifecycle.common)
         }
+
         commonMain.dependencies {
             implementation(libs.serialization.json)
             implementation(libs.navigation.compose)
@@ -29,6 +38,15 @@ kotlin {
             implementation(project(":schedule-view"))
             implementation(project(":schedule-presentation"))
             implementation(project(":player-flow"))
+        }
+
+        androidUnitTest.dependencies {
+            implementation(libs.mockk)
+        }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.coroutines.test)
         }
     }
 }

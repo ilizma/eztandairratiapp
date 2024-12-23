@@ -7,4 +7,5 @@
     <string name="crash_activity_clipboard_button">ARBELEAN KOPIATU</string>
     <string name="crash_activity_snackbar_successful_title">Kopiatuta</string>
     <string name="crash_activity_snackbar_successful_action">ONDO</string>
+    <string name="unknown_error">Errore zezaguna</string>
 </resources>

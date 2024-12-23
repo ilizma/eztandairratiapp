@@ -14,18 +14,22 @@ import com.ilizma.player.presentation.model.RadioScreenIntent
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.Back
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.CastPlayer
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import com.ilizma.player.presentation.model.PlayerState as PresentationPlayerState
 
 class RadioScreenViewModelImp(
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
     stateUseCase: PlayerStateUseCase,
     private val playUseCase: PlayerPlayUseCase,
     private val stopUseCase: PlayerStopUseCase,
@@ -36,7 +40,7 @@ class RadioScreenViewModelImp(
 
     override val playerState: Flow<PresentationPlayerState> = stateUseCase()
         .map(::onPlayerState)
-        .flowOn(Dispatchers.IO)
+        .flowOn(ioDispatcher)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Companion.WhileSubscribed(stopTimeoutMillis = 5000),
@@ -58,10 +62,10 @@ class RadioScreenViewModelImp(
     }
 
     private fun onPlay() {
-        viewModelScope.launch(Dispatchers.IO) {
-            when (castFramework.castState.first()) {
+        viewModelScope.launch(ioDispatcher) {
+            when (castFramework.castState.last()) {
                 CastState.CONNECTED -> _navigationAction.emit(CastPlayer)
-                CastState.DISCONNECTED -> viewModelScope.launch(Dispatchers.Main) { playUseCase() }
+                CastState.DISCONNECTED -> withContext(mainDispatcher) { playUseCase() }
             }
         }
     }
@@ -71,7 +75,7 @@ class RadioScreenViewModelImp(
     }
 
     private fun onBack() {
-        viewModelScope.launch(Dispatchers.IO) { _navigationAction.emit(Back) }
+        viewModelScope.launch(ioDispatcher) { _navigationAction.emit(Back) }
     }
 
     /*override fun setUpMediaRouteButton(
@@ -86,7 +90,7 @@ class RadioScreenViewModelImp(
 
     private fun onPlayerState(
         state: PlayerState,
-    ): PresentationPlayerState = mapper.toPresentation(state)
+    ): PresentationPlayerState = mapper.from(state)
 
 
     override fun onResume(owner: LifecycleOwner) {

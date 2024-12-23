@@ -14,7 +14,7 @@ class PlayerRepositoryImp(
 
     override fun getState(
     ): Flow<PlayerState> = dataSource.getState()
-        .map { mapper.toDomain(it) }
+        .map { mapper.from(it) }
 
     override fun play() {
         dataSource.play()

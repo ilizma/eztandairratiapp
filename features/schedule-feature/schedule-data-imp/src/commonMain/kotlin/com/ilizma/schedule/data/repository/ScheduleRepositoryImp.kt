@@ -16,7 +16,7 @@ class ScheduleRepositoryImp(
 ) : ScheduleRepository {
 
     override suspend fun get(): ScheduleState = (cache.get() ?: getFromRemoteAndSaveCache())
-        .let { mapper.toDomain(it, dayIdDataSource.get()) }
+        .let { mapper.from(it, dayIdDataSource.get()) }
 
     private suspend fun getFromRemoteAndSaveCache(
     ): DataScheduleState = dataSource.get()
