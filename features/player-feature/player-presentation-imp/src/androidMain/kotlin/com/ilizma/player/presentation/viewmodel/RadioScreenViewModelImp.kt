@@ -19,8 +19,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -63,7 +66,7 @@ class RadioScreenViewModelImp(
 
     private fun onPlay() {
         viewModelScope.launch(ioDispatcher) {
-            when (castFramework.castState.last()) {
+            when (castFramework.castState.firstOrNull() ?: CastState.DISCONNECTED) {
                 CastState.CONNECTED -> _navigationAction.emit(CastPlayer)
                 CastState.DISCONNECTED -> withContext(mainDispatcher) { playUseCase() }
             }
@@ -71,7 +74,7 @@ class RadioScreenViewModelImp(
     }
 
     private fun onStop() {
-        stopUseCase()
+        viewModelScope.launch(mainDispatcher) { stopUseCase() }
     }
 
     private fun onBack() {

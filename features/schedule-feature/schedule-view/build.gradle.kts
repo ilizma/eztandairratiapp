@@ -1,3 +1,4 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -43,6 +44,7 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.navigation.compose)
+            implementation(libs.ui.backhandler)
             implementation(libs.lifecycle.runtime.compose)
 
             // Resources
@@ -53,6 +55,17 @@ kotlin {
 
             // Schedule
             implementation(project(":schedule-presentation"))
+        }
+
+        androidInstrumentedTest.dependencies {
+            implementation(libs.mockk.android)
+            implementation(libs.ui.test.junit4.android)
+        }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
         }
     }
 }
@@ -74,4 +87,5 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    debugImplementation(libs.ui.test.manifest)
 }

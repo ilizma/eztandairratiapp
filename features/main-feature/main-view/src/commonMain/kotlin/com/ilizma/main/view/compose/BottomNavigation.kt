@@ -9,8 +9,10 @@ import androidx.compose.material.icons.filled.Radio
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -38,7 +40,7 @@ import com.ilizma.resources.title_radio
 import com.ilizma.resources.title_schedule
 import com.ilizma.schedule.flow.model.ScheduleTab
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
-import com.ilizma.schedule.view.compose.ScheduleScreen
+import com.ilizma.schedule.view.component.ScheduleScreen
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -181,6 +183,9 @@ private fun RowScope.BottomBarItem(
                 text = stringResource(textResource),
             )
         },
+        colors = NavigationBarItemDefaults.colors(
+            selectedTextColor = MaterialTheme.colorScheme.onPrimary,
+        )
     )
 }
 

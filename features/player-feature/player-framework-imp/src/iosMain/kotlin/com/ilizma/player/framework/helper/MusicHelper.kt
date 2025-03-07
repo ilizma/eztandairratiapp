@@ -34,10 +34,10 @@ class MusicHelper {
         stop()
         startTimeObserver(observer = observer)
         showNotification()
-        //BuildKonfig.AUDIO_URL
-        //    .let { NSURL.URLWithString(URLString = it) }
-        //    ?.let { AVPlayerItem(uRL = it) }
-        //    ?.let { player.replaceCurrentItemWithPlayerItem(item = it) }
+        BuildKonfig.AUDIO_URL
+            .let { NSURL.URLWithString(URLString = it) }
+            ?.let { AVPlayerItem(uRL = it) }
+            ?.let { player.replaceCurrentItemWithPlayerItem(item = it) }
         player.play()
     }
 

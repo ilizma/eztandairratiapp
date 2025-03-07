@@ -1,6 +1,5 @@
-package com.ilizma.schedule.view.compose
+package com.ilizma.schedule.view.component
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
@@ -13,19 +12,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
 import com.ilizma.schedule.presentation.model.ProgramType
-import com.ilizma.schedule.presentation.model.ScheduleDetailScreenIntent
 import com.ilizma.schedule.presentation.model.ScheduleState
-import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
-
-@Composable
-actual fun ScheduleDetailScreen(
-    viewModel: ScheduleDetailScreenViewModel,
-) {
-    BackHandler { viewModel.onIntent(ScheduleDetailScreenIntent.Back) }
-    ScheduleDetailScreenContent(
-        viewModel = viewModel,
-    )
-}
 
 @PreviewLightDark
 @Composable

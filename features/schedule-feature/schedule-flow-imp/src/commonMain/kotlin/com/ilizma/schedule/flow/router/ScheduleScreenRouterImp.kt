@@ -8,12 +8,14 @@ import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction
 import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction.Back
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.schedule.view.router.ScheduleScreenRouter
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 
 class ScheduleScreenRouterImp(
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main,
     private val scheduleBackNavigator: ScheduleBackNavigator,
     private val scheduleDetailNavigator: ScheduleDetailNavigator,
 ) : ScheduleScreenRouter {
@@ -24,7 +26,7 @@ class ScheduleScreenRouterImp(
         navController: NavHostController,
         bottomNavController: NavHostController,
     ) {
-        coroutineScope.launch(Dispatchers.Main) {
+        coroutineScope.launch(dispatcher) {
             viewModel.navigationAction.collect {
                 onNavigationAction(
                     navController = navController,

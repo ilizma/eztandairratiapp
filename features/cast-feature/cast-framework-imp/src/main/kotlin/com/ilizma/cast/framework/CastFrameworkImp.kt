@@ -19,6 +19,7 @@ import com.ilizma.cast.framework.model.CastState
 import com.ilizma.player.framework.PlayerFramework
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import androidx.core.net.toUri
 
 class CastFrameworkImp(
     private val context: Context,
@@ -73,7 +74,7 @@ class CastFrameworkImp(
         val metadata = MediaMetadata(MediaMetadata.MEDIA_TYPE_MUSIC_TRACK)
         metadata.putString(MediaMetadata.KEY_TITLE, title)
         metadata.putString(MediaMetadata.KEY_SUBTITLE, subtitle)
-        Uri.parse(image)
+        image.toUri()
             .let { WebImage(it) }
             .let { metadata.addImage(it) }
 

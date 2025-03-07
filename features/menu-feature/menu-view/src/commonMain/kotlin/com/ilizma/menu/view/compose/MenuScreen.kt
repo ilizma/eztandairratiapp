@@ -15,7 +15,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.unit.dp
 import com.ilizma.menu.presentation.model.MenuScreenIntent
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
@@ -37,11 +39,18 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-expect fun MenuScreen(
+fun MenuScreen(
     viewModel: MenuScreenViewModel,
     paddingValues: PaddingValues,
-)
+) {
+    BackHandler { viewModel.onIntent(MenuScreenIntent.Back) }
+    MenuScreenContent(
+        paddingValues = paddingValues,
+        onIntent = { viewModel.onIntent(it) },
+    )
+}
 
 @Composable
 internal fun MenuScreenContent(

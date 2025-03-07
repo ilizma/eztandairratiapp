@@ -18,7 +18,7 @@ import com.ilizma.schedule.flow.model.ScheduleDetail
 import com.ilizma.schedule.presentation.model.ScheduleDetailScreenIntent
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
-import com.ilizma.schedule.view.compose.ScheduleDetailScreen
+import com.ilizma.schedule.view.component.ScheduleDetailScreen
 import com.ilizma.schedule.view.router.ScheduleDetailRouter
 import com.ilizma.schedule.view.router.ScheduleScreenRouter
 import org.koin.compose.koinInject

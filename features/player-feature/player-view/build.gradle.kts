@@ -42,6 +42,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.materialIconsExtended)
             implementation(compose.components.uiToolingPreview)
+            implementation(libs.ui.backhandler)
             implementation(libs.lifecycle.viewmodel)
 
             // Resources

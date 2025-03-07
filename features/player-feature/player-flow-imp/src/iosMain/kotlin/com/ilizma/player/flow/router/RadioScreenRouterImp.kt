@@ -6,11 +6,13 @@ import com.ilizma.player.presentation.model.RadioScreenNavigationAction.Back
 import com.ilizma.player.presentation.model.RadioScreenNavigationAction.CastPlayer
 import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
 import com.ilizma.player.view.router.RadioScreenRouter
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RadioScreenRouterImp(
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main,
     private val radioCloseNavigator: RadioCloseNavigator,
 ) : RadioScreenRouter {
 
@@ -18,7 +20,7 @@ class RadioScreenRouterImp(
         coroutineScope: CoroutineScope,
         viewModel: RadioScreenViewModel,
     ) {
-        coroutineScope.launch(Dispatchers.Main) {
+        coroutineScope.launch(dispatcher) {
             viewModel.navigationAction.collect { onNavigationAction(it) }
         }
     }

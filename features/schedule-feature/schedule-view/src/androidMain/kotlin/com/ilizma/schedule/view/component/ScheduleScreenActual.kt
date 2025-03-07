@@ -1,7 +1,5 @@
-package com.ilizma.schedule.view.compose
+package com.ilizma.schedule.view.component
 
-import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -9,20 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
 import com.ilizma.schedule.presentation.model.Day
-import com.ilizma.schedule.presentation.model.ScheduleScreenIntent
-import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
-
-@Composable
-actual fun ScheduleScreen(
-    viewModel: ScheduleScreenViewModel,
-    paddingValues: PaddingValues,
-) {
-    BackHandler { viewModel.onIntent(ScheduleScreenIntent.Back) }
-    ScheduleScreenContent(
-        viewModel = viewModel,
-        paddingValues = paddingValues,
-    )
-}
 
 @PreviewLightDark
 @Composable

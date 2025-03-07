@@ -19,7 +19,9 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import com.ilizma.player.presentation.model.PlayerState
@@ -40,12 +42,20 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-expect fun RadioScreen(
+fun RadioScreen(
     viewModel: RadioScreenViewModel,
     paddingValues: PaddingValues,
     snackbarHostState: SnackbarHostState,
-)
+) {
+    BackHandler { viewModel.onIntent(RadioScreenIntent.Back) }
+    RadioScreenContent(
+        viewModel = viewModel,
+        paddingValues = paddingValues,
+        snackbarHostState = snackbarHostState,
+    )
+}
 
 @Composable
 internal fun RadioScreenContent(
@@ -134,7 +144,8 @@ private fun ScreenBox(
                 when (state) {
                     PlayerState.Stopped -> onIntent(RadioScreenIntent.Play)
                     PlayerState.Playing -> onIntent(RadioScreenIntent.Stop)
-                    else -> { /* no-op */ }
+                    else -> { /* no-op */
+                    }
                 }
             },
         ) {

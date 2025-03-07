@@ -1,4 +1,4 @@
-package com.ilizma.schedule.view.compose
+package com.ilizma.schedule.view.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +32,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.ilizma.resources.Res
@@ -46,10 +48,16 @@ import com.ilizma.view.lifecycle.collectAsStateMultiplatform
 import com.ilizma.view.shimmer.ShimmerBrush
 import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-expect fun ScheduleDetailScreen(
+fun ScheduleDetailScreen(
     viewModel: ScheduleDetailScreenViewModel,
-)
+) {
+    BackHandler { viewModel.onIntent(ScheduleDetailScreenIntent.Back) }
+    ScheduleDetailScreenContent(
+        viewModel = viewModel,
+    )
+}
 
 @Composable
 internal fun ScheduleDetailScreenContent(

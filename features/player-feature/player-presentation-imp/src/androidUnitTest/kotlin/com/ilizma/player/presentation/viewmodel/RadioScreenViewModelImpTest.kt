@@ -75,11 +75,12 @@ class RadioScreenViewModelImpTest {
             verify { playUseCase() }
         }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `given Stop RadioScreenIntent, when onIntent, then stopUseCase should be executed`() =
         runTest {
             // given
-            val testDispatcher = StandardTestDispatcher(testScheduler)
+            val testDispatcher = UnconfinedTestDispatcher(testScheduler)
             setup(testDispatcher)
 
             // when
