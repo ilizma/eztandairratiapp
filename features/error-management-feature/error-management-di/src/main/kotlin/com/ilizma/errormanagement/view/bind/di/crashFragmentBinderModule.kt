@@ -10,7 +10,10 @@ import org.koin.dsl.module
 val crashFragmentBinderModule: Module = module {
 
     scope<CrashFragment> {
-        scoped<CrashFragmentBinder> { CrashFragmentBinderImp(activity = get<Fragment>().requireActivity()) }
+        scoped<CrashFragmentBinder> {
+            @Suppress("UndeclaredKoinUsage")
+            CrashFragmentBinderImp(activity = get<Fragment>().requireActivity())
+        }
     }
 
 }

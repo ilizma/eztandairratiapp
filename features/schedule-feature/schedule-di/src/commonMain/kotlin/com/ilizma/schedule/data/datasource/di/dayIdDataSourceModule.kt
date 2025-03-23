@@ -11,6 +11,7 @@ val dayIdDataSourceModule: Module = module {
     factory<DayIdDataSource> {
         DayIdDataSourceImp(
             dayId = {
+                @Suppress("UndeclaredKoinUsage")
                 get<ScheduleDetailArgsCache>().get()
                     ?.id
                     ?: throw NullPointerException("cached id can not be null")
