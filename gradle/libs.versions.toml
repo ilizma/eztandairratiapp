@@ -5,7 +5,7 @@ android-compileSdk = "35"
 android-targetSdk = "35"
 ## endregion
 ## region libraries
-kotlin-version = "2.1.10"
+kotlin-version = "2.1.20"
 serialization-version = "1.8.0"
 coroutines-version = "1.10.1"
 appcompat-version = "1.7.0"
@@ -20,15 +20,16 @@ media2-version = "1.0.0-alpha04"
 media3-version = "1.5.1"
 annotation-version = "1.9.1"
 koin-version = "4.0.2"
+kotzilla-version = "1.0.1"
 immutable-version = "0.3.8"
-firebase-bom-version = "33.10.0"
+firebase-bom-version = "33.11.0"
 mediarouter-version = "1.7.0"
 cast-framework-version = "22.0.0"
 review-version = "2.0.2"
 material-version = "1.12.0"
-lottie-version = "6.6.3"
+lottie-version = "6.6.4"
 chucker-version = "4.1.0"
-ktorfit-version = "2.4.0"
+ktorfit-version = "2.4.1"
 ktor-version = "3.1.1"
 mockk-version = "1.13.17"
 firebaseAnalyticsVersion = "22.1.0" #Do not update the library because gitlive is using this version
@@ -36,9 +37,9 @@ firebaseCommonKtxVersion = "21.0.0" #Do not update the library because gitlive i
 firebaseCrashlyticsKtxVersion = "19.0.3" #Do not update the library because gitlive is using this version
 ## endregion
 ## region plugins
-agp-version = "8.8.2"
-compose-multiplatform-version = "1.8.0-alpha03"
-ksp-plugin-version = "2.1.10-1.0.31"
+agp-version = "8.9.0"
+compose-multiplatform-version = "1.8.0-beta01"
+ksp-plugin-version = "2.1.20-1.0.31"
 google-services-plugin-version = "4.4.2"
 crashlytics-plugin-version = "3.0.3"
 junit5-plugin-version = "1.9.3.0"
@@ -78,6 +79,8 @@ koin-compose = { group = "io.insert-koin", name = "koin-compose" }
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel" }
 koin-core = { group = "io.insert-koin", name = "koin-core" }
 koin-core-viewmodel = { group = "io.insert-koin", name = "koin-core-viewmodel" }
+kotzilla = { group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "kotzilla-version" }
+kotzilla-plugin = { group = "io.kotzilla", name = "kotzilla-plugin", version.ref = "kotzilla-version" }
 ## endregion
 ## region firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom-version" }

@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 rootProject.name = "EztandaIrratiapp"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 

@@ -13,6 +13,12 @@
 # Kotlin class files
 *.kotlin
 
+# iOS class files
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata/
+
 # Generated files
 bin/
 gen/
@@ -43,7 +49,7 @@ captures/
 *.iws
 *.bat
 *.salive
-.idea/
+.idea/*
 
 # Keystore files
 *.jks
