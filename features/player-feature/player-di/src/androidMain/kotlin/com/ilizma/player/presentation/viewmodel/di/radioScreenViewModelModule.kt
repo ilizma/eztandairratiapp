@@ -22,7 +22,10 @@ actual val radioScreenViewModelModule: Module = module {
                 castFramework = get(),
                 mapper = PlayerStateMapper(),
                 _navigationAction = MutableSharedFlow(),
-            ).also { get<ComponentActivity>().lifecycle.addObserver(it) }
+            ).also {
+                @Suppress("UndeclaredKoinUsage")
+                get<ComponentActivity>().lifecycle.addObserver(it)
+            }
         }
     }
 

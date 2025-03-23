@@ -12,6 +12,7 @@ val playReviewFrameworkModule: Module = module {
 
     scope<MainActivity> {
         scoped<PlayReviewFramework> {
+            @Suppress("UndeclaredKoinUsage")
             PlayReviewFrameworkImp(
                 activity = get(),
                 manager = { ReviewManagerFactory.create(androidContext()) },

@@ -12,6 +12,12 @@ plugins {
     alias(libs.plugins.buildkonfig).apply(false)
 }
 
+buildscript {
+    dependencies {
+        classpath(libs.kotzilla.plugin)
+    }
+}
+
 tasks.register("clean", Delete::class) {
     delete(rootProject.layout.buildDirectory)
 }

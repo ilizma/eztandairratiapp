@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.google.services)
     alias(libs.plugins.crashlytics)
+    id("io.kotzilla.kotzilla-plugin")
 }
 
 kotlin {
@@ -61,6 +62,7 @@ kotlin {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
+            implementation(libs.kotzilla)
             implementation(libs.lifecycle.viewmodel)
             implementation(libs.lifecycle.runtime.compose)
             implementation(libs.gitlive.crashlytics)

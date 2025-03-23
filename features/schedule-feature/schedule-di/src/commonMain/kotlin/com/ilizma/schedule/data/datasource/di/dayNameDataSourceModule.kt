@@ -11,6 +11,7 @@ val dayNameDataSourceModule: Module = module {
     factory<DayNameDataSource> {
         DayNameDataSourceImp(
             dayName = {
+                @Suppress("UndeclaredKoinUsage")
                 get<ScheduleDetailArgsCache>().get()
                     ?.name
                     ?: throw NullPointerException("cached name can not be null")
