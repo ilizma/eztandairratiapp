@@ -6,6 +6,12 @@
       "applicationPackageName": "com.ilizma.eztandairratiapp.debug",
       "keyId": "0195bd43-49e1-76f8-9f45-e05688ccc6dc",
       "apiKey": "ktz-sdk-k3GMtjToSYE8RtHGqW2CAd4qxKb7gBs75Jn4pFc8b6c"
+    },
+    {
+      "appId": "5c025a2c-0476-43aa-8b05-8a5267bc5a7c",
+      "applicationPackageName": "com.ilizma.eztandairratiapp",
+      "keyId": "0195c25c-2c18-7a80-83f6-809f1c12e06d",
+      "apiKey": "ktz-sdk-KI6UN4ghWH5hNyn1KaXKPsDB5zmBqkzYsS3RPP1NBos"
     }
   ]
 }
