@@ -11,13 +11,18 @@ import org.koin.core.module.Module
 import org.koin.dsl.KoinAppDeclaration
 
 fun initKoin(
+    isDebug: Boolean,
     config: KoinAppDeclaration? = null,
     platformModules: List<Module>? = null,
 ) {
     startKoin {
         config?.invoke(this)
         analytics {
-            setApiKey("ktz-sdk-k3GMtjToSYE8RtHGqW2CAd4qxKb7gBs75Jn4pFc8b6c")
+            if (isDebug) {
+                "ktz-sdk-k3GMtjToSYE8RtHGqW2CAd4qxKb7gBs75Jn4pFc8b6c"
+            } else {
+                "ktz-sdk-KI6UN4ghWH5hNyn1KaXKPsDB5zmBqkzYsS3RPP1NBos"
+            }.let { setApiKey(it) }
             setVersion("1.0.1")
         }
         mutableListOf<Module>()

@@ -8,9 +8,15 @@ import dev.gitlive.firebase.crashlytics.crashlytics
 import dev.gitlive.firebase.initialize
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+import kotlin.experimental.ExperimentalNativeApi
 
+@OptIn(ExperimentalNativeApi::class)
 fun MainViewController() = ComposeUIViewController(
-    configure = { initKoin() },
+    configure = {
+        initKoin(
+            isDebug = Platform.isDebugBinary,
+        )
+    },
 ) {
     AppNavigation(
         radioScreenRouter = koinInject(),
