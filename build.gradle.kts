@@ -1,8 +1,15 @@
+buildscript {
+    dependencies {
+        classpath(libs.kotzilla.plugin)
+    }
+}
+
 plugins {
     alias(libs.plugins.android.application).apply(false)
     alias(libs.plugins.android.library).apply(false)
     alias(libs.plugins.kotlin.android).apply(false)
     alias(libs.plugins.kotlin.multiplatform).apply(false)
+    alias(libs.plugins.kotzilla).apply(false)
     alias(libs.plugins.compose).apply(false)
     alias(libs.plugins.google.services).apply(false)
     alias(libs.plugins.crashlytics).apply(false)
@@ -10,12 +17,6 @@ plugins {
     alias(libs.plugins.ktorfit).apply(false)
     alias(libs.plugins.serialization).apply(false)
     alias(libs.plugins.buildkonfig).apply(false)
-}
-
-buildscript {
-    dependencies {
-        classpath(libs.kotzilla.plugin)
-    }
 }
 
 tasks.register("clean", Delete::class) {
