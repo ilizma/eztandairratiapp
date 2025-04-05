@@ -75,7 +75,7 @@ koin-compose = { group = "io.insert-koin", name = "koin-compose" }
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel" }
 koin-core = { group = "io.insert-koin", name = "koin-core" }
 koin-core-viewmodel = { group = "io.insert-koin", name = "koin-core-viewmodel" }
-kotzilla = { group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "kotzilla-version" }
+kotzilla-sdk-ktor3 = { group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "kotzilla-version" }
 kotzilla-plugin = { group = "io.kotzilla", name = "kotzilla-plugin", version.ref = "kotzilla-version" }
 ## endregion
 ## region firebase
@@ -130,6 +130,7 @@ compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-m
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-plugin-version" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin-version" }
+kotzilla = { id  = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla-version" }
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin-version" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services-plugin-version" }
 crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics-plugin-version" }
