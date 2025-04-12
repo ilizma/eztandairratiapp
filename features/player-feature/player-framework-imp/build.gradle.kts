@@ -32,7 +32,6 @@ kotlin {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.android)
             implementation(libs.appcompat)
-            implementation(libs.media)
             implementation(libs.session)
             implementation(libs.exoplayer)
             implementation(libs.core.ktx)

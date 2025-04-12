@@ -1,44 +1,43 @@
 [versions]
 ## region config
 android-minSdk = "21"
-android-compileSdk = "35"
-android-targetSdk = "35"
+android-compileSdk = "36"
+android-targetSdk = "36"
 ## endregion
 ## region libraries
 kotlin-version = "2.1.20"
-serialization-version = "1.8.0"
+serialization-version = "1.8.1"
 coroutines-version = "1.10.1"
 appcompat-version = "1.7.0"
-ktx-version = "1.15.0"
+ktx-version = "1.16.0"
 splash-version = "1.0.1"
 lifecycle-version = "2.8.7"
 jetbrains-lifecycle-version = "2.8.4"
 customactivityoncrash-version = "2.4.0"
 activity-version = "1.10.1"
 navigation-compose-version = "2.8.0-alpha13"
-media2-version = "1.0.0-alpha04"
-media3-version = "1.5.1"
+media3-version = "1.6.0"
 annotation-version = "1.9.1"
-koin-version = "4.0.2"
+koin-version = "4.0.4"
 kotzilla-version = "1.0.1"
 immutable-version = "0.3.8"
-firebase-bom-version = "33.11.0"
+firebase-bom-version = "33.12.0"
 mediarouter-version = "1.7.0"
 cast-framework-version = "22.0.0"
 review-version = "2.0.2"
 material-version = "1.12.0"
 lottie-version = "6.6.4"
 chucker-version = "4.1.0"
-ktorfit-version = "2.4.1"
-ktor-version = "3.1.1"
+ktorfit-version = "2.5.0"
+ktor-version = "3.1.2"
 mockk-version = "1.13.17"
 firebaseAnalyticsVersion = "22.1.0" #Do not update the library because gitlive is using this version
 firebaseCommonKtxVersion = "21.0.0" #Do not update the library because gitlive is using this version
 firebaseCrashlyticsKtxVersion = "19.0.3" #Do not update the library because gitlive is using this version
 ## endregion
 ## region plugins
-agp-version = "8.9.0"
-compose-multiplatform-version = "1.8.0-beta01"
+agp-version = "8.9.1"
+compose-multiplatform-version = "1.8.0-beta02"
 ksp-plugin-version = "2.1.20-1.0.31"
 google-services-plugin-version = "4.4.2"
 crashlytics-plugin-version = "3.0.3"
@@ -57,7 +56,6 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation-version" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx-version" }
 exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3-version" }
-media = { group = "androidx.media2", name = "media2", version.ref = "media2-version" }
 navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose-version" }
 session = { group = "androidx.media3", name = "media3-session", version.ref = "media3-version" }
 splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splash-version" }

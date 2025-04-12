@@ -144,8 +144,7 @@ private fun ScreenBox(
                 when (state) {
                     PlayerState.Stopped -> onIntent(RadioScreenIntent.Play)
                     PlayerState.Playing -> onIntent(RadioScreenIntent.Stop)
-                    else -> { /* no-op */
-                    }
+                    else -> { /* no-op */ }
                 }
             },
         ) {
