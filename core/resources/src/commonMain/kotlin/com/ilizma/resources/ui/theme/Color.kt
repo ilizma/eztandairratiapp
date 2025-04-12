@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 val Black = Color(0xFF000000)
 val BackgroundNight = Black
 val SecondaryNight = Color(0xFF1C1B1F)
-val PurpleNight = Color(0xFFCD00CD)
+val PurpleNight = Color(0xFF6D4684)
 
 val White = Color(0xFFFFFFFF)
 val BackgroundDay = White
