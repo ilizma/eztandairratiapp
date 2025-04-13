@@ -7,6 +7,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Radio
 import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material.icons.outlined.Radio
+import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -140,21 +143,21 @@ private fun BottomBar(
         BottomBarItem(
             selected = key == BottomBarItemType.RADIO,
             textResource = Res.string.title_radio,
-            icon = Icons.Default.Radio,
+            icon = if (key == BottomBarItemType.RADIO) Icons.Filled.Radio else Icons.Outlined.Radio,
             contentDescription = "Radio",
             itemSelected = { itemSelected(RadioTab) },
         )
         BottomBarItem(
             selected = key == BottomBarItemType.SCHEDULE,
             textResource = Res.string.title_schedule,
-            icon = Icons.Default.Schedule,
+            icon = if (key == BottomBarItemType.SCHEDULE) Icons.Filled.Schedule else Icons.Outlined.Schedule,
             contentDescription = "Schedule",
             itemSelected = { itemSelected(ScheduleTab) },
         )
         BottomBarItem(
             selected = key == BottomBarItemType.MENU,
             textResource = Res.string.title_menu,
-            icon = Icons.Default.Menu,
+            icon = if (key == BottomBarItemType.MENU) Icons.Filled.Menu else Icons.Outlined.Menu,
             contentDescription = "Menu",
             itemSelected = { itemSelected(MenuTab) },
         )
