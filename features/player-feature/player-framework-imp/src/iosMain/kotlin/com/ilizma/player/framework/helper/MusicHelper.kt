@@ -1,32 +1,27 @@
 package com.ilizma.player.framework.helper
 
 import com.ilizma.player.framework.imp.BuildKonfig
-import kotlinx.cinterop.CValue
+import com.ilizma.player.framework.model.PlayerState
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import platform.AVFAudio.AVAudioSession
 import platform.AVFAudio.AVAudioSessionCategoryPlayback
 import platform.AVFAudio.AVAudioSessionPortOverrideSpeaker
 import platform.AVFAudio.setActive
-import platform.AVFoundation.addPeriodicTimeObserverForInterval
 import platform.AVFoundation.AVPlayer
-import platform.AVFoundation.AVPlayerTimeControlStatusPlaying
-import platform.AVFoundation.AVPlayerItemPlaybackStalledNotification
-import platform.AVFoundation.currentItem
-import platform.AVFoundation.isPlaybackLikelyToKeepUp
-import platform.AVFoundation.removeTimeObserver
 import platform.AVFoundation.pause
 import platform.AVFoundation.play
-import platform.AVFoundation.timeControlStatus
-import platform.CoreMedia.CMTime
-import platform.CoreMedia.CMTimeMakeWithSeconds
-import platform.Foundation.NSNotificationCenter
-import platform.Foundation.NSOperationQueue
 import platform.Foundation.NSURL
-import platform.darwin.NSEC_PER_SEC
+import platform.MediaPlayer.MPMediaItemArtwork
 import platform.MediaPlayer.MPMediaItemPropertyArtist
+import platform.MediaPlayer.MPMediaItemPropertyArtwork
 import platform.MediaPlayer.MPMediaItemPropertyTitle
 import platform.MediaPlayer.MPNowPlayingInfoCenter
 import platform.MediaPlayer.MPNowPlayingInfoPropertyPlaybackRate
+import platform.MediaPlayer.MPRemoteCommandCenter
+import platform.MediaPlayer.MPRemoteCommandHandlerStatusSuccess
+import platform.UIKit.UIImage
 
 class MusicHelper {
 
@@ -36,35 +31,29 @@ class MusicHelper {
 
     private var session: AVAudioSession? = null
 
-    private var timeObserver: Any? = null
+    private val _playerState: MutableStateFlow<PlayerState> = MutableStateFlow(PlayerState.Stopped)
+    val playerState: StateFlow<PlayerState> = _playerState
 
     init {
         setUpAudioSession()
     }
 
-    fun isLoading(): Boolean = player.currentItem?.isPlaybackLikelyToKeepUp() != true
-
-    fun isPlaying(): Boolean = player.timeControlStatus == AVPlayerTimeControlStatusPlaying
-
-    @OptIn(ExperimentalForeignApi::class)
-    fun play(
-        observer: (CValue<CMTime>) -> Unit,
-    ) {
+    fun play() {
         stop()
-        startTimeObserver(observer = observer)
-        showNotification()
+        _playerState.tryEmit(PlayerState.Loading)
+        setupRemoteCommandCenter()
         updateNowPlayingInfo(
             title = "Eztanda Irratia",
             artist = "107.6 FM",
+            iconName = "RadioIcon",
         )
         player.play()
+        _playerState.tryEmit(PlayerState.Playing)
     }
 
     fun stop() {
-        timeObserver
-            ?.let { player.removeTimeObserver(observer = it) }
-        timeObserver = null
         player.pause()
+        _playerState.tryEmit(PlayerState.Stopped)
     }
 
     @OptIn(ExperimentalForeignApi::class)
@@ -91,48 +80,45 @@ class MusicHelper {
     }
 
     @OptIn(ExperimentalForeignApi::class)
-    private fun startTimeObserver(
-        observer: (CValue<CMTime>) -> Unit,
-    ) {
-        timeObserver = CMTimeMakeWithSeconds(
-            seconds = 1.0,
-            preferredTimescale = NSEC_PER_SEC.toInt(),
-        ).let {
-            player.addPeriodicTimeObserverForInterval(
-                interval = it,
-                queue = null,
-                usingBlock = observer,
-            )
-        }
-    }
-
-    @OptIn(ExperimentalForeignApi::class)
-    private fun showNotification() {
-        NSNotificationCenter.defaultCenter.addObserverForName(
-            name = AVPlayerItemPlaybackStalledNotification,
-            `object` = player.currentItem,
-            queue = NSOperationQueue.mainQueue,
-            usingBlock = {
-                stop()
-                session?.setActive(
-                    active = false,
-                    error = null,
-                )
-            },
-        )
-    }
-
     private fun updateNowPlayingInfo(
         title: String,
         artist: String,
+        iconName: String,
     ) {
         val nowPlayingInfo = mutableMapOf<Any?, Any?>(
             MPMediaItemPropertyTitle to title,
             MPMediaItemPropertyArtist to artist,
-            MPNowPlayingInfoPropertyPlaybackRate to 1.0
+            MPNowPlayingInfoPropertyPlaybackRate to 1.0,
+            MPMediaItemPropertyArtwork to UIImage.imageNamed(name = iconName)
+                ?.let { image ->
+                    MPMediaItemArtwork(
+                        boundsSize = image.size,
+                        requestHandler = { image },
+                    )
+                },
         )
 
         MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = nowPlayingInfo
+    }
+
+    private fun setupRemoteCommandCenter() {
+        MPRemoteCommandCenter.sharedCommandCenter().apply {
+            playCommand.enabled = true
+            playCommand.addTargetWithHandler(
+                handler = {
+                    play()
+                    MPRemoteCommandHandlerStatusSuccess
+                },
+            )
+
+            pauseCommand.enabled = true
+            pauseCommand.addTargetWithHandler(
+                handler = {
+                    stop()
+                    MPRemoteCommandHandlerStatusSuccess
+                },
+            )
+        }
     }
 }
 
