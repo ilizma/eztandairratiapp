@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.core.app.ActivityCompat
@@ -28,6 +29,7 @@ class MainActivity : ComponentActivity(), AndroidScopeComponent {
     private val reviewFramework: PlayReviewFramework by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         // As a music player, the volume controls should adjust the music volume while in the app.
         volumeControlStream = AudioManager.STREAM_MUSIC
