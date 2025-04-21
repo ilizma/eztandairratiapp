@@ -35,10 +35,6 @@ kotlin {
             implementation(libs.activity.compose)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.android)
-            implementation(project.dependencies.platform(libs.firebase.bom))
-            implementation(libs.firebase.crashlytics)
-            implementation(libs.firebase.analytics)
-            implementation(libs.firebase.messaging)
             implementation(libs.session)
             implementation(libs.cast.framework)
             implementation(libs.customactivityoncrash)
@@ -67,6 +63,9 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.lifecycle.viewmodel)
             implementation(libs.lifecycle.runtime.compose)
+            implementation(libs.gitlive.crashlytics)
+            implementation(libs.gitlive.analytics)
+            implementation(libs.gitlive.messaging)
 
             // api
             implementation(project(":api-di"))

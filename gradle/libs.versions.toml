@@ -7,7 +7,7 @@ android-targetSdk = "36"
 ## region libraries
 kotlin-version = "2.1.20"
 serialization-version = "1.8.1"
-coroutines-version = "1.10.1"
+coroutines-version = "1.10.2"
 appcompat-version = "1.7.0"
 ktx-version = "1.16.0"
 splash-version = "1.0.1"
@@ -16,33 +16,31 @@ jetbrains-lifecycle-version = "2.8.4"
 customactivityoncrash-version = "2.4.0"
 activity-version = "1.10.1"
 navigation-compose-version = "2.8.0-alpha13"
-media3-version = "1.6.0"
+media3-version = "1.6.1"
 annotation-version = "1.9.1"
 koin-version = "4.0.4"
 kotzilla-version = "1.0.1"
 immutable-version = "0.3.8"
-firebase-bom-version = "33.12.0"
 mediarouter-version = "1.7.0"
 cast-framework-version = "22.0.0"
 review-version = "2.0.2"
 material-version = "1.12.0"
-lottie-version = "6.6.4"
+lottie-version = "6.6.6"
 chucker-version = "4.1.0"
-ktorfit-version = "2.5.0"
+ktorfit-version = "2.5.1"
 ktor-version = "3.1.2"
-mockk-version = "1.13.17"
-firebaseAnalyticsVersion = "22.1.0" #Do not update the library because gitlive is using this version
-firebaseCommonKtxVersion = "21.0.0" #Do not update the library because gitlive is using this version
-firebaseCrashlyticsKtxVersion = "19.0.3" #Do not update the library because gitlive is using this version
+mockk-version = "1.14.0"
+gitliveVersion = "2.1.0"
 ## endregion
 ## region plugins
 agp-version = "8.9.1"
 compose-multiplatform-version = "1.8.0-beta02"
+compose-multiplatform-test-version = "1.8.0-rc03"
 ksp-plugin-version = "2.1.20-1.0.31"
 google-services-plugin-version = "4.4.2"
 crashlytics-plugin-version = "3.0.3"
 junit5-plugin-version = "1.9.3.0"
-buildkonfig-plugin-version = "0.17.0"
+buildkonfig-plugin-version = "0.17.1"
 ## endregion
 
 [libraries]
@@ -81,10 +79,9 @@ kotzilla = { group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "
 kotzilla-plugin = { group = "io.kotzilla", name = "kotzilla-plugin", version.ref = "kotzilla-version" }
 ## endregion
 ## region firebase
-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom-version" }
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
-firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
+gitlive-analytics = { module = "dev.gitlive:firebase-analytics", version.ref = "gitliveVersion" }
+gitlive-crashlytics = { module = "dev.gitlive:firebase-crashlytics", version.ref = "gitliveVersion" }
+gitlive-messaging = { module = "dev.gitlive:firebase-messaging", version.ref = "gitliveVersion" }
 ## endregion
 ## region cast
 mediarouter = { group = "androidx.mediarouter", name = "mediarouter", version.ref = "mediarouter-version" }
@@ -122,11 +119,8 @@ mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "moc
 ui-backhandler = { group = "org.jetbrains.compose.ui", name = "ui-backhandler", version.ref = "compose-multiplatform-version" }
 ## endregion compose
 ## region uitest
-firebase-common-ktx = { module = "com.google.firebase:firebase-common-ktx", version.ref = "firebaseCommonKtxVersion" }
-firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebaseCrashlyticsKtxVersion" }
-google-firebase-analytics = { module = "com.google.firebase:firebase-analytics", version.ref = "firebaseAnalyticsVersion" }
-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "compose-multiplatform-version" }
-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "compose-multiplatform-version" }
+ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "compose-multiplatform-test-version" }
+ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "compose-multiplatform-test-version" }
 ## endregion
 
 [plugins]
