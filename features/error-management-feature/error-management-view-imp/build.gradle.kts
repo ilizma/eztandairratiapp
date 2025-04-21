@@ -17,13 +17,12 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
+    kotlinOptions {
+        jvmTarget = "21"
+    }
+
     buildFeatures {
         buildConfig = true
-    }
-    
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-        getByName("test").java.srcDirs("src/test/kotlin")
     }
 
 }

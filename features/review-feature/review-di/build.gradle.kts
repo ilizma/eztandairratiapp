@@ -16,8 +16,8 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
+    kotlinOptions {
+        jvmTarget = "21"
     }
 
 }

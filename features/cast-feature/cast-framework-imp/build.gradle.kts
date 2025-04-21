@@ -16,6 +16,10 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
+    kotlinOptions {
+        jvmTarget = "21"
+    }
+
     buildTypes {
         getByName("debug") {
             buildConfigField("String", "AUDIO_URL", "\"" + Environments.debug.audioURL + "\"")
@@ -27,11 +31,6 @@ android {
 
     buildFeatures {
         buildConfig = true
-    }
-
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
-        getByName("test").java.srcDirs("src/test/kotlin")
     }
 
 }

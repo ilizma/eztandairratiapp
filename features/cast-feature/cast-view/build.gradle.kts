@@ -16,12 +16,12 @@ android {
         targetCompatibility = ConfigData.javaVersion
     }
 
-    buildFeatures {
-        viewBinding = true
+    kotlinOptions {
+        jvmTarget = "21"
     }
 
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
+    buildFeatures {
+        viewBinding = true
     }
 
 }

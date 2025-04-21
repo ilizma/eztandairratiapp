@@ -1,1 +1,1 @@
-plugins {    id("java-library")    id("kotlin")}java {    sourceCompatibility = ConfigData.javaVersion    targetCompatibility = ConfigData.javaVersion}
+import org.jetbrains.kotlin.gradle.dsl.JvmTargetplugins {    id("java-library")    id("kotlin")}java {    sourceCompatibility = ConfigData.javaVersion    targetCompatibility = ConfigData.javaVersion}kotlin.compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
