@@ -11,7 +11,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.ilizma.eztandairratiapp</string>
+	<string>com.ilizma.EztandaIrratiapp</string>
 	<key>PROJECT_ID</key>
 	<string>eztanda-irratiapp</string>
 	<key>STORAGE_BUCKET</key>
@@ -27,7 +27,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:580637361963:ios:03e0b95f16b61dbdba276e</string>
+	<string>1:580637361963:ios:fbc9863906fbf21cba276e</string>
 	<key>DATABASE_URL</key>
 	<string>https://eztanda-irratiapp.firebaseio.com</string>
 </dict>
