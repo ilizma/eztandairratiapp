@@ -12,7 +12,7 @@ class ProgramListMapper(
         dayId: Int,
     ): List<Program> = programList
         .filter { it.day == dayId }
-        .sortedBy { it.hour }
+        .sortedBy { it.hour.split(":").first().toInt() }
         .map { mapper.from(it) }
 
 }
