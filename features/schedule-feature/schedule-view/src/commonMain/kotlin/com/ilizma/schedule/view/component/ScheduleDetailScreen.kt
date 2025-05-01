@@ -40,13 +40,17 @@ import androidx.compose.ui.unit.dp
 import com.ilizma.resources.Res
 import com.ilizma.resources.empty_list
 import com.ilizma.resources.retry
+import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
 import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.presentation.model.ScheduleDetailScreenIntent
 import com.ilizma.schedule.presentation.model.ScheduleState
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
+import com.ilizma.schedule.view.utils.ScheduleDetailScreenPreviewProvider
 import com.ilizma.view.lifecycle.collectAsStateMultiplatform
 import com.ilizma.view.shimmer.ShimmerBrush
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -266,4 +270,23 @@ private fun Error(
                 }
             }
         }
+}
+
+@Preview
+@Composable
+private fun ScheduleDetailScreenPreview(
+    @PreviewParameter(ScheduleDetailScreenPreviewProvider::class) state: ScheduleState,
+) {
+    EztandaIrratiappTheme(dynamicColor = false) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+        ) { paddingValues ->
+            ScreenState(
+                state = state,
+                paddingValues = paddingValues,
+                snackbarHostState = SnackbarHostState(),
+                onIntent = {},
+            )
+        }
+    }
 }

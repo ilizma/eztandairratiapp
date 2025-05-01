@@ -14,6 +14,8 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
@@ -27,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.ilizma.player.presentation.model.PlayerState
 import com.ilizma.player.presentation.model.RadioScreenIntent
 import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
+import com.ilizma.player.view.utils.RadioScreenPreviewProvider
 import com.ilizma.resources.Res
 import com.ilizma.resources.generic_error
 import com.ilizma.resources.img_eztanda
@@ -35,12 +38,15 @@ import com.ilizma.resources.media_disconnected
 import com.ilizma.resources.no_internet
 import com.ilizma.resources.retry
 import com.ilizma.resources.timeout_message
+import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
 import com.ilizma.resources.unknown_error
 import com.ilizma.resources.unsupported_media
 import com.ilizma.view.lifecycle.collectAsStateMultiplatform
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -181,4 +187,27 @@ private fun errorRes(
     PlayerState.Error.MediaDisconnected -> Res.string.media_disconnected
     PlayerState.Error.Unknown -> Res.string.unknown_error
     PlayerState.Error.GenericError -> Res.string.generic_error
+}
+
+@Preview
+@Composable
+private fun RadioScreenPreview(
+    @PreviewParameter(RadioScreenPreviewProvider::class) state: PlayerState,
+    snackbarHostState: SnackbarHostState = SnackbarHostState(),
+) {
+    EztandaIrratiappTheme(dynamicColor = false) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            snackbarHost = {
+                SnackbarHost(snackbarHostState)
+            },
+        ) { paddingValues ->
+            ScreenState(
+                state = state,
+                paddingValues = paddingValues,
+                snackbarHostState = snackbarHostState,
+                onIntent = {},
+            )
+        }
+    }
 }

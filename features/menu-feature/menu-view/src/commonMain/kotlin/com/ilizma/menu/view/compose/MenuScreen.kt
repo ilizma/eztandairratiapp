@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,12 +33,14 @@ import com.ilizma.resources.ic_whatsapp
 import com.ilizma.resources.instagram
 import com.ilizma.resources.phone
 import com.ilizma.resources.twitter
+import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
 import com.ilizma.resources.web
 import com.ilizma.resources.whatsapp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -86,14 +89,17 @@ internal fun MenuScreenContent(
             title = Res.string.web,
             onClick = { onIntent(MenuScreenIntent.Web) },
         )
-        DoubleRow(
+        SimpleRow(
             iconRes = Res.drawable.ic_phone,
-            iconRes2 = Res.drawable.ic_whatsapp,
             iconDescription = "Phone",
-            iconDescription2 = "Whatsapp",
             title = Res.string.phone,
-            title2 = Res.string.whatsapp,
             onClick = { onIntent(MenuScreenIntent.Phone) },
+        )
+        SimpleRow(
+            iconRes = Res.drawable.ic_whatsapp,
+            iconDescription = "Whatsapp",
+            title = Res.string.whatsapp,
+            onClick = { onIntent(MenuScreenIntent.WhatsApp) },
         )
     }
 }
@@ -136,52 +142,16 @@ private fun SimpleRow(
     }
 }
 
+@Preview
 @Composable
-private fun DoubleRow(
-    iconRes: DrawableResource,
-    iconRes2: DrawableResource,
-    iconDescription: String,
-    iconDescription2: String,
-    title: StringResource,
-    title2: StringResource,
-    onClick: () -> Unit,
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                horizontal = 16.dp,
-                vertical = 8.dp,
-            )
-            .clickable { onClick() },
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(
-                    horizontal = 16.dp,
-                    vertical = 8.dp,
-                )
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Icon(
-                painter = painterResource(iconRes),
-                tint = MaterialTheme.colorScheme.onPrimary,
-                contentDescription = iconDescription,
-            )
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(
-                text = stringResource(title),
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Icon(
-                painter = painterResource(iconRes2),
-                tint = MaterialTheme.colorScheme.onPrimary,
-                contentDescription = iconDescription2,
-            )
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(
-                text = stringResource(title2),
+private fun MenuScreenPreview() {
+    EztandaIrratiappTheme(dynamicColor = false) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+        ) { paddingValues ->
+            MenuScreenContent(
+                paddingValues = paddingValues,
+                onIntent = {},
             )
         }
     }

@@ -2,22 +2,26 @@ package com.ilizma.schedule.view.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.unit.dp
+import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
 import com.ilizma.schedule.presentation.model.Day
 import com.ilizma.schedule.presentation.model.Days
 import com.ilizma.schedule.presentation.model.ScheduleScreenIntent
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.view.lifecycle.collectAsStateMultiplatform
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -100,5 +104,24 @@ private fun DayRow(
                     vertical = 8.dp,
                 ),
         )
+    }
+}
+
+@Preview
+@Composable
+private fun ScheduleScreenPreview() {
+    EztandaIrratiappTheme(dynamicColor = false) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+        ) { paddingValues ->
+            Schedule(
+                paddingValues = paddingValues,
+                list = listOf(
+                    Day(id = 1, name = "Monday"),
+                    Day(id = 2, name = "Tuesday"),
+                ),
+                onClick = {},
+            )
+        }
     }
 }
