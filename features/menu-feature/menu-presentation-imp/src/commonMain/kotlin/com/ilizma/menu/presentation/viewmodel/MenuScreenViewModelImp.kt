@@ -8,6 +8,7 @@ import com.ilizma.menu.presentation.model.MenuNavigationAction.Instagram
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Phone
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Twitter
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Web
+import com.ilizma.menu.presentation.model.MenuNavigationAction.WhatsApp
 import com.ilizma.menu.presentation.model.MenuScreenIntent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +32,7 @@ class MenuScreenViewModelImp(
             MenuScreenIntent.Twitter -> onTwitter()
             MenuScreenIntent.Facebook -> onFacebook()
             MenuScreenIntent.Phone -> onPhone()
+            MenuScreenIntent.WhatsApp -> onWhatsApp()
             MenuScreenIntent.Web -> onWeb()
             MenuScreenIntent.Back -> onBack()
         }
@@ -50,6 +52,10 @@ class MenuScreenViewModelImp(
 
     private fun onPhone() {
         viewModelScope.launch(dispatcher) { _navigationAction.emit(Phone) }
+    }
+
+    private fun onWhatsApp() {
+        viewModelScope.launch(dispatcher) { _navigationAction.emit(WhatsApp) }
     }
 
     private fun onWeb() {

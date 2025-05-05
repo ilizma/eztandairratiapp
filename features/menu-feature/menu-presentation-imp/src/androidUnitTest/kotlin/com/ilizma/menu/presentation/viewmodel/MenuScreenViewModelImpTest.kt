@@ -6,6 +6,7 @@ import com.ilizma.menu.presentation.model.MenuNavigationAction.Instagram
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Phone
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Twitter
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Web
+import com.ilizma.menu.presentation.model.MenuNavigationAction.WhatsApp
 import com.ilizma.menu.presentation.model.MenuScreenIntent
 import io.mockk.MockKAnnotations
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -86,6 +87,21 @@ class MenuScreenViewModelImpTest {
 
             // when
             viewModel.onIntent(MenuScreenIntent.Phone)
+
+            // then
+            assertEquals(expected, viewModel.navigationAction.first())
+        }
+
+    @Test
+    fun `given WhatsApp MenuIntent, when onIntent, then result should be the expected WhatsApp`() =
+        runTest {
+            // given
+            val testDispatcher = StandardTestDispatcher(testScheduler)
+            setup(testDispatcher)
+            val expected = WhatsApp
+
+            // when
+            viewModel.onIntent(MenuScreenIntent.WhatsApp)
 
             // then
             assertEquals(expected, viewModel.navigationAction.first())

@@ -8,6 +8,7 @@ import com.ilizma.menu.flow.navigator.MenuBackNavigator
 import com.ilizma.menu.flow.navigator.PhoneNavigator
 import com.ilizma.menu.flow.navigator.TwitterNavigator
 import com.ilizma.menu.flow.navigator.WebNavigator
+import com.ilizma.menu.flow.navigator.WhatsAppNavigator
 import com.ilizma.menu.presentation.model.MenuNavigationAction
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Back
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Facebook
@@ -15,6 +16,7 @@ import com.ilizma.menu.presentation.model.MenuNavigationAction.Instagram
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Phone
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Twitter
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Web
+import com.ilizma.menu.presentation.model.MenuNavigationAction.WhatsApp
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
 import com.ilizma.menu.view.router.MenuScreenRouter
 import kotlinx.coroutines.CoroutineDispatcher
@@ -28,6 +30,7 @@ class MenuScreenRouterImp(
     private val twitterNavigator: TwitterNavigator,
     private val facebookNavigator: FacebookNavigator,
     private val phoneNavigator: PhoneNavigator,
+    private val whatsAppNavigator: WhatsAppNavigator,
     private val webNavigator: WebNavigator,
     private val menuBackNavigator: MenuBackNavigator,
 ) : MenuScreenRouter {
@@ -59,6 +62,7 @@ class MenuScreenRouterImp(
             Twitter -> twitterNavigator.navigate(uriHandler)
             Facebook -> facebookNavigator.navigate(uriHandler)
             Phone -> phoneNavigator.navigate()
+            WhatsApp -> whatsAppNavigator.navigate()
             Web -> webNavigator.navigate(uriHandler)
             Back -> menuBackNavigator.back(navController)
         }

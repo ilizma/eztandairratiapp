@@ -6,6 +6,7 @@ import com.ilizma.menu.flow.navigator.MenuBackNavigator
 import com.ilizma.menu.flow.navigator.PhoneNavigator
 import com.ilizma.menu.flow.navigator.TwitterNavigator
 import com.ilizma.menu.flow.navigator.WebNavigator
+import com.ilizma.menu.flow.navigator.WhatsAppNavigator
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
 import com.ilizma.menu.view.router.MenuScreenRouter
 import io.mockk.MockKAnnotations
@@ -38,6 +39,9 @@ class MenuScreenRouterImpTest {
     private lateinit var phoneNavigator: PhoneNavigator
 
     @RelaxedMockK
+    private lateinit var whatsAppNavigator: WhatsAppNavigator
+
+    @RelaxedMockK
     private lateinit var webNavigator: WebNavigator
 
     @RelaxedMockK
@@ -57,6 +61,7 @@ class MenuScreenRouterImpTest {
             twitterNavigator = twitterNavigator,
             facebookNavigator = facebookNavigator,
             phoneNavigator = phoneNavigator,
+            whatsAppNavigator = whatsAppNavigator,
             webNavigator = webNavigator,
             menuBackNavigator = menuBackNavigator,
         )

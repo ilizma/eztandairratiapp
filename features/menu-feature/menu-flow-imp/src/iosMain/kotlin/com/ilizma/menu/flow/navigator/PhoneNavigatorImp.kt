@@ -21,6 +21,8 @@ class PhoneNavigatorImp : PhoneNavigator {
                             }
                         },
                     )
+                } else {
+                    println("Failed to open URL: $url")
                 }
             }
     }

@@ -13,6 +13,7 @@ val menuScreenRouterModule: Module = module {
             twitterNavigator = get(),
             facebookNavigator = get(),
             phoneNavigator = get(),
+            whatsAppNavigator = get(),
             webNavigator = get(),
             menuBackNavigator = get(),
         )
