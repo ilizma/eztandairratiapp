@@ -1,6 +1,7 @@
 package com.ilizma.menu.view.compose
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -27,9 +28,9 @@ import com.ilizma.resources.facebook
 import com.ilizma.resources.ic_facebook
 import com.ilizma.resources.ic_instagram
 import com.ilizma.resources.ic_phone
-import com.ilizma.resources.ic_twitter
 import com.ilizma.resources.ic_web
 import com.ilizma.resources.ic_whatsapp
+import com.ilizma.resources.ic_x
 import com.ilizma.resources.instagram
 import com.ilizma.resources.phone
 import com.ilizma.resources.twitter
@@ -72,7 +73,7 @@ internal fun MenuScreenContent(
             onClick = { onIntent(MenuScreenIntent.Instagram) },
         )
         SimpleRow(
-            iconRes = Res.drawable.ic_twitter,
+            iconRes = Res.drawable.ic_x,
             iconDescription = "Twitter",
             title = Res.string.twitter,
             onClick = { onIntent(MenuScreenIntent.Twitter) },
@@ -128,13 +129,13 @@ private fun SimpleRow(
                 )
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Icon(
                 painter = painterResource(iconRes),
                 tint = MaterialTheme.colorScheme.onPrimary,
                 contentDescription = iconDescription,
             )
-            Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = stringResource(title),
             )

@@ -16,7 +16,7 @@
     <string name="empty_list">Empty list</string>
 
     <string name="instagram" translatable="false">Instagram</string>
-    <string name="twitter" translatable="false">Twitter</string>
+    <string name="twitter" translatable="false">X (Twitter)</string>
     <string name="facebook" translatable="false">Facebook</string>
     <string name="phone">Phone</string>
     <string name="whatsapp" translatable="false">Whatsapp</string>

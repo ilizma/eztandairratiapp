@@ -234,13 +234,12 @@ private fun ProgramRow(
                 .padding(
                     horizontal = 16.dp,
                     vertical = 8.dp,
-                )
+                ),
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Text(text = program.hour)
-            Spacer(modifier = Modifier.width(4.dp))
             Text(text = program.name, fontWeight = FontWeight.Bold)
             if (program.repeated) {
-                Spacer(modifier = Modifier.width(4.dp))
                 Icon(
                     imageVector = Icons.Default.Refresh,
                     contentDescription = "Phone",
