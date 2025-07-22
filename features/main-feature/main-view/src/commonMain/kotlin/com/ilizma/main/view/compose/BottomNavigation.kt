@@ -4,12 +4,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.automirrored.filled.MenuOpen
 import androidx.compose.material.icons.filled.Radio
-import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.WatchLater
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Radio
-import androidx.compose.material.icons.outlined.Schedule
+import androidx.compose.material.icons.outlined.WatchLater
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -150,14 +150,14 @@ private fun BottomBar(
         BottomBarItem(
             selected = key == BottomBarItemType.SCHEDULE,
             textResource = Res.string.title_schedule,
-            icon = if (key == BottomBarItemType.SCHEDULE) Icons.Filled.Schedule else Icons.Outlined.Schedule,
+            icon = if (key == BottomBarItemType.SCHEDULE) Icons.Filled.WatchLater else Icons.Outlined.WatchLater,
             contentDescription = "Schedule",
             itemSelected = { itemSelected(ScheduleTab) },
         )
         BottomBarItem(
             selected = key == BottomBarItemType.MENU,
             textResource = Res.string.title_menu,
-            icon = if (key == BottomBarItemType.MENU) Icons.Filled.Menu else Icons.Outlined.Menu,
+            icon = if (key == BottomBarItemType.MENU) Icons.AutoMirrored.Filled.MenuOpen else Icons.Outlined.Menu,
             contentDescription = "Menu",
             itemSelected = { itemSelected(MenuTab) },
         )
