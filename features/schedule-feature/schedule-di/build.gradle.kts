@@ -31,7 +31,7 @@ kotlin {
         commonMain.dependencies {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
-            implementation(libs.koin.core.viewmodel)
+            implementation(libs.koin.compose.viewmodel)
 
             implementation(project(":view-base"))
 

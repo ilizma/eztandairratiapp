@@ -30,7 +30,6 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(libs.lifecycle.viewmodel)
-            implementation(libs.immutable)
         }
     }
 }

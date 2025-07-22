@@ -35,10 +35,16 @@ kotlin {
             implementation(libs.activity.compose)
             implementation(libs.mediarouter)
             implementation(libs.cast.framework)
+            implementation(libs.glance)
+            implementation(libs.glance.material3)
+            implementation(libs.session)
 
             // region Review
             implementation(project(":review-framework"))
             // endregion
+
+            implementation(project(":player-framework"))
+            implementation(project(":player-framework-imp"))
         }
         commonMain.dependencies {
             implementation(compose.runtime)
