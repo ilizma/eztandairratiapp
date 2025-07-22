@@ -3,6 +3,7 @@ package com.ilizma.player.framework.service
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Context.AUDIO_SERVICE
 import android.content.Intent
 import android.content.IntentFilter
 import android.media.AudioFocusRequest
@@ -10,8 +11,14 @@ import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
+import androidx.core.app.ServiceCompat.stopForeground
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.registerReceiver
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
+import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
+import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.util.EventLogger
@@ -24,8 +31,19 @@ import androidx.media3.session.MediaSessionService
 import com.google.common.collect.ImmutableList
 import com.ilizma.player.framework.factory.MediaSessionBuilderFactory
 import com.ilizma.player.framework.factory.PlayerFactory
+import com.ilizma.player.framework.imp.BuildKonfig
+import com.ilizma.player.framework.model.PlayerState
+import com.ilizma.player.framework.model.WidgetAction
+import com.ilizma.player.framework.updater.PlayerWidgetUpdater
 import com.ilizma.resources.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+
+const val WIDGET_ACTION = "widget_action"
 
 @UnstableApi
 class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListener {
@@ -33,14 +51,52 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
     private val playerFactory: PlayerFactory<ExoPlayer> by inject()
     private val mediaSessionBuilderFactory: MediaSessionBuilderFactory<MediaSession.Builder, ExoPlayer> by inject()
     private val noisyAudioIntentFilter: IntentFilter by inject()
+    private val playerWidgetUpdater: PlayerWidgetUpdater by inject()
 
     private lateinit var player: ExoPlayer
     private lateinit var mediaSession: MediaSession
     private var audioFocusRequest: AudioFocusRequest? = null
 
+    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
     private val mNoisyReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent?) {
             player.stop()
+        }
+    }
+
+    private val playerListener = object : Player.Listener {
+        override fun onIsPlayingChanged(isPlaying: Boolean) {
+            super.onIsPlayingChanged(isPlaying)
+            if (isPlaying) {
+                onMetadataChanged(PlayerState.Playing)
+            } else {
+                if (player.playbackState != Player.STATE_BUFFERING && player.playerError == null) {
+                    onMetadataChanged(PlayerState.Stopped)
+                }
+            }
+        }
+
+        override fun onPlaybackStateChanged(playbackState: Int) {
+            super.onPlaybackStateChanged(playbackState)
+            when (playbackState) {
+                Player.STATE_BUFFERING -> onMetadataChanged(PlayerState.Loading)
+                Player.STATE_READY -> if (player.playWhenReady) {
+                    PlayerState.Playing
+                } else {
+                    PlayerState.Stopped
+                }.let { onMetadataChanged(it) }
+
+                Player.STATE_ENDED,
+                Player.STATE_IDLE,
+                    -> onMetadataChanged(PlayerState.Stopped)
+            }
+        }
+
+        override fun onPlayerError(error: PlaybackException) {
+            super.onPlayerError(error)
+            // TODO map PlaybackException.errorCode to more specific PlayerState.Error types
+            onMetadataChanged(PlayerState.Error.GenericError)
         }
     }
 
@@ -99,6 +155,7 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
                 CustomMediaNotificationProvider()
                     .let { setMediaNotificationProvider(it) }
                 volume = 1.0f
+                addListener(playerListener)
                 addAnalyticsListener(EventLogger())
             }
         MediaSessionCallback()
@@ -111,15 +168,23 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
         controllerInfo: ControllerInfo,
     ): MediaSession = mediaSession
 
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
-    private fun initNoisyReceiver() {
-        // Handles headphones coming unplugged. cannot be done through a manifest receiver
-        when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
-                registerReceiver(mNoisyReceiver, noisyAudioIntentFilter, RECEIVER_NOT_EXPORTED)
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val action = intent?.getStringExtra(WIDGET_ACTION)
+            ?: return super.onStartCommand(intent, flags, startId)
 
-            else -> registerReceiver(mNoisyReceiver, noisyAudioIntentFilter)
+        when (WidgetAction.valueOf(action)) {
+            WidgetAction.PLAY -> {
+                if (player.currentMediaItem == null) {
+                    MediaItem.fromUri(BuildKonfig.AUDIO_URL)
+                        .let { player.setMediaItem(it) }
+                    player.prepare()
+                }
+                player.play()
+            }
+
+            WidgetAction.STOP -> player.stop()
         }
+        return super.onStartCommand(intent, flags, startId)
     }
 
     override fun onAudioFocusChange(
@@ -134,6 +199,11 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
                 player.volume = 0.3f
 
             AudioManager.AUDIOFOCUS_GAIN -> if (player.isPlaying.not()) {
+                if (player.currentMediaItem == null) {
+                    MediaItem.fromUri(BuildKonfig.AUDIO_URL)
+                        .let { player.setMediaItem(it) }
+                    player.prepare()
+                }
                 player.play()
             } else {
                 player.volume = 1.0f
@@ -142,19 +212,52 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
     }
 
     override fun onDestroy() {
+        player.removeListener(playerListener)
         player.stop()
-        when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> stopForeground(STOP_FOREGROUND_REMOVE)
-            else -> @Suppress("DEPRECATION")
-            stopForeground(true)
-        }
+        serviceScope.cancel()
         mediaSession.apply {
             player.release()
             release()
         }
         abandonAudioFocus(getSystemService(AUDIO_SERVICE) as AudioManager)
         unregisterReceiver(mNoisyReceiver)
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> stopForeground(STOP_FOREGROUND_REMOVE)
+            else -> @Suppress("DEPRECATION")
+            stopForeground(true)
+        }
         super.onDestroy()
+    }
+
+    fun onMetadataChanged(
+        playerState: PlayerState,
+    ) {
+        serviceScope.launch {
+            updateMediaWidget(context = applicationContext, playerState = playerState)
+        }
+    }
+
+    private fun updateMediaWidget(
+        context: Context,
+        playerState: PlayerState,
+    ) {
+        serviceScope.launch {
+            playerWidgetUpdater.updateMediaWidget(
+                context = context,
+                playerState = playerState,
+            )
+        }
+    }
+
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    private fun initNoisyReceiver() {
+        // Handles headphones coming unplugged. cannot be done through a manifest receiver
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
+                registerReceiver(mNoisyReceiver, noisyAudioIntentFilter, RECEIVER_NOT_EXPORTED)
+
+            else -> registerReceiver(mNoisyReceiver, noisyAudioIntentFilter)
+        }
     }
 
     private fun abandonAudioFocus(

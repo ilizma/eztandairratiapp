@@ -8,4 +8,5 @@
     <string name="crash_activity_snackbar_successful_title">Copiado</string>
     <string name="crash_activity_snackbar_successful_action">BIEN</string>
     <string name="unknown_error">Error desconocido</string>
+    <string name="player_widget_description">Widget del reproductor de la Eztanda</string>
 </resources>

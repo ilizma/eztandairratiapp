@@ -10,6 +10,7 @@ import com.ilizma.player.framework.content.di.noisyAudioIntentFilterModule
 import com.ilizma.player.framework.di.playerFrameworkModule
 import com.ilizma.player.framework.factory.di.mediaSessionBuilderFactoryModule
 import com.ilizma.player.framework.factory.di.playerFactoryModule
+import com.ilizma.player.framework.updater.di.playerWidgetUpdaterModule
 import com.ilizma.player.presentation.viewmodel.di.radioScreenViewModelModule
 import com.ilizma.player.view.router.di.radioScreenRouterModule
 import org.koin.core.module.Module
@@ -27,4 +28,5 @@ actual val playerModules: List<Module> = listOf(
     playerFactoryModule,
     radioScreenViewModelModule,
     radioScreenRouterModule,
+    playerWidgetUpdaterModule,
 )
