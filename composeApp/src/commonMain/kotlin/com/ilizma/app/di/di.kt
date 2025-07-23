@@ -19,11 +19,11 @@ fun initKoin(
         config?.invoke(this)
         analytics {
             if (isDebug) {
-                "ktz-sdk-k3GMtjToSYE8RtHGqW2CAd4qxKb7gBs75Jn4pFc8b6c"
+                "ktz-sdk-zSjZRzdBuwouudUgCZn9Xm2HnRkVhI7cZ-3TW--dtNY"
             } else {
                 "ktz-sdk-KI6UN4ghWH5hNyn1KaXKPsDB5zmBqkzYsS3RPP1NBos"
             }.let { setApiKey(it) }
-            setVersion("1.0.1")
+            setVersion("1.1.0")
         }
         mutableListOf<Module>()
             .apply {

@@ -10,8 +10,6 @@ import com.ilizma.main.di.mainModules
 import com.ilizma.app.BuildConfig
 import com.ilizma.review.di.reviewModules
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.logger.Level
 import org.koin.core.module.Module
 
 class EztandaApplication : Application() {
@@ -21,7 +19,6 @@ class EztandaApplication : Application() {
         initKoin(
             isDebug = BuildConfig.DEBUG,
             config = {
-                androidLogger(Level.DEBUG)
                 androidContext(this@EztandaApplication)
             },
             platformModules = mutableListOf<Module>()
