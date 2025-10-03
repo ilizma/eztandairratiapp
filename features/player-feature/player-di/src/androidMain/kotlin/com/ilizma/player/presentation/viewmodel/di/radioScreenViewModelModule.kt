@@ -19,6 +19,7 @@ actual val radioScreenViewModelModule: Module = module {
                 stateUseCase = get(),
                 playUseCase = get(),
                 stopUseCase = get(),
+                releaseUseCase = get(),
                 castFramework = get(),
                 mapper = PlayerStateMapper(),
                 _navigationAction = MutableSharedFlow(),

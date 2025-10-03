@@ -3,7 +3,6 @@ package com.ilizma.player.framework.service
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Context.AUDIO_SERVICE
 import android.content.Intent
 import android.content.IntentFilter
 import android.media.AudioFocusRequest
@@ -11,9 +10,6 @@ import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
-import androidx.core.app.ServiceCompat.stopForeground
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.registerReceiver
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
@@ -115,6 +111,7 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
     private inner class CustomMediaNotificationProvider : MediaNotification.Provider {
 
         val defaultMediaNotificationProvider = DefaultMediaNotificationProvider(this@MusicService)
+
         override fun createNotification(
             mediaSession: MediaSession,
             customLayout: ImmutableList<CommandButton>,
@@ -168,7 +165,11 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
         controllerInfo: ControllerInfo,
     ): MediaSession = mediaSession
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+    override fun onStartCommand(
+        intent: Intent?,
+        flags: Int,
+        startId: Int,
+    ): Int {
         val action = intent?.getStringExtra(WIDGET_ACTION)
             ?: return super.onStartCommand(intent, flags, startId)
 

@@ -2,6 +2,7 @@ package com.ilizma.main.view.widget.callback
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.glance.GlanceId
 import androidx.glance.action.ActionParameters
 import androidx.glance.appwidget.action.ActionCallback
@@ -24,7 +25,12 @@ class PlayerCallback : ActionCallback {
         val intent = Intent(context, MusicService::class.java).apply {
             putExtra(WIDGET_ACTION, action)
         }
-        context.startService(intent)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent)
+        } else {
+            context.startService(intent)
+        }
     }
 
 }

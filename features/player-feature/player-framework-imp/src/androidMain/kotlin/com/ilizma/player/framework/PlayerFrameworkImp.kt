@@ -6,6 +6,7 @@ import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionCommand
+import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.MoreExecutors
 import com.ilizma.player.framework.imp.BuildKonfig
 import com.ilizma.player.framework.model.PlayerState
@@ -19,9 +20,9 @@ class PlayerFrameworkImp(
     private val _playerState: MutableStateFlow<PlayerState>,
 ) : PlayerFramework {
 
-    private lateinit var mediaController: MediaController
+    private var mediaController: MediaController? = null
+    private var controllerFuture: ListenableFuture<MediaController>? = null
 
-    //private val controllerFuture: ListenableFuture<MediaController>
     private val playerListener = object : Player.Listener {
         override fun onIsLoadingChanged(isLoading: Boolean) {
             super.onIsLoadingChanged(isLoading)
@@ -65,22 +66,22 @@ class PlayerFrameworkImp(
                 PlaybackException.ERROR_CODE_DECODER_QUERY_FAILED,
                 PlaybackException.ERROR_CODE_DECODING_FAILED,
                 PlaybackException.ERROR_CODE_DECODING_FORMAT_EXCEEDS_CAPABILITIES,
-                -> PlayerState.Error.GenericError
+                    -> PlayerState.Error.GenericError
 
                 PlaybackException.ERROR_CODE_PARSING_MANIFEST_MALFORMED,
                 PlaybackException.ERROR_CODE_PARSING_CONTAINER_MALFORMED,
-                -> PlayerState.Error.Malformed
+                    -> PlayerState.Error.Malformed
 
                 PlaybackException.ERROR_CODE_PARSING_CONTAINER_UNSUPPORTED,
                 PlaybackException.ERROR_CODE_PARSING_MANIFEST_UNSUPPORTED,
                 PlaybackException.ERROR_CODE_DECODING_FORMAT_UNSUPPORTED,
-                -> PlayerState.Error.Unsupported
+                    -> PlayerState.Error.Unsupported
 
                 PlaybackException.ERROR_CODE_TIMEOUT -> PlayerState.Error.Timeout
                 PlaybackException.ERROR_CODE_REMOTE_ERROR,
                 PlaybackException.ERROR_CODE_AUDIO_TRACK_INIT_FAILED,
                 PlaybackException.ERROR_CODE_AUDIO_TRACK_WRITE_FAILED,
-                -> PlayerState.Error.Network
+                    -> PlayerState.Error.Network
 
                 PlaybackException.ERROR_CODE_UNSPECIFIED -> PlayerState.Error.Unknown
                 else -> PlayerState.Error.Unknown
@@ -90,12 +91,16 @@ class PlayerFrameworkImp(
 
     init {
         mediaControllerBuilder.buildAsync()
-            //.also { controllerFuture = it }
+            .also { controllerFuture = it }
             .let {
                 it.addListener(
                     {
-                        mediaController = it.get()
-                            .also { it.addListener(playerListener) }
+                        try {
+                            mediaController = it.get()
+                                .also { it.addListener(playerListener) }
+                        } catch (e: Exception) {
+                            _playerState.value = PlayerState.Error.Unknown
+                        }
                     },
                     MoreExecutors.directExecutor(),
                 )
@@ -107,10 +112,12 @@ class PlayerFrameworkImp(
 
     override fun play() {
         initMediaPlayer()
+        mediaController?.prepare()
+        mediaController?.play()
     }
 
     override fun stop() {
-        mediaController.stop()
+        mediaController?.stop()
         PlayerState.Stopped
             .let { _playerState.value = it }
         //MediaController.releaseFuture(controllerFuture)
@@ -118,16 +125,24 @@ class PlayerFrameworkImp(
 
     override fun cancel() {
         SessionCommand(CANCEL_NOTIFICATION, bundleOf())
-            .let { mediaController.sendCustomCommand(it, bundleOf()) }
+            .let { mediaController?.sendCustomCommand(it, bundleOf()) }
+    }
+
+    override fun release() {
+        controllerFuture?.let { future ->
+            mediaController?.removeListener(playerListener)
+            MediaController.releaseFuture(future)
+        }
+        mediaController = null
+        controllerFuture = null
+        _playerState.value = PlayerState.Stopped
     }
 
     private fun initMediaPlayer() {
         mediaController
-            .apply {
+            ?.apply {
                 MediaItem.fromUri(BuildKonfig.AUDIO_URL)
                     .let { setMediaItem(it) }
-                prepare()
-                play()
             }
     }
 }

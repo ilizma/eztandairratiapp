@@ -24,4 +24,8 @@ class PlayerRepositoryImp(
         dataSource.stop()
     }
 
+    override fun release() {
+        dataSource.release()
+    }
+
 }

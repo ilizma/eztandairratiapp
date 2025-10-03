@@ -23,4 +23,8 @@ class PlayerDataSourceImp(
         framework.stop()
     }
 
+    override fun release() {
+        framework.release()
+    }
+
 }

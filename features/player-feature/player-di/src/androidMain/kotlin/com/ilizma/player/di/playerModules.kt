@@ -3,6 +3,7 @@ package com.ilizma.player.di
 import com.ilizma.player.data.datasource.di.playerDataSourceModule
 import com.ilizma.player.domain.repository.di.playerRepositoryModule
 import com.ilizma.player.domain.usecase.di.playerPlayUseCaseModule
+import com.ilizma.player.domain.usecase.di.playerReleaseUseCaseModule
 import com.ilizma.player.domain.usecase.di.playerStateUseCaseModule
 import com.ilizma.player.domain.usecase.di.playerStopUseCaseModule
 import com.ilizma.player.flow.navigator.di.radioCloseNavigatorModule
@@ -21,6 +22,7 @@ actual val playerModules: List<Module> = listOf(
     playerPlayUseCaseModule,
     playerStateUseCaseModule,
     playerStopUseCaseModule,
+    playerReleaseUseCaseModule,
     radioCloseNavigatorModule,
     noisyAudioIntentFilterModule,
     playerFrameworkModule,

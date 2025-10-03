@@ -11,4 +11,6 @@ interface PlayerDataSource {
 
     fun stop()
 
+    fun release()
+
 }

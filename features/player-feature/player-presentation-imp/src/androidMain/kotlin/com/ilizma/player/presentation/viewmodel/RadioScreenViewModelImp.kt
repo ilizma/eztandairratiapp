@@ -7,6 +7,7 @@ import com.ilizma.cast.framework.CastFramework
 import com.ilizma.cast.framework.model.CastState
 import com.ilizma.player.domain.model.PlayerState
 import com.ilizma.player.domain.usecase.PlayerPlayUseCase
+import com.ilizma.player.domain.usecase.PlayerReleaseUseCase
 import com.ilizma.player.domain.usecase.PlayerStateUseCase
 import com.ilizma.player.domain.usecase.PlayerStopUseCase
 import com.ilizma.player.presentation.mapper.PlayerStateMapper
@@ -19,11 +20,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -36,6 +34,7 @@ class RadioScreenViewModelImp(
     stateUseCase: PlayerStateUseCase,
     private val playUseCase: PlayerPlayUseCase,
     private val stopUseCase: PlayerStopUseCase,
+    private val releaseUseCase: PlayerReleaseUseCase,
     private val castFramework: CastFramework,
     private val mapper: PlayerStateMapper,
     private val _navigationAction: MutableSharedFlow<RadioScreenNavigationAction>,
@@ -99,6 +98,11 @@ class RadioScreenViewModelImp(
     override fun onResume(owner: LifecycleOwner) {
         super.onResume(owner)
         castFramework.onResume()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        releaseUseCase()
     }
 
     override fun onDestroy(owner: LifecycleOwner) {

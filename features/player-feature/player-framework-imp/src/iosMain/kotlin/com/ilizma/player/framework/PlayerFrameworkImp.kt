@@ -25,4 +25,8 @@ class PlayerFrameworkImp(
         /* Do nothing */
     }
 
+    override fun release() {
+        /* Do nothing */
+    }
+
 }
