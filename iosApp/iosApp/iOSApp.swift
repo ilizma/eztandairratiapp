@@ -1,11 +1,11 @@
 import SwiftUI
-import ComposeApp
+import EztandaIrratiapp
 
 @main
 struct iOSApp: App {
     
     init() {
-        MainViewControllerKt.initialise()
+        FirebaseInitKt.doInitFirebase()
     }
     
     var body: some Scene {

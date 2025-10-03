@@ -1,6 +1,7 @@
 package com.ilizma.app.di
 
 import com.ilizma.api.di.apiModules
+import com.ilizma.app.firebase.firebaseModule
 import com.ilizma.menu.di.menuModules
 import com.ilizma.net.di.netModules
 import com.ilizma.player.di.playerModules
@@ -27,6 +28,7 @@ fun initKoin(
         }
         mutableListOf<Module>()
             .apply {
+                add(firebaseModule)
                 addAll(apiModules)
                 addAll(menuModules)
                 addAll(netModules)

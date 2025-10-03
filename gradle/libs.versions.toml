@@ -1,44 +1,44 @@
 [versions]
 ## region config
-android-minSdk = "21"
+android-minSdk = "23"
 android-compileSdk = "36"
 android-targetSdk = "36"
 ## endregion
 ## region libraries
-kotlin-version = "2.2.0"
+kotlin-version = "2.2.20"
 serialization-version = "1.9.0"
 coroutines-version = "1.10.2"
 appcompat-version = "1.7.1"
-ktx-version = "1.16.0"
+ktx-version = "1.17.0"
 splash-version = "1.0.1"
-lifecycle-version = "2.9.2"
-jetbrains-lifecycle-version = "2.9.1"
+lifecycle-version = "2.9.4"
+jetbrains-lifecycle-version = "2.9.4"
 customactivityoncrash-version = "2.4.0"
-activity-version = "1.10.1"
-navigation-compose-version = "2.9.0-beta04"
-media3-version = "1.7.1"
+activity-version = "1.11.0"
+navigation-compose-version = "2.9.0"
+media3-version = "1.8.0"
 annotation-version = "1.9.1"
-koin-version = "4.1.0"
-kotzilla-version = "1.1.0"
+koin-version = "4.1.1"
+kotzilla-version = "1.2.2"
 mediarouter-version = "1.8.1"
 cast-framework-version = "22.1.0"
 review-version = "2.0.2"
-material-version = "1.12.0"
-lottie-version = "6.6.7"
+material-version = "1.13.0"
+lottie-version = "6.6.9"
 chucker-version = "4.2.0"
-ktorfit-version = "2.6.1"
-ktor-version = "3.2.2"
+ktorfit-version = "2.6.4"
+ktor-version = "3.3.0"
 mockk-version = "1.14.5"
-gitliveVersion = "2.1.0"
-glance-version = "1.2.0-alpha01"
+firebase-bom-version = "34.3.0"
+glance-version = "1.2.0-beta01"
 ## endregion
 ## region plugins
-agp-version = "8.11.1"
-compose-multiplatform-version = "1.9.0-beta01"
-compose-multiplatform-test-version = "1.9.0-beta03"
-ksp-plugin-version = "2.2.0-2.0.2"
+agp-version = "8.13.0"
+compose-multiplatform-version = "1.9.0"
+compose-multiplatform-test-version = "1.9.2"
+ksp-plugin-version = "2.2.20-2.0.3"
 google-services-plugin-version = "4.4.3"
-crashlytics-plugin-version = "3.0.5"
+crashlytics-plugin-version = "3.0.6"
 buildkonfig-plugin-version = "0.17.1"
 ## endregion
 
@@ -75,9 +75,10 @@ koin-core = { group = "io.insert-koin", name = "koin-core" }
 kotzilla-sdk-ktor3 = { group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "kotzilla-version" }
 ## endregion
 ## region firebase
-gitlive-analytics = { module = "dev.gitlive:firebase-analytics", version.ref = "gitliveVersion" }
-gitlive-crashlytics = { module = "dev.gitlive:firebase-crashlytics", version.ref = "gitliveVersion" }
-gitlive-messaging = { module = "dev.gitlive:firebase-messaging", version.ref = "gitliveVersion" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom-version" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
 ## endregion
 ## region cast
 mediarouter = { group = "androidx.mediarouter", name = "mediarouter", version.ref = "mediarouter-version" }
@@ -128,6 +129,7 @@ compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-m
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-plugin-version" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin-version" }
+kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin-version" }
 kotzilla = { id  = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla-version" }
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin-version" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services-plugin-version" }

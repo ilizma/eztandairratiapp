@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose)
     alias(libs.plugins.google.services)
@@ -25,8 +26,9 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "ComposeApp"
+            baseName = "EztandaIrratiapp"
             isStatic = true
+            freeCompilerArgs += "-Xbinary=bundleId=com.ilizma.EztandaIrratiapp"
         }
     }
     
@@ -39,6 +41,10 @@ kotlin {
             implementation(libs.session)
             implementation(libs.cast.framework)
             implementation(libs.customactivityoncrash)
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.crashlytics)
+            implementation(libs.firebase.analytics)
+            implementation(libs.firebase.messaging)
 
             // region Review
             implementation(project(":review-di"))
@@ -65,9 +71,6 @@ kotlin {
             implementation(libs.kotzilla.sdk.ktor3)
             implementation(libs.lifecycle.viewmodel)
             implementation(libs.lifecycle.runtime.compose)
-            implementation(libs.gitlive.crashlytics)
-            implementation(libs.gitlive.analytics)
-            implementation(libs.gitlive.messaging)
 
             // api
             implementation(project(":api-di"))
@@ -96,6 +99,30 @@ kotlin {
             // region Menu
             implementation(project(":menu-di"))
             // endregion
+        }
+    }
+
+    cocoapods {
+        version = "1.0.0"
+        summary = "Eztanda Irratia"
+        homepage = "https://www.eztanda.com"
+        ios.deploymentTarget = "15.3"
+
+        framework {
+            baseName = "EztandaIrratiapp"
+            isStatic = true
+        }
+
+        pod("FirebaseCore") {
+            extraOpts += listOf("-compiler-option", "-fmodules")
+        }
+
+        pod("FirebaseAnalytics") {
+            extraOpts += listOf("-compiler-option", "-fmodules")
+        }
+
+        pod("FirebaseCrashlytics") {
+            extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }
 }

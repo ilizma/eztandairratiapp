@@ -35,11 +35,7 @@ class EztandaFirebaseMessagingService : FirebaseMessagingService() {
             (remoteMessage.notification?.title ?: "") to (remoteMessage.notification?.body ?: "")
 
         getNotificationBuilder(title, body)
-            .also {
-                when {
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> it.setCategory(Notification.CATEGORY_PROMO)
-                }
-            }
+            .apply { setCategory(Notification.CATEGORY_PROMO) }
             .let { notify(it) }
 
     }
@@ -98,8 +94,7 @@ class EztandaFirebaseMessagingService : FirebaseMessagingService() {
                 ),
                 when {
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-                    else -> PendingIntent.FLAG_UPDATE_CURRENT
+                    else -> PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
                 },
             ).let { setContentIntent(it) }
             setAutoCancel(true)
