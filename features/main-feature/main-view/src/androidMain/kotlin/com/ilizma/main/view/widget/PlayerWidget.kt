@@ -128,7 +128,7 @@ class PlayerWidget() : GlanceAppWidget() {
     fun Preview(
         @PreviewParameter(PlayerWidgetPreviewProvider::class) state: PlayerState,
     ) {
-        val stateJson = json.encodeToString(state)
+        val stateJson = json.encodeToString(PlayerState.serializer(), state)
         val samplePreferences = preferencesOf(PlayerStateKeys.state to stateJson)
         Content(state = samplePreferences)
     }

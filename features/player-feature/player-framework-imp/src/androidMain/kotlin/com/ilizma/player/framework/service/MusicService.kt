@@ -96,7 +96,7 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
         }
     }
 
-    private inner class MediaSessionCallback : MediaSession.Callback {
+    private class MediaSessionCallback : MediaSession.Callback {
         override fun onConnect(
             session: MediaSession,
             controller: ControllerInfo,
@@ -178,8 +178,8 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
                 if (player.currentMediaItem == null) {
                     MediaItem.fromUri(BuildKonfig.AUDIO_URL)
                         .let { player.setMediaItem(it) }
-                    player.prepare()
                 }
+                player.prepare()
                 player.play()
             }
 
@@ -234,7 +234,10 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
         playerState: PlayerState,
     ) {
         serviceScope.launch {
-            updateMediaWidget(context = applicationContext, playerState = playerState)
+            playerWidgetUpdater.updateMediaWidget(
+                context = applicationContext,
+                playerState = playerState,
+            )
         }
     }
 
