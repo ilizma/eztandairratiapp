@@ -1,5 +1,9 @@
 package com.ilizma.player.view.compose
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -156,25 +160,32 @@ private fun ScreenBox(
                 }
             },
         ) {
-            when (state) {
-                PlayerState.Loading -> CircularWavyProgressIndicator(
-                    modifier = Modifier.size(32.dp),
-                    color = LocalContentColor.current,
-                )
+            AnimatedContent(
+                targetState = state,
+                transitionSpec = {
+                    fadeIn().togetherWith(fadeOut())
+                },
+                label = "PlayerStateAnimation"
+            ) { targetState ->
+                when (targetState) {
+                    PlayerState.Loading -> CircularWavyProgressIndicator(
+                        modifier = Modifier.size(32.dp),
+                        color = LocalContentColor.current,
+                    )
 
-                else -> Icon(
-                    imageVector = when (state) {
-                        PlayerState.Loading,
-                        is PlayerState.Error,
-                        PlayerState.Stopped,
-                            -> Icons.Default.PlayArrow
+                    else -> Icon(
+                        imageVector = when (targetState) {
+                            PlayerState.Loading,
+                            is PlayerState.Error,
+                            PlayerState.Stopped,
+                                -> Icons.Default.PlayArrow
 
-                        PlayerState.Playing -> Icons.Default.Stop
-                    },
-                    contentDescription = "Play & Stop",
-                )
+                            PlayerState.Playing -> Icons.Default.Stop
+                        },
+                        contentDescription = "Play & Stop",
+                    )
+                }
             }
-
         }
     }
 }

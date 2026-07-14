@@ -1,7 +1,6 @@
 package com.ilizma.main.view.compose
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuOpen
@@ -23,6 +22,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -42,6 +42,7 @@ import com.ilizma.resources.title_schedule
 import com.ilizma.schedule.flow.model.ScheduleTab
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.schedule.view.component.ScheduleScreen
+import com.ilizma.view.navigation.LocalNavAnimatedVisibilityScope
 import com.ilizma.view.navigation.NavigationState
 import com.ilizma.view.navigation.Navigator
 import com.ilizma.view.navigation.toEntries
@@ -183,11 +184,16 @@ private fun Content(
             )
         }
 
-        entry<ScheduleTab> {
-            ScheduleScreen(
-                viewModel = scheduleScreenViewModel,
-                paddingValues = paddingValues,
-            )
+        entry<ScheduleTab> { _ ->
+            val scope = LocalNavAnimatedVisibilityScope.current
+            CompositionLocalProvider(
+                LocalNavAnimatedVisibilityScope provides scope
+            ) {
+                ScheduleScreen(
+                    viewModel = scheduleScreenViewModel,
+                    paddingValues = paddingValues,
+                )
+            }
         }
 
         entry<MenuTab> {

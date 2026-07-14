@@ -1,11 +1,15 @@
 package com.ilizma.main.view.compose
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.NavEntry
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation3.runtime.NavKey
-import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.ilizma.main.view.model.BottomNavigation
 import com.ilizma.menu.flow.model.MenuTab
@@ -23,6 +27,8 @@ import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.schedule.view.component.ScheduleDetailScreen
 import com.ilizma.schedule.view.router.ScheduleDetailRouter
 import com.ilizma.schedule.view.router.ScheduleScreenRouter
+import com.ilizma.view.navigation.LocalNavAnimatedVisibilityScope
+import com.ilizma.view.navigation.LocalSharedTransitionScope
 import com.ilizma.view.navigation.Navigator
 import com.ilizma.view.navigation.rememberNavigationState
 import com.ilizma.view.navigation.toEntries
@@ -130,35 +136,52 @@ private fun Content(
     menuScreenViewModel: MenuScreenViewModel,
     scheduleDetailScreenViewModel: ScheduleDetailScreenViewModel,
 ) {
-    val entryProvider = entryProvider {
+    val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
         entry<BottomNavigation> {
-            BottomNavigation(
-                navigationState = bottomNavigationState,
-                navigator = bottomNavigator,
-                radioScreenViewModel = radioScreenViewModel,
-                scheduleScreenViewModel = scheduleScreenViewModel,
-                menuScreenViewModel = menuScreenViewModel,
-            )
+            val animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current
+            CompositionLocalProvider(
+                LocalNavAnimatedVisibilityScope provides animatedVisibilityScope
+            ) {
+                BottomNavigation(
+                    navigationState = bottomNavigationState,
+                    navigator = bottomNavigator,
+                    radioScreenViewModel = radioScreenViewModel,
+                    scheduleScreenViewModel = scheduleScreenViewModel,
+                    menuScreenViewModel = menuScreenViewModel,
+                )
+            }
         }
 
         entry<ScheduleDetail> { key ->
-            ScheduleDetailScreen(
-                viewModel = scheduleDetailScreenViewModel
-                    .also { vm ->
-                        vm.onIntent(
-                            ScheduleDetailScreenIntent.SaveCache(
-                                id = key.id,
-                                name = key.name
+            val animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current
+            CompositionLocalProvider(
+                LocalNavAnimatedVisibilityScope provides animatedVisibilityScope
+            ) {
+                ScheduleDetailScreen(
+                    viewModel = scheduleDetailScreenViewModel
+                        .also { vm ->
+                            vm.onIntent(
+                                ScheduleDetailScreenIntent.SaveCache(
+                                    id = key.id,
+                                    name = key.name
+                                )
                             )
-                        )
-                    }
-                    .also { it.onIntent(ScheduleDetailScreenIntent.GetSchedule) },
-            )
+                        }
+                        .also { it.onIntent(ScheduleDetailScreenIntent.GetSchedule) },
+                )
+            }
         }
     }
 
-    NavDisplay(
-        entries = navigationState.toEntries(entryProvider),
-        onBack = { navigator.goBack() },
-    )
+    @OptIn(ExperimentalSharedTransitionApi::class)
+    SharedTransitionLayout {
+        CompositionLocalProvider(
+            LocalSharedTransitionScope provides this
+        ) {
+            NavDisplay(
+                entries = navigationState.toEntries(entryProvider),
+                onBack = { navigator.goBack() },
+            )
+        }
+    }
 }

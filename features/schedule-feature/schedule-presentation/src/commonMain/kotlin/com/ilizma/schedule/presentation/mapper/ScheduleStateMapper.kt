@@ -9,25 +9,33 @@ class ScheduleStateMapper(
 ) {
 
     fun from(
+        dayId: Int,
         title: String,
-        state: ScheduleState
+        state: ScheduleState,
     ): PresentationScheduleState = when (state) {
-        is ScheduleState.Error -> PresentationScheduleState.Error(state.message)
+        is ScheduleState.Error -> PresentationScheduleState.Error(
+            dayId = dayId,
+            message = state.message
+        )
+
         is ScheduleState.Success -> from(
+            dayId = dayId,
             title = title,
             programList = state.programList
         )
     }
 
     fun from(
+        dayId: Int,
         title: String,
         programList: List<Program>,
     ): PresentationScheduleState = programList
         .map { mapper.from(it) }
         .let {
             PresentationScheduleState.Success(
-                title = title,
-                list = it
+                dayId = dayId,
+                list = it,
+                title = title
             )
         }
 

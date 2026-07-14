@@ -2,24 +2,32 @@ package com.ilizma.schedule.presentation.model
 
 sealed class ScheduleState(
     open val list: List<ProgramType>,
+    open val dayId: Int,
 ) {
+
     data class Loading(
+        override val dayId: Int = -1,
         override val list: List<ProgramType.Loading>,
     ) : ScheduleState(
-        list,
+        dayId = dayId,
+        list = list,
     )
 
     data class Success(
-        val title: String,
+        override val dayId: Int,
         override val list: List<ProgramType.Item>,
+        val title: String,
     ) : ScheduleState(
-        list,
+        dayId = dayId,
+        list = list,
     )
 
     data class Error(
+        override val dayId: Int,
         val message: String,
     ) : ScheduleState(
-        listOf(),
+        dayId = dayId,
+        list = emptyList(),
     )
 
 }

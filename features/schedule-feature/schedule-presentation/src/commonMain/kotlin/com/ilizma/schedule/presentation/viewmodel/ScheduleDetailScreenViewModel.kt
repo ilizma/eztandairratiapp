@@ -37,6 +37,8 @@ class ScheduleDetailScreenViewModel(
     private val _navigationAction: MutableSharedFlow<ScheduleDetailNavigationAction>,
 ) : ViewModel() {
 
+    private var currentDayId: Int = -1
+
     val scheduleState: Flow<PresentationScheduleState> = _scheduleState
         .distinctUntilChanged()
         .flowOn(dispatcher)
@@ -44,7 +46,12 @@ class ScheduleDetailScreenViewModel(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
             initialValue = generateLoadingList()
-                .let { PresentationScheduleState.Loading(it) },
+                .let {
+                    PresentationScheduleState.Loading(
+                        dayId = currentDayId,
+                        list = it,
+                    )
+                },
         )
     val navigationAction: Flow<ScheduleDetailNavigationAction> = _navigationAction
 
@@ -67,6 +74,7 @@ class ScheduleDetailScreenViewModel(
         id: Int,
         name: String,
     ) {
+        currentDayId = id
         viewModelScope.launch(dispatcher) { saveCacheUseCase(id, name) }
     }
 
@@ -83,8 +91,12 @@ class ScheduleDetailScreenViewModel(
 
     private fun retrySchedule() {
         generateLoadingList()
-            .let { PresentationScheduleState.Loading(it) }
-            .let { viewModelScope.launch(dispatcher) { _scheduleState.emit(it) } }
+            .let {
+                PresentationScheduleState.Loading(
+                    dayId = currentDayId,
+                    list = it,
+                )
+            }.let { viewModelScope.launch(dispatcher) { _scheduleState.emit(it) } }
 
         getSchedule()
     }
@@ -94,6 +106,7 @@ class ScheduleDetailScreenViewModel(
         state: ScheduleState,
     ) {
         mapper.from(
+            dayId = currentDayId,
             title = title,
             state = state,
         ).let { viewModelScope.launch(dispatcher) { _scheduleState.emit(it) } }
@@ -105,8 +118,12 @@ class ScheduleDetailScreenViewModel(
         when (isDebug) {
             true -> throwable.message ?: getString(Res.string.unknown_error)
             false -> getString(Res.string.unknown_error)
-        }.let { PresentationScheduleState.Error(it) }
-            .let { _scheduleState.emit(it) }
+        }.let {
+            PresentationScheduleState.Error(
+                dayId = currentDayId,
+                message = it,
+            )
+        }.let { _scheduleState.emit(it) }
     }
 
     private fun onBack() {

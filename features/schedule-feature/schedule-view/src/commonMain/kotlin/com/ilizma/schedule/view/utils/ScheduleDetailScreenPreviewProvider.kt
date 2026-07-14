@@ -12,10 +12,12 @@ class ScheduleDetailScreenPreviewProvider :
             ProgramType.Loading,
         ).let {
             ScheduleState.Loading(
+                dayId = 1,
                 list = it,
             )
         },
         ScheduleState.Error(
+            dayId = 1,
             message = "Error",
         ),
         listOf(
@@ -34,11 +36,13 @@ class ScheduleDetailScreenPreviewProvider :
         ).let {
             ScheduleState.Success(
                 title = "Monday",
+                dayId = 1,
                 list = it,
             )
         },
         ScheduleState.Success(
             title = "Monday",
+            dayId = 1,
             list = listOf(),
         ),
     )
