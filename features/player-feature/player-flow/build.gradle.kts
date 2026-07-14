@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -16,7 +15,6 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -26,8 +24,24 @@ kotlin {
     }
 
     sourceSets {
+        androidMain.dependencies {
+            implementation(libs.appcompat)
+            implementation(libs.lifecycle.common)
+            implementation(project(":cast-flow"))
+        }
+
         commonMain.dependencies {
-            implementation(libs.serialization.json)
+            implementation(project(":player-view"))
+            implementation(project(":player-presentation"))
+        }
+
+        androidUnitTest.dependencies {
+            implementation(libs.mockk)
+        }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.coroutines.test)
         }
     }
 }

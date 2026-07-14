@@ -2,10 +2,14 @@ package com.ilizma.schedule.data.cache
 
 import com.ilizma.schedule.data.model.ScheduleDetailArgs
 
-interface ScheduleDetailArgsCache {
+class ScheduleDetailArgsCache {
 
-    fun get(): ScheduleDetailArgs?
+    private var cache: ScheduleDetailArgs? = null
 
-    fun set(args: ScheduleDetailArgs)
+    fun get(): ScheduleDetailArgs? = cache
+
+    fun set(args: ScheduleDetailArgs) {
+        cache = args
+    }
 
 }

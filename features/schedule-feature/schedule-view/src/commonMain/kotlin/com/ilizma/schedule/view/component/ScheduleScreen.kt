@@ -21,7 +21,7 @@ import com.ilizma.schedule.presentation.model.Days
 import com.ilizma.schedule.presentation.model.ScheduleScreenIntent
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.view.lifecycle.collectAsStateMultiplatform
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

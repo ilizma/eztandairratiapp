@@ -44,8 +44,8 @@ import com.ilizma.main.view.widget.utils.PlayerWidgetPreviewProvider
 import com.ilizma.resources.R
 import com.ilizma.resources.ui.theme.PurpleDay
 import com.ilizma.resources.ui.theme.White
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 
 class PlayerWidget() : GlanceAppWidget() {
 

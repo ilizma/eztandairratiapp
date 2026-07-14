@@ -15,7 +15,6 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -38,10 +37,8 @@ kotlin {
 
             // region Menu
             api(project(":menu-flow"))
-            api(project(":menu-flow-imp"))
             api(project(":menu-view"))
             api(project(":menu-presentation"))
-            api(project(":menu-presentation-imp"))
             // endregion
         }
     }

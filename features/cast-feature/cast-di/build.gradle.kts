@@ -37,10 +37,8 @@ dependencies {
 
     // region Cast
     api(project(":cast-flow"))
-    api(project(":cast-flow-imp"))
     api(project(":cast-view"))
     api(project(":cast-framework"))
-    api(project(":cast-framework-imp"))
     // endregion
 
     // region Player

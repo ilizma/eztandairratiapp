@@ -1,7 +1,13 @@
 package com.ilizma.player.domain.usecase
 
-interface PlayerReleaseUseCase {
+import com.ilizma.player.domain.repository.PlayerRepository
 
-    operator fun invoke()
+class PlayerReleaseUseCase(
+    private val repository: PlayerRepository,
+) {
+
+    operator fun invoke() {
+        repository.release()
+    }
 
 }

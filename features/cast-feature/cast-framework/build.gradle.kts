@@ -1,17 +1,53 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    id("java-library")
-    id("kotlin")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
-java {
-    sourceCompatibility = ConfigData.javaVersion
-    targetCompatibility = ConfigData.javaVersion
+android {
+    namespace = "com.ilizma.cast.framework"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+
+    defaultConfig {
+        minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
+    }
+
+    buildTypes {
+        getByName("debug") {
+            buildConfigField("String", "AUDIO_URL", "\"" + Environments.debug.audioURL + "\"")
+        }
+        getByName("release") {
+            buildConfigField("String", "AUDIO_URL", "\"" + Environments.release.audioURL + "\"")
+        }
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
 }
 
-kotlin.compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_21)
+    }
+}
 
 dependencies {
-    implementation(libs.coroutines)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.appcompat)
+    implementation(libs.mediarouter)
+    implementation(libs.cast.framework)
+    implementation(project(":cast-view"))
+
+    // region Player
+    implementation(project(":player-framework"))
+    // endregion
 }

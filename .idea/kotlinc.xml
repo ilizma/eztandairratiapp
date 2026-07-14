@@ -4,6 +4,7 @@
     <option name="jvmTarget" value="19" />
   </component>
   <component name="KotlinJpsPluginSettings">
-    <option name="version" value="2.2.21" />
+    <option name="externalSystemId" value="Gradle" />
+    <option name="version" value="2.3.21" />
   </component>
 </project>

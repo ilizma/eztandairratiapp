@@ -69,16 +69,27 @@
       <module name="eztandairratiapp.menu-flow-imp" target="17" />
       <module name="eztandairratiapp.menu-presentation" target="17" />
       <module name="eztandairratiapp.menu-presentation-imp" target="17" />
+      <module name="EztandaIrratiapp.menu-presentation-imp" target="25" />
       <module name="eztandairratiapp.menu-view" target="17" />
       <module name="eztandairratiapp.menu-view-imp" target="17" />
+      <module name="EztandaIrratiapp.player-data-imp" target="25" />
+      <module name="EztandaIrratiapp.player-domain-imp" target="25" />
+      <module name="EztandaIrratiapp.player-flow-imp" target="25" />
+      <module name="EztandaIrratiapp.player-framework-imp" target="25" />
+      <module name="EztandaIrratiapp.player-presentation-imp" target="25" />
       <module name="eztandairratiapp.presentation-base" target="17" />
       <module name="eztandairratiapp.resources" target="17" />
       <module name="eztandairratiapp.review-di" target="17" />
+      <module name="EztandaIrratiapp.review-framework-imp" target="25" />
       <module name="eztandairratiapp.review-framework-imp" target="17" />
+      <module name="EztandaIrratiapp.schedule-data-imp" target="25" />
       <module name="eztandairratiapp.schedule-di" target="17" />
+      <module name="EztandaIrratiapp.schedule-domain-imp" target="25" />
       <module name="eztandairratiapp.schedule-flow" target="17" />
       <module name="eztandairratiapp.schedule-flow-imp" target="17" />
+      <module name="EztandaIrratiapp.schedule-flow-imp" target="25" />
       <module name="eztandairratiapp.schedule-presentation" target="17" />
+      <module name="EztandaIrratiapp.schedule-presentation-imp" target="25" />
       <module name="eztandairratiapp.schedule-presentation-imp" target="17" />
       <module name="eztandairratiapp.schedule-view" target="17" />
       <module name="eztandairratiapp.schedule-view-imp" target="17" />

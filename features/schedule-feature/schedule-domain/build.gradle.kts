@@ -15,12 +15,22 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             isStatic = true
+        }
+    }
+
+    sourceSets {
+        androidUnitTest.dependencies {
+            implementation(libs.mockk)
+        }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.coroutines.test)
         }
     }
 }

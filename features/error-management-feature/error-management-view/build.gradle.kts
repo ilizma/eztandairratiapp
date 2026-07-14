@@ -11,6 +11,7 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+        testInstrumentationRunner = ConfigData.testInstrumentationRunner
     }
 
     compileOptions {
@@ -20,6 +21,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 
 }
@@ -37,6 +39,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.lottie)
+    implementation(libs.customactivityoncrash)
     implementation(project(":view-base"))
     implementation(project(":resources"))
 }

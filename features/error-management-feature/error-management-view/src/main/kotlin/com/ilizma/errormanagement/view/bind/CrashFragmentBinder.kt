@@ -1,9 +1,65 @@
 package com.ilizma.errormanagement.view.bind
 
+import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import androidx.core.view.isVisible
+import cat.ereza.customactivityoncrash.CustomActivityOnCrash
 import com.ilizma.errormanagement.view.databinding.CrashFragmentBinding
+import com.ilizma.errormanagement.view.BuildConfig
+import com.ilizma.resources.R
+import com.ilizma.view.extensions.snackbar
+import java.util.concurrent.atomic.AtomicReference
 
-interface CrashFragmentBinder {
+private const val CLIPBOARD_LABEL = "EztandaCrashFragment log"
 
-    fun bind(binding: CrashFragmentBinding)
+class CrashFragmentBinder(
+    private val activity: Activity,
+) {
+
+    private val stackTrace = AtomicReference<String>()
+
+    fun bind(
+        binding: CrashFragmentBinding,
+    ) {
+        setupView(binding)
+        setUpListeners(binding)
+    }
+
+    private fun setupView(
+        binding: CrashFragmentBinding,
+    ) {
+        if (BuildConfig.DEBUG) binding.crashActivityBLogcat.isVisible = true
+
+        CustomActivityOnCrash.getAllErrorDetailsFromIntent(binding.root.context, activity.intent)
+            .let { stackTrace.set(it) }
+    }
+
+    private fun setUpListeners(
+        binding: CrashFragmentBinding,
+    ) {
+        binding.crashActivityBRestart.setOnClickListener {
+            CustomActivityOnCrash.getConfigFromIntent(activity.intent)
+                ?.let { CustomActivityOnCrash.restartApplication(activity, it) }
+        }
+
+        binding.crashActivityBLogcat.setOnClickListener {
+            binding.crashActivityTvLog.text = stackTrace.get()
+            binding.crashActivityBClipboard.isVisible = true
+        }
+
+        binding.crashActivityBClipboard.setOnClickListener {
+            val clipboard = binding.root.context
+                .getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText(CLIPBOARD_LABEL, binding.crashActivityTvLog.text)
+            clipboard.setPrimaryClip(clip)
+
+            binding.root.snackbar(
+                R.string.crash_activity_snackbar_successful_title,
+                R.string.crash_activity_snackbar_successful_action,
+            )
+        }
+    }
 
 }

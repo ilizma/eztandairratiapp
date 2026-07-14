@@ -33,6 +33,5 @@ dependencies {
     implementation(project(":view-base"))
     // region Error Management
     api(project(":error-management-view"))
-    api(project(":error-management-view-imp"))
     // endregion
 }

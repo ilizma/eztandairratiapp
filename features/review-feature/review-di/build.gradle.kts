@@ -35,7 +35,6 @@ dependencies {
 
     // region Review
     api(project(":review-framework"))
-    api(project(":review-framework-imp"))
     // endregion
 
     implementation(project(":main-view"))

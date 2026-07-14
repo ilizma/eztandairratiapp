@@ -47,8 +47,8 @@ import com.ilizma.schedule.view.utils.ScheduleDetailScreenPreviewProvider
 import com.ilizma.view.lifecycle.collectAsStateMultiplatform
 import com.ilizma.view.shimmer.ShimmerBrush
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

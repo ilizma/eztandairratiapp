@@ -1,7 +1,9 @@
 package com.ilizma.schedule.data.datasource
 
-interface DayNameDataSource {
+class DayNameDataSource(
+    private val dayName: () -> String,
+) {
 
-    fun get(): String
+    fun get(): String = dayName()
 
 }

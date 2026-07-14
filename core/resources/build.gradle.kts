@@ -17,7 +17,6 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -32,10 +31,10 @@ kotlin {
             implementation(libs.splashscreen)
         }
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
+            implementation(libs.runtime)
+            implementation(libs.material3)
+            implementation(libs.ui)
+            implementation(libs.components.resources)
         }
     }
 }

@@ -25,3 +25,9 @@ kotlin {
         jvmTarget.set(JvmTarget.JVM_21)
     }
 }
+
+dependencies {
+    implementation(libs.appcompat)
+    implementation(libs.lifecycle.common)
+    implementation(project(":cast-view"))
+}

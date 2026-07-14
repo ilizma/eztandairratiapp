@@ -2,7 +2,7 @@ package com.ilizma.schedule.view.utils
 
 import com.ilizma.schedule.presentation.model.ProgramType
 import com.ilizma.schedule.presentation.model.ScheduleState
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 
 class ScheduleDetailScreenPreviewProvider :
     PreviewParameterProvider<ScheduleState> {

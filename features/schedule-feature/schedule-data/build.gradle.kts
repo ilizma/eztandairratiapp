@@ -4,6 +4,9 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.ktorfit)
 }
 
 kotlin {
@@ -15,7 +18,6 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -25,8 +27,22 @@ kotlin {
     }
 
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.annotation)
+        commonMain.dependencies {
+            implementation(libs.runtime)
+            implementation(libs.components.resources)
+            implementation(libs.ktorfit)
+            implementation(project(":api"))
+            implementation(project(":resources"))
+            implementation(project(":schedule-domain"))
+        }
+
+        androidUnitTest.dependencies {
+            implementation(libs.mockk)
+        }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.coroutines.test)
         }
     }
 }
