@@ -139,8 +139,8 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
 
         override fun getNotificationChannelInfo(
         ): NotificationChannelInfo = NotificationChannelInfo(
-            "",
-            "",
+            "eztanda_playback_channel",
+            getString(R.string.music_notification_channel_name),
         )
 
     }

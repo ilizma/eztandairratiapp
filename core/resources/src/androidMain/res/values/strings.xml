@@ -16,4 +16,5 @@
     <string name="unknown_error">Unknown error</string>
 
     <string name="player_widget_description">Eztanda player widget</string>
+    <string name="music_notification_channel_name">Playback</string>
 </resources>

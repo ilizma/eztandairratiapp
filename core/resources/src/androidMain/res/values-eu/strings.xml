@@ -9,4 +9,5 @@
     <string name="crash_activity_snackbar_successful_action">ONDO</string>
     <string name="unknown_error">Errore ezezaguna</string>
     <string name="player_widget_description">Eztanda widget erreproduzitzailea</string>
+    <string name="music_notification_channel_name">Erreprodukzioa</string>
 </resources>
