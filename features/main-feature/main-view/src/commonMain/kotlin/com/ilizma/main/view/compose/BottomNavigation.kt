@@ -11,12 +11,13 @@ import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Radio
 import androidx.compose.material.icons.outlined.WatchLater
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ShortNavigationBar
+import androidx.compose.material3.ShortNavigationBarItem
+import androidx.compose.material3.ShortNavigationBarItemDefaults
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -103,12 +104,13 @@ private fun TopBar(
     )
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun BottomBar(
     key: NavKey,
     itemSelected: (Any) -> Unit,
 ) {
-    NavigationBar {
+    ShortNavigationBar {
         BottomBarItem(
             selected = key == RadioTab,
             textResource = Res.string.title_radio,
@@ -133,15 +135,16 @@ private fun BottomBar(
     }
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun RowScope.BottomBarItem(
+private fun BottomBarItem(
     selected: Boolean,
     textResource: StringResource,
     icon: ImageVector,
     contentDescription: String,
     itemSelected: () -> Unit,
 ) {
-    NavigationBarItem(
+    ShortNavigationBarItem(
         selected = selected,
         onClick = { itemSelected() },
         icon = {
@@ -155,7 +158,7 @@ private fun RowScope.BottomBarItem(
                 text = stringResource(textResource),
             )
         },
-        colors = NavigationBarItemDefaults.colors(
+        colors = ShortNavigationBarItemDefaults.colors(
             selectedTextColor = MaterialTheme.colorScheme.onPrimary,
         )
     )

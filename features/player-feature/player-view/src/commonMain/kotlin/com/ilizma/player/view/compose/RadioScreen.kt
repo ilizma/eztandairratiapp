@@ -9,7 +9,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Stop
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.CircularWavyProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -125,6 +126,7 @@ private fun ErrorSnackbar(
     }
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun ScreenBox(
     paddingValues: PaddingValues,
@@ -155,7 +157,7 @@ private fun ScreenBox(
             },
         ) {
             when (state) {
-                PlayerState.Loading -> CircularProgressIndicator(
+                PlayerState.Loading -> CircularWavyProgressIndicator(
                     modifier = Modifier.size(32.dp),
                     color = LocalContentColor.current,
                 )
