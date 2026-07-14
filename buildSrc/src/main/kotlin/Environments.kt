@@ -7,11 +7,11 @@ object Environments {
 
     val release = Environment(
         baseURL = "https://eztanda.com/",
-        audioURL = "https://streaming.eguzki.eus/eztanda.mp3",
+        audioURL = "https://streaming.eztanda.com/radio",
     )
     val debug = Environment(
         baseURL = "https://eztanda.com/",
-        audioURL = "https://streaming.eguzki.eus/eztanda.mp3",
+        audioURL = "https://streaming.eztanda.com/radio",
     )
 
 }
