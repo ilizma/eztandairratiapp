@@ -1,38 +1,32 @@
 package com.ilizma.schedule.flow.navigator
 
-import androidx.lifecycle.Lifecycle
-import androidx.navigation.NavHostController
+import com.ilizma.view.navigation.Navigator
 import io.mockk.MockKAnnotations
-import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
-import org.junit.Test
 import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 class ScheduleDetailCloseNavigatorImpTest {
 
     @RelaxedMockK
-    private lateinit var navController: NavHostController
+    private lateinit var navigatorMock: Navigator
 
     private lateinit var navigator: ScheduleDetailCloseNavigator
 
-    init {
-        MockKAnnotations.init(this)
-
-        every { navController.currentBackStackEntry?.lifecycle?.currentState } returns Lifecycle.State.RESUMED
-    }
-
     @BeforeTest
     fun setup() {
+        MockKAnnotations.init(this)
         navigator = ScheduleDetailCloseNavigatorImp()
     }
 
     @Test
-    fun `when back, then popBackStack is called`() {
+    fun `when close, then goBack should be executed`() {
         // when
-        navigator.close(navController)
+        navigator.close(navigatorMock)
 
         // then
-        verify { navController.popBackStack() }
+        verify { navigatorMock.goBack() }
     }
+
 }

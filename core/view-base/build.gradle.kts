@@ -41,6 +41,7 @@ kotlin {
             implementation(libs.foundation)
             implementation(libs.material3)
             implementation(libs.ui)
+            implementation(libs.navigation3.ui)
             implementation(libs.components.resources)
             implementation(libs.ui.tooling.preview)
             implementation(libs.coroutines)

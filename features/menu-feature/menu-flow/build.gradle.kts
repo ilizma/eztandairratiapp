@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -32,6 +33,8 @@ kotlin {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.navigation3.ui)
+            implementation(libs.lifecycle.viewmodel)
+            implementation(project(":view-base"))
             implementation(project(":menu-view"))
             implementation(project(":menu-presentation"))
             implementation(project(":player-flow"))

@@ -8,6 +8,7 @@ import com.ilizma.menu.flow.navigator.TwitterNavigator
 import com.ilizma.menu.flow.navigator.WebNavigator
 import com.ilizma.menu.flow.navigator.WhatsAppNavigator
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
+import com.ilizma.menu.view.router.MenuScreenRouter
 import io.mockk.MockKAnnotations
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
@@ -54,7 +55,7 @@ class MenuScreenRouterTest {
     }
 
     private fun setup(testDispatcher: TestDispatcher) {
-        router = MenuScreenRouter(
+        router = MenuScreenRouterImp(
             dispatcher = testDispatcher,
             instagramNavigator = instagramNavigator,
             twitterNavigator = twitterNavigator,

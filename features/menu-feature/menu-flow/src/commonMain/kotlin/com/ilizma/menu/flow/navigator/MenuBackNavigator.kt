@@ -1,11 +1,11 @@
 package com.ilizma.menu.flow.navigator
 
-import androidx.navigation.NavHostController
+import com.ilizma.view.navigation.Navigator
 
 interface MenuBackNavigator {
 
     fun back(
-        navController: NavHostController,
+        navigator: Navigator,
     )
 
 }

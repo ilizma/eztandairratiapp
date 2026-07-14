@@ -1,7 +1,6 @@
 package com.ilizma.menu.flow.router
 
 import androidx.compose.ui.platform.UriHandler
-import androidx.navigation.NavHostController
 import com.ilizma.menu.flow.navigator.FacebookNavigator
 import com.ilizma.menu.flow.navigator.InstagramNavigator
 import com.ilizma.menu.flow.navigator.MenuBackNavigator
@@ -18,12 +17,14 @@ import com.ilizma.menu.presentation.model.MenuNavigationAction.Twitter
 import com.ilizma.menu.presentation.model.MenuNavigationAction.Web
 import com.ilizma.menu.presentation.model.MenuNavigationAction.WhatsApp
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
+import com.ilizma.menu.view.router.MenuScreenRouter
+import com.ilizma.view.navigation.Navigator
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MenuScreenRouter(
+class  MenuScreenRouterImp(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Main,
     private val instagramNavigator: InstagramNavigator,
     private val twitterNavigator: TwitterNavigator,
@@ -32,19 +33,19 @@ class MenuScreenRouter(
     private val whatsAppNavigator: WhatsAppNavigator,
     private val webNavigator: WebNavigator,
     private val menuBackNavigator: MenuBackNavigator,
-) {
+) : MenuScreenRouter {
 
-    fun init(
+    override fun init(
         uriHandler: UriHandler,
         coroutineScope: CoroutineScope,
         viewModel: MenuScreenViewModel,
-        navController: NavHostController,
+        navigator: Navigator,
     ) {
         coroutineScope.launch(dispatcher) {
             viewModel.navigationAction.collect {
                 onNavigationAction(
                     uriHandler = uriHandler,
-                    navController = navController,
+                    navigator = navigator,
                     action = it,
                 )
             }
@@ -53,7 +54,7 @@ class MenuScreenRouter(
 
     private fun onNavigationAction(
         uriHandler: UriHandler,
-        navController: NavHostController,
+        navigator: Navigator,
         action: MenuNavigationAction,
     ) {
         when (action) {
@@ -63,7 +64,7 @@ class MenuScreenRouter(
             Phone -> phoneNavigator.navigate()
             WhatsApp -> whatsAppNavigator.navigate()
             Web -> webNavigator.navigate(uriHandler)
-            Back -> menuBackNavigator.back(navController)
+            Back -> menuBackNavigator.back(navigator)
         }
     }
 

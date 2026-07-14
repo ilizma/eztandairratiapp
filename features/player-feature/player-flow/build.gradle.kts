@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -31,6 +32,8 @@ kotlin {
         }
 
         commonMain.dependencies {
+            implementation(libs.navigation3.ui)
+            implementation(project(":view-base"))
             implementation(project(":player-view"))
             implementation(project(":player-presentation"))
         }

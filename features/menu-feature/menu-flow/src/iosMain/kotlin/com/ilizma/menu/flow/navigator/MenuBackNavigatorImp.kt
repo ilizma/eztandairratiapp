@@ -1,17 +1,13 @@
 package com.ilizma.menu.flow.navigator
 
-import androidx.navigation.NavHostController
-import com.ilizma.player.flow.model.RadioTab
+import com.ilizma.view.navigation.Navigator
 
 class MenuBackNavigatorImp: MenuBackNavigator {
 
     override fun back(
-        navController: NavHostController,
+        navigator: Navigator,
     ) {
-        navController.popBackStack(
-            route = RadioTab,
-            inclusive = false,
-        )
+        navigator.goBack()
     }
 
 }

@@ -21,13 +21,14 @@ import androidx.media3.exoplayer.util.EventLogger
 import androidx.media3.session.CommandButton
 import androidx.media3.session.DefaultMediaNotificationProvider
 import androidx.media3.session.MediaNotification
+import androidx.media3.session.MediaNotification.Provider.NotificationChannelInfo
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSession.ControllerInfo
 import androidx.media3.session.MediaSessionService
 import com.google.common.collect.ImmutableList
 import com.ilizma.player.framework.factory.MediaSessionBuilderFactory
 import com.ilizma.player.framework.factory.PlayerFactory
-import com.ilizma.player.framework.imp.BuildKonfig
+import com.ilizma.player.framework.BuildKonfig
 import com.ilizma.player.framework.model.PlayerState
 import com.ilizma.player.framework.model.WidgetAction
 import com.ilizma.player.framework.updater.PlayerWidgetUpdater
@@ -134,6 +135,12 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
             session,
             action,
             extras,
+        )
+
+        override fun getNotificationChannelInfo(
+        ): NotificationChannelInfo = NotificationChannelInfo(
+            "",
+            "",
         )
 
     }

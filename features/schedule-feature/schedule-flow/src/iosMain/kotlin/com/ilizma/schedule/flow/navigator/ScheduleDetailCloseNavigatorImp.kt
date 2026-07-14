@@ -1,13 +1,13 @@
 package com.ilizma.schedule.flow.navigator
 
-import androidx.navigation.NavHostController
+import com.ilizma.view.navigation.Navigator
 
 class ScheduleDetailCloseNavigatorImp : ScheduleDetailCloseNavigator {
 
     override fun close(
-        navController: NavHostController,
+        navController: Navigator,
     ) {
-        navController.popBackStack()
+        navController.goBack()
     }
 
 }

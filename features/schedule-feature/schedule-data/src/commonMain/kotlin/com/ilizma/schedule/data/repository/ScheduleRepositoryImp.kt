@@ -20,6 +20,6 @@ class ScheduleRepositoryImp(
 
     private suspend fun getFromRemoteAndSaveCache(
     ): DataScheduleState = dataSource.get()
-        .also { cache.set(it) }
+        .also { if (it is DataScheduleState.Success) cache.set(it) }
 
 }

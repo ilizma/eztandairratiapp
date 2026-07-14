@@ -1,9 +1,9 @@
 package com.ilizma.schedule.flow.router
 
-import androidx.navigation.NavHostController
 import com.ilizma.schedule.flow.navigator.ScheduleDetailCloseNavigator
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
 import com.ilizma.schedule.view.router.ScheduleDetailRouter
+import com.ilizma.view.navigation.Navigator
 import io.mockk.MockKAnnotations
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
@@ -24,7 +24,7 @@ class ScheduleDetailRouterImpTest {
     private lateinit var viewModel: ScheduleDetailScreenViewModel
 
     @RelaxedMockK
-    private lateinit var navController: NavHostController
+    private lateinit var navigator: Navigator
 
     private lateinit var router: ScheduleDetailRouter
 
@@ -50,7 +50,7 @@ class ScheduleDetailRouterImpTest {
         router.init(
             coroutineScope = CoroutineScope(testDispatcher),
             viewModel = viewModel,
-            navController = navController,
+            navController = navigator,
         )
         advanceUntilIdle()
 

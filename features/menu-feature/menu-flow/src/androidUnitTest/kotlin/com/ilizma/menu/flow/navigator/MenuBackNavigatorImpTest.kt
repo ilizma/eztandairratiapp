@@ -1,40 +1,32 @@
 package com.ilizma.menu.flow.navigator
 
-import androidx.lifecycle.Lifecycle
-import androidx.navigation.NavHostController
-import com.ilizma.player.flow.model.RadioTab
+import com.ilizma.view.navigation.Navigator
 import io.mockk.MockKAnnotations
-import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
-import kotlin.test.Test
 import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 class MenuBackNavigatorImpTest {
 
     @RelaxedMockK
-    private lateinit var navController: NavHostController
+    private lateinit var navigatorMock: Navigator
 
     private lateinit var navigator: MenuBackNavigator
 
-    init {
-        MockKAnnotations.init(this)
-
-        every { navController.currentBackStackEntry?.lifecycle?.currentState } returns Lifecycle.State.RESUMED
-    }
-
     @BeforeTest
     fun setup() {
+        MockKAnnotations.init(this)
         navigator = MenuBackNavigatorImp()
     }
 
     @Test
-    fun `when back, then popBackStack should be executed`() {
+    fun `when back, then goBack should be executed`() {
         // when
-        navigator.back(navController)
+        navigator.back(navigatorMock)
 
         // then
-        verify { navController.popBackStack(route = RadioTab, inclusive = false) }
+        verify { navigatorMock.goBack() }
     }
 
 }

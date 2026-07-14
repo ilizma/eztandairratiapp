@@ -1,20 +1,13 @@
 package com.ilizma.schedule.flow.navigator
 
-import androidx.lifecycle.Lifecycle
-import androidx.navigation.NavHostController
-import com.ilizma.player.flow.model.RadioTab
+import com.ilizma.view.navigation.Navigator
 
 class ScheduleBackNavigatorImp : ScheduleBackNavigator {
 
     override fun back(
-        navController: NavHostController,
+        navController: Navigator,
     ) {
-        if (navController.currentBackStackEntry?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
-            navController.popBackStack(
-                route = RadioTab,
-                inclusive = false,
-            )
-        }
+        navController.goBack()
     }
 
 }

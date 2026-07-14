@@ -49,7 +49,7 @@ kotlin {
             implementation(libs.foundation)
             implementation(libs.material3)
             implementation(libs.ui)
-            implementation(libs.components.resources)
+            implementation(libs.material.icons.extended)
             implementation(libs.components.resources)
             implementation(libs.ui.tooling.preview)
 

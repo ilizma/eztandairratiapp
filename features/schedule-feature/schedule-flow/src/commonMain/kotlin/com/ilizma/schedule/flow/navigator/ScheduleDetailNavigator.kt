@@ -1,12 +1,12 @@
 package com.ilizma.schedule.flow.navigator
 
-import androidx.navigation.NavHostController
 import com.ilizma.schedule.flow.model.ScheduleDetail
+import com.ilizma.view.navigation.Navigator
 
 class ScheduleDetailNavigator {
 
     fun navigate(
-        navController: NavHostController,
+        navController: Navigator,
         id: Int,
         name: String,
     ) {

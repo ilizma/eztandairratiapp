@@ -1,28 +1,48 @@
 package com.ilizma.main.view.compose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.ui.NavDisplay
 import com.ilizma.main.view.model.BottomNavigation
+import com.ilizma.menu.flow.model.MenuTab
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
 import com.ilizma.menu.view.router.MenuScreenRouter
+import com.ilizma.player.flow.model.RadioTab
 import com.ilizma.player.presentation.viewmodel.RadioScreenViewModel
 import com.ilizma.player.view.router.RadioScreenRouter
 import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
 import com.ilizma.schedule.flow.model.ScheduleDetail
+import com.ilizma.schedule.flow.model.ScheduleTab
 import com.ilizma.schedule.presentation.model.ScheduleDetailScreenIntent
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.schedule.view.component.ScheduleDetailScreen
 import com.ilizma.schedule.view.router.ScheduleDetailRouter
 import com.ilizma.schedule.view.router.ScheduleScreenRouter
+import com.ilizma.view.navigation.Navigator
+import com.ilizma.view.navigation.rememberNavigationState
+import com.ilizma.view.navigation.toEntries
+import androidx.savedstate.serialization.SavedStateConfiguration
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+
+private val navigationConfig = SavedStateConfiguration {
+    serializersModule = SerializersModule {
+        polymorphic(NavKey::class) {
+            subclass(BottomNavigation::class, BottomNavigation.serializer())
+            subclass(ScheduleDetail::class, ScheduleDetail.serializer())
+            subclass(RadioTab::class, RadioTab.serializer())
+            subclass(ScheduleTab::class, ScheduleTab.serializer())
+            subclass(MenuTab::class, MenuTab.serializer())
+        }
+    }
+}
 
 @Composable
 fun AppNavigation(
@@ -50,8 +70,20 @@ private fun InitRadioScreen(
     val scheduleDetailScreenViewModel: ScheduleDetailScreenViewModel = koinViewModel()
 
     val coroutineScope = rememberCoroutineScope()
-    val navController = rememberNavController()
-    val bottomNavController = rememberNavController()
+    
+    val navigationState = rememberNavigationState(
+        configuration = navigationConfig,
+        startRoute = BottomNavigation,
+        topLevelRoutes = setOf(BottomNavigation),
+    )
+    val navigator = remember { Navigator(navigationState) }
+
+    val bottomNavigationState = rememberNavigationState(
+        configuration = navigationConfig,
+        startRoute = RadioTab,
+        topLevelRoutes = setOf(RadioTab, ScheduleTab, MenuTab)
+    )
+    val bottomNavigator = remember { Navigator(bottomNavigationState) }
 
     radioScreenRouter.init(
         coroutineScope = coroutineScope,
@@ -60,24 +92,26 @@ private fun InitRadioScreen(
     scheduleScreenRouter.init(
         coroutineScope = coroutineScope,
         viewModel = scheduleScreenViewModel,
-        navController = navController,
-        bottomNavController = bottomNavController
+        navController = navigator,
+        bottomNavController = bottomNavigator
     )
     menuScreenRouter.init(
         uriHandler = LocalUriHandler.current,
         coroutineScope = coroutineScope,
         viewModel = menuScreenViewModel,
-        navController = bottomNavController,
+        navigator = bottomNavigator,
     )
     scheduleDetailScreenRouter.init(
         coroutineScope = coroutineScope,
         viewModel = scheduleDetailScreenViewModel,
-        navController = navController,
+        navController = navigator,
     )
 
     Content(
-        navController = navController,
-        bottomNavController = bottomNavController,
+        navigationState = navigationState,
+        navigator = navigator,
+        bottomNavigationState = bottomNavigationState,
+        bottomNavigator = bottomNavigator,
         radioScreenViewModel = radioScreenViewModel,
         scheduleScreenViewModel = scheduleScreenViewModel,
         menuScreenViewModel = menuScreenViewModel,
@@ -87,42 +121,44 @@ private fun InitRadioScreen(
 
 @Composable
 private fun Content(
-    navController: NavHostController,
-    bottomNavController: NavHostController,
+    navigationState: com.ilizma.view.navigation.NavigationState,
+    navigator: Navigator,
+    bottomNavigationState: com.ilizma.view.navigation.NavigationState,
+    bottomNavigator: Navigator,
     radioScreenViewModel: RadioScreenViewModel,
     scheduleScreenViewModel: ScheduleScreenViewModel,
     menuScreenViewModel: MenuScreenViewModel,
     scheduleDetailScreenViewModel: ScheduleDetailScreenViewModel,
 ) {
-    NavHost(
-        navController = navController,
-        startDestination = BottomNavigation
-    ) {
-        composable<BottomNavigation> {
+    val entryProvider = entryProvider {
+        entry<BottomNavigation> {
             BottomNavigation(
-                navController = bottomNavController,
+                navigationState = bottomNavigationState,
+                navigator = bottomNavigator,
                 radioScreenViewModel = radioScreenViewModel,
                 scheduleScreenViewModel = scheduleScreenViewModel,
                 menuScreenViewModel = menuScreenViewModel,
             )
         }
 
-        composable<ScheduleDetail> { backStackEntry ->
+        entry<ScheduleDetail> { key ->
             ScheduleDetailScreen(
                 viewModel = scheduleDetailScreenViewModel
                     .also { vm ->
-                        backStackEntry.toRoute<ScheduleDetail>()
-                            .let {
-                                vm.onIntent(
-                                    ScheduleDetailScreenIntent.SaveCache(
-                                        id = it.id,
-                                        name = it.name
-                                    )
-                                )
-                            }
+                        vm.onIntent(
+                            ScheduleDetailScreenIntent.SaveCache(
+                                id = key.id,
+                                name = key.name
+                            )
+                        )
                     }
                     .also { it.onIntent(ScheduleDetailScreenIntent.GetSchedule) },
             )
         }
     }
+
+    NavDisplay(
+        entries = navigationState.toEntries(entryProvider),
+        onBack = { navigator.goBack() },
+    )
 }

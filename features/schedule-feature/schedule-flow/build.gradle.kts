@@ -33,6 +33,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.serialization.json)
             implementation(libs.navigation3.ui)
+            implementation(project(":view-base"))
             implementation(project(":schedule-view"))
             implementation(project(":schedule-presentation"))
             implementation(project(":player-flow"))
