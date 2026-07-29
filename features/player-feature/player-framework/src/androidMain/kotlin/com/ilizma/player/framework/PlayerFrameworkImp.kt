@@ -1,7 +1,9 @@
 package com.ilizma.player.framework
 
+import android.content.Context
 import androidx.core.os.bundleOf
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.session.MediaController
@@ -10,12 +12,14 @@ import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.MoreExecutors
 import com.ilizma.player.framework.BuildKonfig
 import com.ilizma.player.framework.model.PlayerState
+import com.ilizma.resources.R
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
 private const val CANCEL_NOTIFICATION = "CANCEL_NOTIFICATION"
 
 class PlayerFrameworkImp(
+    private val context: Context,
     mediaControllerBuilder: MediaController.Builder,
     private val _playerState: MutableStateFlow<PlayerState>,
 ) : PlayerFramework {
@@ -141,7 +145,18 @@ class PlayerFrameworkImp(
     private fun initMediaPlayer() {
         mediaController
             ?.apply {
-                MediaItem.fromUri(BuildKonfig.AUDIO_URL)
+                MediaItem.Builder()
+                    .setMediaId("eztanda_radio_stream")
+                    .setUri(BuildKonfig.AUDIO_URL)
+                    .setMediaMetadata(
+                        MediaMetadata.Builder()
+                            .setTitle(context.getString(R.string.radio_name))
+                            .setArtist(context.getString(R.string.free_radio))
+                            .setDisplayTitle(context.getString(R.string.radio_name))
+                            .setSubtitle(context.getString(R.string.free_radio))
+                            .build()
+                    )
+                    .build()
                     .let { setMediaItem(it) }
             }
     }

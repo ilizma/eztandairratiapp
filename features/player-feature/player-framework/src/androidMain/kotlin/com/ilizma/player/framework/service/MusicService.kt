@@ -13,6 +13,7 @@ import android.os.PowerManager
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
@@ -53,6 +54,21 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
     private lateinit var player: ExoPlayer
     private lateinit var mediaSession: MediaSession
     private var audioFocusRequest: AudioFocusRequest? = null
+
+    private val mediaItem by lazy {
+        MediaItem.Builder()
+            .setMediaId("eztanda_radio_stream")
+            .setUri(BuildKonfig.AUDIO_URL)
+            .setMediaMetadata(
+                MediaMetadata.Builder()
+                    .setTitle(getString(R.string.radio_name))
+                    .setArtist(getString(R.string.free_radio))
+                    .setDisplayTitle(getString(R.string.radio_name))
+                    .setSubtitle(getString(R.string.free_radio))
+                    .build()
+            )
+            .build()
+    }
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -183,8 +199,7 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
         when (WidgetAction.valueOf(action)) {
             WidgetAction.PLAY -> {
                 if (player.currentMediaItem == null) {
-                    MediaItem.fromUri(BuildKonfig.AUDIO_URL)
-                        .let { player.setMediaItem(it) }
+                    player.setMediaItem(mediaItem)
                 }
                 player.prepare()
                 player.play()
@@ -208,8 +223,7 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
 
             AudioManager.AUDIOFOCUS_GAIN -> if (player.isPlaying.not()) {
                 if (player.currentMediaItem == null) {
-                    MediaItem.fromUri(BuildKonfig.AUDIO_URL)
-                        .let { player.setMediaItem(it) }
+                    player.setMediaItem(mediaItem)
                     player.prepare()
                 }
                 player.play()
