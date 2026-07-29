@@ -234,7 +234,8 @@ private fun LoadingRow() {
         LinearWavyProgressIndicator(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(16.dp),
+            color = MaterialTheme.colorScheme.tertiary
         )
     }
 }

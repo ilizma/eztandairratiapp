@@ -42,6 +42,7 @@ kotlin {
             implementation(project(":review-framework"))
             // endregion
 
+            implementation(project(":player-domain"))
             implementation(project(":player-framework"))
         }
         commonMain.dependencies {
