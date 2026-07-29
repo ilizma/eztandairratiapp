@@ -229,11 +229,7 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
         }
         abandonAudioFocus(getSystemService(AUDIO_SERVICE) as AudioManager)
         unregisterReceiver(mNoisyReceiver)
-        when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> stopForeground(STOP_FOREGROUND_REMOVE)
-            else -> @Suppress("DEPRECATION")
-            stopForeground(true)
-        }
+        stopForeground(STOP_FOREGROUND_REMOVE)
         super.onDestroy()
     }
 
@@ -274,13 +270,8 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
     private fun abandonAudioFocus(
         audioManager: AudioManager,
     ) {
-        when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> audioFocusRequest
-                ?.let { audioManager.abandonAudioFocusRequest(it) }
-
-            else -> @Suppress("DEPRECATION")
-            audioManager.abandonAudioFocus(this)
-        }
+        audioFocusRequest
+            ?.let { audioManager.abandonAudioFocusRequest(it) }
     }
 
 }

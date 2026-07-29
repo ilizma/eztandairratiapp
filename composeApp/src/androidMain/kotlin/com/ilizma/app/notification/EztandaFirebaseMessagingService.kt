@@ -46,13 +46,11 @@ class EztandaFirebaseMessagingService : FirebaseMessagingService() {
         NotificationManagerCompat
             .from(this)
             .apply {
-                when {
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> NotificationChannel(
-                        CHANNEL_ID,
-                        CHANNEL_NAME,
-                        NotificationManager.IMPORTANCE_HIGH
-                    ).let { createNotificationChannel(it) }
-                }
+                NotificationChannel(
+                    CHANNEL_ID,
+                    CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_HIGH
+                ).let { createNotificationChannel(it) }
                 if (ActivityCompat.checkSelfPermission(
                         this@EztandaFirebaseMessagingService,
                         Manifest.permission.POST_NOTIFICATIONS,
@@ -81,10 +79,7 @@ class EztandaFirebaseMessagingService : FirebaseMessagingService() {
             RingtoneManager.TYPE_NOTIFICATION
                 .let { RingtoneManager.getDefaultUri(it) }
                 .let { setSound(it) }
-            when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> NotificationManager.IMPORTANCE_HIGH
-                else -> NotificationCompat.PRIORITY_HIGH
-            }.let { setPriority(it) }
+            NotificationManager.IMPORTANCE_HIGH.let { setPriority(it) }
             PendingIntent.getActivity(
                 this@EztandaFirebaseMessagingService,
                 0,
