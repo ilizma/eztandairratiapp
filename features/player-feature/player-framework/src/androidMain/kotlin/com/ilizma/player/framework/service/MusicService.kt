@@ -22,13 +22,16 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.util.EventLogger
 import androidx.media3.session.CommandButton
 import androidx.media3.session.DefaultMediaNotificationProvider
+import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaNotification
 import androidx.media3.session.MediaNotification.Provider.NotificationChannelInfo
+import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSession.ControllerInfo
-import androidx.media3.session.MediaSessionService
+import androidx.media3.session.SessionError
 import com.google.common.collect.ImmutableList
-import com.ilizma.player.framework.factory.MediaSessionBuilderFactory
+import com.google.common.util.concurrent.Futures
+import com.google.common.util.concurrent.ListenableFuture
 import com.ilizma.player.framework.factory.PlayerFactory
 import com.ilizma.player.framework.BuildKonfig
 import com.ilizma.player.framework.getArtworkData
@@ -46,20 +49,24 @@ import org.koin.android.ext.android.inject
 const val WIDGET_ACTION = "widget_action"
 
 @UnstableApi
-class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListener {
+class MusicService : MediaLibraryService(), AudioManager.OnAudioFocusChangeListener {
 
     private val playerFactory: PlayerFactory<ExoPlayer> by inject()
-    private val mediaSessionBuilderFactory: MediaSessionBuilderFactory<MediaSession.Builder, ExoPlayer> by inject()
     private val noisyAudioIntentFilter: IntentFilter by inject()
     private val playerWidgetUpdater: PlayerWidgetUpdater by inject()
 
     private lateinit var player: ExoPlayer
-    private lateinit var mediaSession: MediaSession
+    private lateinit var mediaLibrarySession: MediaLibrarySession
     private var audioFocusRequest: AudioFocusRequest? = null
+
+    companion object {
+        private const val ROOT_ID = "[rootID]"
+        private const val LIVE_ID = "eztanda_radio_stream"
+    }
 
     private val mediaItem by lazy {
         MediaItem.Builder()
-            .setMediaId("eztanda_radio_stream")
+            .setMediaId(LIVE_ID)
             .setUri(BuildKonfig.AUDIO_URL)
             .setMediaMetadata(
                 MediaMetadata.Builder()
@@ -71,6 +78,8 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
                         getArtworkData(this@MusicService, R.drawable.img_splash),
                         MediaMetadata.PICTURE_TYPE_FRONT_COVER
                     )
+                    .setIsPlayable(true)
+                    .setIsBrowsable(false)
                     .build()
             )
             .build()
@@ -119,7 +128,7 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
         }
     }
 
-    private class MediaSessionCallback : MediaSession.Callback {
+    private inner class MediaLibrarySessionCallback : MediaLibrarySession.Callback {
         override fun onConnect(
             session: MediaSession,
             controller: ControllerInfo,
@@ -129,6 +138,89 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
                     .buildUpon()
                     .build() to it.availablePlayerCommands
             }.let { MediaSession.ConnectionResult.accept(it.first, it.second) }
+
+        override fun onGetLibraryRoot(
+            session: MediaLibrarySession,
+            browser: ControllerInfo,
+            params: LibraryParams?,
+        ): ListenableFuture<LibraryResult<MediaItem>> {
+            val rootItem = MediaItem.Builder()
+                .setMediaId(ROOT_ID)
+                .setMediaMetadata(
+                    MediaMetadata.Builder()
+                        .setIsBrowsable(true)
+                        .setIsPlayable(false)
+                        .setMediaType(MediaMetadata.MEDIA_TYPE_FOLDER_MIXED)
+                        .setTitle("Eztanda Irratia")
+                        .build()
+                )
+                .build()
+            return Futures.immediateFuture(LibraryResult.ofItem(rootItem, params))
+        }
+
+        override fun onGetChildren(
+            session: MediaLibrarySession,
+            browser: ControllerInfo,
+            parentId: String,
+            page: Int,
+            pageSize: Int,
+            params: LibraryParams?,
+        ): ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> {
+            return if (parentId == ROOT_ID) {
+                val mediaItem = session.player.currentMediaItem ?: this@MusicService.mediaItem
+                Futures.immediateFuture(
+                    LibraryResult.ofItemList(
+                        ImmutableList.of(
+                            MediaItem.Builder()
+                                .setMediaId(LIVE_ID)
+                                .setMediaMetadata(
+                                    mediaItem.mediaMetadata.buildUpon()
+                                        .setIsBrowsable(false)
+                                        .setIsPlayable(true)
+                                        .build()
+                                )
+                                .setUri(mediaItem.requestMetadata.mediaUri ?: mediaItem.localConfiguration?.uri)
+                                .build()
+                        ),
+                        params
+                    )
+                )
+            } else {
+                Futures.immediateFuture(LibraryResult.ofError(SessionError.ERROR_BAD_VALUE))
+            }
+        }
+
+        override fun onGetItem(
+            session: MediaLibrarySession,
+            browser: ControllerInfo,
+            mediaId: String,
+        ): ListenableFuture<LibraryResult<MediaItem>> {
+            val item = when (mediaId) {
+                LIVE_ID -> this@MusicService.mediaItem.buildUpon()
+                    .setMediaMetadata(
+                        this@MusicService.mediaItem.mediaMetadata.buildUpon()
+                            .setIsBrowsable(false)
+                            .setIsPlayable(true)
+                            .build()
+                    )
+                    .build()
+
+                ROOT_ID -> MediaItem.Builder()
+                    .setMediaId(ROOT_ID)
+                    .setMediaMetadata(
+                        MediaMetadata.Builder()
+                            .setIsBrowsable(true)
+                            .setIsPlayable(false)
+                            .setMediaType(MediaMetadata.MEDIA_TYPE_FOLDER_MIXED)
+                            .setTitle(getString(R.string.radio_name))
+                            .build()
+                    )
+                    .build()
+
+                else -> return Futures.immediateFuture(LibraryResult.ofError(SessionError.ERROR_BAD_VALUE))
+            }
+            return Futures.immediateFuture(LibraryResult.ofItem(item, null))
+        }
     }
 
     private inner class CustomMediaNotificationProvider : MediaNotification.Provider {
@@ -186,15 +278,15 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
                 addListener(playerListener)
                 addAnalyticsListener(EventLogger())
             }
-        MediaSessionCallback()
-            .let { mediaSessionBuilderFactory.create(player).setCallback(it).build() }
-            .let { mediaSession = it }
+        MediaLibrarySession.Builder(this, player, MediaLibrarySessionCallback())
+            .build()
+            .let { mediaLibrarySession = it }
         initNoisyReceiver()
     }
 
     override fun onGetSession(
         controllerInfo: ControllerInfo,
-    ): MediaSession = mediaSession
+    ): MediaLibrarySession = mediaLibrarySession
 
     override fun onStartCommand(
         intent: Intent?,
@@ -245,7 +337,7 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
         player.removeListener(playerListener)
         player.stop()
         serviceScope.cancel()
-        mediaSession.apply {
+        mediaLibrarySession.apply {
             player.release()
             release()
         }

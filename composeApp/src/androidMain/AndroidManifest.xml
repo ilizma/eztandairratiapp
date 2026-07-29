@@ -62,7 +62,7 @@
 
         <service
             android:name="com.ilizma.player.framework.service.MusicService"
-            android:exported="false"
+            android:exported="true"
             android:foregroundServiceType="mediaPlayback">
             <intent-filter>
                 <action android:name="androidx.media3.session.MediaLibraryService" />
@@ -80,6 +80,10 @@
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
             </intent-filter>
         </receiver>
+
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
