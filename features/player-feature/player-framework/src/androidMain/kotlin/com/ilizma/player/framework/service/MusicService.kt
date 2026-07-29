@@ -10,6 +10,7 @@ import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
+import androidx.core.content.ContextCompat
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
@@ -30,6 +31,7 @@ import com.google.common.collect.ImmutableList
 import com.ilizma.player.framework.factory.MediaSessionBuilderFactory
 import com.ilizma.player.framework.factory.PlayerFactory
 import com.ilizma.player.framework.BuildKonfig
+import com.ilizma.player.framework.getArtworkData
 import com.ilizma.player.framework.model.PlayerState
 import com.ilizma.player.framework.model.WidgetAction
 import com.ilizma.player.framework.updater.PlayerWidgetUpdater
@@ -65,6 +67,10 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
                     .setArtist(getString(R.string.free_radio))
                     .setDisplayTitle(getString(R.string.radio_name))
                     .setSubtitle(getString(R.string.free_radio))
+                    .setArtworkData(
+                        getArtworkData(this@MusicService, R.drawable.img_splash),
+                        MediaMetadata.PICTURE_TYPE_FRONT_COVER
+                    )
                     .build()
             )
             .build()
@@ -141,7 +147,9 @@ class MusicService : MediaSessionService(), AudioManager.OnAudioFocusChangeListe
                 customLayout,
                 actionFactory,
                 onNotificationChangedCallback,
-            )
+            ).apply {
+                notification.color = ContextCompat.getColor(this@MusicService, R.color.purple)
+            }
 
         override fun handleCustomCommand(
             session: MediaSession,

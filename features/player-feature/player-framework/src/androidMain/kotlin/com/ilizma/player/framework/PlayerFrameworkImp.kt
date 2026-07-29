@@ -11,6 +11,7 @@ import androidx.media3.session.SessionCommand
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.MoreExecutors
 import com.ilizma.player.framework.BuildKonfig
+import com.ilizma.player.framework.getArtworkData
 import com.ilizma.player.framework.model.PlayerState
 import com.ilizma.resources.R
 import kotlinx.coroutines.flow.Flow
@@ -154,6 +155,10 @@ class PlayerFrameworkImp(
                             .setArtist(context.getString(R.string.free_radio))
                             .setDisplayTitle(context.getString(R.string.radio_name))
                             .setSubtitle(context.getString(R.string.free_radio))
+                            .setArtworkData(
+                                getArtworkData(context, R.drawable.img_splash),
+                                MediaMetadata.PICTURE_TYPE_FRONT_COVER
+                            )
                             .build()
                     )
                     .build()
