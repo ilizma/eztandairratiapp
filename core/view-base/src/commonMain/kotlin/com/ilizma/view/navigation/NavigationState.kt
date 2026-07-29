@@ -23,7 +23,7 @@ import androidx.savedstate.compose.serialization.serializers.MutableStateSeriali
 import androidx.savedstate.serialization.SavedStateConfiguration
 import androidx.savedstate.serialization.decodeFromSavedState
 import androidx.savedstate.serialization.encodeToSavedState
-import kotlinx.serialization.serializer
+import kotlinx.serialization.PolymorphicSerializer
 
 val LocalSharedTransitionScope = compositionLocalOf<SharedTransitionScope?> { null }
 val LocalNavAnimatedVisibilityScope = compositionLocalOf<AnimatedVisibilityScope?> { null }
@@ -43,14 +43,14 @@ fun rememberNavigationState(
         saver = Saver(
             save = { original ->
                 encodeToSavedState(
-                    serializer = MutableStateSerializer(configuration.serializersModule.serializer<NavKey>()),
+                    serializer = MutableStateSerializer(PolymorphicSerializer(NavKey::class)),
                     value = original,
                     configuration = configuration
                 )
             },
             restore = { savedState ->
                 decodeFromSavedState(
-                    deserializer = MutableStateSerializer(configuration.serializersModule.serializer<NavKey>()),
+                    deserializer = MutableStateSerializer(PolymorphicSerializer(NavKey::class)),
                     savedState = savedState,
                     configuration = configuration
                 )
@@ -87,11 +87,7 @@ class NavigationState(
 ) {
     var topLevelRoute: NavKey by topLevelRoute
     val stacksInUse: List<NavKey>
-        get() = if (topLevelRoute == startRoute) {
-            listOf(startRoute)
-        } else {
-            listOf(startRoute, topLevelRoute)
-        }
+        get() = listOf(topLevelRoute)
 }
 
 /**

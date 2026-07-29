@@ -19,6 +19,7 @@ import androidx.compose.material3.ShortNavigationBarItem
 import androidx.compose.material3.ShortNavigationBarItemDefaults
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -26,6 +27,13 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
+import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
@@ -175,37 +183,60 @@ private fun Content(
     scheduleScreenViewModel: ScheduleScreenViewModel,
     menuScreenViewModel: MenuScreenViewModel,
 ) {
-    val entryProvider = entryProvider {
+    val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
         entry<RadioTab> {
-            RadioScreen(
-                viewModel = radioScreenViewModel,
-                paddingValues = paddingValues,
-                snackbarHostState = snackbarHostState,
-            )
-        }
-
-        entry<ScheduleTab> { _ ->
-            val scope = LocalNavAnimatedVisibilityScope.current
-            CompositionLocalProvider(
-                LocalNavAnimatedVisibilityScope provides scope
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
             ) {
-                ScheduleScreen(
-                    viewModel = scheduleScreenViewModel,
+                RadioScreen(
+                    viewModel = radioScreenViewModel,
                     paddingValues = paddingValues,
+                    snackbarHostState = snackbarHostState,
                 )
             }
         }
 
+        entry<ScheduleTab> { _ ->
+            val scope = LocalNavAnimatedVisibilityScope.current
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                CompositionLocalProvider(
+                    LocalNavAnimatedVisibilityScope provides scope
+                ) {
+                    ScheduleScreen(
+                        viewModel = scheduleScreenViewModel,
+                        paddingValues = paddingValues,
+                    )
+                }
+            }
+        }
+
         entry<MenuTab> {
-            MenuScreen(
-                viewModel = menuScreenViewModel,
-                paddingValues = paddingValues,
-            )
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                MenuScreen(
+                    viewModel = menuScreenViewModel,
+                    paddingValues = paddingValues,
+                )
+            }
         }
     }
 
-    NavDisplay(
-        entries = navigationState.toEntries(entryProvider),
-        onBack = { navigator.goBack() }
-    )
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        NavDisplay(
+            entries = navigationState.toEntries(entryProvider),
+            onBack = { navigator.goBack() },
+            transitionSpec = {
+                fadeIn(animationSpec = tween(300)) togetherWith fadeOut(animationSpec = tween(300))
+            }
+        )
+    }
 }

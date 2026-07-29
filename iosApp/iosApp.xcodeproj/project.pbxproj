@@ -120,8 +120,8 @@
 				F36B1CEB2AD83DDC00CB74D5 /* Compile Kotlin Framework */,
 				7555FF77242A565900829871 /* Sources */,
 				B92378962B6B1156000C7307 /* Frameworks */,
-				8BE366062ECD071A001F47B8 /* Upload Crashlytics dSYMs */,
 				7555FF79242A565900829871 /* Resources */,
+				8BE366062ECD071A001F47B8 /* Upload Crashlytics dSYMs */,
 				CBF7F1CD75268206DC8866A2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -233,9 +233,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
