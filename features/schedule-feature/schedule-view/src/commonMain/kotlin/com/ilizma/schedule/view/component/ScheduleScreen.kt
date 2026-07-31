@@ -1,5 +1,6 @@
 package com.ilizma.schedule.view.component
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,13 +17,15 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.unit.dp
+import com.ilizma.view.navigation.LocalNavAnimatedVisibilityScope
+import com.ilizma.view.navigation.LocalSharedTransitionScope
 import com.ilizma.resources.ui.theme.EztandaIrratiappTheme
 import com.ilizma.schedule.presentation.model.Day
 import com.ilizma.schedule.presentation.model.Days
 import com.ilizma.schedule.presentation.model.ScheduleScreenIntent
 import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
 import com.ilizma.view.lifecycle.collectAsStateMultiplatform
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -81,11 +85,15 @@ internal fun Schedule(
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun DayRow(
     day: Day,
     onClick: () -> Unit,
 ) {
+    val sharedTransitionScope = LocalSharedTransitionScope.current
+    val animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -93,12 +101,33 @@ private fun DayRow(
                 horizontal = 16.dp,
                 vertical = 8.dp,
             )
+            .then(
+                if (sharedTransitionScope != null && animatedVisibilityScope != null) {
+                    with(sharedTransitionScope) {
+                        Modifier.sharedElement(
+                            rememberSharedContentState(key = "day-${day.id}"),
+                            animatedVisibilityScope = animatedVisibilityScope
+                        )
+                    }
+                } else Modifier
+            )
             .clickable { onClick() },
+        shape = MaterialTheme.shapes.extraLarge,
     ) {
         Text(
             text = day.name,
             modifier = Modifier
                 .fillMaxWidth()
+                .then(
+                    if (sharedTransitionScope != null && animatedVisibilityScope != null) {
+                        with(sharedTransitionScope) {
+                            Modifier.sharedElement(
+                                rememberSharedContentState(key = "day-name-${day.id}"),
+                                animatedVisibilityScope = animatedVisibilityScope
+                            )
+                        }
+                    } else Modifier
+                )
                 .padding(
                     horizontal = 16.dp,
                     vertical = 8.dp,

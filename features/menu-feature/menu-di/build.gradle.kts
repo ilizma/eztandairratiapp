@@ -15,7 +15,6 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -34,14 +33,12 @@ kotlin {
         commonMain.dependencies {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
-            implementation(libs.koin.core.viewmodel)
+            implementation(libs.koin.compose.viewmodel)
 
             // region Menu
             api(project(":menu-flow"))
-            api(project(":menu-flow-imp"))
             api(project(":menu-view"))
             api(project(":menu-presentation"))
-            api(project(":menu-presentation-imp"))
             // endregion
         }
     }

@@ -1,7 +1,12 @@
 package com.ilizma.schedule.domain.usecase
 
-interface DayNameUseCase {
+import com.ilizma.schedule.domain.repository.DayNameRepository
 
-    operator fun invoke(): String
+class DayNameUseCase(
+    private val repository: DayNameRepository,
+) {
+
+    operator fun invoke(
+    ): String = repository.get()
 
 }

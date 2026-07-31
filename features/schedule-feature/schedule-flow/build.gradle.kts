@@ -16,7 +16,6 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -27,11 +26,26 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
-            implementation(libs.annotation)
+            implementation(libs.appcompat)
+            implementation(libs.lifecycle.common)
         }
+
         commonMain.dependencies {
-            implementation(libs.navigation.compose)
             implementation(libs.serialization.json)
+            implementation(libs.navigation3.ui)
+            implementation(project(":view-base"))
+            implementation(project(":schedule-view"))
+            implementation(project(":schedule-presentation"))
+            implementation(project(":player-flow"))
+        }
+
+        androidUnitTest.dependencies {
+            implementation(libs.mockk)
+        }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.coroutines.test)
         }
     }
 }

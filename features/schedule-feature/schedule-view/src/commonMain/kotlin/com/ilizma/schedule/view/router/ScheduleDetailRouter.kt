@@ -1,7 +1,7 @@
 package com.ilizma.schedule.view.router
 
-import androidx.navigation.NavHostController
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
+import com.ilizma.view.navigation.Navigator
 import kotlinx.coroutines.CoroutineScope
 
 interface ScheduleDetailRouter {
@@ -9,7 +9,7 @@ interface ScheduleDetailRouter {
     fun init(
         coroutineScope: CoroutineScope,
         viewModel: ScheduleDetailScreenViewModel,
-        navController: NavHostController,
+        navController: Navigator,
     )
 
 }

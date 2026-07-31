@@ -1,5 +1,9 @@
 package com.ilizma.player.view.compose
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,7 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Stop
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.CircularWavyProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -45,8 +50,8 @@ import com.ilizma.view.lifecycle.collectAsStateMultiplatform
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -125,6 +130,7 @@ private fun ErrorSnackbar(
     }
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun ScreenBox(
     paddingValues: PaddingValues,
@@ -154,25 +160,32 @@ private fun ScreenBox(
                 }
             },
         ) {
-            when (state) {
-                PlayerState.Loading -> CircularProgressIndicator(
-                    modifier = Modifier.size(32.dp),
-                    color = LocalContentColor.current,
-                )
+            AnimatedContent(
+                targetState = state,
+                transitionSpec = {
+                    fadeIn().togetherWith(fadeOut())
+                },
+                label = "PlayerStateAnimation"
+            ) { targetState ->
+                when (targetState) {
+                    PlayerState.Loading -> CircularWavyProgressIndicator(
+                        modifier = Modifier.size(32.dp),
+                        color = LocalContentColor.current,
+                    )
 
-                else -> Icon(
-                    imageVector = when (state) {
-                        PlayerState.Loading,
-                        is PlayerState.Error,
-                        PlayerState.Stopped,
-                            -> Icons.Default.PlayArrow
+                    else -> Icon(
+                        imageVector = when (targetState) {
+                            PlayerState.Loading,
+                            is PlayerState.Error,
+                            PlayerState.Stopped,
+                                -> Icons.Default.PlayArrow
 
-                        PlayerState.Playing -> Icons.Default.Stop
-                    },
-                    contentDescription = "Play & Stop",
-                )
+                            PlayerState.Playing -> Icons.Default.Stop
+                        },
+                        contentDescription = "Play & Stop",
+                    )
+                }
             }
-
         }
     }
 }

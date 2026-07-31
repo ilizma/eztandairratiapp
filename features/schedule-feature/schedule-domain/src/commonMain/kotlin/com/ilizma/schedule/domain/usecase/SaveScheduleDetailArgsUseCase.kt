@@ -1,7 +1,18 @@
 package com.ilizma.schedule.domain.usecase
 
-interface SaveScheduleDetailArgsUseCase {
+import com.ilizma.schedule.domain.repository.ScheduleDetailArgsRepository
 
-    operator fun invoke(id: Int, name: String)
+class SaveScheduleDetailArgsUseCase(
+    private val repository: ScheduleDetailArgsRepository,
+) {
 
+    operator fun invoke(
+        id: Int,
+        name: String,
+    ) {
+        repository.save(
+            id = id,
+            name = name,
+        )
+    }
 }

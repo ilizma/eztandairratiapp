@@ -1,7 +1,13 @@
 package com.ilizma.player.domain.usecase
 
-interface PlayerStopUseCase {
+import com.ilizma.player.domain.repository.PlayerRepository
 
-    operator fun invoke()
+class PlayerStopUseCase(
+    private val repository: PlayerRepository,
+) {
+
+    operator fun invoke() {
+        repository.stop()
+    }
 
 }

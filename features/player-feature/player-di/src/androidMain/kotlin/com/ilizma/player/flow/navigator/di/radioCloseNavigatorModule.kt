@@ -9,7 +9,10 @@ import org.koin.dsl.module
 actual val radioCloseNavigatorModule: Module = module {
 
     scope<MainActivity> {
-        scoped<RadioCloseNavigator> { RadioCloseNavigatorImp(activity = get()) }
+        scoped<RadioCloseNavigator> {
+            @Suppress("UndeclaredKoinUsage")
+            RadioCloseNavigatorImp(activity = get())
+        }
     }
 
 }

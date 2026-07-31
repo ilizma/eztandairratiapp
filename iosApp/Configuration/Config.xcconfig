@@ -1,3 +1,6 @@
 TEAM_ID=
 BUNDLE_ID=com.ilizma.EztandaIrratiapp
 APP_NAME=Eztanda Irratiapp
+
+// Generate dSYM files for crash symbolication
+DEBUG_INFORMATION_FORMAT[config=Release] = dwarf-with-dsym

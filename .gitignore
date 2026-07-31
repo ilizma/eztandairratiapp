@@ -102,3 +102,14 @@ app/release
 prebuilds/fullsdk-darwin
 
 UserInterfaceState.xcuserstate
+
+# AI Artifacts (Gemini in Studio)
+.artifacts/
+
+# Kotlin Multiplatform / iOS
+.kotlin/
+iosApp/Pods/
+iosApp/build/
+*.xcworkspace
+xcuserdata/
+*.xcuserstate

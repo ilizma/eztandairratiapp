@@ -1,8 +1,8 @@
 package com.ilizma.menu.view.router
 
 import androidx.compose.ui.platform.UriHandler
-import androidx.navigation.NavHostController
 import com.ilizma.menu.presentation.viewmodel.MenuScreenViewModel
+import com.ilizma.view.navigation.Navigator
 import kotlinx.coroutines.CoroutineScope
 
 interface MenuScreenRouter {
@@ -11,7 +11,7 @@ interface MenuScreenRouter {
         uriHandler: UriHandler,
         coroutineScope: CoroutineScope,
         viewModel: MenuScreenViewModel,
-        navController: NavHostController,
+        navigator: Navigator,
     )
 
 }

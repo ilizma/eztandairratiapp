@@ -2,10 +2,14 @@ package com.ilizma.schedule.data.cache
 
 import com.ilizma.schedule.data.model.ScheduleState
 
-interface ScheduleStateCache {
+class ScheduleStateCache {
 
-    fun get(): ScheduleState?
+    private var cache: ScheduleState? = null
 
-    fun set(state: ScheduleState)
+    fun get(): ScheduleState? = cache
+
+    fun set(state: ScheduleState) {
+        cache = state
+    }
 
 }

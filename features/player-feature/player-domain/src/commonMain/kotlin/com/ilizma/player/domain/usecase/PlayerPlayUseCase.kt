@@ -1,7 +1,13 @@
 package com.ilizma.player.domain.usecase
 
-interface PlayerPlayUseCase {
+import com.ilizma.player.domain.repository.PlayerRepository
 
-    operator fun invoke()
+class PlayerPlayUseCase(
+    private val repository: PlayerRepository,
+) {
+
+    operator fun invoke() {
+        repository.play()
+    }
 
 }

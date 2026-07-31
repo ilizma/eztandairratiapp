@@ -62,7 +62,7 @@
 
         <service
             android:name="com.ilizma.player.framework.service.MusicService"
-            android:exported="false"
+            android:exported="true"
             android:foregroundServiceType="mediaPlayback">
             <intent-filter>
                 <action android:name="androidx.media3.session.MediaLibraryService" />
@@ -82,12 +82,31 @@
         </receiver>
 
         <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+
+        <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification" />
 
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
             android:value="com.ilizma.cast.framework.provider.CastOptionsProvider" />
+
+        <receiver
+            android:name="com.ilizma.main.view.widget.receiver.PlayerWidgetReceiver"
+            android:exported="true"
+            android:label="Eztanda Player Widget">
+
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/player_widget_info" />
+
+        </receiver>
 
     </application>
 

@@ -1,0 +1,59 @@
+package com.ilizma.schedule.flow.router
+
+import com.ilizma.schedule.flow.navigator.ScheduleBackNavigator
+import com.ilizma.schedule.flow.navigator.ScheduleDetailNavigator
+import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction
+import com.ilizma.schedule.presentation.model.ScheduleScreenNavigationAction.Back
+import com.ilizma.schedule.presentation.viewmodel.ScheduleScreenViewModel
+import com.ilizma.schedule.view.router.ScheduleScreenRouter
+import com.ilizma.view.navigation.Navigator
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class ScheduleScreenRouterImp(
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main,
+    private val scheduleBackNavigator: ScheduleBackNavigator,
+    private val scheduleDetailNavigator: ScheduleDetailNavigator,
+) : ScheduleScreenRouter {
+
+    override fun init(
+        coroutineScope: CoroutineScope,
+        viewModel: ScheduleScreenViewModel,
+        navController: Navigator,
+        bottomNavController: Navigator,
+    ) {
+        coroutineScope.launch(dispatcher) {
+            viewModel.navigationAction.collect {
+                onNavigationAction(
+                    navController = navController,
+                    bottomNavController = bottomNavController,
+                    action = it
+                )
+            }
+        }
+    }
+
+    private fun onNavigationAction(
+        navController: Navigator,
+        bottomNavController: Navigator,
+        action: ScheduleScreenNavigationAction,
+    ) {
+        when (action) {
+            Back -> scheduleBackNavigator.back(
+                navController = bottomNavController,
+            )
+
+            is ScheduleScreenNavigationAction.ScheduleDetail -> action.day
+                .let {
+                    scheduleDetailNavigator.navigate(
+                        navController = navController,
+                        id = it.id,
+                        name = it.name
+                    )
+                }
+        }
+    }
+
+}

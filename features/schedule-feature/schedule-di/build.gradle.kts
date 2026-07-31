@@ -15,7 +15,6 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -31,7 +30,7 @@ kotlin {
         commonMain.dependencies {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
-            implementation(libs.koin.core.viewmodel)
+            implementation(libs.koin.compose.viewmodel)
 
             implementation(project(":view-base"))
 
@@ -41,14 +40,10 @@ kotlin {
 
             // region Schedule
             api(project(":schedule-flow"))
-            api(project(":schedule-flow-imp"))
             api(project(":schedule-view"))
             api(project(":schedule-presentation"))
-            api(project(":schedule-presentation-imp"))
             api(project(":schedule-domain"))
-            api(project(":schedule-domain-imp"))
             api(project(":schedule-data"))
-            api(project(":schedule-data-imp"))
             // endregion
         }
     }

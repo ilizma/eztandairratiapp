@@ -17,7 +17,6 @@ import com.ilizma.review.framework.PlayReviewFramework
 import org.koin.android.ext.android.inject
 import org.koin.android.scope.AndroidScopeComponent
 import org.koin.androidx.scope.activityScope
-import org.koin.compose.KoinContext
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.scope.Scope
@@ -43,12 +42,11 @@ class MainActivity : ComponentActivity(), AndroidScopeComponent {
                 activity = this,
                 requestPermissionLauncher = requestPermissionLauncher,
             )
-            KoinContext {
-                AppNavigation(
-                    radioScreenRouter = koinInject(scope = scope),
-                    radioScreenViewModel = koinViewModel(scope = scope)
-                )
-            }
+
+            AppNavigation(
+                radioScreenRouter = koinInject(scope = scope),
+                radioScreenViewModel = koinViewModel(scope = scope)
+            )
         }
     }
 

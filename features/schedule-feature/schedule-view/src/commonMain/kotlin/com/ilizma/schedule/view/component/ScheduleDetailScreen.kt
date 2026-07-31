@@ -1,19 +1,15 @@
 package com.ilizma.schedule.view.component
 
-import androidx.compose.foundation.background
+import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.PlaylistRemove
@@ -22,6 +18,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -37,6 +35,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.ilizma.view.navigation.LocalNavAnimatedVisibilityScope
+import com.ilizma.view.navigation.LocalSharedTransitionScope
 import com.ilizma.resources.Res
 import com.ilizma.resources.empty_list
 import com.ilizma.resources.retry
@@ -47,10 +47,9 @@ import com.ilizma.schedule.presentation.model.ScheduleState
 import com.ilizma.schedule.presentation.viewmodel.ScheduleDetailScreenViewModel
 import com.ilizma.schedule.view.utils.ScheduleDetailScreenPreviewProvider
 import com.ilizma.view.lifecycle.collectAsStateMultiplatform
-import com.ilizma.view.shimmer.ShimmerBrush
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -68,32 +67,28 @@ internal fun ScheduleDetailScreenContent(
     viewModel: ScheduleDetailScreenViewModel,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+    val state = viewModel.scheduleState
+        .collectAsStateMultiplatform(
+            initialValue = ScheduleState.Loading(list = listOf()),
+        ).value
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopBar(
-                title = (viewModel.scheduleState
-                    .collectAsStateMultiplatform(
-                        initialValue = ScheduleState.Loading(listOf()),
-                    ).value as? ScheduleState.Success)?.title.orEmpty(),
+                title = (state as? ScheduleState.Success)?.title.orEmpty(),
+                dayId = state.dayId,
                 onBackClick = { viewModel.onIntent(ScheduleDetailScreenIntent.Back) },
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { paddingValues ->
-        viewModel.scheduleState
-            .collectAsStateMultiplatform(
-                initialValue = ScheduleState.Loading(listOf()),
-            ).value
-            .let {
-                ScreenState(
-                    state = it,
-                    paddingValues = paddingValues,
-                    snackbarHostState = snackbarHostState,
-                    onIntent = { viewModel.onIntent(it) },
-                )
-            }
+        ScreenState(
+            state = state,
+            paddingValues = paddingValues,
+            snackbarHostState = snackbarHostState,
+            onIntent = { viewModel.onIntent(it) },
+        )
     }
 }
 
@@ -114,6 +109,7 @@ internal fun ScreenState(
 
             false -> Schedule(
                 paddingValues = paddingValues,
+                dayId = state.dayId,
                 list = state.list,
             )
         }
@@ -128,14 +124,32 @@ internal fun ScreenState(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
 internal fun TopBar(
     title: String,
+    dayId: Int,
     onBackClick: () -> Unit,
 ) {
+    val sharedTransitionScope = LocalSharedTransitionScope.current
+    val animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current
+
     TopAppBar(
-        title = { Text(text = title) },
+        title = {
+            Text(
+                modifier = Modifier.then(
+                    if (sharedTransitionScope != null && animatedVisibilityScope != null && dayId != -1) {
+                        with(sharedTransitionScope) {
+                            Modifier.sharedElement(
+                                rememberSharedContentState(key = "day-name-$dayId"),
+                                animatedVisibilityScope = animatedVisibilityScope
+                            )
+                        }
+                    } else Modifier
+                ),
+                text = title
+            )
+        },
         navigationIcon = {
             IconButton(
                 onClick = { onBackClick() },
@@ -175,10 +189,25 @@ private fun EmptyView(
 @Composable
 private fun Schedule(
     paddingValues: PaddingValues,
+    dayId: Int,
     list: List<ProgramType>,
 ) {
+    val sharedTransitionScope = LocalSharedTransitionScope.current
+    val animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current
+
     LazyColumn(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(
+                if (sharedTransitionScope != null && animatedVisibilityScope != null && dayId != -1) {
+                    with(sharedTransitionScope) {
+                        Modifier.sharedElement(
+                            rememberSharedContentState(key = "day-$dayId"),
+                            animatedVisibilityScope = animatedVisibilityScope
+                        )
+                    }
+                } else Modifier
+            ),
         contentPadding = paddingValues,
     ) {
         items(
@@ -202,17 +231,12 @@ private fun LoadingRow() {
                 vertical = 8.dp,
             ),
     ) {
-        Row(
+        LinearWavyProgressIndicator(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(40.dp)
-                .background(
-                    brush = ShimmerBrush(),
-                    shape = RoundedCornerShape(12.dp),
-                    alpha = 0.5f,
-                )
-        ) {
-        }
+                .padding(16.dp),
+            color = MaterialTheme.colorScheme.tertiary
+        )
     }
 }
 
@@ -227,6 +251,7 @@ private fun ProgramRow(
                 horizontal = 16.dp,
                 vertical = 8.dp,
             ),
+        shape = MaterialTheme.shapes.large,
     ) {
         Row(
             modifier = Modifier

@@ -1,7 +1,9 @@
 package com.ilizma.schedule.data.datasource
 
-interface DayIdDataSource {
+class DayIdDataSource(
+    private val dayId: () -> Int,
+) {
 
-    fun get(): Int
+    fun get(): Int = dayId()
 
 }

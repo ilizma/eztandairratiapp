@@ -32,6 +32,7 @@ actual val playerFrameworkModule: Module = module {
             )
         }.let {
             PlayerFrameworkImp(
+                context = androidContext(),
                 mediaControllerBuilder = it,
                 _playerState = MutableStateFlow(PlayerState.Stopped),
             )

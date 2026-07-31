@@ -1,0 +1,17 @@
+{
+  "sdkVersion": "1.1.0",
+  "keys": [
+    {
+      "appId": "befd4f50-12d2-43cc-b580-89ac461bd456",
+      "applicationPackageName": "com.ilizma.eztandairratiapp.debug",
+      "keyId": "01983434-d522-7228-ba74-8fdbd5b24e12",
+      "apiKey": "ktz-sdk-zSjZRzdBuwouudUgCZn9Xm2HnRkVhI7cZ-3TW--dtNY"
+    },
+    {
+      "appId": "5c025a2c-0476-43aa-8b05-8a5267bc5a7c",
+      "applicationPackageName": "com.ilizma.eztandairratiapp",
+      "keyId": "0195c25c-2c18-7a80-83f6-809f1c12e06d",
+      "apiKey": "ktz-sdk-KI6UN4ghWH5hNyn1KaXKPsDB5zmBqkzYsS3RPP1NBos"
+    }
+  ]
+}

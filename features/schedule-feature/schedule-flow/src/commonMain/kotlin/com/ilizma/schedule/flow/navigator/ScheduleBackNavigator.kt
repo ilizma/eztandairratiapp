@@ -1,9 +1,9 @@
 package com.ilizma.schedule.flow.navigator
 
-import androidx.navigation.NavHostController
+import com.ilizma.view.navigation.Navigator
 
 interface ScheduleBackNavigator {
 
-    fun back(navController: NavHostController)
+    fun back(navController: Navigator)
 
 }

@@ -15,7 +15,6 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -46,23 +45,18 @@ kotlin {
         commonMain.dependencies {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
-            implementation(libs.koin.core.viewmodel)
+            implementation(libs.koin.compose.viewmodel)
 
             // Resources
             implementation(project(":resources"))
 
             // region Player
             api(project(":player-flow"))
-            api(project(":player-flow-imp"))
             api(project(":player-view"))
             api(project(":player-presentation"))
-            api(project(":player-presentation-imp"))
             api(project(":player-domain"))
-            api(project(":player-domain-imp"))
             api(project(":player-data"))
-            api(project(":player-data-imp"))
             api(project(":player-framework"))
-            api(project(":player-framework-imp"))
             // endregion
 
             implementation(project(":main-view"))
