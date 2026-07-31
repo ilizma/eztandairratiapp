@@ -35,7 +35,7 @@ val LocalNavAnimatedVisibilityScope = compositionLocalOf<AnimatedVisibilityScope
 fun rememberNavigationState(
     configuration: SavedStateConfiguration,
     startRoute: NavKey,
-    topLevelRoutes: Set<NavKey>
+    topLevelRoutes: Set<NavKey>,
 ): NavigationState {
 
     val topLevelRoute = rememberSaveable(
@@ -45,17 +45,17 @@ fun rememberNavigationState(
                 encodeToSavedState(
                     serializer = MutableStateSerializer(PolymorphicSerializer(NavKey::class)),
                     value = original,
-                    configuration = configuration
+                    configuration = configuration,
                 )
             },
             restore = { savedState ->
                 decodeFromSavedState(
                     deserializer = MutableStateSerializer(PolymorphicSerializer(NavKey::class)),
                     savedState = savedState,
-                    configuration = configuration
+                    configuration = configuration,
                 )
-            }
-        )
+            },
+        ),
     ) {
         mutableStateOf(startRoute)
     }
@@ -68,7 +68,7 @@ fun rememberNavigationState(
         NavigationState(
             startRoute = startRoute,
             topLevelRoute = topLevelRoute,
-            backStacks = backStacks
+            backStacks = backStacks,
         )
     }
 }
@@ -83,7 +83,7 @@ fun rememberNavigationState(
 class NavigationState(
     val startRoute: NavKey,
     topLevelRoute: MutableState<NavKey>,
-    val backStacks: Map<NavKey, NavBackStack<NavKey>>
+    val backStacks: Map<NavKey, NavBackStack<NavKey>>,
 ) {
     var topLevelRoute: NavKey by topLevelRoute
     val stacksInUse: List<NavKey>
@@ -95,7 +95,7 @@ class NavigationState(
  */
 @Composable
 fun NavigationState.toEntries(
-    entryProvider: (NavKey) -> NavEntry<NavKey>
+    entryProvider: (NavKey) -> NavEntry<NavKey>,
 ): SnapshotStateList<NavEntry<NavKey>> {
 
     val decoratedEntries = backStacks.mapValues { (_, stack) ->
@@ -105,7 +105,7 @@ fun NavigationState.toEntries(
         rememberDecoratedNavEntries(
             backStack = stack,
             entryDecorators = decorators,
-            entryProvider = entryProvider
+            entryProvider = entryProvider,
         )
     }
 
