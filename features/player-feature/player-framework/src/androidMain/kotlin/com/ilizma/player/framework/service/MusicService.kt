@@ -294,20 +294,29 @@ class MusicService : MediaLibraryService(), AudioManager.OnAudioFocusChangeListe
         startId: Int,
     ): Int {
         val action = intent?.getStringExtra(WIDGET_ACTION)
-            ?: return super.onStartCommand(intent, flags, startId)
-
-        when (WidgetAction.valueOf(action)) {
-            WidgetAction.PLAY -> {
-                if (player.currentMediaItem == null) {
-                    player.setMediaItem(mediaItem)
-                }
-                player.prepare()
-                player.play()
-            }
-
-            WidgetAction.STOP -> player.stop()
+        if (action != null) {
+            handleWidgetAction(action)
+            return START_STICKY
         }
         return super.onStartCommand(intent, flags, startId)
+    }
+
+    private fun handleWidgetAction(action: String) {
+        try {
+            when (WidgetAction.valueOf(action)) {
+                WidgetAction.PLAY -> {
+                    if (player.currentMediaItem == null) {
+                        player.setMediaItem(mediaItem)
+                    }
+                    player.prepare()
+                    player.play()
+                }
+
+                WidgetAction.STOP -> player.stop()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onAudioFocusChange(

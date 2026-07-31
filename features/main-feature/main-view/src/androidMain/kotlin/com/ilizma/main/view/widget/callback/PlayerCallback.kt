@@ -2,7 +2,6 @@ package com.ilizma.main.view.widget.callback
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.glance.GlanceId
 import androidx.glance.action.ActionParameters
 import androidx.glance.appwidget.action.ActionCallback
@@ -11,11 +10,11 @@ import com.ilizma.main.view.widget.PlayerWidget
 import com.ilizma.main.view.widget.model.PlayerState
 import com.ilizma.main.view.widget.model.PlayerStateKeys
 import com.ilizma.main.view.widget.model.PlayerStateKeys.actionKey
-import com.ilizma.main.view.widget.model.WidgetAction
 import com.ilizma.main.view.widget.model.json
 import com.ilizma.player.framework.service.MusicService
 import androidx.media3.common.util.UnstableApi
 import com.ilizma.player.framework.service.WIDGET_ACTION
+import com.ilizma.player.framework.model.WidgetAction
 
 class PlayerCallback : ActionCallback {
 
@@ -52,7 +51,11 @@ class PlayerCallback : ActionCallback {
         }
 
         try {
-            context.startForegroundService(intent)
+            if (action == WidgetAction.STOP.name) {
+                context.startService(intent)
+            } else {
+                context.startForegroundService(intent)
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }

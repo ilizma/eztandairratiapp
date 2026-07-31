@@ -43,7 +43,7 @@ import com.ilizma.main.view.widget.callback.PlayerCallback
 import com.ilizma.main.view.widget.model.PlayerState
 import com.ilizma.main.view.widget.model.PlayerStateKeys
 import com.ilizma.main.view.widget.model.PlayerStateKeys.actionKey
-import com.ilizma.main.view.widget.model.WidgetAction
+import com.ilizma.player.framework.model.WidgetAction
 import com.ilizma.main.view.widget.model.json
 import com.ilizma.main.view.widget.utils.PlayerWidgetPreviewProvider
 import com.ilizma.resources.R
