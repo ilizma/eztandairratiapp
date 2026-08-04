@@ -221,6 +221,19 @@ class MusicService : MediaLibraryService(), AudioManager.OnAudioFocusChangeListe
             }
             return Futures.immediateFuture(LibraryResult.ofItem(item, null))
         }
+
+        override fun onAddMediaItems(
+            mediaSession: MediaSession,
+            controller: ControllerInfo,
+            mediaItems: MutableList<MediaItem>
+        ): ListenableFuture<MutableList<MediaItem>> {
+            // Este es el punto crítico para Android Auto. 
+            // Cuando el usuario pulsa en la lista, convertimos el ID en el ítem real con URL.
+            val updatedItems = mediaItems.map { item ->
+                if (item.mediaId == LIVE_ID) this@MusicService.mediaItem else item
+            }.toMutableList()
+            return Futures.immediateFuture(updatedItems)
+        }
     }
 
     private inner class CustomMediaNotificationProvider : MediaNotification.Provider {
